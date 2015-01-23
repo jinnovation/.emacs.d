@@ -1,11 +1,11 @@
-;; (setq projectile-completion-system 'grizzl)
 (setq projectile-enable-caching t)
 (projectile-global-mode)
+(setq projectile-completion-system 'grizzl)
 (setq paradox-github-token "50d7f7fe0af07638a09e1a32f4ec5bba3f83f74e")
 
 (setq-default indent-tabs-mode nil)
 
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 (defvaralias 'js-indent-level 'tab-width)
 
 (global-auto-revert-mode)
