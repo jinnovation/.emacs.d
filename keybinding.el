@@ -1,7 +1,14 @@
 (global-set-key (kbd "C-<tab>") 'other-window)
-(global-set-key (kbd "\<C-S-iso-lefttab>") (lambda () (interactive) (other-window -1)))
+(global-set-key (kbd "\<C-S-iso-lefttab>")
+    (lambda ()
+        (interactive)
+        (other-window -1)))
 
-(global-set-key (kbd "C-x k") (lambda () (interactive) (kill-buffer (current-buffer))))
+(defun kill-current-buffer ()
+    (interactive)
+    (kill-buffer (current-buffer)))
+
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
 
 (global-set-key (kbd "<f1>") 'magit-status)
 (global-set-key (kbd "<f2>") 'shell)
@@ -15,8 +22,6 @@
 	  (lambda () (local-set-key (kbd "RET")
 				    'reindent-then-newline-and-indent)
 	    (ruby-end-mode)))
-
-(global-set-key (kbd "M-j") (lambda() (interactive) (join-line -1)))
 
 (global-set-key (kbd "C-M-n") (lambda () (interactive)
 				(ignore-errors (next-line 4))))
