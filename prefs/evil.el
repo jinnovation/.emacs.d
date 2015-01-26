@@ -1,9 +1,9 @@
 (eval-after-load 'evil
   '(progn
-       (global-unset-key (kbd "C-a"))
-       (global-unset-key (kbd "C-x C-x"))
-       (global-unset-key (kbd "C-w"))
-       (global-unset-key (kbd "C-l"))))
+       (local-unset-key (kbd "C-a"))
+       (local-unset-key (kbd "C-x C-x"))
+       (local-unset-key (kbd "C-w"))
+       (local-unset-key (kbd "C-l"))))
 
 (global-evil-leader-mode)
 (global-evil-surround-mode 1)
@@ -29,7 +29,10 @@
     "gs" 'magit-status
     "gb" 'magit-blame-mode
 
-    "pp" 'helm-projectile)
+    "pp" 'helm-projectile
+    "pF" 'helm-projectile-find-file-in-known-projects
+
+    "ff" 'find-file)
 
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
@@ -41,10 +44,13 @@
 (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
 (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
 
+(define-key evil-normal-state-map (kbd "C-w s") 'vsplit-last-buffer)
+(define-key evil-normal-state-map (kbd "C-w v") 'hsplit-last-buffer)
+
+(define-key evil-normal-post-command (kbd "RET") 'insert-newline-after)
+
 (setq evil-insert-state-modes (cons 'git-commit-mode evil-insert-state-modes))
 
 (evilem-default-keybindings "SPC")
 
 (evil-mode 1)
-
-(global-set-key (kbd "<f12>") 'package-list-packages)
