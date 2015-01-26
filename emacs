@@ -39,7 +39,8 @@
         '("Guardfile" . enh-ruby-mode)
         '("conf$" . conf-mode)
         '("rc$" . conf-mode)
-        '("\\.erb$" . web-mode)))
+        '("\\.erb$" . web-mode)
+        '("emacs$" . emacs-lisp-mode)))
 
 (setq lisp-indent-offset 4)
 
@@ -62,3 +63,12 @@ of listed in `linum-mode-excludes'."
 
 (set-default-font "Terminus 12")
 (set-face-attribute 'mode-line nil :font default-font)
+
+(setq helm-split-window-default-side 'right)
+
+(helm-mode 1)
+
+(setq org-agenda-files
+    '("~/life/index.org"))
+
+(setq initial-buffer-choice (car org-agenda-files))
