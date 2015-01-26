@@ -40,3 +40,5 @@
 
 (setq scroll-step 1)
 (setq scroll-margin 3)
+
+(setq evil-insert-state-modes (cons 'git-commit-mode evil-insert-state-modes))
