@@ -15,7 +15,6 @@
     "Load a file in current user's configuration directory"
     (load-file (expand-file-name file user-init-dir)))
 
-
 (load-user-file "fn.el")
 (load-user-file "require.el")
 (load-user-file "keybinding.el")
@@ -48,3 +47,27 @@
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 
 (setq lisp-indent-offset 4)
+
+(sml/setup)                             ;; smart-mode-line initialize
+
+(defconst linum-mode-excludes '(doc-view-mode magit-mode)
+  "List of major modes preventing linum to be enabled in the buffer.")
+
+(defadvice linum-mode (around linum-mode-selective activate)
+  "Avoids enabling of linum-mode in the buffer having major mode set to one
+of listed in `linum-mode-excludes'."
+  (unless (member major-mode linum-mode-excludes)
+    ad-do-it))
+
+(add-hook 'doc-view-mode-hook
+    'doc-view-fit-width-to-window)
+
+(defconst bg-color "black")
+
+(set-background-color bg-color)
+(set-face-attribute 'fringe nil :background bg-color)
+(set-face-attribute 'linum nil :background bg-color)
+
+(set-face-attribute 'evil-search-highlight-persist-highlight-face nil :background "DodgerBlue4")
+
+(set-default-font "Terminus 12")
