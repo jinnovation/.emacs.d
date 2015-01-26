@@ -14,3 +14,5 @@
 	    (ruby-end-mode)))
 
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
+
+(global-set-key (kbd "M-x") 'helm-M-x)

@@ -118,3 +118,5 @@
 
 (setq scroll-step 1)
 (setq scroll-margin 3)
+
+(setq helm-M-x-fuzzy-match t)

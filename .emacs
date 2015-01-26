@@ -34,14 +34,12 @@
          [default bold shadow italic underline bold bold-italic bold])
     '(paradox-github-token t))
 
-(add-to-list 'auto-mode-alist '("Gemfile" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Guardfile" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.as$" . actionscript-mode))
-(add-to-list 'auto-mode-alist '("conf$" . conf-mode))
-(add-to-list 'auto-mode-alist '("conky" . rainbow-mode))
-(add-to-list 'auto-mode-alist '("conky" . conf-space-mode))
-(add-to-list 'auto-mode-alist '("rc$" . conf-mode))
-(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+(mapc (lambda (assoc) (add-to-list 'auto-mode-alist assoc))
+    (list '("Gemfile" . enh-ruby-mode)
+        '("Guardfile" . enh-ruby-mode)
+        '("conf$" . conf-mode)
+        '("rc$" . conf-mode)
+        '("\\.erb$" . web-mode)))
 
 (setq lisp-indent-offset 4)
 

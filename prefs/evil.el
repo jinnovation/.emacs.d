@@ -29,11 +29,7 @@
     "gs" 'magit-status
     "gb" 'magit-blame-mode
 
-    "pl" 'package-list-packages
-
-    "pp" 'projectile-switch-project
-    "pf" 'projectile-find-file
-    "pF" 'projectile-find-file-in-known-projects)
+    "pp" 'helm-projectile)
 
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
@@ -45,9 +41,10 @@
 (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
 (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
 
-
 (setq evil-insert-state-modes (cons 'git-commit-mode evil-insert-state-modes))
 
 (evilem-default-keybindings "SPC")
 
 (evil-mode 1)
+
+(global-set-key (kbd "<f12>") 'package-list-packages)
