@@ -8,26 +8,18 @@
 
 (package-initialize)
 
-(defconst user-init-dir "~/.emacs.d")
-(defconst bg-color "black")
-(defconst default-font "Terminus 12")
-(defconst linum-mode-excludes
-    '(doc-view-mode magit-mode)
-    "List of major modes preventing linum to be enabled in the buffer.")
+(defconst init-runtimes
+    (list "prefs/defaults.el"
+        "fn.el"
+        "require.el"
+        "keybinding.el"
+        "prefs.el"
+        "prefs/org.el"
+        "prefs/evil.el"))
 
-(defun load-user-file (file)
-    (interactive "f")
-    "Load a file in current user's configuration directory"
-    (load-file (expand-file-name file user-init-dir)))
-
-(load-user-file "fn.el")
-(load-user-file "require.el")
-(load-user-file "keybinding.el")
-(load-user-file "prefs.el")
-
-(load-user-file "prefs/org.el")
-(load-user-file "prefs/evil.el")
-(load-user-file "prefs/defaults.el")
+(mapc (lambda (file)
+          (load-file (expand-file-name file "~/.emacs.d")))
+    init-runtimes)
 
 (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta))
