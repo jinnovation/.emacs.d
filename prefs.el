@@ -115,3 +115,6 @@
 	    TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX")))
 
 (setq c-block-comment-prefix "* ")
+
+(setq scroll-step 1)
+(setq scroll-margin 3)
