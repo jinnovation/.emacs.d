@@ -33,7 +33,8 @@
     "pF" 'helm-projectile-find-file-in-known-projects
     "pa" 'helm-projectile-ag
 
-    "ff" 'helm-find-files)
+    "ff" 'helm-find-files
+    "rc" 'reload-config)
 
 (define-key evil-normal-state-map (kbd "/") 'helm-swoop)
 (define-key evil-normal-state-map (kbd "?") 'helm-swoop)
@@ -47,6 +48,8 @@
 (define-key evil-normal-state-map (kbd "M-p") 'evil-paste-pop)
 (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
 (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
+
+(define-key evil-normal-state-map (kbd "C-w q") 'delete-window)
 
 ;; (define-key evil-normal-state-map (kbd "C-w s") 'vsplit-last-buffer)
 ;; (define-key evil-normal-state-map (kbd "C-w v") 'hsplit-last-buffer)
