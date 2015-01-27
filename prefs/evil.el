@@ -35,8 +35,8 @@
 
     "ff" 'helm-find-files)
 
-(define-key evil-normal-state-map (kbd "/") 'helm-occur)
-(define-key evil-normal-state-map (kbd "?") 'helm-occur)
+(define-key evil-normal-state-map (kbd "/") 'helm-swoop)
+(define-key evil-normal-state-map (kbd "?") 'helm-swoop)
 
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)

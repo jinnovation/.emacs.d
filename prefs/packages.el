@@ -3,6 +3,7 @@
          helm
          helm-ag
          helm-projectile
+         helm-swoop
          projectile
          org
          magit

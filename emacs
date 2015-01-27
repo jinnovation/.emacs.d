@@ -20,9 +20,8 @@
          "prefs/doc-view.el"
          "prefs/helm.el"))
 
-(mapc (lambda (file)
-          (load-file (expand-file-name file "~/.emacs.d")))
-    init-runtimes)
+(dolist (file init-runtimes)
+    (load-file (expand-file-name file "~/.emacs.d")))
 
 (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta))
