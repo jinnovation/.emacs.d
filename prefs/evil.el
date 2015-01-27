@@ -33,7 +33,7 @@
     "pF" 'helm-projectile-find-file-in-known-projects
     "pa" 'helm-projectile-ag
 
-    "ff" 'find-file)
+    "ff" 'helm-find-files)
 
 (define-key evil-normal-state-map (kbd "/") 'helm-occur)
 (define-key evil-normal-state-map (kbd "?") 'helm-occur)

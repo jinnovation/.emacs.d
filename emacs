@@ -9,15 +9,15 @@
 (package-initialize)
 
 (defconst init-runtimes
-    (list "prefs/defaults.el"
+    '(
          "prefs/packages.el"
-        "fn.el"
-        "require.el"
-        "keybinding.el"
-        "prefs.el"
-        "prefs/org.el"
-        "prefs/evil.el"
-        "prefs/doc-view.el"))
+         "prefs/defaults.el"
+         "fn.el"
+         "keybinding.el"
+         "prefs.el"
+         "prefs/org.el"
+         "prefs/evil.el"
+         "prefs/doc-view.el"
          "prefs/helm.el"))
 
 (mapc (lambda (file)
@@ -63,15 +63,6 @@ of listed in `linum-mode-excludes'."
 
 (set-default-font "Terminus 12")
 (set-face-attribute 'mode-line nil :font default-font)
-
-(setq helm-split-window-default-side 'right)
-
-(helm-mode 1)
-
-(setq org-agenda-files
-    '("~/life/index.org"))
-
-(setq initial-buffer-choice (car org-agenda-files))
 
 (add-to-list 'rm-excluded-modes " Helm")
 (add-to-list 'rm-excluded-modes " Undo-Tree")

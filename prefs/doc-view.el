@@ -1,4 +1,4 @@
-(add-hook 'doc-view-mode-hook
+(add-hook 'doc-view-mode-hook           ;FIXME: convert to eval-after-load
     (lambda ()
         (define-key doc-view-mode-map (kbd "j") 'doc-view-next-line-or-next-page)
         (define-key doc-view-mode-map (kbd "k")
