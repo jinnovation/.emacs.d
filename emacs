@@ -18,8 +18,8 @@
          "prefs/org.el"
          "prefs/evil.el"
          "prefs/doc-view.el"
-         "prefs/helm.el"))
-
+         "prefs/helm.el"
+         "prefs/color.el"))
 (dolist (file init-runtimes)
     (load-file (expand-file-name file "~/.emacs.d")))
 
@@ -53,15 +53,6 @@
 of listed in `linum-mode-excludes'."
     (unless (member major-mode linum-mode-excludes)
         ad-do-it))
-
-(set-background-color bg-color)
-(set-face-attribute 'fringe nil :background bg-color)
-(set-face-attribute 'linum nil :background bg-color)
-
-(set-face-attribute 'evil-search-highlight-persist-highlight-face nil :background "DodgerBlue4")
-
-(set-default-font "Terminus 12")
-(set-face-attribute 'mode-line nil :font default-font)
 
 (add-to-list 'rm-excluded-modes " Helm")
 (add-to-list 'rm-excluded-modes " Undo-Tree")

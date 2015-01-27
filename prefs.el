@@ -10,8 +10,6 @@
 
 (global-auto-revert-mode)
 
-(load-theme 'gotham t)
-
 (setq scss-compile-at-save nil)
 
 (setq browse-url-browser-function 'browse-url-generic
