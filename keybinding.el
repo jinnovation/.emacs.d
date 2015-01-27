@@ -18,6 +18,3 @@
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 
 (global-set-key (kbd "<f12>") 'paradox-list-packages)
-
-(global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
-(global-set-key (kbd "C-x 3") 'hsplit-last-buffer)

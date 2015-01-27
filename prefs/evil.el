@@ -44,10 +44,10 @@
 (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
 (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
 
-(define-key evil-normal-state-map (kbd "C-w s") 'vsplit-last-buffer)
-(define-key evil-normal-state-map (kbd "C-w v") 'hsplit-last-buffer)
+;; (define-key evil-normal-state-map (kbd "C-w s") 'vsplit-last-buffer)
+;; (define-key evil-normal-state-map (kbd "C-w v") 'hsplit-last-buffer)
 
-(define-key evil-normal-post-command (kbd "RET") 'insert-newline-after)
+(define-key evil-normal-state-map (kbd "RET") 'insert-newline-after)
 
 (setq evil-insert-state-modes (cons 'git-commit-mode evil-insert-state-modes))
 

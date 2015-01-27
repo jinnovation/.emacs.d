@@ -10,12 +10,14 @@
 
 (defconst init-runtimes
     (list "prefs/defaults.el"
+         "prefs/packages.el"
         "fn.el"
         "require.el"
         "keybinding.el"
         "prefs.el"
         "prefs/org.el"
-        "prefs/evil.el"))
+        "prefs/evil.el"
+        "prefs/doc-view.el"))
 
 (mapc (lambda (file)
           (load-file (expand-file-name file "~/.emacs.d")))
@@ -52,9 +54,6 @@ of listed in `linum-mode-excludes'."
     (unless (member major-mode linum-mode-excludes)
         ad-do-it))
 
-(add-hook 'doc-view-mode-hook
-    'doc-view-fit-width-to-window)
-
 (set-background-color bg-color)
 (set-face-attribute 'fringe nil :background bg-color)
 (set-face-attribute 'linum nil :background bg-color)
@@ -72,3 +71,8 @@ of listed in `linum-mode-excludes'."
     '("~/life/index.org"))
 
 (setq initial-buffer-choice (car org-agenda-files))
+
+(add-to-list 'rm-excluded-modes " Helm")
+(add-to-list 'rm-excluded-modes " Undo-Tree")
+(add-to-list 'rm-excluded-modes " pair")
+(add-to-list 'rm-excluded-modes " Fill")
