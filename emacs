@@ -18,6 +18,7 @@
         "prefs/org.el"
         "prefs/evil.el"
         "prefs/doc-view.el"))
+         "prefs/helm.el"))
 
 (mapc (lambda (file)
           (load-file (expand-file-name file "~/.emacs.d")))

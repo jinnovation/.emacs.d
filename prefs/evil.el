@@ -31,8 +31,12 @@
 
     "pp" 'helm-projectile
     "pF" 'helm-projectile-find-file-in-known-projects
+    "pa" 'helm-projectile-ag
 
     "ff" 'find-file)
+
+(define-key evil-normal-state-map (kbd "/") 'helm-occur)
+(define-key evil-normal-state-map (kbd "?") 'helm-occur)
 
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
