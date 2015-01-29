@@ -34,7 +34,10 @@
     "pa" 'helm-projectile-ag
 
     "ff" 'helm-find-files
-    "rc" 'reload-config)
+    "rc" 'reload-config
+    "bb" 'helm-buffers-list
+    "TAB" 'persp-next
+    "<backtab>" 'persp-prev)
 
 (define-key evil-normal-state-map (kbd "/") 'helm-swoop)
 (define-key evil-normal-state-map (kbd "?") 'helm-swoop)
@@ -48,15 +51,11 @@
 (define-key evil-normal-state-map (kbd "M-p") 'evil-paste-pop)
 (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
 (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
-
 (define-key evil-normal-state-map (kbd "C-w q") 'delete-window)
-
-;; (define-key evil-normal-state-map (kbd "C-w s") 'vsplit-last-buffer)
-;; (define-key evil-normal-state-map (kbd "C-w v") 'hsplit-last-buffer)
-
 (define-key evil-normal-state-map (kbd "RET") 'insert-newline-after)
 
 (setq evil-insert-state-modes (cons 'git-commit-mode evil-insert-state-modes))
+(setq evil-emacs-state-modes (cons 'erc-mode evil-emacs-state-modes))
 
 (evilem-default-keybindings "SPC")
 
