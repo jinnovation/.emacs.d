@@ -38,3 +38,7 @@
                 ("\\.mm\\'" . default)
                 ("\\.x?html?\\'" . default)
                 ("\\.pdf\\'" . "zathura %s")))))
+(add-hook 'org-src-mode-hook
+    (lambda ()
+        (evil-leader/set-key
+            "w" org-edit-src-save)))

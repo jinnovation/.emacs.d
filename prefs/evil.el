@@ -12,6 +12,7 @@
 
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
+    "m" 'helm-M-x
     "w" 'save-buffer
     "bk" 'kill-current-buffer
     "bn" 'next-buffer
@@ -32,15 +33,18 @@
     "pp" 'helm-projectile
     "pF" 'helm-projectile-find-file-in-known-projects
     "pa" 'helm-projectile-ag
+    "pK" 'projectile-kill-buffers
+
+    "/" 'helm-swoop
 
     "ff" 'helm-find-files
     "rc" 'reload-config
     "bb" 'helm-buffers-list
     "TAB" 'persp-next
-    "<backtab>" 'persp-prev)
+    "<backtab>" 'persp-prev
+    "H" (lambda () (interactive) (enlarge-window-horizontally-repeatable 5))
+    "L" (lambda () (interactive)(enlarge-window-horizontally -5)))
 
-(define-key evil-normal-state-map (kbd "/") 'helm-swoop)
-(define-key evil-normal-state-map (kbd "?") 'helm-swoop)
 
 (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
