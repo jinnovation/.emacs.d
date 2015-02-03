@@ -33,11 +33,8 @@
     (lambda ()
         (add-to-list 'org-structure-template-alist
             '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
-        (setq 'org-file-apps
-            ((auto-mode . emacs)
-                ("\\.mm\\'" . default)
-                ("\\.x?html?\\'" . default)
-                ("\\.pdf\\'" . "zathura %s")))))
+        (fic-ext-mode)))
+
 (add-hook 'org-src-mode-hook
     (lambda ()
         (evil-leader/set-key

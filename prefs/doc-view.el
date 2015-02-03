@@ -5,5 +5,6 @@
             'doc-view-previous-line-or-previous-page)
         (define-key doc-view-mode-map (kbd "g") 'doc-view-first-page)
         (define-key doc-view-mode-map (kbd "G") 'doc-view-last-page)
-        (evil-local-mode -1)
         (doc-view-fit-width-to-window)))
+
+(setq doc-view-resolution 200)

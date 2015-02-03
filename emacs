@@ -27,6 +27,14 @@
 
 (defconst file-mode-assocs
     '(
+         ("\\.service\\'" . conf-unix-mode)
+         ("\\.timer\\'" . conf-unix-mode)
+         ("\\.target\\'" . conf-unix-mode)
+         ("\\.mount\\'" . conf-unix-mode)
+         ("\\.automount\\'" . conf-unix-mode)
+         ("\\.slice\\'" . conf-unix-mode)
+         ("\\.socket\\'" . conf-unix-mode)
+         ("\\.path\\'" . conf-unix-mode)
          ("Gemfile"    . enh-ruby-mode)
          ("Guardfile"  . enh-ruby-mode)
          ("conf$"      . conf-mode)
@@ -64,6 +72,10 @@ of listed in `linum-mode-excludes'."
          " Helm"
          " Undo-Tree"
          " pair"
-         " Fill"))
+         " Fill"
+         " FIC"
+         " end"))
 (dolist (mode my-rm-excluded-modes)
     (add-to-list 'rm-excluded-modes mode))
+
+(fringe-mode '(4 . 0))
