@@ -13,7 +13,7 @@
 (setq scss-compile-at-save nil)
 
 (setq browse-url-browser-function 'browse-url-generic
-    browse-url-generic-program "google-chrome-beta")
+    browse-url-generic-program "chromium")
 
 (when (fboundp 'global-linum-mode)
     (setq linum-format 'dynamic)
