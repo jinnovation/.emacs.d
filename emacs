@@ -74,8 +74,15 @@ of listed in `linum-mode-excludes'."
          " pair"
          " Fill"
          " FIC"
+         " company"
          " end"))
 (dolist (mode my-rm-excluded-modes)
     (add-to-list 'rm-excluded-modes mode))
 
 (fringe-mode '(4 . 0))
+
+(openwith-mode t)
+(setq openwith-associations '(("\\.pdf\\'" "xdg-open" (file))))
+
+(company-mode)
+(setq company-idle-delay 0.0)

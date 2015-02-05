@@ -6,5 +6,5 @@
 
 (set-face-attribute 'evil-search-highlight-persist-highlight-face nil :background "DodgerBlue4")
 
-(set-default-font "Terminus 12")
+(set-default-font "Terminus 08")
 (set-face-attribute 'mode-line nil :font default-font)

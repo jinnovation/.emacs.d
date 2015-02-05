@@ -91,8 +91,10 @@
 (setq initial-scratch-message "")
 
 (defconst bg-color "black")
-(defconst default-font "Terminus 12")
+(defconst default-font "Terminus 08")
 (defconst linum-mode-excludes
     '(doc-view-mode
          magit-mode)
     "List of major modes preventing linum to be enabled in the buffer.")
+
+(set-default-font "Terminus 08")

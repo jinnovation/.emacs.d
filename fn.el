@@ -82,3 +82,11 @@ i.e. change right window to bottom, or change bottom window to right."
                 (if (> (x-display-pixel-height) cutoff-h)
                     (set-face-attribute 'default nil :font font-setting-bigger)
                     (set-face-attribute 'default nil :font font-setting-small))))))
+
+(defun enlarge-window-horizontally-repeatable (inc)
+    (interactive)
+    (enlarge-window-horizontally inc)
+    (set-transient-map
+        (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "=") 'enlarge-window-horizontally-repeatable)
+            map)))
