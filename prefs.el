@@ -46,9 +46,13 @@
 
 ;; latex-mode-specific hooks (because latex-mode is retarded and not derived
 ;; from prog-mode)
-(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
-(add-hook 'LaTeX-mode-hook 'fic-ext-mode)
-(add-hook 'LaTeX-mode-hook (lambda () (TeX-fold-mode 1)))
+(add-hook 'LaTeX-mode-hook
+    (lambda ()
+        (TeX-fold-mode 1)
+        (fic-ext-mode)
+        (auto-fill-mode)
+        (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
+                                            TeX-run-TeX nil t))))
 
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 (add-hook 'markdown-mode-hook 'fic-ext-mode)
