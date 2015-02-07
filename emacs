@@ -19,8 +19,6 @@
          "prefs/doc-view.el"
          "prefs/helm.el"
          "prefs/color.el"
-         "prefs/mu4e.el"
-         "prefs/elfeed.el"
          ))
 (dolist (file init-runtimes)
     (load-file (expand-file-name file "~/.emacs.d")))
