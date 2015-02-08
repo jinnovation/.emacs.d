@@ -1,12 +1,10 @@
-(setq projectile-enable-caching t)
-(projectile-global-mode)
-(setq projectile-completion-system 'grizzl)
 (setq paradox-github-token "50d7f7fe0af07638a09e1a32f4ec5bba3f83f74e")
 
 (setq-default indent-tabs-mode nil)
 
 (setq-default tab-width 4)
 (defvaralias 'js-indent-level 'tab-width)
+(defvaralias 'c-basic-offset 'tab-width)
 
 (global-auto-revert-mode)
 
@@ -72,14 +70,6 @@
 (add-hook 'comint-output-filter-functions
     'comint-watch-for-password-prompt)
 
-(setq font-face-main "DejaVu Sans Mono")
-(setq font-size-small "10")
-(setq font-size-bigger "15")
-(setq font-setting-bigger (format "%s-%s" font-face-main font-size-bigger))
-(setq font-setting-small (format "%s-%s" font-face-main font-size-small))
-
-(scale-text 1920 1080)
-
 (eval-after-load "tex" 
     '(setcdr (assoc "LaTeX" TeX-command-list)
          '("%`%l%(mode) -shell-escape%' %t"
@@ -94,11 +84,8 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
 
-(defconst bg-color "black")
-(defconst default-font "Terminus 08")
 (defconst linum-mode-excludes
     '(doc-view-mode
          magit-mode)
     "List of major modes preventing linum to be enabled in the buffer.")
 
-(set-default-font "Terminus 08")

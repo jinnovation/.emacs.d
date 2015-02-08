@@ -1,4 +1,3 @@
-(load "~/.emacs.d/elpa/benchmark-init-20141004.609/benchmark-init.el")
 (setq package-archives
     '(("melpa"         . "http://melpa.milkbox.net/packages/")
          ("marmalade"  . "http://marmalade-repo.org/packages/")
@@ -9,7 +8,6 @@
 
 (defconst init-runtimes
     '(
-
          "prefs/packages.el"
          "fn.el"
          "keybinding.el"
@@ -19,28 +17,11 @@
          "prefs/doc-view.el"
          "prefs/helm.el"
          "prefs/color.el"
+         "prefs/modes.el"
+         "prefs/projectile.el"
          ))
 (dolist (file init-runtimes)
     (load-file (expand-file-name file "~/.emacs.d")))
-
-(defconst file-mode-assocs
-    '(
-         ("\\.service\\'" . conf-unix-mode)
-         ("\\.timer\\'" . conf-unix-mode)
-         ("\\.target\\'" . conf-unix-mode)
-         ("\\.mount\\'" . conf-unix-mode)
-         ("\\.automount\\'" . conf-unix-mode)
-         ("\\.slice\\'" . conf-unix-mode)
-         ("\\.socket\\'" . conf-unix-mode)
-         ("\\.path\\'" . conf-unix-mode)
-         ("Gemfile"    . enh-ruby-mode)
-         ("Guardfile"  . enh-ruby-mode)
-         ("conf$"      . conf-mode)
-         ("rc$"        . conf-mode)
-         ("\\.erb$"    . web-mode)
-         ("emacs$"     . emacs-lisp-mode)))
-(mapc (lambda (assoc) (add-to-list 'auto-mode-alist assoc))
-    file-mode-assocs)
 
 (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta))
@@ -78,9 +59,6 @@ of listed in `linum-mode-excludes'."
     (add-to-list 'rm-excluded-modes mode))
 
 (fringe-mode '(4 . 0))
-
-(openwith-mode t)
-(setq openwith-associations '(("\\.pdf\\'" "xdg-open" (file))))
 
 (company-mode)
 (setq company-idle-delay 0.0)
