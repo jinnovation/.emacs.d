@@ -38,6 +38,8 @@
 
 (setq lisp-indent-offset 4)
 
+(setq helm-external-programs-associations '(("pdf" . "zathura")))
+
 (sml/setup)                             ;; smart-mode-line initialize
 
 (defadvice linum-mode (around linum-mode-selective activate)
