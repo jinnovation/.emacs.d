@@ -69,20 +69,6 @@ i.e. change right window to bottom, or change bottom window to right."
     (set-frame-parameter (selected-frame) 'alpha value))
 (set-transparency 70)
 
-(defun scale-text (cutoff-w cutoff-h)
-    (interactive "nCutoff width: \nnCutoff height: ")
-    (when (display-graphic-p nil)
-        (set-face-attribute 'mode-line nil :font font-face-main)
-        (set-face-attribute 'mode-line nil :height 100) ; FIXME: scale this too
-        (cond ((> (x-display-pixel-height) (x-display-pixel-width))
-                  (if (> (x-display-pixel-width) cutoff-w)
-                      (set-face-attribute 'default nil :font font-setting-bigger)
-                      (set-face-attribute 'default nil :font font-setting-small)))
-            ((> (x-display-pixel-width) (x-display-pixel-height))
-                (if (> (x-display-pixel-height) cutoff-h)
-                    (set-face-attribute 'default nil :font font-setting-bigger)
-                    (set-face-attribute 'default nil :font font-setting-small))))))
-
 (defun enlarge-window-horizontally-repeatable (inc)
     (interactive)
     (enlarge-window-horizontally inc)

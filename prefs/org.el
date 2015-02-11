@@ -39,3 +39,5 @@
     (lambda ()
         (evil-leader/set-key
             "w" org-edit-src-save)))
+
+(setq org-tags-column -80)
