@@ -11,7 +11,7 @@
          "prefs/packages.el"
          "fn.el"
          "keybinding.el"
-         "prefs.el"
+         "prefs/general.el"
          "prefs/org.el"
          "prefs/evil.el"
          "prefs/doc-view.el"
