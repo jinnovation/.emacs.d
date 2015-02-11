@@ -8,8 +8,8 @@
 
 (defconst init-runtimes
     '(
-         "prefs/packages.el"
          "prefs/fn.el"
+         "prefs/packages.el"
          "prefs/keybinding.el"
          "prefs/general.el"
          "prefs/org.el"

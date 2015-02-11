@@ -30,9 +30,8 @@
     "required packages."
     )
 
-(dolist (package package-list)
-    (unless (package-installed-p package)
-        (message "%s" "Emacs is now refreshing its package database...")
-        (package-refresh-contents)
-        (message "%s" " done.")
-        (package-install package)))
+(defun package-install-all-required ()
+    (interactive)
+    (package-install-from-list package-list))
+
+(package-install-all-required)

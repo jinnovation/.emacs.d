@@ -76,3 +76,11 @@ i.e. change right window to bottom, or change bottom window to right."
         (let ((map (make-sparse-keymap)))
             (define-key map (kbd "=") 'enlarge-window-horizontally-repeatable)
             map)))
+
+(defun package-install-from-list (list)
+    (dolist (package list)
+        (unless (package-installed-p package)
+            (message "%s" "Emacs is now refreshing its package database...")
+            (package-refresh-contents)
+            (message "%s" " done.")
+            (package-install package))))
