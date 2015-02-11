@@ -9,8 +9,8 @@
 (defconst init-runtimes
     '(
          "prefs/packages.el"
-         "fn.el"
-         "keybinding.el"
+         "prefs/fn.el"
+         "prefs/keybinding.el"
          "prefs/general.el"
          "prefs/org.el"
          "prefs/evil.el"
