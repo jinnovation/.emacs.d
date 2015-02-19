@@ -9,20 +9,17 @@
 (package-initialize)
 
 (mapc 'require '(init-fn
-                init-packages
-                init-keybinding
-                init-general
-                init-org
-                init-evil
-                init-doc-view
-                init-helm
-                init-color
-                init-modes
-                init-projectile
-                init-ruby))
-
-(when (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta))
+                    init-packages
+                    init-keybinding
+                    init-general
+                    init-org
+                    init-evil
+                    init-doc-view
+                    init-helm
+                    init-color
+                    init-modes
+                    init-projectile
+                    init-ruby))
 
 (custom-set-variables
     ;; custom-set-variables was added by Custom.
@@ -31,34 +28,4 @@
     ;; If there is more than one, they won't work right.
     '(TeX-newline-function (quote reindent-then-newline-and-indent))
     '(ansi-color-faces-vector
-         [default bold shadow italic underline bold bold-italic bold])
-    '(paradox-github-token t))
-
-(setq lisp-indent-offset 4)
-
-(setq helm-external-programs-associations '(("pdf" . "zathura")))
-
-(sml/setup)                             ;; smart-mode-line initialize
-
-(defadvice linum-mode (around linum-mode-selective activate)
-    "Avoids enabling of linum-mode in the buffer having major mode set to one
-of listed in `linum-mode-excludes'."
-    (unless (member major-mode linum-mode-excludes)
-        ad-do-it))
-
-(defconst my-rm-excluded-modes
-    '(
-         " Helm"
-         " Undo-Tree"
-         " pair"
-         " Fill"
-         " FIC"
-         " company"
-         " end"))
-(dolist (mode my-rm-excluded-modes)
-    (add-to-list 'rm-excluded-modes mode))
-
-(fringe-mode '(4 . 0))
-
-(company-mode)
-(setq company-idle-delay 0.0)
+         [default bold shadow italic underline bold bold-italic bold]))

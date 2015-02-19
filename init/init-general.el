@@ -5,6 +5,7 @@
 (setq-default tab-width 4)
 (defvaralias 'js-indent-level 'tab-width)
 (defvaralias 'c-basic-offset 'tab-width)
+(defvaralias 'lisp-indent-offset 'tab-width)
 
 (global-auto-revert-mode)
 
@@ -70,7 +71,7 @@
 (add-hook 'comint-output-filter-functions
     'comint-watch-for-password-prompt)
 
-(eval-after-load "tex" 
+(eval-after-load "tex"
     '(setcdr (assoc "LaTeX" TeX-command-list)
          '("%`%l%(mode) -shell-escape%' %t"
               TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX")))
@@ -89,3 +90,31 @@
          magit-mode)
     "List of major modes preventing linum to be enabled in the buffer.")
 
+(defadvice linum-mode (around linum-mode-selective activate)
+    "Avoids enabling of linum-mode in the buffer having major mode set to one
+of listed in `linum-mode-excludes'."
+    (unless (member major-mode linum-mode-excludes)
+        ad-do-it))
+
+(when (eq system-type 'darwin)
+    (setq mac-command-modifier 'meta))
+
+(sml/setup)                             ;; smart-mode-line initialize
+
+(defconst my-rm-excluded-modes
+    '(
+         " MRev"
+         " Helm"
+         " Undo-Tree"
+         " pair"
+         " Fill"
+         " FIC"
+         " company"
+         " end"))
+(dolist (mode my-rm-excluded-modes)
+    (add-to-list 'rm-excluded-modes mode))
+
+(fringe-mode '(4 . 0))
+
+(company-mode)
+(setq company-idle-delay 0.0)
