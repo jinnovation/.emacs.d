@@ -1,5 +1,8 @@
+(provide 'init-modes)
+
 (defconst file-mode-assocs
     '(
+         ("graded-hw"       . c-mode)
          ("\\.service\\'"    . conf-unix-mode)
          ("\\.timer\\'"      . conf-unix-mode)
          ("\\.target\\'"     . conf-unix-mode)

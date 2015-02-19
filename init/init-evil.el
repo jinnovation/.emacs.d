@@ -1,3 +1,5 @@
+(provide 'init-evil)
+
 (eval-after-load 'evil
   '(progn
        (local-unset-key (kbd "C-a"))

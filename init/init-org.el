@@ -1,3 +1,5 @@
+(provide 'init-org)
+
 (setq org-pretty-entities t)
 (setq org-src-fontify-natively t)
 (setq org-alphabetical-lists t)

@@ -1,3 +1,5 @@
+(provide 'init-packages)
+
 (defconst package-list
     '(
          helm

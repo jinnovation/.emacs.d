@@ -1,3 +1,5 @@
+(provide 'init-color)
+
 (defconst bg-color "black")
 (defconst default-font "Terminus 08")
 (set-default-font "Terminus 08")

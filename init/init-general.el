@@ -1,3 +1,5 @@
+(provide 'init-general)
+
 (setq paradox-github-token "50d7f7fe0af07638a09e1a32f4ec5bba3f83f74e")
 
 (setq-default indent-tabs-mode nil)

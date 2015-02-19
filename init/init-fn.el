@@ -1,3 +1,5 @@
+(provide 'init-fn)
+
 (defun kill-current-buffer ()
     (interactive)
     (kill-buffer (current-buffer)))

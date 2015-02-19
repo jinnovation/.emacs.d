@@ -1,3 +1,5 @@
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
+
 (setq package-archives
     '(("melpa"         . "http://melpa.milkbox.net/packages/")
          ("marmalade"  . "http://marmalade-repo.org/packages/")
@@ -6,22 +8,18 @@
 
 (package-initialize)
 
-(defconst init-runtimes
-    '(
-         "prefs/fn.el"
-         "prefs/packages.el"
-         "prefs/keybinding.el"
-         "prefs/general.el"
-         "prefs/org.el"
-         "prefs/evil.el"
-         "prefs/doc-view.el"
-         "prefs/helm.el"
-         "prefs/color.el"
-         "prefs/modes.el"
-         "prefs/projectile.el"
-         ))
-(dolist (file init-runtimes)
-    (load-file (expand-file-name file "~/.emacs.d")))
+(mapc 'require '(init-fn
+                init-packages
+                init-keybinding
+                init-general
+                init-org
+                init-evil
+                init-doc-view
+                init-helm
+                init-color
+                init-modes
+                init-projectile
+                init-ruby))
 
 (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta))
