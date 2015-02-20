@@ -3,8 +3,8 @@
 (provide 'init-packages)
 
 (defconst package-list
-    '(
-         helm
+    "required packages."
+    '(helm
          helm-ag
          helm-projectile
          helm-swoop
@@ -12,7 +12,6 @@
          org
          magit
          smart-mode-line
-         wakatime-mode
          gotham-theme
 
          evil
@@ -28,10 +27,7 @@
          gitconfig-mode
          gitignore-mode
 
-         auctex
-         
-         )
-    "required packages."
+         auctex)
     )
 
 (defun package-install-all-required ()
