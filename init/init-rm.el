@@ -1,7 +1,7 @@
 ;;; init-rm.el --- rich-minority-mode configs
 (provide 'init-rm)
 
-(after "rich-minority-autoloads"
+(if-package-installed "rich-minority"
     (defconst my-rm-excluded-modes
         '(
              " MRev"

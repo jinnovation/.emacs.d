@@ -28,13 +28,13 @@
 
 (show-paren-mode 1)
 
-(after "autopair-autoloads"
+(if-package-installed "autopair"
     (autopair-global-mode))
 
 (delete-selection-mode +1)
 
 ;; highlights strings like TODO, FIXME, etc.
-(after "fic-ext-mode-autoloads"
+(if-package-installed "fic-ext-mode"
     (add-hook 'prog-mode-hook 'fic-ext-mode))
 
 ;; lines do not exceed 80 lines
@@ -53,12 +53,12 @@
 (setq scroll-step 1)
 (setq scroll-margin 3)
 
-(after "smart-mode-line-autoloads"
+(if-package-installed "smart-mode-line"
     (sml/setup))                             ;; smart-mode-line initialize
 
 (fringe-mode '(4 . 0))
 
-(after "company-autoloads"
+(if-package-installed "company"
     (company-mode)
     (setq company-idle-delay 0.0))
 

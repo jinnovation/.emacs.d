@@ -3,7 +3,7 @@
 
 (require 'init-fn)
 
-(after "sass-mode-autoloads"
+(if-package-installed "sass-mode"
     (setq scss-compile-at-save nil)
     (add-hook 'scss-mode-hook 'rainbow-mode))
 
