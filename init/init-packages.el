@@ -26,11 +26,6 @@
          gitconfig-mode
          gitignore-mode
 
-         auctex)
-    )
-
-(defun package-install-all-required ()
-    (interactive)
-    (package-install-from-list package-list))
+         auctex))
 
 ;;; init-packages.el ends here

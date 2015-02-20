@@ -95,6 +95,10 @@ i.e. change right window to bottom, or change bottom window to right."
     (package-refresh-contents)
     (dolist (package list)
         (unless (package-installed-p package)
-	  (package-install package))))
+            (package-install package))))
+
+(defun package-install-all-required ()
+    (interactive)
+    (package-install-from-list package-list))
 
 ;;; init-fn.el ends here
