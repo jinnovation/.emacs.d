@@ -3,7 +3,6 @@
 (provide 'init-packages)
 
 (defconst package-list
-    "required packages."
     '(helm
          helm-ag
          helm-projectile

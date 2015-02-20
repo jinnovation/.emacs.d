@@ -59,30 +59,15 @@
         (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
                                             TeX-run-TeX nil t))))
 
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
-(add-hook 'markdown-mode-hook 'fic-ext-mode)
-
 (add-hook 'scss-mode-hook 'rainbow-mode)
 
 (setq next-line-add-newlines t)
 
 (setq-default fill-column 80)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(setq ess-ask-for-ess-directory nil)
-
-;; sets latex-mode to compile w/ pdflatex by default
-(setq TeX-PDF-mode t)
-(setq TeX-parse-self t)
 
 (add-hook 'comint-output-filter-functions
     'comint-watch-for-password-prompt)
-
-(eval-after-load "tex"
-    '(setcdr (assoc "LaTeX" TeX-command-list)
-         '("%`%l%(mode) -shell-escape%' %t"
-              TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX")))
-
-(setq c-block-comment-prefix "* ")
 
 (setq scroll-step 1)
 (setq scroll-margin 3)
@@ -98,23 +83,8 @@ of listed in `linum-mode-excludes'."
     (unless (member major-mode linum-mode-excludes)
         ad-do-it))
 
-(when (eq system-type 'darwin)
-    (setq mac-command-modifier 'meta))
-
 (sml/setup)                             ;; smart-mode-line initialize
 
-(defconst my-rm-excluded-modes
-    '(
-         " MRev"
-         " Helm"
-         " Undo-Tree"
-         " pair"
-         " Fill"
-         " FIC"
-         " company"
-         " end"))
-(dolist (mode my-rm-excluded-modes)
-    (add-to-list 'rm-excluded-modes mode))
 
 (fringe-mode '(4 . 0))
 

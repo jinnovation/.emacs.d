@@ -32,4 +32,9 @@
                     init-color
                     init-modes
                     init-projectile
-                    init-ruby))
+                    init-ruby
+                    init-markdown
+                    init-latex
+                    init-c
+                    init-mac
+                    init-rm))
