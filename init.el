@@ -33,7 +33,7 @@
                     init-projectile
                     init-rm
                     init-linum
-                    init-color
+                    init-appearance
 
                     ;; languages
                     init-ruby
