@@ -1,3 +1,5 @@
+;;i init-org.el --- Org-mode-specific configurations
+
 (provide 'init-org)
 
 (setq org-pretty-entities t)
@@ -43,3 +45,5 @@
             "w" org-edit-src-save)))
 
 (setq org-tags-column -80)
+
+;;; init-org.el ends here

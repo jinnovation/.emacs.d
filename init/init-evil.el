@@ -1,3 +1,5 @@
+;;; init-evil.el --- Evil-mode-specific configurations (with all derivatives)
+
 (provide 'init-evil)
 
 (require 'init-fn)
@@ -67,3 +69,5 @@
 (global-evil-surround-mode 1)
 
 (evil-mode 1)
+
+;;; init-evil.el ends here

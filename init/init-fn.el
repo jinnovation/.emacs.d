@@ -1,3 +1,5 @@
+;;; init-fn.el --- configuration functions
+
 (provide 'init-fn)
 
 (defun kill-current-buffer ()
@@ -92,3 +94,4 @@ i.e. change right window to bottom, or change bottom window to right."
     (declare (indent defun))
     `(eval-after-load ,mode
          '(progn ,@body)))
+;;; init-fn.el ends here

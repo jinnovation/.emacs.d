@@ -1,3 +1,5 @@
+;;; init-mu4e.el --- mu4e-specific configurations
+
 (require 'mu4e)
 
 ;; default
@@ -71,3 +73,5 @@
 (add-hook 'mu4e-index-updated-hook
     '(lambda ()
          (shell-command "notify-send 'Mail database updated.' &")))
+
+;;; init-mu4e.el ends here

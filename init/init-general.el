@@ -1,3 +1,5 @@
+;;; init-general.el --- general configurations
+
 (provide 'init-general)
 
 (setq-default indent-tabs-mode nil)
@@ -118,3 +120,5 @@ of listed in `linum-mode-excludes'."
 
 (company-mode)
 (setq company-idle-delay 0.0)
+
+;;; init-general.el ends here

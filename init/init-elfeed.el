@@ -1,3 +1,5 @@
+;;; init-elfeed.el --- Elfeed configurations, with feed list
+
 (setq elfeed-feeds
     '(
          ("https://news.ycombinator.com/rss" software news)
@@ -54,3 +56,5 @@
          ("http://www.questionablecontent.net/QCRSS.xml" comic)
          ("http://phdcomics.com/gradfeed.php" comic)
          ))
+
+;;; init-elfeed.el ends here

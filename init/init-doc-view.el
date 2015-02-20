@@ -1,3 +1,5 @@
+;;; init-doc-view.el --- Doc-view-specific configurations
+
 (provide 'init-doc-view)
 
 (add-hook 'doc-view-mode-hook           ;FIXME: convert to eval-after-load
@@ -10,3 +12,5 @@
         (doc-view-fit-width-to-window)))
 
 (setq doc-view-resolution 200)
+
+;;; init-doc-view.el ends here

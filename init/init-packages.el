@@ -1,3 +1,5 @@
+;;; init-packages.el --- initialization for "required" packages"
+
 (provide 'init-packages)
 
 (defconst package-list
@@ -37,3 +39,5 @@
     (package-install-from-list package-list))
 
 (package-install-all-required)
+
+;;; init-packages.el ends here

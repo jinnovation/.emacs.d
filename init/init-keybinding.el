@@ -1,3 +1,5 @@
+;;; init-keybinding.el --- Keybinding configs
+
 (provide 'init-keybinding)
    
 (global-set-key (kbd "C-<tab>") 'other-window)
@@ -22,3 +24,5 @@
 (global-set-key (kbd "<f12>") 'paradox-list-packages)
 
 (global-set-key (kbd "M-x") 'helm-M-x)
+
+;;; init-keybinding.el ends here

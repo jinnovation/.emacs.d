@@ -1,3 +1,5 @@
+;;; init-color.el --- Color and font configurations
+
 (provide 'init-color)
 
 (defconst bg-color "black")
@@ -18,3 +20,5 @@
 
 (set-face-attribute 'evil-search-highlight-persist-highlight-face nil :background "DodgerBlue4")
 (set-face-attribute 'mode-line nil :font default-font)
+
+;;; init-color.el ends here

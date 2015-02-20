@@ -1,3 +1,5 @@
+;;; init-mode.el --- Extension-mode associations
+
 (provide 'init-modes)
 
 (defconst file-mode-assocs
@@ -19,6 +21,8 @@
          ("rc$"              . conf-mode)
          ("\\.erb$"          . web-mode)
          ("emacs$"           . emacs-lisp-mode)))
+
 (mapc (lambda (assoc) (add-to-list 'auto-mode-alist assoc))
     file-mode-assocs)
 
+;;; init-mode.el ends here
