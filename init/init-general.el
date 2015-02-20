@@ -14,20 +14,11 @@
 (setq-default indent-tabs-mode nil)
 
 (setq-default tab-width 4)
-(defvaralias 'js-indent-level 'tab-width)
-(defvaralias 'c-basic-offset 'tab-width)
-(defvaralias 'lisp-indent-offset 'tab-width)
 
 (global-auto-revert-mode)
 
-(setq scss-compile-at-save nil)
-
 (setq browse-url-browser-function 'browse-url-generic
     browse-url-generic-program "chromium")
-
-(when (fboundp 'global-linum-mode)
-    (setq linum-format 'dynamic)
-    (global-linum-mode 1))
 
 (when (fboundp 'global-hl-line-mode)
     (global-hl-line-mode 1))
@@ -36,30 +27,20 @@
     (column-number-mode 1))
 
 (show-paren-mode 1)
-(autopair-global-mode)
+
+(after "autopair-autoloads"
+    (autopair-global-mode))
+
 (delete-selection-mode +1)
 
-(add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
-
 ;; highlights strings like TODO, FIXME, etc.
-(add-hook 'prog-mode-hook 'fic-ext-mode)
+(after "fic-ext-mode-autoloads"
+    (add-hook 'prog-mode-hook 'fic-ext-mode))
 
 ;; lines do not exceed 80 lines
 ;; (add-hook 'c-mode-common-hook 'turn-on-auto-fill)
 (add-hook 'prog-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-
-;; latex-mode-specific hooks (because latex-mode is retarded and not derived
-;; from prog-mode)
-(add-hook 'LaTeX-mode-hook
-    (lambda ()
-        (TeX-fold-mode 1)
-        (fic-ext-mode)
-        (auto-fill-mode)
-        (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
-                                            TeX-run-TeX nil t))))
-
-(add-hook 'scss-mode-hook 'rainbow-mode)
 
 (setq next-line-add-newlines t)
 
@@ -72,23 +53,13 @@
 (setq scroll-step 1)
 (setq scroll-margin 3)
 
-(defconst linum-mode-excludes
-    '(doc-view-mode
-         magit-mode)
-    "List of major modes preventing linum to be enabled in the buffer.")
-
-(defadvice linum-mode (around linum-mode-selective activate)
-    "Avoids enabling of linum-mode in the buffer having major mode set to one
-of listed in `linum-mode-excludes'."
-    (unless (member major-mode linum-mode-excludes)
-        ad-do-it))
-
-(sml/setup)                             ;; smart-mode-line initialize
-
+(after "smart-mode-line-autoloads"
+    (sml/setup))                             ;; smart-mode-line initialize
 
 (fringe-mode '(4 . 0))
 
-(company-mode)
-(setq company-idle-delay 0.0)
+(after "company-autoloads"
+    (company-mode)
+    (setq company-idle-delay 0.0))
 
 ;;; init-general.el ends here

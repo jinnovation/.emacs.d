@@ -33,6 +33,4 @@
     (interactive)
     (package-install-from-list package-list))
 
-(package-install-all-required)
-
 ;;; init-packages.el ends here

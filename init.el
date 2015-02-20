@@ -29,12 +29,20 @@
                     init-evil
                     init-doc-view
                     init-helm
-                    init-color
                     init-modes
                     init-projectile
+                    init-rm
+                    init-linum
+                    init-color
+
+                    ;; languages
                     init-ruby
+                    init-c
+                    init-js
+                    init-lisp
+                    init-sass
                     init-markdown
                     init-latex
-                    init-c
-                    init-mac
-                    init-rm))
+
+                    ;; environments
+                    init-mac))
