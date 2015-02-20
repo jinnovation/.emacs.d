@@ -86,3 +86,9 @@ i.e. change right window to bottom, or change bottom window to right."
             (package-refresh-contents)
             (message "%s" " done.")
             (package-install package))))
+
+(defmacro after (mode &rest body)
+    "`eval-after-load' MODE evaluate BODY."
+    (declare (indent defun))
+    `(eval-after-load ,mode
+         '(progn ,@body)))
