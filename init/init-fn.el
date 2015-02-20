@@ -89,9 +89,8 @@ i.e. change right window to bottom, or change bottom window to right."
 
 (defun package-install-from-list (list)
     (package-refresh-contents)
-    (mapc #'(lambda (package)
-                (unless (package-installed-p package)
-                    (package-install package)))
-        list))
+    (dolist (package list)
+        (unless (package-installed-p package)
+	  (package-install package))))
 
 ;;; init-fn.el ends here
