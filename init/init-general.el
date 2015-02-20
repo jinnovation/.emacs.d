@@ -2,6 +2,15 @@
 
 (provide 'init-general)
 
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'line-number-mode) (line-number-mode -1))
+
+(setq inhibit-startup-screen t)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message "")
+
 (setq-default indent-tabs-mode nil)
 
 (setq-default tab-width 4)
@@ -29,11 +38,6 @@
 (show-paren-mode 1)
 (autopair-global-mode)
 (delete-selection-mode +1)
-
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'line-number-mode) (line-number-mode -1))
 
 (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
 
@@ -82,10 +86,6 @@
 
 (setq scroll-step 1)
 (setq scroll-margin 3)
-
-(setq inhibit-startup-screen t)
-(setq inhibit-startup-message t)
-(setq initial-scratch-message "")
 
 (defconst linum-mode-excludes
     '(doc-view-mode
