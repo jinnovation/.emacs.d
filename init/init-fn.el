@@ -2,6 +2,12 @@
 
 (provide 'init-fn)
 
+(defmacro after (mode &rest body)
+    "`eval-after-load' MODE evaluate BODY."
+    (declare (indent defun))
+    `(eval-after-load ,mode
+         '(progn ,@body)))
+
 (defun kill-current-buffer ()
     (interactive)
     (kill-buffer (current-buffer)))
@@ -82,16 +88,10 @@ i.e. change right window to bottom, or change bottom window to right."
             map)))
 
 (defun package-install-from-list (list)
-    (dolist (package list)
-        (unless (package-installed-p package)
-            (message "%s" "Emacs is now refreshing its package database...")
-            (package-refresh-contents)
-            (message "%s" " done.")
-            (package-install package))))
+    (package-refresh-contents)
+    (mapc #'(lambda (package)
+                (unless (package-installed-p package)
+                    (package-install package)))
+        list))
 
-(defmacro after (mode &rest body)
-    "`eval-after-load' MODE evaluate BODY."
-    (declare (indent defun))
-    `(eval-after-load ,mode
-         '(progn ,@body)))
 ;;; init-fn.el ends here
