@@ -82,7 +82,6 @@ i.e. change right window to bottom, or change bottom window to right."
     "Sets the transparency of the frame window. 0=transparent/100=opaque"
     (interactive "nTransparency Value (0 - 100 opaque): ")
     (set-frame-parameter (selected-frame) 'alpha value))
-(set-transparency 70)
 
 (defun enlarge-window-horizontally-repeatable (inc)
     (interactive)

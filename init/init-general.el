@@ -1,6 +1,7 @@
 ;;; init-general.el --- general configurations
 
 (provide 'init-general)
+(require 'init-fn)
 
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -39,12 +40,12 @@
 
 ;; lines do not exceed 80 lines
 ;; (add-hook 'c-mode-common-hook 'turn-on-auto-fill)
+(setq-default fill-column 80)
 (add-hook 'prog-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 (setq next-line-add-newlines t)
 
-(setq-default fill-column 80)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (add-hook 'comint-output-filter-functions
@@ -61,5 +62,7 @@
 (if-package-installed "company"
     (company-mode)
     (setq company-idle-delay 0.0))
+
+(set-transparency 70)
 
 ;;; init-general.el ends here

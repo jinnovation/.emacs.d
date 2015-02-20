@@ -1,6 +1,7 @@
 ;;; init-color.el --- Color and font configurations
 
 (provide 'init-color)
+(require 'init-fn)
 
 (defconst bg-color "black")
 (defconst default-font "Terminus 08")
@@ -16,9 +17,12 @@
 
 (set-background-color bg-color)
 (set-face-attribute 'fringe nil :background bg-color)
-(set-face-attribute 'linum nil :background bg-color)
 
-(set-face-attribute 'evil-search-highlight-persist-highlight-face nil :background "DodgerBlue4")
+(after 'linum
+    (set-face-attribute 'linum nil :background bg-color))
+
+(if-package-installed "evil-search-highlight-persist"
+                      (set-face-attribute 'evil-search-highlight-persist-highlight-face nil :background "DodgerBlue4"))
 (set-face-attribute 'mode-line nil :font default-font)
 
 ;;; init-color.el ends here
