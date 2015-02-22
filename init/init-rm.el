@@ -13,7 +13,6 @@
              " company"
              " end"))
     (dolist (mode my-rm-excluded-modes)
-        (add-to-list 'rm-excluded-modes mode))
-    )
+        (add-to-list 'rm-excluded-modes mode)))
 
 ;;; init-rm.el ends here

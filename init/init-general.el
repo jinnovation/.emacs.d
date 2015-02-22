@@ -3,17 +3,19 @@
 (provide 'init-general)
 (require 'init-fn)
 
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'line-number-mode) (line-number-mode -1))
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+(menu-bar-mode 0)
+(line-number-mode 0)
 
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
+(setq visible-bell t)
+
+(blink-cursor-mode 0)
 
 (setq-default indent-tabs-mode nil)
-
 (setq-default tab-width 4)
 
 (global-auto-revert-mode)
@@ -21,11 +23,8 @@
 (setq browse-url-browser-function 'browse-url-generic
     browse-url-generic-program "chromium")
 
-(when (fboundp 'global-hl-line-mode)
-    (global-hl-line-mode 1))
-
-(when (fboundp 'column-number-mode)
-    (column-number-mode 1))
+(global-hl-line-mode 1)
+(column-number-mode 1)
 
 (show-paren-mode 1)
 
