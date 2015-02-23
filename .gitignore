@@ -1,1 +1,10 @@
 .cask
+*elpa*
+projectile*
+*.dat
+eshell/
+nxhtml/
+recentf
+tramp
+url/
+
