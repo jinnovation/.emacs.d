@@ -1,11 +1,5 @@
-Feature: Do Some things
-  In order to do something
-  As a user
-  I want to do something
+Feature: Helm
 
-  Scenario: Do Something
-    Given I have "something"
-    When I have "something"
-    Then I should have "something"
-    And I should have "something"
-    But I should not have "something"
+  Scenario: M-x
+    When I press "SPC m"
+    Then I should have a buffer named "*helm M-x*"
