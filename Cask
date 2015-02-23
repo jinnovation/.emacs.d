@@ -34,3 +34,4 @@
 (depends-on "feature-mode")
 
 (depends-on "autopair")
+(depends-on "pallet")

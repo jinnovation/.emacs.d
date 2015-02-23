@@ -10,6 +10,7 @@
          ("org"        . "http://orgmode.org/elpa/")))
 
 (package-initialize)
+(pallet-mode t)
 
 (custom-set-variables
     ;; custom-set-variables was added by Custom.
