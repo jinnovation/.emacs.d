@@ -1,5 +1,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
 
+(cask-initialize)
+
 (setq package-archives
     '(("melpa"         . "http://melpa.milkbox.net/packages/")
          ("marmalade"  . "http://marmalade-repo.org/packages/")
