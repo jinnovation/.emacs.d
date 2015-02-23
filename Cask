@@ -28,4 +28,5 @@
 (depends-on "pallet")
 (depends-on "paradox")
 (depends-on "projectile")
+(depends-on "ruby-end")
 (depends-on "smart-mode-line")
