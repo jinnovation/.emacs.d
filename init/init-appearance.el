@@ -5,7 +5,7 @@
 
 (defconst bg-color "black")
 (defconst default-font "Terminus 08")
-(set-default-font "Terminus 08")
+(set-default-font default-font)
 
 (setq font-face-main "DejaVu Sans Mono")
 (setq font-size-small "10")
@@ -34,6 +34,5 @@
     (set-fontset-font "fontset-default"
         'unicode
         (font-spec :family "DejaVu Sans Mono")))
-
 
 ;;; init-appearance.el ends here

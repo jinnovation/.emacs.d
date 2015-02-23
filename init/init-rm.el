@@ -11,6 +11,7 @@
              " Fill"
              " FIC"
              " company"
+             " EvilOrg"
              " end"))
     (dolist (mode my-rm-excluded-modes)
         (add-to-list 'rm-excluded-modes mode)))
