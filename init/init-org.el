@@ -22,11 +22,7 @@
          ("OFFERED" . 'org-done)
          ("DECLINED" . "orange")))
 
-(set-variable
-    'org-format-latex-options
-    (quote
-        (:foreground default :background default :scale 1.5 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
-            ("begin" "$1" "$" "$$" "\\(" "\\["))))
+;; (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 (setq org-latex-pdf-process
     '("pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"
