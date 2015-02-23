@@ -1,6 +1,7 @@
 ;;i init-org.el --- Org-mode-specific configurations
 
 (provide 'init-org)
+(require 'ox-latex)
 
 (setq org-pretty-entities t)
 (setq org-src-fontify-natively t)
@@ -41,5 +42,10 @@
             "w" org-edit-src-save)))
 
 (setq org-tags-column -80)
+
+(setq org-latex-create-formula-image-program 'imagemagick)
+
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
 
 ;;; init-org.el ends here
