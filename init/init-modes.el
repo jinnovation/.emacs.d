@@ -20,7 +20,8 @@
          ("conf$"            . conf-mode)
          ("rc$"              . conf-mode)
          ("\\.erb$"          . web-mode)
-         ("emacs$"           . emacs-lisp-mode)))
+         ("emacs$"           . emacs-lisp-mode)
+         ("Cask"           . emacs-lisp-mode)))
 
 (mapc (lambda (assoc) (add-to-list 'auto-mode-alist assoc))
     file-mode-assocs)
