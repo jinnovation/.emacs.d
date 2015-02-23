@@ -14,7 +14,7 @@
 (add-hook 'LaTeX-mode-hook
     (lambda ()
         (TeX-fold-mode 1)
-        (fic-ext-mode)
+        (fic-mode)
         (auto-fill-mode)
         (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
                                             TeX-run-TeX nil t))))

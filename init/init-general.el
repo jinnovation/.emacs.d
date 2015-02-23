@@ -34,8 +34,8 @@
 (delete-selection-mode +1)
 
 ;; highlights strings like TODO, FIXME, etc.
-(if-package-installed "fic-ext-mode"
-    (add-hook 'prog-mode-hook 'fic-ext-mode))
+(if-package-installed "fic-mode"
+    (add-hook 'prog-mode-hook 'fic-mode))
 
 ;; lines do not exceed 80 lines
 ;; (add-hook 'c-mode-common-hook 'turn-on-auto-fill)

@@ -37,7 +37,7 @@
     (lambda ()
         (add-to-list 'org-structure-template-alist
             '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
-        (fic-ext-mode)))
+        (fic-mode)))
 
 (add-hook 'org-src-mode-hook
     (lambda ()
