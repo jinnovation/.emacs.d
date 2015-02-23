@@ -1,5 +1,6 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
 
+(require 'cask)
 (cask-initialize)
 
 (setq package-archives
