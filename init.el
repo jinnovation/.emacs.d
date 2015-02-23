@@ -2,14 +2,6 @@
 
 (require 'cask)
 (cask-initialize)
-
-(setq package-archives
-    '(("melpa"         . "http://melpa.milkbox.net/packages/")
-         ("marmalade"  . "http://marmalade-repo.org/packages/")
-         ("gnu"        . "http://elpa.gnu.org/packages/")
-         ("org"        . "http://orgmode.org/elpa/")))
-
-(package-initialize)
 (pallet-mode t)
 
 (custom-set-variables
@@ -26,7 +18,6 @@
     '(paradox-github-token t))
 
 (mapc 'require '(init-fn
-                    init-packages
                     init-keybinding
                     init-general
                     init-org
