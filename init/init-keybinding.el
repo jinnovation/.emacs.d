@@ -2,6 +2,8 @@
 
 (provide 'init-keybinding)
 (require 'init-fn)
+(require 'hydra)
+(require 'hydra-examples)
 
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "\<C-S-iso-lefttab>")
@@ -28,6 +30,12 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 
 (after 'evil
+    (defhydra hydra-window (evil-normal-state-map "C-w")
+        "move splitter"
+        ("<left>" hydra-move-splitter-left "left")
+        ("<down>" hydra-move-splitter-down "down")
+        ("<up>" hydra-move-splitter-up "up")
+        ("<right>" hydra-move-splitter-right "right"))
     (local-unset-key (kbd "C-a"))
     (local-unset-key (kbd "C-x C-x"))
     (local-unset-key (kbd "C-w"))

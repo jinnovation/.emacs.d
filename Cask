@@ -23,6 +23,7 @@
 (depends-on "helm-ag")
 (depends-on "helm-projectile")
 (depends-on "helm-swoop")
+(depends-on "hydra")
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "org")
