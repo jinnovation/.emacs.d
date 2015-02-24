@@ -109,10 +109,9 @@ Normally, this immediately runs the default Projectile project test command;
     (let* ((compilation-read-command (if arg t nil)))
         (projectile-test-project arg)))
 
-
 (defhydra hydra-projectile
     (:color blue)
-    "Hydra projectile."
+    "Project"
     ("p" helm-projectile "projectile")
     ("F" helm-projectile-find-file-in-known-projects "find in all")
     ("a" helm-projectile-ag "ag in current")
@@ -121,27 +120,30 @@ Normally, this immediately runs the default Projectile project test command;
 
 (defhydra hydra-window
     (:color red)
-    ("h" windmove-left :color blue)
-    ("j" windmove-down :color blue)
-    ("k" windmove-up :color blue)
-    ("l" windmove-right :color blue)
-    ("<left>" hydra-move-splitter-left)
-    ("<right>" hydra-move-splitter-right)
-    ("<up>" hydra-move-splitter-up)
-    ("<down>" hydra-move-splitter-down)
+    "Window"
+    ("h" windmove-left "switch to left" :color blue)
+    ("j" windmove-down "switch to right" :color blue)
+    ("k" windmove-up "switch to up" :color blue)
+    ("l" windmove-right "switch to down" :color blue)
+    ("<left>" hydra-move-splitter-left "move splitter left")
+    ("<right>" hydra-move-splitter-right "move splitter right")
+    ("<up>" hydra-move-splitter-up "move splitter up")
+    ("<down>" hydra-move-splitter-down "move splitter down")
     ("q" delete-window :color blue)
     ("v" evil-window-vsplit :color blue)
     ("s" evil-window-split :color blue))
 
 (defhydra hydra-magit
     (:color blue)
-    ("s" magit-status)
-    ("b" magit-blame-mode))
+    "Git"
+    ("s" magit-status "status")
+    ("b" magit-blame-mode "blame mode"))
 
 (defhydra hydra-buffers
     (:color blue)
-    ("b" 'helm-buffers-list)
-    ("k" 'kill-current-buffer)
-    ("n" next-buffer))
+    "Buffers"
+    ("b" 'helm-buffers-list "list")
+    ("k" 'kill-current-buffer "kill current")
+    ("n" next-buffer "switch to next"))
 
 ;;; init-fn.el ends here
