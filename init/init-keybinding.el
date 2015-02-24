@@ -1,6 +1,7 @@
 ;;; init-keybinding.el --- Keybinding configs
 
 (provide 'init-keybinding)
+(require 'init-projectile)
 (require 'init-fn)
 (require 'hydra)
 (require 'hydra-examples)
@@ -48,7 +49,7 @@
     (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
     (define-key evil-normal-state-map (kbd "C-w q") 'delete-window)
     (define-key evil-normal-state-map (kbd "RET") 'insert-newline-after)
-    
+
     (define-key evil-insert-state-map (kbd "RET")
         'reindent-then-newline-and-indent)
 
@@ -56,6 +57,7 @@
     (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
 
     (evilem-default-keybindings "SPC")
+
 
     (after 'evil-leader
         (evil-leader/set-leader "<SPC>")
@@ -78,11 +80,7 @@
             "gs" 'magit-status
             "gb" 'magit-blame-mode
 
-            "pp" 'helm-projectile
-            "pF" 'helm-projectile-find-file-in-known-projects
-            "pa" 'helm-projectile-ag
-            "pK" 'projectile-kill-buffers
-            "pc" 'projectile-compile-project
+            "p" 'hydra-projectile/body
 
             "/" 'helm-swoop
 

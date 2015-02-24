@@ -2,6 +2,8 @@
 
 (provide 'init-fn)
 
+(require 'hydra)
+
 (defmacro after (mode &rest body)
     "`eval-after-load' MODE evaluate BODY."
     (declare (indent defun))
@@ -106,5 +108,15 @@ Normally, this immediately runs the default Projectile project test command;
     (save-buffer)
     (let* ((compilation-read-command (if arg t nil)))
         (projectile-test-project arg)))
+
+
+(defhydra hydra-projectile
+    (:color blue)
+    "Hydra projectile."
+    ("p" helm-projectile "projectile")
+    ("F" helm-projectile-find-file-in-known-projects "find in all")
+    ("a" helm-projectile-ag "ag in current")
+    ("K" projectile-kill-buffers "kill all buffers")
+    ("c" projectile-compile-project "compile project"))
 
 ;;; init-fn.el ends here
