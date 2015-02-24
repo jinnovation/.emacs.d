@@ -22,7 +22,8 @@
 
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 
-(global-set-key (kbd "<f12>") 'paradox-list-packages)
+(if-package-installed "paradox"
+    (global-set-key (kbd "<f12>") 'paradox-list-packages))
 
 (global-set-key (kbd "M-x") 'helm-M-x)
 
@@ -32,12 +33,15 @@
     (local-unset-key (kbd "C-w"))
     (local-unset-key (kbd "C-l"))
 
-    (define-key evil-normal-state-map (kbd "C-l") 'evil-search-highlight-persist-remove-all)
+    (define-key evil-normal-state-map (kbd "C-l")
+        'evil-search-highlight-persist-remove-all)
     (define-key evil-normal-state-map (kbd "M-p") 'evil-paste-pop)
     (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
     (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
     (define-key evil-normal-state-map (kbd "C-w q") 'delete-window)
     (define-key evil-normal-state-map (kbd "RET") 'insert-newline-after)
+    (define-key evil-insert-state-map (kbd "RET")
+        'reindent-then-newline-and-indent)
 
     (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
     (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
