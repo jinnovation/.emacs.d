@@ -7,3 +7,7 @@
         (cl-assert (not (eq nil (get-buffer buffer-name)))
             nil
             "could not find buffer")))
+
+(Then "^it should save the buffer"
+    (lambda ()
+        (cl-assert (eq nil (buffer-modified-p)))))
