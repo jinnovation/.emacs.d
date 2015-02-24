@@ -82,13 +82,10 @@ i.e. change right window to bottom, or change bottom window to right."
     (interactive "nTransparency Value (0 - 100 opaque): ")
     (set-frame-parameter (selected-frame) 'alpha value))
 
-(defun enlarge-window-horizontally-repeatable (inc)
+(defun enlarge-window-horizontally-repeatable (&optional inc)
     (interactive)
-    (enlarge-window-horizontally inc)
-    (set-transient-map
-        (let ((map (make-sparse-keymap)))
-            (define-key map (kbd "=") 'enlarge-window-horizontally-repeatable)
-            map)))
+    (let* ((step (if inc inc 5)))
+        (enlarge-window-horizontally step)))
 
 (defun package-install-from-list (list)
     (package-refresh-contents)

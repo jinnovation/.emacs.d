@@ -40,6 +40,7 @@
     (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
     (define-key evil-normal-state-map (kbd "C-w q") 'delete-window)
     (define-key evil-normal-state-map (kbd "RET") 'insert-newline-after)
+    
     (define-key evil-insert-state-map (kbd "RET")
         'reindent-then-newline-and-indent)
 
@@ -82,8 +83,8 @@
             "bb" 'helm-buffers-list
             "TAB" 'persp-next
             "<backtab>" 'persp-prev
-            "H" (lambda () (interactive) (enlarge-window-horizontally-repeatable 5))
-            "L" (lambda () (interactive)(enlarge-window-horizontally -5)))))
+            "H" 'enlarge-window-horizontally-repeatable
+            "L" (lambda () (interactive) (enlarge-window-horizontally -5)))))
 
 (eval-after-load 'projectile
     '(evil-leader/set-key
