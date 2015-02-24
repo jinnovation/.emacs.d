@@ -73,11 +73,7 @@
             "/" 'helm-swoop
 
             "ff" 'helm-find-files
-            "rc" 'reload-config
-            "TAB" 'persp-next
-            "<backtab>" 'persp-prev
-            "H" 'enlarge-window-horizontally-repeatable
-            "L" (lambda () (interactive) (enlarge-window-horizontally -5)))))
+            "rc" 'reload-config)))
 
 (eval-after-load 'projectile
     '(evil-leader/set-key
