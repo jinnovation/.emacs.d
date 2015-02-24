@@ -58,8 +58,8 @@
         (evil-leader/set-key
             "m" 'helm-M-x
             "w" 'save-buffer
-            "bk" 'kill-current-buffer
-            "bn" 'next-buffer
+
+            "b" 'hydra-buffers/body
 
             "rtw" 'delete-trailing-whitespace
 
@@ -78,7 +78,6 @@
 
             "ff" 'helm-find-files
             "rc" 'reload-config
-            "bb" 'helm-buffers-list
             "TAB" 'persp-next
             "<backtab>" 'persp-prev
             "H" 'enlarge-window-horizontally-repeatable

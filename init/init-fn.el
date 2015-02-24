@@ -138,4 +138,10 @@ Normally, this immediately runs the default Projectile project test command;
     ("s" magit-status)
     ("b" magit-blame-mode))
 
+(defhydra hydra-buffers
+    (:color blue)
+    ("b" 'helm-buffers-list)
+    ("k" 'kill-current-buffer)
+    ("n" next-buffer))
+
 ;;; init-fn.el ends here
