@@ -9,9 +9,8 @@
          '(progn ,@body)))
 
 (defmacro if-package-installed (package-name &rest body)
-    "`eval-after-load' MODE-autoloads evaluate BODY."
+    "`eval-after-load' PACKAGE-NAME-autoloads evaluate BODY."
     `(after (concat ,package-name "-autoloads") ,@body))
-
 
 (defun kill-current-buffer ()
     (interactive)
