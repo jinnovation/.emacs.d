@@ -119,4 +119,23 @@ Normally, this immediately runs the default Projectile project test command;
     ("K" projectile-kill-buffers "kill all buffers")
     ("c" projectile-compile-project "compile project"))
 
+(defhydra hydra-window
+    (:color red)
+    ("h" windmove-left :color blue)
+    ("j" windmove-down :color blue)
+    ("k" windmove-up :color blue)
+    ("l" windmove-right :color blue)
+    ("<left>" hydra-move-splitter-left)
+    ("<right>" hydra-move-splitter-right)
+    ("<up>" hydra-move-splitter-up)
+    ("<down>" hydra-move-splitter-down)
+    ("q" delete-window :color blue)
+    ("v" evil-window-vsplit :color blue)
+    ("s" evil-window-split :color blue))
+
+(defhydra hydra-magit
+    (:color blue)
+    ("s" magit-status)
+    ("b" magit-blame-mode))
+
 ;;; init-fn.el ends here

@@ -31,12 +31,7 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 
 (after 'evil
-    (defhydra hydra-window (evil-normal-state-map "C-w")
-        "move splitter"
-        ("<left>" hydra-move-splitter-left "left")
-        ("<down>" hydra-move-splitter-down "down")
-        ("<up>" hydra-move-splitter-up "up")
-        ("<right>" hydra-move-splitter-right "right"))
+    (define-key evil-normal-state-map (kbd "C-w") 'hydra-window/body)
     (local-unset-key (kbd "C-a"))
     (local-unset-key (kbd "C-x C-x"))
     (local-unset-key (kbd "C-w"))
@@ -47,7 +42,6 @@
     (define-key evil-normal-state-map (kbd "M-p") 'evil-paste-pop)
     (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
     (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
-    (define-key evil-normal-state-map (kbd "C-w q") 'delete-window)
     (define-key evil-normal-state-map (kbd "RET") 'insert-newline-after)
 
     (define-key evil-insert-state-map (kbd "RET")
@@ -77,9 +71,7 @@
 
             "ar" 'align-regexp
 
-            "gs" 'magit-status
-            "gb" 'magit-blame-mode
-
+            "g"  'hydra-magit/body
             "p" 'hydra-projectile/body
 
             "/" 'helm-swoop
