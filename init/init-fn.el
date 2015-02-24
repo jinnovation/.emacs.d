@@ -101,4 +101,14 @@ i.e. change right window to bottom, or change bottom window to right."
     (interactive)
     (package-install-from-list package-list))
 
+(defun projectile-save-and-test (arg)
+    "Saves the current buffer, and then run project test command.
+
+Normally, this immediately runs the default Projectile project test command;
+`make test` for Makefile projects, etc. You can force prompt with a prefix ARG."
+    (interactive "P")
+    (save-buffer)
+    (let* ((compilation-read-command (if arg t nil)))
+        (projectile-test-project arg)))
+
 ;;; init-fn.el ends here

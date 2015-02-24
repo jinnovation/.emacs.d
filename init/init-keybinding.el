@@ -69,6 +69,7 @@
             "pF" 'helm-projectile-find-file-in-known-projects
             "pa" 'helm-projectile-ag
             "pK" 'projectile-kill-buffers
+            "pc" 'projectile-compile-project
 
             "/" 'helm-swoop
 
@@ -79,4 +80,10 @@
             "<backtab>" 'persp-prev
             "H" (lambda () (interactive) (enlarge-window-horizontally-repeatable 5))
             "L" (lambda () (interactive)(enlarge-window-horizontally -5)))))
+
+(eval-after-load 'projectile
+    '(evil-leader/set-key
+         "w" 'projectile-save-and-test
+         "W" 'save-buffer))
+
 ;;; init-keybinding.el ends here
