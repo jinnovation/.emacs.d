@@ -144,12 +144,4 @@ Normally, this immediately runs the default Projectile project test command;
     ("k" 'kill-current-buffer)
     ("n" next-buffer))
 
-(defhydra hydra-comments
-    (:color blue)
-    ("i" 'evilnc-comment-or-uncomment-lines)
-    ("l" 'evilnc-quick-comment-or-uncomment-to-the-line)
-    ("c" 'evilnc-copy-and-comment-lines)
-    ("p" 'evilnc-comment-or-uncomment-paragraphs)
-    ("v" 'evilnc-toggle-invert-comment-line-by-line))
-
 ;;; init-fn.el ends here
