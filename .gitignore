@@ -1,7 +1,8 @@
 .cask
 *elpa*
-projectile*
 *.dat
+*.eld
+*.cache
 eshell/
 nxhtml/
 recentf
