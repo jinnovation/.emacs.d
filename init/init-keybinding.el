@@ -3,8 +3,6 @@
 (provide 'init-keybinding)
 (require 'init-projectile)
 (require 'init-fn)
-(require 'hydra)
-(require 'hydra-examples)
 
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "\<C-S-iso-lefttab>")
@@ -58,10 +56,6 @@
             "m" 'helm-M-x
             "w" 'save-buffer
 	    
-            "b" 'hydra-buffers/body
-            "g" 'hydra-magit/body
-            "p" 'hydra-projectile/body
-
             "rtw" 'delete-trailing-whitespace
 
             "ci" 'evilnc-comment-or-uncomment-lines
@@ -73,11 +67,24 @@
             "ar" 'align-regexp
             "/" 'helm-swoop
             "ff" 'helm-find-files
-            "rc" 'reload-config)))
+            "rc" 'reload-config
+
+            "pp" 'helm-projectile
+            "pF" 'helm-projectile-find-file-in-known-projects
+            "pa" 'helm-projectile-ag 
+            "pK" 'projectile-kill-buffers
+            "pc" 'projectile-compile-project
+            
+            "gs" 'magit-status
+            "gb" 'magit-blame-mode 
+
+            "bb" 'helm-buffers-list
+            "bk" 'kill-current-buffer
+            "bn" 'next-buffer)))
 
 (eval-after-load 'projectile
     '(evil-leader/set-key
-         "w" 'projectile-save-and-test
-         "W" 'save-buffer))
+         "W" 'projectile-save-and-test
+         "w" 'save-buffer))
 
 ;;; init-keybinding.el ends here

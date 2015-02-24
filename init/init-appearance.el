@@ -35,9 +35,4 @@
         'unicode
         (font-spec :family "DejaVu Sans Mono")))
 
-(set-face-attribute
-    'hydra-face-blue
-    nil
-    :foreground "DodgerBlue4")
-
 ;;; init-appearance.el ends here

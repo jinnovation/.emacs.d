@@ -2,8 +2,6 @@
 
 (provide 'init-fn)
 
-(require 'hydra)
-
 (defmacro after (mode &rest body)
     "`eval-after-load' MODE evaluate BODY."
     (declare (indent defun))
@@ -108,42 +106,5 @@ Normally, this immediately runs the default Projectile project test command;
     (save-buffer)
     (let* ((compilation-read-command (if arg t nil)))
         (projectile-test-project arg)))
-
-(defhydra hydra-projectile
-    (:color blue)
-    "Project"
-    ("p" helm-projectile "projectile")
-    ("F" helm-projectile-find-file-in-known-projects "find in all")
-    ("a" helm-projectile-ag "ag in current")
-    ("K" projectile-kill-buffers "kill all buffers")
-    ("c" projectile-compile-project "compile project"))
-
-(defhydra hydra-window
-    (:color red)
-    "Window"
-    ("h" windmove-left "switch to left" :color blue)
-    ("j" windmove-down "switch to right" :color blue)
-    ("k" windmove-up "switch to up" :color blue)
-    ("l" windmove-right "switch to down" :color blue)
-    ("<left>" hydra-move-splitter-left "move splitter left")
-    ("<right>" hydra-move-splitter-right "move splitter right")
-    ("<up>" hydra-move-splitter-up "move splitter up")
-    ("<down>" hydra-move-splitter-down "move splitter down")
-    ("q" delete-window :color blue)
-    ("v" evil-window-vsplit :color blue)
-    ("s" evil-window-split :color blue))
-
-(defhydra hydra-magit
-    (:color blue)
-    "Git"
-    ("s" magit-status "status")
-    ("b" magit-blame-mode "blame mode"))
-
-(defhydra hydra-buffers
-    (:color blue)
-    "Buffers"
-    ("b" 'helm-buffers-list "list")
-    ("k" 'kill-current-buffer "kill current")
-    ("n" next-buffer "switch to next"))
 
 ;;; init-fn.el ends here
