@@ -52,26 +52,21 @@
 
     (evilem-default-keybindings "SPC")
 
-
     (after 'evil-leader
         (evil-leader/set-leader "<SPC>")
         (evil-leader/set-key
             "m" 'helm-M-x
             "w" 'save-buffer
-
+	    
             "b" 'hydra-buffers/body
+            "c" 'hydra-comments/body
+            "g" 'hydra-magit/body
+            "p" 'hydra-projectile/body
 
             "rtw" 'delete-trailing-whitespace
 
-            "c" 'hydra-comments/body
-
             "ar" 'align-regexp
-
-            "g"  'hydra-magit/body
-            "p" 'hydra-projectile/body
-
             "/" 'helm-swoop
-
             "ff" 'helm-find-files
             "rc" 'reload-config)))
 
