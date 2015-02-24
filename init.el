@@ -38,5 +38,7 @@
                     init-markdown
                     init-latex
 
+                    init-compile
+
                     ;; environments
                     init-mac))
