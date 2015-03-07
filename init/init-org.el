@@ -36,10 +36,10 @@
             '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
         (fic-mode)))
 
-(add-hook 'org-src-mode-hook
-    (lambda ()
-        (evil-leader/set-key
-            "w" org-edit-src-save)))
+;; (add-hook 'org-src-mode-hook
+;;     (lambda ()
+;;         (evil-leader/set-key
+;;             "w" 'org-edit-src-save)))
 
 (setq org-tags-column -80)
 

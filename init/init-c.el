@@ -7,6 +7,4 @@
 
 (defvaralias 'c-basic-offset 'tab-width)
 
-(add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
-
 ;;; init-c.el ends here

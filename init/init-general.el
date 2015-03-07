@@ -12,6 +12,7 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
 (setq visible-bell t)
+(setq use-dialog-box nil)
 
 (blink-cursor-mode 0)
 
@@ -28,8 +29,7 @@
 
 (show-paren-mode 1)
 
-(if-package-installed "autopair"
-    (autopair-global-mode))
+(electric-pair-mode)
 
 (delete-selection-mode +1)
 

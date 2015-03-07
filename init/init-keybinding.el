@@ -13,10 +13,10 @@
 (global-set-key (kbd "<f2>") 'shell)
 (global-set-key (kbd "<f11>") 'org-agenda)
 
-(global-set-key (kbd "RET") 'reindent-then-newline-and-indent)
+(global-set-key (kbd "RET") 'align-newline-and-indent)
 (add-hook 'ruby-mode-hook
     (lambda () (local-set-key (kbd "RET")
-                   'reindent-then-newline-and-indent)
+                   'align-newline-and-indent)
 	    (ruby-end-mode)))
 
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
@@ -29,7 +29,6 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 
 (after 'evil
-    (define-key evil-normal-state-map (kbd "C-w") 'hydra-window/body)
     (local-unset-key (kbd "C-a"))
     (local-unset-key (kbd "C-x C-x"))
     (local-unset-key (kbd "C-w"))
@@ -40,10 +39,12 @@
     (define-key evil-normal-state-map (kbd "M-p") 'evil-paste-pop)
     (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
     (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
+    
+    (define-key evil-normal-state-map (kbd "C-w q") 'delete-window)
     (define-key evil-normal-state-map (kbd "RET") 'insert-newline-after)
 
     (define-key evil-insert-state-map (kbd "RET")
-        'reindent-then-newline-and-indent)
+        'align-newline-and-indent)
 
     (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
     (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
@@ -86,5 +87,9 @@
     '(evil-leader/set-key
          "W" 'projectile-save-and-test
          "w" 'save-buffer))
+
+(evil-define-key 'normal org-src-mode-map (kbd (concat evil-leader/leader " w"))
+    'org-edit-src-save)
+
 
 ;;; init-keybinding.el ends here

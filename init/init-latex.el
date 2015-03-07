@@ -19,5 +19,5 @@
         (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
                                             TeX-run-TeX nil t))))
 
-(setq TeX-newline-function 'reindent-then-newline-and-indent)
+(setq TeX-newline-function 'align-newline-and-indent)
 ;;; init-latex.el ends here
