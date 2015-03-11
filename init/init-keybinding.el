@@ -11,7 +11,12 @@
         (other-window -1)))
 
 (global-set-key (kbd "<f2>") 'shell)
-(global-set-key (kbd "<f11>") 'org-agenda)
+(after 'elfeed
+    (global-set-key (kbd "<f11>") 'elfeed)
+    (define-key elfeed-search-mode-map (kbd "<SPC>") 'next-line))
+(if-package-installed "paradox"
+    (global-set-key (kbd "<f12>") 'paradox-list-packages))
+
 
 (global-set-key (kbd "RET") 'reindent-then-newline-and-indent)
 (add-hook 'ruby-mode-hook
@@ -22,9 +27,6 @@
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
 
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
-
-(if-package-installed "paradox"
-    (global-set-key (kbd "<f12>") 'paradox-list-packages))
 
 (global-set-key (kbd "M-x") 'helm-M-x)
 
