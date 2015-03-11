@@ -12,7 +12,8 @@
              " FIC"
              " company"
              " EvilOrg"
-             " end"))
+             " end"
+             " Ace - Window"))
     (dolist (mode my-rm-excluded-modes)
         (add-to-list 'rm-excluded-modes mode)))
 

@@ -4,6 +4,8 @@
 (require 'init-projectile)
 (require 'init-fn)
 
+(global-set-key (kbd "M-p") 'ace-window)
+
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "\<C-S-iso-lefttab>")
     (lambda ()

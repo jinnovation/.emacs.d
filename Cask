@@ -2,6 +2,7 @@
 (source melpa)
 (source org)
 
+(depends-on "ace-window")
 (depends-on "android-mode")
 (depends-on "auctex")
 (depends-on "debbugs")
