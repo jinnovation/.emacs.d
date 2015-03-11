@@ -6,6 +6,7 @@
 (depends-on "auctex")
 (depends-on "debbugs")
 (depends-on "ecukes")
+(depends-on "elfeed")
 (depends-on "evil")
 (depends-on "evil-easymotion")
 (depends-on "evil-leader")

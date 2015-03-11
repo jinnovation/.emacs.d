@@ -29,6 +29,8 @@
                     init-linum
                     init-appearance
 
+                    init-elfeed
+
                     ;; languages
                     init-ruby
                     init-c
