@@ -1,6 +1,7 @@
 ;;; init-keybinding.el --- Keybinding configs
 
 (provide 'init-keybinding)
+
 (require 'init-projectile)
 (require 'init-fn)
 
@@ -23,18 +24,16 @@
 (if-package-installed "paradox"
     (global-set-key (kbd "<f12>") 'paradox-list-packages))
 
-(global-set-key (kbd "RET") 'reindent-then-newline-and-indent)
-
 (add-hook 'ruby-mode-hook
-    (lambda () (local-set-key (kbd "RET")
-                   'reindent-then-newline-and-indent)
+    (lambda ()
+        (local-set-key (kbd "RET")
+            'reindent-then-newline-and-indent)
 	    (ruby-end-mode)))
 
+(global-set-key (kbd "RET")   'reindent-then-newline-and-indent)
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
-
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
-
-(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-x")   'helm-M-x)
 
 (after 'evil
     (local-unset-key (kbd "C-a"))
@@ -46,7 +45,7 @@
         'evil-search-highlight-persist-remove-all)
     (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
     (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
-    
+
     (define-key evil-normal-state-map (kbd "C-w q") 'delete-window)
     (define-key evil-normal-state-map (kbd "RET") 'insert-newline-after)
 
@@ -63,7 +62,7 @@
         (evil-leader/set-key
             "m" 'helm-M-x
             "w" 'save-buffer
-	    
+
             "rtw" 'delete-trailing-whitespace
 
             "ci" 'evilnc-comment-or-uncomment-lines
@@ -79,12 +78,12 @@
 
             "pp" 'helm-projectile
             "pF" 'helm-projectile-find-file-in-known-projects
-            "pa" 'helm-projectile-ag 
+            "pa" 'helm-projectile-ag
             "pK" 'projectile-kill-buffers
             "pc" 'projectile-compile-project
-            
+
             "gs" 'magit-status
-            "gb" 'magit-blame-mode 
+            "gb" 'magit-blame-mode
 
             "bb" 'helm-buffers-list
             "bk" 'kill-current-buffer
@@ -97,6 +96,5 @@
 
 (evil-define-key 'normal org-src-mode-map (kbd (concat evil-leader/leader " w"))
     'org-edit-src-save)
-
 
 ;;; init-keybinding.el ends here

@@ -1,6 +1,7 @@
 ;;i init-org.el --- Org-mode-specific configurations
 
 (provide 'init-org)
+
 (require 'ox-latex)
 
 (setq org-pretty-entities t)
