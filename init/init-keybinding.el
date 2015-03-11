@@ -13,14 +13,18 @@
         (other-window -1)))
 
 (global-set-key (kbd "<f2>") 'shell)
+
+(if-package-installed "elfeed"
+    (global-set-key (kbd "<f11>") 'elfeed))
+
 (after 'elfeed
-    (global-set-key (kbd "<f11>") 'elfeed)
     (define-key elfeed-search-mode-map (kbd "<SPC>") 'next-line))
+
 (if-package-installed "paradox"
     (global-set-key (kbd "<f12>") 'paradox-list-packages))
 
-
 (global-set-key (kbd "RET") 'reindent-then-newline-and-indent)
+
 (add-hook 'ruby-mode-hook
     (lambda () (local-set-key (kbd "RET")
                    'reindent-then-newline-and-indent)
@@ -40,7 +44,6 @@
 
     (define-key evil-normal-state-map (kbd "C-l")
         'evil-search-highlight-persist-remove-all)
-    (define-key evil-normal-state-map (kbd "M-p") 'evil-paste-pop)
     (define-key evil-normal-state-map (kbd "L") 'evil-end-of-line)
     (define-key evil-normal-state-map (kbd "H") 'evil-beginning-of-line)
     
