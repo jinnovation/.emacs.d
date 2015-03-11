@@ -8,11 +8,11 @@
 (menu-bar-mode 0)
 (line-number-mode 0)
 
-(setq inhibit-startup-screen t)
-(setq inhibit-startup-message t)
-(setq initial-scratch-message "")
-(setq visible-bell t)
-(setq use-dialog-box nil)
+(setq inhibit-startup-screen t
+    inhibit-startup-message t
+    initial-scratch-message ""
+    visible-bell t
+    use-dialog-box nil)
 
 (blink-cursor-mode 0)
 
@@ -50,8 +50,8 @@
 (add-hook 'comint-output-filter-functions
     'comint-watch-for-password-prompt)
 
-(setq scroll-step 1)
-(setq scroll-margin 3)
+(setq scroll-step 1
+    scroll-margin 3)
 
 (if-package-installed "smart-mode-line"
     (sml/setup))                             ;; smart-mode-line initialize

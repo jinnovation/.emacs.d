@@ -2,8 +2,9 @@
 (provide 'init-latex)
 
 ;; sets latex-mode to compile w/ pdflatex by default
-(setq TeX-PDF-mode t)
-(setq TeX-parse-self t)
+(setq TeX-PDF-mode t
+    TeX-parse-self t
+    TeX-newline-function 'reindent-then-newline-and-indent)
 
 (eval-after-load "tex"
     '(setcdr (assoc "LaTeX" TeX-command-list)
@@ -19,5 +20,4 @@
         (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
                                             TeX-run-TeX nil t))))
 
-(setq TeX-newline-function 'reindent-then-newline-and-indent)
 ;;; init-latex.el ends here

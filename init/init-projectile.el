@@ -2,9 +2,10 @@
 
 (provide 'init-projectile)
 
-(setq projectile-enable-caching t)
+(setq projectile-enable-caching t
+    projectile-completion-system 'grizzl
+    projectile-switch-project-action 'helm-projectile)
+
 (projectile-global-mode)
-(setq projectile-completion-system 'grizzl)
-(setq projectile-switch-project-action 'helm-projectile)
 
 ;;; init-projectile.el ends here
