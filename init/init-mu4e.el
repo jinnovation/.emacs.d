@@ -3,7 +3,6 @@
 
 (require 'mu4e)
 
-
 (after 'mu4e
     ;; default
     (setq mu4e-maildir "~/mail")
@@ -34,7 +33,6 @@
     ;; allow for updating mail using 'U' in the main view:
     (setq mu4e-get-mail-command "offlineimap")
 
-    ;; something about ourselves
     (setq
         user-mail-address "jjin082693@gmail.com"
         user-full-name  "Jonathan Jin"
@@ -70,8 +68,7 @@
     (setq
         mu4e-html-renderer 'w3m
         mu4e-html2text-command "w3m -dump -T text/html"
-        mu4e-update-interval 300  
-        )
+        mu4e-update-interval 300)
 
     (add-hook 'mu4e-index-updated-hook
         '(lambda ()

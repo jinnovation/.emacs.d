@@ -107,4 +107,9 @@ Normally, this immediately runs the default Projectile project test command;
     (let* ((compilation-read-command (if arg t nil)))
         (projectile-test-project arg)))
 
+(defun my-gnus-group-list-subscribed-groups ()
+  "List all subscribed groups with or without un-read messages"
+  (interactive)
+  (gnus-group-list-all-groups 5))
+
 ;;; init-fn.el ends here

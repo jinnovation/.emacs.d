@@ -30,6 +30,7 @@
                     init-appearance
 
                     init-elfeed
+                    init-gnus
 
                     ;; languages
                     init-ruby

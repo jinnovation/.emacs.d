@@ -38,4 +38,5 @@
 (depends-on "rainbow-mode")
 (depends-on "ruby-end")
 (depends-on "smart-mode-line")
+(depends-on "w3m")
 (depends-on "yaml-mode")

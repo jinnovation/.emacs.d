@@ -97,4 +97,9 @@
 (evil-define-key 'normal org-src-mode-map (kbd (concat evil-leader/leader " w"))
     'org-edit-src-save)
 
+(after 'gnus
+    (define-key gnus-group-mode-map 
+        ;; list all the subscribed groups even they contain zero un-read messages
+        (kbd "o") 'my-gnus-group-list-subscribed-groups))
+
 ;;; init-keybinding.el ends here
