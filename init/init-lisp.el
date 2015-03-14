@@ -3,5 +3,5 @@
 (provide 'init-lisp)
 (require 'init-general)
 
-(defvaralias 'lisp-indent-offset 'tab-width)
+(setq lisp-indent-offset 2)
 ;;; init-lisp.el ends here

@@ -3,6 +3,7 @@
 (source org)
 
 (depends-on "ace-window")
+(depends-on "alert")
 (depends-on "android-mode")
 (depends-on "auctex")
 (depends-on "debbugs")
@@ -22,6 +23,7 @@
 (depends-on "git-rebase-mode")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
+(depends-on "gnus-desktop-notify")
 (depends-on "gotham-theme")
 (depends-on "haskell-mode")
 (depends-on "helm")

@@ -2,6 +2,4 @@
 
 (provide 'init-gnus)
 
-(setq mm-text-html-renderer 'w3m)
-
 ;;; init-gnus.el ends here
