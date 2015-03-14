@@ -4,25 +4,19 @@
 
 (require 'ox-latex)
 
-(setq org-pretty-entities t)
-(setq org-src-fontify-natively t)
-(setq org-alphabetical-lists t)
+(setq
+
+  org-enforce-todo-dependencies           t
+  org-enforce-todo-checkbox-dependencies  t
+  org-pretty-entities                     t
+  org-src-fontify-natively                t
+  org-alphabetical-lists                  t)
 
 (setq org-todo-keywords
-    '((sequence "TODO(t)" "|" "REVIEW(r)" "DONE(d)")))
-;;   (sequence "TO-APPLY(a)" "|" "APPLIED(A!)" "IN-PROCESS(i!)"
-;; "PENDING(p!)""NONE(n!)" "REJECTED(r!)" "OFFERED(O!)" "DECLINED(D!)")))
+    '((sequence "TODO(t)" "IN-PROGRESS(r)" "|"  "DONE(d)")))
 
 (setq org-todo-keyword-faces
-    '(("TO-APPLY" . org-todo)
-         ("REVIEW". "yellow")
-         ("APPLIED" . "yellow")
-         ("IN-PROCESS" . "yellow")
-         ("PENDING" . "yellow")
-         ("NONE" . "red")
-         ("REJECTED" . "red")
-         ("OFFERED" . 'org-done)
-         ("DECLINED" . "orange")))
+    '(("TODO" . org-todo) ("IN-PROGRESS" . "yellow") ("DONE" . org-done)))
 
 ;; (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
@@ -37,17 +31,12 @@
             '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
         (fic-mode)))
 
-;; (add-hook 'org-src-mode-hook
-;;     (lambda ()
-;;         (evil-leader/set-key
-;;             "w" 'org-edit-src-save)))
-
-(setq org-tags-column -80)
-
-(setq org-latex-create-formula-image-program 'imagemagick)
+(setq
+  org-tags-column -80
+  org-latex-create-formula-image-program 'imagemagick
+  org-latex-listings 'minted)
 
 (add-to-list 'org-latex-packages-alist '("" "minted"))
-(setq org-latex-listings 'minted)
 
 (defun my-org-autodone (n-done n-not-done)
     "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -55,5 +44,19 @@
         (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
+
+(setq org-agenda-files '("~/agenda"))
+
+(setq org-agenda-custom-commands
+  '(("j" "Homework"
+      ((agenda "" ((org-agenda-ndays 14)
+                    (org-agenda-start-on-weekday nil)
+                    (org-agenda-prefix-format " %-12:c%?-12t% s")))
+        (tags-todo "CATEGORY=\"HW\""
+          ((org-agenda-prefix-format "%b")))))
+     
+     ("r" "Reading"
+       ((tags-todo "CATEGORY=\"Reading\""
+          ((org-agenda-prefix-format "%:T ")))))))
 
 ;;; init-org.el ends here
