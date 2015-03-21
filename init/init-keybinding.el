@@ -14,7 +14,7 @@
     (other-window -1)))
 
 (global-set-key (kbd "<f2>") 'shell)
-(global-set-key (kbd "<f10>") 'gnus)
+(global-set-key (kbd "<f10>") 'mu4e)
 (if-package-installed "elfeed"
   (global-set-key (kbd "<f11>") 'elfeed))
 (global-set-key (kbd "<f12>") 'org-agenda)
