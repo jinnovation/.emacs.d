@@ -9,10 +9,10 @@
 (line-number-mode 0)
 
 (setq inhibit-startup-screen t
-    inhibit-startup-message t
-    initial-scratch-message ""
-    visible-bell t
-    use-dialog-box nil)
+  inhibit-startup-message t
+  initial-scratch-message ""
+  visible-bell t
+  use-dialog-box nil)
 
 (blink-cursor-mode 0)
 
@@ -22,7 +22,7 @@
 (global-auto-revert-mode)
 
 (setq browse-url-browser-function 'browse-url-generic
-    browse-url-generic-program "chromium")
+  browse-url-generic-program "chromium")
 
 (global-hl-line-mode 1)
 (column-number-mode 1)
@@ -35,7 +35,7 @@
 
 ;; highlights strings like TODO, FIXME, etc.
 (if-package-installed "fic-mode"
-    (add-hook 'prog-mode-hook 'fic-mode))
+  (add-hook 'prog-mode-hook 'fic-mode))
 
 ;; lines do not exceed 80 lines
 ;; (add-hook 'c-mode-common-hook 'turn-on-auto-fill)
@@ -48,19 +48,19 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (add-hook 'comint-output-filter-functions
-    'comint-watch-for-password-prompt)
+  'comint-watch-for-password-prompt)
 
 (setq scroll-step 1
-    scroll-margin 3)
+  scroll-margin 3)
 
 (if-package-installed "smart-mode-line"
-    (sml/setup))                             ;; smart-mode-line initialize
+  (sml/setup))                             ;; smart-mode-line initialize
 
 (fringe-mode '(4 . 0))
 
 (if-package-installed "company"
-    (company-mode)
-    (setq company-idle-delay 0.0))
+  (company-mode)
+  (setq company-idle-delay 0.0))
 
 (set-transparency 70)
 
