@@ -23,11 +23,11 @@
   '(("TODO" . org-todo) ("IN-PROGRESS" . "yellow") ("DONE" . org-done))
   
   org-agenda-custom-commands
-  '(("h" "Homework"
+  '(("s" "Schoolwork"
       ((agenda "" ((org-agenda-ndays 14)
                     (org-agenda-start-on-weekday nil)
                     (org-agenda-prefix-format " %-12:c%?-12t% s")))
-        (tags-todo "CATEGORY=\"HW\""
+        (tags-todo "CATEGORY=\"Schoolwork\""
           ((org-agenda-prefix-format "%b")))))
      
      ("r" "Reading"
