@@ -18,6 +18,8 @@
      ("http://feeds.bbci.co.uk/news/technology/rss.xml" tech news)
      ("http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml" news)
 
+     ("http://feeds.99percentinvisible.org/99percentinvisible" podcast design)
+
      ("http://rss.escapistmagazine.com/news/0.xml" entertainment)
      ("http://rss.escapistmagazine.com/videos/list/1.xml" entertainment)
      ("http://www.engadget.com/tag/@gaming/rss.xml" entertainment)
