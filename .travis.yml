@@ -11,6 +11,7 @@ install:
 
 script:
   - emacs --version
+  - cask install
   - make test
 
 notifications:
