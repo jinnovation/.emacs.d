@@ -12,6 +12,7 @@
      elfeed-search-mode
      gnus-group-mode
      mu4e-main-mode
+     mu4e-headers-mode
      mu4e-view-mode)
   "List of major modes preventing linum to be enabled in the buffer.")
 

@@ -32,6 +32,9 @@
      
      ("r" "Reading"
        ((tags-todo "CATEGORY=\"Reading\""
+          ((org-agenda-prefix-format "%:T ")))))
+     ("m" "Movies"
+       ((tags-todo "CATEGORY=\"Movies\""
           ((org-agenda-prefix-format "%:T "))))))
   
   org-latex-pdf-process

@@ -51,8 +51,8 @@
      ("http://feed.dilbert.com/dilbert/daily_strip" comic)
      ("http://feeds.feedburner.com/smbc-comics/PvLb" comic)
      ("http://www.questionablecontent.net/QCRSS.xml" comic)
-     ("http://phdcomics.com/gradfeed.php" comic))
+     ("http://phdcomics.com/gradfeed.php" comic)))
 
-  elfeed-max-connections 10)
+(setq elfeed-max-connections 10)
 
 ;;; init-elfeed.el ends here

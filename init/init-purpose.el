@@ -9,7 +9,7 @@
 
 (setq purpose-user-regexp-purposes
   '(("mu4e" . admin)
-     ("elfeed" . admin)))
+     ("^\\*elfeed" . admin)))
 
 (purpose-compile-user-configuration)
 
