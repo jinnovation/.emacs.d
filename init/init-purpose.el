@@ -5,7 +5,9 @@
 (purpose-x-magit-single-on)
 
 (setq purpose-user-mode-purposes
-  '((prog-mode . edit)))
+  '((prog-mode . edit)
+     (text-mode . edit)
+     (yaml-mode . edit)))
 
 (setq purpose-user-regexp-purposes
   '(("mu4e" . admin)
