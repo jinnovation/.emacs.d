@@ -8,6 +8,7 @@
 (depends-on "auctex")
 (depends-on "circe")
 (depends-on "debbugs")
+(depends-on "dired+")
 (depends-on "ecukes")
 (depends-on "elfeed")
 (depends-on "ess")

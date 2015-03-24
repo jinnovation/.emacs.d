@@ -108,4 +108,8 @@ Normally, this immediately runs the default Projectile project test command;
   (interactive)
   (gnus-group-list-all-groups 5))
 
+(defun dired-at-current ()
+  (interactive)
+  (dired default-directory))
+
 ;;; init-fn.el ends here

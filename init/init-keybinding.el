@@ -5,6 +5,8 @@
 (require 'init-projectile)
 (require 'init-fn)
 
+(global-unset-key (kbd "<menu>"))
+
 (global-set-key (kbd "M-`") 'ace-window)
 
 (global-set-key (kbd "C-<tab>") 'other-window)
@@ -13,7 +15,7 @@
     (interactive)
     (other-window -1)))
 
-(global-set-key (kbd "<f2>") 'shell)
+(global-set-key (kbd "<f1>") 'dired-at-current)
 (global-set-key (kbd "<f9>") 'circe)
 (global-set-key (kbd "<f10>") 'mu4e)
 (if-package-installed "elfeed"
@@ -39,6 +41,8 @@
   (local-unset-key (kbd "C-x C-x"))
   (local-unset-key (kbd "C-w"))
   (local-unset-key (kbd "C-l"))
+
+  (define-key evil-emacs-state-map (kbd "<escape>") 'evil-execute-in-normal-state)
 
   (define-key evil-normal-state-map (kbd "C-l")
     'evil-search-highlight-persist-remove-all)
@@ -70,10 +74,11 @@
       "cp" 'evilnc-comment-or-uncomment-paragraphs
       "cv" 'evilnc-toggle-invert-comment-line-by-line
 
+      "ii" 'helm-circe
+
       "ar" 'align-regexp
       "/" 'helm-swoop
       "ff" 'helm-find-files
-      "rc" 'reload-config
 
       "pp" 'helm-projectile
       "pF" 'helm-projectile-find-file-in-known-projects
@@ -84,11 +89,11 @@
       "gs" 'magit-status
       "gb" 'magit-blame-mode
 
-      "op" 'org-set-property
-
       "bb" 'helm-buffers-list
       "bk" 'kill-current-buffer
       "bn" 'next-buffer)))
+
+(evil-leader/set-key-for-mode 'org-mode "op" 'org-set-property)
 
 (eval-after-load 'projectile
   '(evil-leader/set-key
@@ -98,10 +103,5 @@
 (evil-define-key 'normal org-src-mode-map
   (kbd (concat evil-leader/leader " w"))
   'org-edit-src-save)
-
-(after 'gnus
-  (define-key gnus-group-mode-map 
-    ;; list all the subscribed groups even they contain zero un-read messages
-    (kbd "o") 'my-gnus-group-list-subscribed-groups))
 
 ;;; init-keybinding.el ends here

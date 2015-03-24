@@ -22,8 +22,10 @@
 
 (blink-cursor-mode 0)
 
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
+(setq-default
+  fill-column 80
+  indent-tabs-mode nil
+  tab-width 4)
 
 (global-auto-revert-mode)
 
@@ -43,9 +45,6 @@
 (if-package-installed "fic-mode"
   (add-hook 'prog-mode-hook 'fic-mode))
 
-;; lines do not exceed 80 lines
-;; (add-hook 'c-mode-common-hook 'turn-on-auto-fill)
-(setq-default fill-column 80)
 (add-hook 'prog-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
