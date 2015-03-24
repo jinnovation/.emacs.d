@@ -69,9 +69,4 @@
 
 (set-transparency 70)
 
-(run-with-idle-timer 30 nil
-  (lambda ()
-    (mu4e-update-mail-and-index nil)
-    (elfeed-update)))
-
 ;;; init-general.el ends here
