@@ -7,7 +7,7 @@
   (load-file "~/.secrets.el"))
 
 (purpose-mode)
-(purpose-load-window-layout nil)
+(purpose-load-window-layout)
 
 (tool-bar-mode    0)
 (scroll-bar-mode  0)

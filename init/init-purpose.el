@@ -20,6 +20,4 @@
 
 (purpose-compile-user-configuration)
 
-(purpose-load-window-layout nil)
-
 ;;; init-purpose.el ends here
