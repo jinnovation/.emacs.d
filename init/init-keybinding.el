@@ -14,6 +14,7 @@
     (other-window -1)))
 
 (global-set-key (kbd "<f2>") 'shell)
+(global-set-key (kbd "<f9>") 'circe)
 (global-set-key (kbd "<f10>") 'mu4e)
 (if-package-installed "elfeed"
   (global-set-key (kbd "<f11>") 'elfeed))

@@ -7,13 +7,20 @@
 
 (defconst linum-mode-excludes
   '(doc-view-mode
+
      magit-mode
+
      elfeed-show-mode
      elfeed-search-mode
      gnus-group-mode
      mu4e-main-mode
      mu4e-headers-mode
-     mu4e-view-mode)
+     mu4e-view-mode
+
+     circe-chat-mode
+     circe-server-mode
+     circe-query-mode
+     circe-channel-mode)
   "List of major modes preventing linum to be enabled in the buffer.")
 
 (defadvice linum-mode (around linum-mode-selective activate)

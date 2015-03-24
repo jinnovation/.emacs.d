@@ -19,7 +19,11 @@
          elfeed-search-mode
          elfeed-show-mode
          eshell-mode
-         calendar-mode)
+         calendar-mode
+         circe-chat-mode
+         circe-server-mode
+         circe-query-mode
+         circe-channel-mode)
       evil-emacs-state-modes)))
 
 (global-evil-leader-mode)

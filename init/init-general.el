@@ -3,6 +3,9 @@
 (provide 'init-general)
 (require 'init-fn)
 
+(when (file-exists-p "~/.secrets.el")
+  (load-file "~/.secrets.el"))
+
 (purpose-mode)
 (purpose-load-window-layout nil)
 

@@ -32,6 +32,7 @@
                   init-elfeed
                   init-gnus
                   init-mu4e
+                  init-circe
 
                   ;; languages
                   init-ruby
