@@ -63,7 +63,7 @@
   (after 'evil-leader
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-      "m" 'helm-M-x
+      "ec" 'helm-M-x
       "w" 'save-buffer
 
       "rtw" 'delete-trailing-whitespace
@@ -91,7 +91,9 @@
 
       "bb" 'helm-buffers-list
       "bk" 'kill-current-buffer
-      "bn" 'next-buffer)))
+      "bn" 'next-buffer
+
+      "mu" 'mu4e-update-mail-and-index)))
 
 (evil-leader/set-key-for-mode 'org-mode "op" 'org-set-property)
 
