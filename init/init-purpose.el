@@ -5,10 +5,7 @@
 (purpose-x-magit-single-on)
 
 (setq purpose-user-mode-purposes
-  '((prog-mode . edit)
-     (text-mode . edit)
-     (yaml-mode . edit)
-     (circe-channel-mode . comm)
+     '((circe-channel-mode . comm)
      (circe-chat-mode . comm)
      (circe-query-mode . comm)
      (circe-lagmon-mode . comm)
