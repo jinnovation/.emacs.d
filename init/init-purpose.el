@@ -2,9 +2,6 @@
 
 (provide 'init-purpose)
 
-(purpose-mode)
-(purpose-load-window-layout)
-
 (purpose-x-magit-single-on)
 
 (setq purpose-user-mode-purposes

@@ -6,6 +6,9 @@
 (when (file-exists-p "~/.secrets.el")
   (load-file "~/.secrets.el"))
 
+(purpose-mode)
+(purpose-load-window-layout)
+
 (tool-bar-mode    0)
 (scroll-bar-mode  0)
 (menu-bar-mode    0)
