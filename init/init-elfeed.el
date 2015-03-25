@@ -18,7 +18,7 @@
      ("http://feeds.bbci.co.uk/news/technology/rss.xml" tech news)
      ("http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml" news)
      
-     ("http://www.peacehall.com/news/rss/focus.xml" news china)
+     ("http://en.boxun.com/feed/" news china)
 
      ("http://feeds.99percentinvisible.org/99percentinvisible" podcast design)
 

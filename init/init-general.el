@@ -6,6 +6,10 @@
 (when (file-exists-p "~/.secrets.el")
   (load-file "~/.secrets.el"))
 
+(setq
+  user-mail-address "jjin082693@gmail.com"
+  user-full-name  "Jonathan Jin")
+
 (purpose-mode)
 (purpose-load-window-layout)
 
