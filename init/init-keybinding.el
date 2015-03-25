@@ -63,7 +63,7 @@
   (after 'evil-leader
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-      "ec" 'helm-M-x
+      "M" 'helm-M-x
       "w" 'save-buffer
 
       "rtw" 'delete-trailing-whitespace

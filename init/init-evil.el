@@ -23,7 +23,9 @@
          circe-chat-mode
          circe-server-mode
          circe-query-mode
-         circe-channel-mode)
+         circe-channel-mode
+
+         finder-mode)
       evil-emacs-state-modes)))
 
 (global-evil-leader-mode)
