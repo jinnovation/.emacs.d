@@ -33,11 +33,7 @@
        "jjin082693@uchicago.edu"
        "jonathan@jjin.me"))
 
-  (setq mu4e-compose-signature
-    (concat
-      "Jonathan Jin\n"
-      "github.com/jinnovation\n"
-      "jjin.me\n"))
+  (defvaralias 'mu4e-compose-signature 'message-signature)
 
   ;; don't keep message buffers around
   (setq message-kill-buffer-on-exit t)

@@ -8,7 +8,10 @@
 
 (setq
   user-mail-address "jjin082693@gmail.com"
-  user-full-name  "Jonathan Jin")
+  user-full-name  "Jonathan Jin"
+  message-signature (concat "Jonathan Jin\n"
+                      "github.com/jinnovation\n"
+                      "jjin.me\n"))
 
 (purpose-mode)
 (purpose-load-window-layout)
