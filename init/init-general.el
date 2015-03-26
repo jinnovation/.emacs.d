@@ -38,42 +38,43 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(tool-bar-mode    0)
-(scroll-bar-mode  0)
-(menu-bar-mode    0)
-(line-number-mode 0)
+(tool-bar-mode     0)
+(scroll-bar-mode   0)
+(menu-bar-mode     0)
+(line-number-mode  0)
 
 (blink-cursor-mode 0)
 
 (global-auto-revert-mode)
 
 (global-hl-line-mode 1)
-(column-number-mode 1)
-
-(show-paren-mode 1)
+(column-number-mode  1)
+(show-paren-mode     1)
 
 (electric-pair-mode)
 
 (delete-selection-mode +1)
 
 ;; highlights strings like TODO, FIXME, etc.
-(if-package-installed "fic-mode"
-  (add-hook 'prog-mode-hook 'fic-mode))
+(add-hook 'prog-mode-hook
+  (lambda ()
+    (fic-mode)
+    (turn-on-auto-fill)))
 
-(add-hook 'prog-mode-hook 'turn-on-auto-fill)
-(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook
+  (lambda ()
+    (turn-on-auto-fill)))
+
+(add-hook 'help-mode-hook
+  (lambda ()
+    (rainbow-mode)))
 
 (add-hook 'comint-output-filter-functions
   'comint-watch-for-password-prompt)
 
-(if-package-installed "smart-mode-line"
-  (sml/setup))                             ;; smart-mode-line initialize
+(sml/setup)                             ;; smart-mode-line initialize
 
 (fringe-mode '(4 . 0))
-
-(if-package-installed "company"
-  (company-mode)
-  (setq company-idle-delay 0.0))
 
 (set-transparency 70)
 
