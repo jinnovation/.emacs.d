@@ -5,7 +5,7 @@
 
 (defconst bg-color "black")
 (defconst default-font "Terminus 08")
-(set-default-font default-font)
+(set-frame-font default-font)
 
 (load-theme 'gotham t)
 
