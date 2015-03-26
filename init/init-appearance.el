@@ -7,12 +7,6 @@
 (defconst default-font "Terminus 08")
 (set-default-font default-font)
 
-(setq font-face-main "DejaVu Sans Mono"
-    font-size-small "10"
-    font-size-bigger "15"
-    font-setting-bigger (format "%s-%s" font-face-main font-size-bigger)
-    font-setting-small (format "%s-%s" font-face-main font-size-small))
-
 (load-theme 'gotham t)
 
 (set-background-color bg-color)
