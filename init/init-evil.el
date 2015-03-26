@@ -25,7 +25,10 @@
          circe-query-mode
          circe-channel-mode
 
-         finder-mode)
+         finder-mode
+
+         image-dired-thumbnail-mode
+         image-dired-display-image-mode)
       evil-emacs-state-modes)))
 
 (global-evil-leader-mode)
