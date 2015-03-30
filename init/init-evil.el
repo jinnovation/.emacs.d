@@ -28,7 +28,8 @@
          finder-mode
 
          image-dired-thumbnail-mode
-         image-dired-display-image-mode)
+         image-dired-display-image-mode
+         paradox-menu-mode)
       evil-emacs-state-modes)))
 
 (global-evil-leader-mode)

@@ -106,4 +106,7 @@
   (kbd (concat evil-leader/leader " w"))
   'org-edit-src-save)
 
+(after 'purpose
+  (define-key purpose-mode-map (kbd "C-c , W") 'purpose-set-window-purpose))
+
 ;;; init-keybinding.el ends here
