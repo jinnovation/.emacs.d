@@ -28,10 +28,10 @@
 (add-hook 'ruby-mode-hook
   (lambda ()
     (local-set-key (kbd "RET")
-      'reindent-then-newline-and-indent)
+      'newline-and-indent)
     (ruby-end-mode)))
 
-(global-set-key (kbd "RET")   'reindent-then-newline-and-indent)
+(global-set-key (kbd "RET")   'newline-and-indent)
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 (global-set-key (kbd "M-x")   'helm-M-x)
@@ -53,7 +53,7 @@
   (define-key evil-normal-state-map (kbd "RET") 'insert-newline-after)
 
   (define-key evil-insert-state-map (kbd "RET")
-    'reindent-then-newline-and-indent)
+    'newline-and-indent)
 
   (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
   (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
