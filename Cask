@@ -34,6 +34,7 @@
 (depends-on "helm-circe")
 (depends-on "helm-projectile")
 (depends-on "helm-swoop")
+(depends-on "inf-ruby")
 (depends-on "lua-mode")
 (depends-on "magit")
 (depends-on "markdown-mode")
