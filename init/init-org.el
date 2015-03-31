@@ -7,6 +7,8 @@
 (setq
   org-agenda-files '("~/agenda")
 
+  org-export-dispatch-use-expert-ui t
+
   org-latex-create-formula-image-program 'imagemagick
   org-latex-listings 'minted
   org-tags-column -80
@@ -15,13 +17,13 @@
   org-pretty-entities                     t
   org-src-fontify-natively                t
   org-alphabetical-lists                  t
-  
+
   org-todo-keywords
   '((sequence "TODO(t)" "IN-PROGRESS(r)" "|"  "DONE(d)"))
-  
+
   org-todo-keyword-faces
   '(("TODO" . org-todo) ("IN-PROGRESS" . "yellow") ("DONE" . org-done))
-  
+
   org-agenda-custom-commands
   '(("s" "Schoolwork"
       ((agenda "" ((org-agenda-ndays 14)
@@ -29,17 +31,17 @@
                     (org-agenda-prefix-format " %-12:c%?-12t% s")))
         (tags-todo "CATEGORY=\"Schoolwork\""
           ((org-agenda-prefix-format "%b")))))
-     
+
      ("r" "Reading"
        ((tags-todo "CATEGORY=\"Reading\""
           ((org-agenda-prefix-format "%:T ")))))
      ("m" "Movies"
        ((tags-todo "CATEGORY=\"Movies\""
           ((org-agenda-prefix-format "%:T "))))))
-  
+
   org-latex-pdf-process
   '("pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"
-     "pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f" 
+     "pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"
      "pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"))
 
 ;; (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
@@ -58,5 +60,11 @@
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
+
+(org-babel-do-load-languages
+      'org-babel-load-languages
+  '((emacs-lisp . t)
+     (latex . t)
+     (R . t)))
 
 ;;; init-org.el ends here
