@@ -43,6 +43,7 @@
                   init-sass
                   init-markdown
                   init-latex
+                  init-r
 
                   init-compile
 
