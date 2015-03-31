@@ -52,4 +52,18 @@
     smtpmail-smtp-server "smtp.gmail.com"
     smtpmail-smtp-service 587))
 
+(add-hook 'mu4e-compose-pre-hook
+  (defun my-set-from-address ()
+    "Set the From address based on the To address of the original."
+    (let ((msg mu4e-compose-parent-message)) ;; msg is shorter...
+      (when msg
+	(setq user-mail-address
+	  (cond
+        ;; TODO; pull from mu4e-user-mail-address-list
+	    ((mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com")
+	      "jjin082693@gmail.com")
+	    ((mu4e-message-contact-field-matches msg :to "jjin082693@uchicago.edu")
+	      "jjin082693@uchicago.edu")
+	    (t "jonathan@jjin.me")))))))
+
 ;;; init-mu4e.el ends here
