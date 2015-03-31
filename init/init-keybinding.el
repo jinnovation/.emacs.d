@@ -75,24 +75,29 @@
       "cv" 'evilnc-toggle-invert-comment-line-by-line
 
       "ii" 'helm-circe
+      "in" 'helm-circe-new-activity
 
       "ar" 'align-regexp
       "/" 'helm-swoop
       "ff" 'helm-find-files
 
+      ;; project
       "pp" 'helm-projectile
       "pF" 'helm-projectile-find-file-in-known-projects
       "pa" 'helm-projectile-ag
       "pK" 'projectile-kill-buffers
       "pc" 'projectile-compile-project
 
+      ;; git + version-control
       "gs" 'magit-status
       "gb" 'magit-blame-mode
 
+      ;; buffer manipulation
       "bb" 'helm-buffers-list
       "bk" 'kill-current-buffer
       "bn" 'next-buffer
 
+      ;; mail
       "mu" 'mu4e-update-mail-and-index)))
 
 (evil-leader/set-key-for-mode 'org-mode "op" 'org-set-property)
