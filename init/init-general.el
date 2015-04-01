@@ -81,7 +81,7 @@
 (purpose-mode)
 (purpose-load-window-layout)
 
-(run-with-idle-timer 60 t
+(run-with-idle-timer 120 t
   (lambda ()
     (mu4e-update-mail-and-index nil)))
 

@@ -13,8 +13,8 @@
      [default bold shadow italic underline bold bold-italic bold])
   '(custom-safe-themes
      (quote
-       ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "62c9339d5cac3a49688abb34e98f87a6ee82003a11251f12e0ada1788090c40f" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" default)))
-  '(paradox-github-token t))
+       ("4dd1b115bc46c0f998e4526a3b546985ebd35685de09bc4c84297971c822750e" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "62c9339d5cac3a49688abb34e98f87a6ee82003a11251f12e0ada1788090c40f" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" default)))
+ '(paradox-github-token t))
 
 (mapc 'require '(init-fn
                   init-keybinding

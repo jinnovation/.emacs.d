@@ -83,6 +83,7 @@
 
       ;; project
       "pp" 'helm-projectile
+      "pf" 'helm-projectile-find-file
       "pF" 'helm-projectile-find-file-in-known-projects
       "pa" 'helm-projectile-ag
       "pK" 'projectile-kill-buffers
@@ -104,9 +105,9 @@
 
 (eval-after-load 'projectile
   '(evil-leader/set-key
-     "W" 'projectile-save-and-test
      "w" 'save-buffer))
 
+;; FIXME
 (evil-define-key 'normal org-src-mode-map
   (kbd (concat evil-leader/leader " w"))
   'org-edit-src-save)
