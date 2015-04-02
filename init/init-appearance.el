@@ -3,6 +3,8 @@
 (provide 'init-appearance)
 (require 'init-fn)
 
+(require 'linum)
+
 (defconst bg-color "black")
 (defconst default-font "Terminus 08")
 (set-frame-font default-font)
@@ -12,8 +14,8 @@
 
 (set-background-color bg-color)
 (set-face-attribute 'fringe nil :background bg-color)
-(after 'linum
-  (set-face-attribute 'linum nil :background bg-color))
+
+(set-face-attribute 'linum nil :background bg-color)
 
 ;; FIXME: make color dependent on color scheme
 (if-package-installed "evil-search-highlight-persist"

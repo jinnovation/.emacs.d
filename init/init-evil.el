@@ -4,33 +4,34 @@
 
 (require 'init-fn)
 
-(after 'evil
-  (setq evil-esc-delay 0)
-  (global-evil-search-highlight-persist t)
+(require 'evil)
 
-  (setq evil-insert-state-modes
-    (append
-      '(git-commit-mode)
-      evil-insert-state-modes)
-    
-    evil-emacs-state-modes
-    (append
-      '(erc-mode
-         elfeed-search-mode
-         elfeed-show-mode
-         eshell-mode
-         calendar-mode
-         circe-chat-mode
-         circe-server-mode
-         circe-query-mode
-         circe-channel-mode
+(setq evil-esc-delay 0)
+(global-evil-search-highlight-persist t)
 
-         finder-mode
+(setq evil-insert-state-modes
+  (append
+    '(git-commit-mode)
+    evil-insert-state-modes))
 
-         image-dired-thumbnail-mode
-         image-dired-display-image-mode
-         paradox-menu-mode)
-      evil-emacs-state-modes)))
+(setq evil-emacs-state-modes
+  (append
+    '(erc-mode
+       elfeed-search-mode
+       elfeed-show-mode
+       eshell-mode
+       calendar-mode
+       circe-chat-mode
+       circe-server-mode
+       circe-query-mode
+       circe-channel-mode
+
+       finder-mode
+
+       image-dired-thumbnail-mode
+       image-dired-display-image-mode
+       paradox-menu-mode)
+    evil-emacs-state-modes))
 
 (global-evil-leader-mode)
 (global-evil-surround-mode 1)
