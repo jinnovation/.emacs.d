@@ -25,12 +25,6 @@
 
 (define-key elfeed-search-mode-map (kbd "<SPC>") 'next-line)
 
-(add-hook 'ruby-mode-hook
-  (lambda ()
-    (local-set-key (kbd "RET")
-      'newline-and-indent)
-    (ruby-end-mode)))
-
 (global-set-key (kbd "RET")   'newline-and-indent)
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
