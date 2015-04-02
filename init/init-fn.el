@@ -112,4 +112,8 @@ Normally, this immediately runs the default Projectile project test command;
   (interactive)
   (dired default-directory))
 
+(defun prev-window ()
+  (interactive)
+  (other-window -1))
+
 ;;; init-fn.el ends here

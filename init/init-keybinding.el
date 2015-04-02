@@ -15,10 +15,7 @@
 (global-set-key (kbd "M-`") 'ace-window)
 
 (global-set-key (kbd "C-<tab>") 'other-window)
-(global-set-key (kbd "\<C-S-iso-lefttab>")
-  (lambda ()
-    (interactive)
-    (other-window -1)))
+(global-set-key (kbd "\<C-S-iso-lefttab>") 'prev-window)
 
 (global-set-key (kbd "<f1>") 'dired-at-current)
 (global-set-key (kbd "<f9>") 'circe)
