@@ -1,8 +1,13 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
 
+;; packages not managed by Cask or package.el
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/pkg"))
+
 (require 'cask)
 (cask-initialize)
 (pallet-mode t)
+
+(require 'malyon)
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
