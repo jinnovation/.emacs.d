@@ -52,7 +52,7 @@
       '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
     (fic-mode)))
 
-(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-packages-alist '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
 
 (defun my-org-autodone (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -66,5 +66,11 @@
   '((emacs-lisp . t)
      (latex . t)
      (R . t)))
+
+(setq org-latex-minted-options
+  '(("linenos" "true")
+     ("fontsize" "\\scriptsize")
+     ("frame" "lines")
+     ("bgcolor" "LightGray")))
 
 ;;; init-org.el ends here
