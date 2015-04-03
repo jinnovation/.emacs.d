@@ -34,6 +34,7 @@
 
 (global-set-key (kbd "RET")   'newline-and-indent)
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
 (global-set-key (kbd "M-x")   'helm-M-x)
 
 (define-key evil-emacs-state-map (kbd "<escape>") 'evil-execute-in-normal-state)
