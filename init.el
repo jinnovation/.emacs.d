@@ -33,6 +33,7 @@
                   init-gnus
                   init-mu4e
                   init-circe
+                  init-aw
 
                   ;; languages
                   init-ruby
