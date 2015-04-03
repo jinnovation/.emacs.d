@@ -94,7 +94,8 @@
   "bn"  'next-buffer
 
   ;; mail
-  "mu"  'mu4e-update-mail-and-index)
+  "mu"  'mu4e-update-mail-and-index
+  "mi"  'mu4e-interrupt-update-mail)
 
 (evil-leader/set-key-for-mode 'org-mode "op" 'org-set-property)
 
