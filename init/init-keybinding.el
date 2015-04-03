@@ -15,6 +15,8 @@
 (local-unset-key (kbd "C-w"))
 (local-unset-key (kbd "C-l"))
 
+(global-unset-key (kbd "M-c")) ;; capitalize-word
+
 (global-unset-key (kbd "<menu>"))
 
 (global-set-key (kbd "M-`")                'ace-window)
