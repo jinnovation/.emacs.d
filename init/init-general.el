@@ -81,5 +81,6 @@
 (purpose-mode)
 (purpose-load-window-layout)
 
+(setq browse-url-browser-function 'eww-browse-url)
 
 ;;; init-general.el ends here
