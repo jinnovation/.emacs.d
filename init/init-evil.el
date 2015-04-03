@@ -9,13 +9,10 @@
 (setq evil-esc-delay 0)
 (global-evil-search-highlight-persist t)
 
-(setq evil-insert-state-modes
-  (append
-    '(git-commit-mode)
-    evil-insert-state-modes))
+(append-to-list 'evil-insert-state-modes
+  '(git-commit-mode))
 
-(setq evil-emacs-state-modes
-  (append
+(append-to-list 'evil-emacs-state-modes
     '(erc-mode
        elfeed-search-mode
        elfeed-show-mode
@@ -27,11 +24,15 @@
        circe-channel-mode
 
        finder-mode
+       info-mode
+
+       eww-mode
+       eww-bookmark-mode
 
        image-dired-thumbnail-mode
        image-dired-display-image-mode
-       paradox-menu-mode)
-    evil-emacs-state-modes))
+       
+       paradox-menu-mode))
 
 (global-evil-leader-mode)
 (global-evil-surround-mode 1)
