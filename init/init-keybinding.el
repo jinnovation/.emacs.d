@@ -31,6 +31,10 @@
 (global-set-key (kbd "<f12>") 'org-agenda)
 
 (define-key elfeed-search-mode-map (kbd "<SPC>") 'next-line)
+(define-key elfeed-search-mode-map (kbd "B")
+  (lambda ()
+    (interactive)
+    (elfeed-search-browse-url t)))
 
 (global-set-key (kbd "RET")   'newline-and-indent)
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
