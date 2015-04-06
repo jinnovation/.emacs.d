@@ -6,6 +6,11 @@
 (when (file-exists-p "~/.secrets.el")
   (load-file "~/.secrets.el"))
 
+(setq custom-safe-themes t)
+
+(defun display-startup-echo-area-message ()
+  (message "Happy hacking, and praise RMS."))
+
 (setq
   user-mail-address "jjin082693@gmail.com"
   user-full-name  "Jonathan Jin"
@@ -82,5 +87,10 @@
 (purpose-load-window-layout)
 
 (setq browse-url-browser-function 'eww-browse-url)
+
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+
+(setq browse-url-generic-program "conkeror")
 
 ;;; init-general.el ends here
