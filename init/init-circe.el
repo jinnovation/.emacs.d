@@ -4,7 +4,13 @@
 
 (require 'lui-autopaste)
 
-(setq circe-default-nick "jjin")
+(setq
+  circe-default-nick "jjin"
+  circe-default-user "jjin"
+  circe-default-part-message "Peace."
+  circe-default-quit-message "Peace.")
+
+(setq circe-use-cycle-completion t)
 
 (setq circe-network-options
   '(("Freenode"
@@ -30,5 +36,8 @@
     (concat (propertize (concat (buffer-name) ">")
               'face 'circe-prompt-face)
       " ")))
+
+(enable-circe-color-nicks)
+(setq circe-color-nicks-everywhere t)
 
 ;;; init-circe.el ends here
