@@ -31,6 +31,10 @@
 
        image-dired-thumbnail-mode
        image-dired-display-image-mode
+
+       git-rebase-mode
+
+       inferior-ess-mode
        
        paradox-menu-mode))
 
