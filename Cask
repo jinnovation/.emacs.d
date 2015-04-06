@@ -4,6 +4,7 @@
 
 (depends-on "ace-window")
 (depends-on "alert")
+(depends-on "ample-theme")
 (depends-on "android-mode")
 (depends-on "auctex")
 (depends-on "circe")
@@ -35,6 +36,7 @@
 (depends-on "helm-projectile")
 (depends-on "helm-swoop")
 (depends-on "inf-ruby")
+(depends-on "js2-mode")
 (depends-on "lua-mode")
 (depends-on "magit")
 (depends-on "markdown-mode")
