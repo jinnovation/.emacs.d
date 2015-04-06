@@ -14,6 +14,7 @@
      (haskell-mode      . edit)
      (ess-mode          . edit)
      (gitconfig-mode    . edit)
+     (conf-xdefaults-mode . edit)
      (inferior-ess-mode . interactive)
 
      (mu4e-main-mode    . admin)
