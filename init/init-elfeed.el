@@ -55,6 +55,17 @@
      ("http://www.questionablecontent.net/QCRSS.xml" comic)
      ("http://phdcomics.com/gradfeed.php" comic)))
 
+(setf (elfeed-meta
+        (elfeed-db-get-feed "http://www.questionablecontent.net/QCRSS.xml")
+        :title)
+  "Questionable Content")
+
+
+(setf (elfeed-meta
+        (elfeed-db-get-feed "http://rss.escapistmagazine.com/news/0.xml")
+        :title)
+  "The Escapist")
+
 (setq elfeed-max-connections 10)
 
 ;;; init-elfeed.el ends here
