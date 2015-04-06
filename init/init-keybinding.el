@@ -32,9 +32,9 @@
 
 (define-key elfeed-search-mode-map (kbd "<SPC>") 'next-line)
 (define-key elfeed-search-mode-map (kbd "B")
-  (lambda ()
-    (interactive)
-    (elfeed-search-browse-url t)))
+  (elfeed-expose #'elfeed-search-browse-url t))
+(define-key elfeed-search-mode-map (kbd "h")
+  (elfeed-expose #'elfeed-search-set-filter nil))
 
 (global-set-key (kbd "RET")   'newline-and-indent)
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
@@ -115,5 +115,12 @@
   'org-edit-src-save)
 
 (define-key purpose-mode-map (kbd "C-c , W") 'purpose-set-window-purpose)
+
+(define-key global-map (kbd "C-u") 'kill-whole-line)
+(define-key global-map (kbd "M-u") 'universal-argument)
+(define-key universal-argument-map (kbd "C-u") 'kill-whole-line)
+(define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up))
 
 ;;; init-keybinding.el ends here
