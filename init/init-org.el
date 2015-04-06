@@ -7,13 +7,17 @@
 (setq
   org-agenda-files '("~/agenda")
 
+  org-return-follows-link t
+
   org-export-dispatch-use-expert-ui t
 
   org-latex-create-formula-image-program 'imagemagick
   org-latex-listings 'minted
   org-tags-column -80
+
   org-enforce-todo-dependencies           t
   org-enforce-todo-checkbox-dependencies  t
+
   org-pretty-entities                     t
   org-src-fontify-natively                t
   org-alphabetical-lists                  t
@@ -72,5 +76,12 @@
      ("fontsize" "\\scriptsize")
      ("frame" "lines")
      ("bgcolor" "LightGray")))
+
+(setq org-export-latex-hyperref-format "\\ref{%s}")
+
+(setq org-src-window-setup 'current-window)
+
+(setq org-blank-before-new-entry
+  '((heading . true) (plain-list-item . auto)))
 
 ;;; init-org.el ends here
