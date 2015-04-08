@@ -91,6 +91,10 @@
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
-(setq browse-url-generic-program "conkeror")
+(setq browse-url-browser-function 'eww-browse-url) ; use eww as default browser
+(setq browse-url-generic-program (executable-find "chromium")
+	shr-external-browser 'browse-url-generic)
+
+(put 'dired-find-alternate-file 'disabled nil)
 
 ;;; init-general.el ends here
