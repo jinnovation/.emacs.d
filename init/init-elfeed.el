@@ -66,16 +66,20 @@
      ("http://www.questionablecontent.net/QCRSS.xml"  comic)
      ("http://phdcomics.com/gradfeed.php"             comic)))
 
-(setf (elfeed-meta
-        (elfeed-db-get-feed "http://www.questionablecontent.net/QCRSS.xml")
-        :title)
-  "Questionable Content")
+(let
+  ((feed-titles
+     '(("http://www.questionablecontent.net/QCRSS.xml" . "Questionable Content")
+       ("http://rss.escapistmagazine.com/news/0.xml" "The Escapist")
 
-
-(setf (elfeed-meta
-        (elfeed-db-get-feed "http://rss.escapistmagazine.com/news/0.xml")
-        :title)
-  "The Escapist")
+       ("http://www.reddit.com/r/emacs/.rss" . "r/emacs")
+       ("http://www.reddit.com/r/programmerhumor/.rss" . "r/programmerhumor")
+       ("http://www.reddit.com/r/programming/.rss" . "r/programming")
+       ("http://www.reddit.com/r/cscareerquestions/.rss" . "r/cscareerquestions")
+       ("http://www.reddit.com/r/mechanicalkeyboards/.rss" . "r/mechanicalkeyboards"))))
+  (dolist (feed-title feed-titles)
+    (setf (elfeed-meta (elfeed-db-get-feed (car feed-title))
+            :title)
+      (cdr feed-title))))
 
 (setq elfeed-max-connections 10)
 
