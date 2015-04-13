@@ -14,6 +14,7 @@
        " EvilOrg"
        " end"
        " Ace - Window"
+       " =>"                            ; aggressive-indent
        " Rbow"))
   (dolist (mode my-rm-excluded-modes)
     (add-to-list 'rm-excluded-modes mode)))
