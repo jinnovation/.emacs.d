@@ -39,7 +39,9 @@
 (global-set-key (kbd "RET")   'newline-and-indent)
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
-(global-set-key (kbd "M-x")   'helm-M-x)
+
+(global-unset-key (kbd "M-x"))
+(global-set-key (kbd "C-c C-m") 'helm-M-x)
 
 (define-key evil-emacs-state-map (kbd "<escape>") 'evil-execute-in-normal-state)
 
@@ -62,7 +64,6 @@
 
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
-  "M"   'helm-M-x
   "w"   'save-buffer
 
   "rtw" 'delete-trailing-whitespace
