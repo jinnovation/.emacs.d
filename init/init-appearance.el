@@ -38,4 +38,6 @@
     'unicode
     (font-spec :family "DejaVu Sans Mono")))
 
+(set-transparency 85)
+
 ;;; init-appearance.el ends here

@@ -81,8 +81,6 @@
 
 (fringe-mode '(4 . 0))
 
-(set-transparency 70)
-
 (purpose-mode)
 (purpose-load-window-layout)
 
