@@ -51,6 +51,9 @@
   smtpmail-smtp-server "smtp.gmail.com"
   smtpmail-smtp-service 587)
 
+(add-hook 'mu4e-view-mode-hook
+  'visual-line-mode)
+
 (add-hook 'mu4e-compose-pre-hook
   (defun my-set-from-address ()
     "Set the From address based on the To address of the original."
