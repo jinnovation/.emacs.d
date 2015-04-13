@@ -3,6 +3,7 @@
 (source org)
 
 (depends-on "ace-window")
+(depends-on "aggressive-indent")
 (depends-on "alert")
 (depends-on "ample-theme")
 (depends-on "android-mode")

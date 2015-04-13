@@ -95,4 +95,6 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 
+(global-aggressive-indent-mode 1)
+
 ;;; init-general.el ends here
