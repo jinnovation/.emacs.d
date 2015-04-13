@@ -36,7 +36,6 @@
 (define-key elfeed-search-mode-map (kbd "h")
   (elfeed-expose #'elfeed-search-set-filter nil))
 
-(global-set-key (kbd "RET")   'newline-and-indent)
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 
