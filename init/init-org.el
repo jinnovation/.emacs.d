@@ -81,6 +81,9 @@
 
 (setq org-src-window-setup 'current-window)
 
+(setq
+  org-agenda-window-setup 'current-window)
+
 (setq org-blank-before-new-entry
   '((heading . true) (plain-list-item . auto)))
 
