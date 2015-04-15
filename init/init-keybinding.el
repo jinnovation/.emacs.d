@@ -8,7 +8,7 @@
 (require 'elfeed)
 (require 'evil)
 (require 'evil-leader)
-(require 'purpose)
+(require 'window-purpose)
 
 (local-unset-key (kbd "C-a"))
 (local-unset-key (kbd "C-x C-x"))
