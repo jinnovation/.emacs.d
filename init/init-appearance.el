@@ -18,14 +18,6 @@
 
 (set-face-attribute 'linum nil :background bg-color)
 
-;; TODO: set elfeed-search-feed-face to something less hideous
-
-(set-face-foreground 'elfeed-search-title-face
-  (face-attribute 'default :foreground))
-
-(set-face-foreground 'elfeed-search-tag-face
-  (face-attribute 'font-lock-doc-face :foreground))
-
 ;; FIXME: make color dependent on color scheme
 (if-package-installed "evil-search-highlight-persist"
   (set-face-attribute
