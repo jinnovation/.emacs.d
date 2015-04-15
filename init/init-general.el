@@ -34,7 +34,7 @@
 
 (setq
   browse-url-browser-function 'browse-url-generic
-  browse-url-generic-program "chromium")
+  browse-url-generic-program "firefox")
 
 (setq next-line-add-newlines t)
 
@@ -90,8 +90,8 @@
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
 (setq browse-url-browser-function 'eww-browse-url) ; use eww as default browser
-(setq browse-url-generic-program (executable-find "chromium")
-	shr-external-browser 'browse-url-generic)
+(setq browse-url-generic-program (executable-find "firefox")
+  shr-external-browser 'browse-url-generic)
 
 (put 'dired-find-alternate-file 'disabled nil)
 
