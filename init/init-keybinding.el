@@ -16,11 +16,11 @@
 (local-unset-key (kbd "C-l"))
 
 (global-unset-key (kbd "M-c")) ;; capitalize-word
-
 (global-unset-key (kbd "<menu>"))
+(global-unset-key (kbd "M-`"))
+(global-unset-key (kbd "C-c C-w"))
 
-(global-set-key (kbd "M-`")                'ace-window)
-
+(global-set-key (kbd "C-c C-w")            'ace-window)
 (global-set-key (kbd "C-<tab>")            'other-window)
 (global-set-key (kbd "\<C-S-iso-lefttab>") 'prev-window)
 
@@ -122,5 +122,11 @@
 (define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up))
+
+(after 'org
+  (define-key org-mode-map (kbd "C-c C-w") nil))
+
+(after 'ess
+  (define-key inferior-ess-mode-map (kbd "C-c C-w") nil))
 
 ;;; init-keybinding.el ends here
