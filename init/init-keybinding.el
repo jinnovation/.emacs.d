@@ -30,6 +30,8 @@
 (global-set-key (kbd "<f11>") 'elfeed)
 (global-set-key (kbd "<f12>") 'org-agenda)
 
+(global-set-key (kbd "C-<backspace>") 'undo-tree-undo)
+
 (define-key elfeed-search-mode-map (kbd "<SPC>") 'next-line)
 (define-key elfeed-search-mode-map (kbd "B")
   (elfeed-expose #'elfeed-search-browse-url t))
@@ -40,7 +42,7 @@
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 
 (global-unset-key (kbd "M-x"))
-(global-set-key (kbd "C-c C-m") 'helm-M-x)
+(global-set-key (kbd "C-c m") 'helm-M-x)
 
 (define-key evil-emacs-state-map (kbd "<escape>") 'evil-execute-in-normal-state)
 

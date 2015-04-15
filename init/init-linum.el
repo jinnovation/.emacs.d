@@ -21,7 +21,9 @@
      circe-server-mode
      circe-query-mode
      circe-channel-mode
-     eww-mode)
+     eww-mode
+
+     inferior-ess-mode)
   "List of major modes preventing linum to be enabled in the buffer.")
 
 (defadvice linum-mode (around linum-mode-selective activate)
