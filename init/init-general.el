@@ -66,16 +66,9 @@
     (fic-mode)
     (turn-on-auto-fill)))
 
-(add-hook 'text-mode-hook
-  (lambda ()
-    (turn-on-auto-fill)))
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-(add-hook 'help-mode-hook
-  (lambda ()
-    (rainbow-mode)))
-
-(add-hook 'comint-output-filter-functions
-  'comint-watch-for-password-prompt)
+(add-hook 'help-mode-hook 'rainbow-mode)
 
 (sml/setup)                             ;; smart-mode-line initialize
 
