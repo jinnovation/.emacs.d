@@ -90,4 +90,6 @@
 
 (global-aggressive-indent-mode 1)
 
+(setq magit-last-seen-setup-instructions "1.4.0")
+
 ;;; init-general.el ends here
