@@ -37,6 +37,7 @@
        git-rebase-mode
 
        inferior-ess-mode
+       ess-help-mode
 
        paradox-menu-mode))
 
