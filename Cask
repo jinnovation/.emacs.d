@@ -50,4 +50,5 @@
 (depends-on "ruby-end")
 (depends-on "smart-mode-line")
 (depends-on "window-purpose")
+(depends-on "writegood-mode")
 (depends-on "yaml-mode")
