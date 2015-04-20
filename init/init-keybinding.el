@@ -22,8 +22,44 @@
 (global-unset-key (kbd "<escape> <f10>"))
 
 (global-set-key (kbd "H-s") 'save-buffer)
+
+;; git + version-control
 (global-set-key (kbd "H-g s") 'magit-status)
+
+;; window management
 (global-set-key (kbd "H-w") 'ace-window)
+
+;; IRC + chat
+(global-set-key (kbd "H-i i") 'helm-circe)
+(global-set-key (kbd "H-i n") 'helm-circe-new-activity)
+
+;; project
+(global-set-key (kbd "H-p p") 'helm-projectile)
+(global-set-key (kbd "H-p f") 'helm-projectile-find-file)
+(global-set-key (kbd "H-p F") 'helm-projectile-find-file-in-known-projects)
+(global-set-key (kbd "H-p a") 'helm-projectile-ag)
+(global-set-key (kbd "H-p K") 'projectile-kill-buffers)
+(global-set-key (kbd "H-p c") 'projectile-compile-project)
+
+;; buffer manipulation
+(global-set-key (kbd "H-b b") 'helm-buffers-list)
+(global-set-key (kbd "H-b k") 'kill-current-buffer)
+(global-set-key (kbd "H-b n") 'next-buffer)
+
+;; commenting
+(define-key prog-mode-map (kbd "H-c i") 'evilnc-comment-or-uncomment-lines)
+(define-key prog-mode-map (kbd "H-c l") 'evilnc-quick-comment-or-uncomment-to-the-line)
+(define-key prog-mode-map (kbd "H-c c") 'evilnc-copy-and-comment-lines)
+(define-key prog-mode-map (kbd "H-c p") 'evilnc-comment-or-uncomment-paragraphs)
+(define-key prog-mode-map (kbd "H-c v") 'evilnc-toggle-invert-comment-line-by-line)
+
+(global-set-key (kbd "H-a r") 'align-regexp)
+
+(global-set-key (kbd "H-f f")  'helm-find-files)
+;; mail
+(global-set-key (kbd "H-m u") 'mu4e-update-mail-and-index)
+(global-set-key (kbd "H-m i") 'mu4e-interrupt-update-mail)
+
 (global-set-key (kbd "C-<tab>")            'other-window)
 (global-set-key (kbd "\<C-S-iso-lefttab>") 'prev-window)
 
@@ -66,51 +102,8 @@
 (evilem-default-keybindings "SPC")
 
 (evil-leader/set-leader "<SPC>")
-(evil-leader/set-key
-  "w"   'save-buffer
-
-  "rtw" 'delete-trailing-whitespace
-
-  ;; commenting
-  "ci"  'evilnc-comment-or-uncomment-lines
-  "cl"  'evilnc-quick-comment-or-uncomment-to-the-line
-  "cc"  'evilnc-copy-and-comment-lines
-  "cp"  'evilnc-comment-or-uncomment-paragraphs
-  "cv"  'evilnc-toggle-invert-comment-line-by-line
-
-  ;; IRC + chat
-  "ii"  'helm-circe
-  "in"  'helm-circe-new-activity
-
-  "ar"  'align-regexp
-  "/"   'helm-swoop
-  "ff"  'helm-find-files
-
-  ;; project
-  "pp"  'helm-projectile
-  "pf"  'helm-projectile-find-file
-  "pF"  'helm-projectile-find-file-in-known-projects
-  "pa"  'helm-projectile-ag
-  "pK"  'projectile-kill-buffers
-  "pc"  'projectile-compile-project
-
-  ;; git + version-control
-  "gs"  'magit-status
-
-  ;; buffer manipulation
-  "bb"  'helm-buffers-list
-  "bk"  'kill-current-buffer
-  "bn"  'next-buffer
-
-  ;; mail
-  "mu"  'mu4e-update-mail-and-index
-  "mi"  'mu4e-interrupt-update-mail)
 
 (evil-leader/set-key-for-mode 'org-mode "op" 'org-set-property)
-
-(eval-after-load 'projectile
-  '(evil-leader/set-key
-     "w" 'save-buffer))
 
 ;; FIXME
 (evil-define-key 'normal org-src-mode-map
