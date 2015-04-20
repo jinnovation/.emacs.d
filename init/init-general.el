@@ -77,7 +77,7 @@
 (purpose-mode)
 (purpose-load-window-layout)
 
-(setq browse-url-browser-function 'eww-browse-url)
+(setq browse-url-browser-function 'browse-url-xdg-open)
 
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
