@@ -48,15 +48,18 @@
      "pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"
      "pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-;; (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+(plist-put org-format-latex-options :scale 1.5)
+
+(add-to-list 'org-structure-template-alist
+  '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
 
 (add-hook 'org-mode-hook
   (lambda ()
-    (add-to-list 'org-structure-template-alist
-      '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
-    (fic-mode)))
+    (fic-mode)
+    (writegood-mode)))
 
-(setq org-latex-packages-alist '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
+(setq org-latex-packages-alist
+  '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
 
 (defun my-org-autodone (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -66,7 +69,7 @@
 (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
 
 (org-babel-do-load-languages
-      'org-babel-load-languages
+  'org-babel-load-languages
   '((emacs-lisp . t)
      (latex . t)
      (R . t)))
@@ -79,9 +82,8 @@
 
 (setq org-export-latex-hyperref-format "\\ref{%s}")
 
-(setq org-src-window-setup 'current-window)
-
 (setq
+  org-src-window-setup 'current-window
   org-agenda-window-setup 'current-window)
 
 (setq org-blank-before-new-entry
