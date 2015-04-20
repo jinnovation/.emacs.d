@@ -19,7 +19,7 @@
 
 ;; toggle-frame-maximized
 (global-unset-key (kbd "M-<f10>"))
-(global-unset-key (kbd "<escape> <f10>")) 
+(global-unset-key (kbd "<escape> <f10>"))
 
 (global-set-key (kbd "H-s") 'save-buffer)
 (global-set-key (kbd "H-g s") 'magit-status)
