@@ -103,8 +103,6 @@
 
 (evil-leader/set-leader "<SPC>")
 
-(evil-leader/set-key-for-mode 'org-mode "op" 'org-set-property)
-
 ;; FIXME
 (evil-define-key 'normal org-src-mode-map
   (kbd (concat evil-leader/leader " w"))
@@ -116,7 +114,7 @@
 (define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
 
 (after 'org
-  (define-key org-mode-map (kbd "C-c C-w") nil))
+  (define-key org-mode-map (kbd "C-c o p") 'org-set-property))
 
 (after 'ess
   (define-key inferior-ess-mode-map (kbd "C-c C-w") nil))
