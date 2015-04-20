@@ -10,7 +10,8 @@
   circe-default-part-message "Peace."
   circe-default-quit-message "Peace.")
 
-(setq circe-use-cycle-completion t)
+(setq circe-use-cycle-completion t
+  circe-reduce-lurker-spam t)
 
 (setq circe-network-options
   '(("Freenode"
@@ -25,8 +26,9 @@
        :nickserv-identify-command "PRIVMSG &bitlbee :identify {password}"
        :nickserv-identify-confirmation "Password accepted, settings and accounts loaded")))
 
-(setq circe-reduce-lurker-spam t)
-(setq circe-format-server-topic "*** Topic change by {origin}: {topic-diff}")
+(setq
+  circe-format-self-say "<{nick}> {body}"
+  circe-format-server-topic "*** Topic change by {origin}: {topic-diff}")
 
 (add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
 
