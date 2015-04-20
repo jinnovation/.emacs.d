@@ -14,8 +14,13 @@
 (global-unset-key (kbd "<menu>"))
 (global-unset-key (kbd "M-`"))
 (global-unset-key (kbd "C-c C-w"))
+(global-unset-key (kbd "M-x"))
+(global-unset-key (kbd "C-x C-n"))      ; set-goal-column
 
-(global-set-key (kbd "C-c C-w")            'ace-window)
+;; toggle-frame-maximized
+(global-unset-key (kbd "M-<f10>"))
+(global-unset-key (kbd "<escape> <f10>")) 
+
 (global-set-key (kbd "H-s") 'save-buffer)
 (global-set-key (kbd "H-g s") 'magit-status)
 (global-set-key (kbd "H-w") 'ace-window)
@@ -39,8 +44,7 @@
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 
-(global-unset-key (kbd "M-x"))
-(global-set-key (kbd "C-c m") 'helm-M-x)
+(global-set-key (kbd "C-x m") 'helm-M-x)
 
 (define-key evil-emacs-state-map (kbd "<escape>") 'evil-execute-in-normal-state)
 
@@ -92,7 +96,6 @@
 
   ;; git + version-control
   "gs"  'magit-status
-  "gb"  'magit-blame-mode
 
   ;; buffer manipulation
   "bb"  'helm-buffers-list
@@ -116,12 +119,8 @@
 
 (define-key purpose-mode-map (kbd "C-c , W") 'purpose-set-window-purpose)
 
-(define-key global-map (kbd "C-u") 'kill-whole-line)
-(define-key global-map (kbd "M-u") 'universal-argument)
 (define-key universal-argument-map (kbd "C-u") 'kill-whole-line)
 (define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
-(with-eval-after-load 'evil-maps
-  (define-key evil-motion-state-map (kbd "C-u") 'evil-scroll-up))
 
 (after 'org
   (define-key org-mode-map (kbd "C-c C-w") nil))
