@@ -27,7 +27,9 @@
 (global-set-key (kbd "H-g s") 'magit-status)
 
 ;; window management
-(global-set-key (kbd "H-w") 'ace-window)
+(global-set-key (kbd "H-w w") 'ace-window)
+(global-set-key (kbd "H-w v") 'split-window-right)
+(global-set-key (kbd "H-w s") 'split-window-below)
 
 ;; IRC + chat
 (global-set-key (kbd "H-i i") 'helm-circe)
