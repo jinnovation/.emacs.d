@@ -10,17 +10,15 @@
 (require 'evil-leader)
 (require 'window-purpose)
 
-(local-unset-key (kbd "C-a"))
-(local-unset-key (kbd "C-x C-x"))
-(local-unset-key (kbd "C-w"))
-(local-unset-key (kbd "C-l"))
-
 (global-unset-key (kbd "M-c")) ;; capitalize-word
 (global-unset-key (kbd "<menu>"))
 (global-unset-key (kbd "M-`"))
 (global-unset-key (kbd "C-c C-w"))
 
 (global-set-key (kbd "C-c C-w")            'ace-window)
+(global-set-key (kbd "H-s") 'save-buffer)
+(global-set-key (kbd "H-g s") 'magit-status)
+(global-set-key (kbd "H-w") 'ace-window)
 (global-set-key (kbd "C-<tab>")            'other-window)
 (global-set-key (kbd "\<C-S-iso-lefttab>") 'prev-window)
 
