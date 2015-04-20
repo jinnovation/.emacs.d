@@ -26,22 +26,26 @@
 ;; git + version-control
 (global-set-key (kbd "H-g s") 'magit-status)
 
-;; window management
-(global-set-key (kbd "H-w w") 'ace-window)
-(global-set-key (kbd "H-w v") 'split-window-right)
-(global-set-key (kbd "H-w s") 'split-window-below)
+(define-prefix-command 'jjin/window-map)
+(define-prefix-command 'jjin/chat-map)
+(define-prefix-command 'jjin/project-map)
+(global-set-key (kbd "H-w") 'jjin/window-map)
+(global-set-key (kbd "H-i") 'jjin/chat-map)
+(global-set-key (kbd "H-p") 'jjin/project-map)
 
-;; IRC + chat
-(global-set-key (kbd "H-i i") 'helm-circe)
-(global-set-key (kbd "H-i n") 'helm-circe-new-activity)
+(define-key jjin/window-map (kbd "w") 'ace-window)
+(define-key jjin/window-map (kbd "v") 'split-window-right)
+(define-key jjin/window-map (kbd "s") 'split-window-below)
 
-;; project
-(global-set-key (kbd "H-p p") 'helm-projectile)
-(global-set-key (kbd "H-p f") 'helm-projectile-find-file)
-(global-set-key (kbd "H-p F") 'helm-projectile-find-file-in-known-projects)
-(global-set-key (kbd "H-p a") 'helm-projectile-ag)
-(global-set-key (kbd "H-p K") 'projectile-kill-buffers)
-(global-set-key (kbd "H-p c") 'projectile-compile-project)
+(define-key jjin/chat-map (kbd "i") 'helm-circe)
+(define-key jjin/chat-map (kbd "n") 'helm-circe-new-activity)
+
+(define-key jjin/project-map (kbd "p") 'helm-projectile)
+(define-key jjin/project-map (kbd "f") 'helm-projectile-find-file)
+(define-key jjin/project-map (kbd "F") 'helm-projectile-find-file-in-known-projects)
+(define-key jjin/project-map (kbd "a") 'helm-projectile-ag)
+(define-key jjin/project-map (kbd "K") 'projectile-kill-buffers)
+(define-key jjin/project-map (kbd "c") 'projectile-compile-project)
 
 ;; buffer manipulation
 (global-set-key (kbd "H-b b") 'helm-buffers-list)
