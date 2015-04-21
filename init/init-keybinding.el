@@ -109,12 +109,7 @@
 
 (evil-leader/set-leader "<SPC>")
 
-;; FIXME
-(evil-define-key 'normal org-src-mode-map
-  (kbd (concat evil-leader/leader " w"))
-  'org-edit-src-save)
-
-(define-key purpose-mode-map (kbd "C-c , W") 'purpose-set-window-purpose)
+(define-key purpose-mode-prefix-map (kbd "W") 'purpose-set-window-purpose)
 
 (define-key universal-argument-map (kbd "C-u") 'kill-whole-line)
 (define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
