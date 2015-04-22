@@ -46,6 +46,7 @@
 (depends-on "org")
 (depends-on "pallet")
 (depends-on "paradox")
+(depends-on "pdf-tools")
 (depends-on "projectile")
 (depends-on "rainbow-mode")
 (depends-on "ruby-end")
