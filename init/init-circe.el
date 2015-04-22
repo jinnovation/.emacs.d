@@ -2,8 +2,6 @@
 
 (provide 'init-circe)
 
-(require 'lui-autopaste)
-
 (setq
   circe-default-nick "jjin"
   circe-default-user "jjin"
@@ -29,8 +27,6 @@
 (setq
   circe-format-self-say "<{nick}> {body}"
   circe-format-server-topic "*** Topic change by {origin}: {topic-diff}")
-
-(add-hook 'circe-channel-mode-hook 'enable-lui-autopaste)
 
 (add-hook 'circe-chat-mode-hook 'my-circe-prompt)
 (defun my-circe-prompt ()
