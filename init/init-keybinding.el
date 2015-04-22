@@ -23,29 +23,11 @@
 
 (global-set-key (kbd "H-s") 'save-buffer)
 
-;; git + version-control
-(global-set-key (kbd "H-g s") 'magit-status)
-
-(define-prefix-command 'jjin/window-map)
 (define-prefix-command 'jjin/chat-map)
-(define-prefix-command 'jjin/project-map)
-(global-set-key (kbd "H-w") 'jjin/window-map)
 (global-set-key (kbd "H-i") 'jjin/chat-map)
-(global-set-key (kbd "H-p") 'jjin/project-map)
-
-(define-key jjin/window-map (kbd "w") 'ace-window)
-(define-key jjin/window-map (kbd "v") 'split-window-right)
-(define-key jjin/window-map (kbd "s") 'split-window-below)
 
 (define-key jjin/chat-map (kbd "i") 'helm-circe)
 (define-key jjin/chat-map (kbd "n") 'helm-circe-new-activity)
-
-(define-key jjin/project-map (kbd "p") 'helm-projectile)
-(define-key jjin/project-map (kbd "f") 'helm-projectile-find-file)
-(define-key jjin/project-map (kbd "F") 'helm-projectile-find-file-in-known-projects)
-(define-key jjin/project-map (kbd "a") 'helm-projectile-ag)
-(define-key jjin/project-map (kbd "K") 'projectile-kill-buffers)
-(define-key jjin/project-map (kbd "c") 'projectile-compile-project)
 
 ;; buffer manipulation
 (global-set-key (kbd "H-b b") 'helm-buffers-list)
@@ -101,6 +83,8 @@
 
 (define-key evil-normal-state-map (kbd "C-a")   'evil-numbers/inc-at-pt)
 (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
+
+(define-key evil-normal-state-map (kbd "C-w") 'hydra-window/body)
 
 (define-key evil-insert-state-map (kbd "RET")
   'newline-and-indent)

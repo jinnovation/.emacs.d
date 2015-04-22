@@ -21,6 +21,9 @@
 (mapc 'require '(init-fn
                   init-keybinding
                   init-general
+
+                  init-hydra
+
                   init-org
                   init-evil
                   init-doc-view

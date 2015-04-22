@@ -37,6 +37,7 @@
 (depends-on "helm-circe")
 (depends-on "helm-projectile")
 (depends-on "helm-swoop")
+(depends-on "hydra")
 (depends-on "inf-ruby")
 (depends-on "js2-mode")
 (depends-on "lua-mode")
