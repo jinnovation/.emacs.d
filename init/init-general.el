@@ -41,7 +41,7 @@
 (setq scroll-step 1
   scroll-margin 3)
 
-(defalias 'yes-or-no-p 'y-or-n-p)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (tool-bar-mode     0)
 (scroll-bar-mode   0)
@@ -91,5 +91,9 @@
 (global-aggressive-indent-mode 1)
 
 (setq magit-last-seen-setup-instructions "1.4.0")
+
+(setq echo-keystrokes 0)
+
+(setq image-dired-external-viewer "feh")
 
 ;;; init-general.el ends here
