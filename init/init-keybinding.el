@@ -62,10 +62,6 @@
 (global-set-key (kbd "C-<backspace>") 'undo-tree-undo)
 
 (define-key elfeed-search-mode-map (kbd "<SPC>") 'next-line)
-(define-key elfeed-search-mode-map (kbd "B")
-  (elfeed-expose #'elfeed-search-browse-url t))
-(define-key elfeed-search-mode-map (kbd "h")
-  (elfeed-expose #'elfeed-search-set-filter nil))
 
 (global-set-key (kbd "C-x |") 'window-toggle-split-direction)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
