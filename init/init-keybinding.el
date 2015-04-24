@@ -54,10 +54,10 @@
 (global-set-key (kbd "\<C-S-iso-lefttab>") 'prev-window)
 
 (global-set-key (kbd "<f1>") 'dired-at-current)
-(global-set-key (kbd "<f9>") 'circe)
-(global-set-key (kbd "<f10>") 'mu4e)
-(global-set-key (kbd "<f11>") 'elfeed)
-(global-set-key (kbd "<f12>") 'org-agenda)
+(global-set-key (kbd "H-I") 'circe)
+(global-set-key (kbd "H-M") 'mu4e)
+(global-set-key (kbd "H-E") 'elfeed)
+(global-set-key (kbd "H-A") 'org-agenda)
 
 (global-set-key (kbd "C-<backspace>") 'undo-tree-undo)
 
