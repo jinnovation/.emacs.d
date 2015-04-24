@@ -7,6 +7,7 @@
 
 (defconst linum-mode-excludes
   '(doc-view-mode
+     pdf-view-mode
 
      magit-mode
 

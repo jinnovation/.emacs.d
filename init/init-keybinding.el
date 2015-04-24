@@ -22,6 +22,8 @@
 (global-unset-key (kbd "<escape> <f10>"))
 
 (global-set-key (kbd "H-s") 'save-buffer)
+(after 'org
+  (define-key org-src-mode-map (kbd "H-s") 'org-edit-src-save))
 
 (define-prefix-command 'jjin/chat-map)
 (global-set-key (kbd "H-i") 'jjin/chat-map)

@@ -61,15 +61,6 @@
      ("http://feeds.feedburner.com/wondermark"       comic)
      ))
 
-(let
-  ((feed-titles
-     '(("http://www.questionablecontent.net/QCRSS.xml" . "Questionable Content")
-       ("http://rss.escapistmagazine.com/news/0.xml" . "The Escapist"))))
-  (dolist (feed-title feed-titles)
-    (setf (elfeed-meta (elfeed-db-get-feed (car feed-title))
-            :title)
-      (cdr feed-title))))
-
 (setq elfeed-max-connections 10)
 
 ;;; init-elfeed.el ends here

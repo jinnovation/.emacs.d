@@ -27,8 +27,9 @@
   ("k" windmove-up "move up")
   ("h" windmove-left "move left")
   ("l" windmove-right "move right")
-  ("q" delete-window "close")
-  ("Q" kill-buffer-and-window "close and kill"))
+  ("p" purpose-set-window-purpose "set purpose")
+  ("q" delete-window "close" :exit t)
+  ("Q" kill-buffer-and-window "close and kill" :exit t))
 
 (defhydra hydra-vc (global-map "H-g")
   "version control"
@@ -36,14 +37,19 @@
   ("b" magit-blame-mode "git blame"))
 
 (after 'org
-  (defhydra hydra-org (org-mode-map "H-o"
-                        :exit nil)
+  (defhydra hydra-org (:exit nil)
     "Org mode"
     ("n" outline-next-visible-heading)
     ("p" outline-previous-visible-heading)
     ("u" outline-up-heading)
     ("<tab>" org-cycle)
     ("f" org-forward-heading-same-level)
-    ("b" org-backward-heading-same-level)))
+    ("b" org-backward-heading-same-level)
+    ("t" org-todo)
+    ("s" org-babel-next-src-block)
+    ("S" org-babel-previous-src-block))
+
+  (define-key org-mode-map (kbd "H-o") 'hydra-org/body))
+
 
 ;; init-hydra.el ends here

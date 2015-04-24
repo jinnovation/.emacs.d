@@ -13,33 +13,34 @@
   '(git-commit-mode))
 
 (append-to-list 'evil-emacs-state-modes
-    '(erc-mode
-       elfeed-search-mode
-       elfeed-show-mode
-       eshell-mode
-       calendar-mode
-       circe-chat-mode
-       circe-server-mode
-       circe-query-mode
-       circe-channel-mode
+  '(erc-mode
+     elfeed-search-mode
+     elfeed-show-mode
+     eshell-mode
+     calendar-mode
+     circe-chat-mode
+     circe-server-mode
+     circe-query-mode
+     circe-channel-mode
 
-       finder-mode
-       info-mode
+     finder-mode
+     info-mode
 
-       eww-mode
-       eww-bookmark-mode
+     eww-mode
+     eww-bookmark-mode
 
-       dired-mode
-       image-mode
-       image-dired-thumbnail-mode
-       image-dired-display-image-mode
+     dired-mode
+     image-mode
+     image-dired-thumbnail-mode
+     image-dired-display-image-mode
+     pdf-view-mode
 
-       git-rebase-mode
+     git-rebase-mode
 
-       inferior-ess-mode
-       ess-help-mode
+     inferior-ess-mode
+     ess-help-mode
 
-       paradox-menu-mode))
+     paradox-menu-mode))
 
 (global-evil-leader-mode)
 (global-evil-surround-mode 1)

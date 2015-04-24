@@ -88,12 +88,12 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 
-(global-aggressive-indent-mode 1)
-
 (setq magit-last-seen-setup-instructions "1.4.0")
 
 (setq echo-keystrokes 0)
 
 (setq image-dired-external-viewer "feh")
+
+(add-to-list 'sml/replacer-regexp-list '("^~/Dropbox/UCHICAGO4/" ":EDU:") t)
 
 ;;; init-general.el ends here

@@ -1,30 +1,33 @@
-;;; init-purpose.el --- configs for purpose.el
+;;; init-purpose.el --- configs for window-purpose.el
 
 (provide 'init-purpose)
 
 (purpose-x-magit-multi-on)
 
 (setq purpose-user-mode-purposes
-  '((circe-channel-mode . comm)
-     (circe-chat-mode   . comm)
-     (circe-query-mode  . comm)
-     (circe-lagmon-mode . comm)
-     (circe-server-mode . comm)
+  '((circe-channel-mode   . comm)
+     (circe-chat-mode     . comm)
+     (circe-query-mode    . comm)
+     (circe-lagmon-mode   . comm)
+     (circe-server-mode   . comm)
 
-     (haskell-mode      . edit)
-     (ess-mode          . edit)
-     (gitconfig-mode    . edit)
+     (haskell-mode        . edit)
+     (ess-mode            . edit)
+     (gitconfig-mode      . edit)
      (conf-xdefaults-mode . edit)
-     (inferior-ess-mode . interactive)
+     (inferior-ess-mode   . interactive)
 
-     (mu4e-main-mode    . admin)
-     (mu4e-view-mode    . admin)
-     (mu4e-about-mode   . admin)
-     (mu4e-headers-mode . admin)
-     (mu4e-compose-mode . edit)))
+     (mu4e-main-mode      . admin)
+     (mu4e-view-mode      . admin)
+     (mu4e-about-mode     . admin)
+     (mu4e-headers-mode   . admin)
+     (mu4e-compose-mode   . edit)
+     
+     (pdf-view-mode       . view)
+     (doc-view-mode       . view)))
 
 (setq purpose-user-regexp-purposes
-  '(("^\\*elfeed" . admin)))
+  '(("^\\*elfeed"         . admin)))
 
 (purpose-compile-user-configuration)
 

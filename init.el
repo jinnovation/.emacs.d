@@ -7,7 +7,7 @@
 (cask-initialize)
 (pallet-mode t)
 
-(require 'malyon)
+(require 'helm-config)
 
 (pdf-tools-install)
 
