@@ -7,7 +7,6 @@
 (cask-initialize)
 (pallet-mode t)
 
-(require 'helm-config)
 
 (pdf-tools-install)
 
