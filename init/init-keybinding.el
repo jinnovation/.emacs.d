@@ -91,7 +91,8 @@
 (define-key evil-insert-state-map (kbd "RET")
   'newline-and-indent)
 
-(evilem-default-keybindings "SPC")
+(after 'evil-easymotion
+  (evilem-default-keybindings "SPC"))
 
 (evil-leader/set-leader "<SPC>")
 
