@@ -39,15 +39,15 @@
 (after 'org
   (defhydra hydra-org (:exit nil)
     "Org mode"
-    ("n" outline-next-visible-heading)
-    ("p" outline-previous-visible-heading)
-    ("u" outline-up-heading)
+    ("n" outline-next-visible-heading "heading: next")
+    ("p" outline-previous-visible-heading "heading: prev")
+    ("u" outline-up-heading "heading: up")
     ("<tab>" org-cycle)
-    ("f" org-forward-heading-same-level)
-    ("b" org-backward-heading-same-level)
-    ("t" org-todo)
-    ("s" org-babel-next-src-block)
-    ("S" org-babel-previous-src-block))
+    ("f" org-forward-heading-same-level "heading: forward")
+    ("b" org-backward-heading-same-level "heading: back")
+    ("t" org-todo "set TODO state")
+    ("s" org-babel-next-src-block "src: next")
+    ("S" org-babel-previous-src-block "src: prev"))
 
   (define-key org-mode-map (kbd "H-o") 'hydra-org/body))
 
