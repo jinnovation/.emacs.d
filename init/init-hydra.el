@@ -28,6 +28,7 @@
   ("h" windmove-left "move left")
   ("l" windmove-right "move right")
   ("p" purpose-set-window-purpose "set purpose")
+  ("z" toggle-maximize-window :exit t)
   ("q" delete-window "close" :exit t)
   ("Q" kill-buffer-and-window "close and kill" :exit t))
 

@@ -129,4 +129,14 @@ The return value is the new value of LIST-VAR."
       (set list-var elements)))
   (symbol-value list-var))
 
+;; credit: https://gist.github.com/mads379/3402786
+(defun toggle-maximize-window ()
+  "Maximize window"
+  (interactive)
+  (if (= 1 (length (window-list)))
+      (jump-to-register '_)
+    (progn
+      (window-configuration-to-register '_)
+      (delete-other-windows))))
+
 ;;; init-fn.el ends here
