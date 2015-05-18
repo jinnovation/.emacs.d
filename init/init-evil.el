@@ -10,7 +10,8 @@
 (global-evil-search-highlight-persist t)
 
 (append-to-list 'evil-insert-state-modes
-  '(git-commit-mode))
+  '(git-commit-mode
+     org-capture-mode))
 
 (append-to-list 'evil-emacs-state-modes
   '(erc-mode
@@ -34,6 +35,7 @@
      image-dired-thumbnail-mode
      image-dired-display-image-mode
      pdf-view-mode
+     pdf-outline-minor-mode
 
      git-rebase-mode
 

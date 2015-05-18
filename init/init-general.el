@@ -32,10 +32,6 @@
   indent-tabs-mode nil
   tab-width 4)
 
-(setq
-  browse-url-browser-function 'browse-url-generic
-  browse-url-generic-program "chromium")
-
 (setq next-line-add-newlines t)
 
 (setq scroll-step 1
@@ -77,13 +73,11 @@
 (purpose-mode)
 (purpose-load-window-layout)
 
-(setq browse-url-browser-function 'browse-url-xdg-open)
-
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
-(setq browse-url-browser-function 'eww-browse-url) ; use eww as default browser
-(setq browse-url-generic-program (executable-find "chromium")
+(setq browse-url-browser-function 'browse-url-xdg-open)
+(setq browse-url-generic-program (executable-find "firefox")
   shr-external-browser 'browse-url-generic)
 
 (put 'dired-find-alternate-file 'disabled nil)
@@ -94,6 +88,10 @@
 
 (setq image-dired-external-viewer "feh")
 
-(add-to-list 'sml/replacer-regexp-list '("^~/Dropbox/UCHICAGO4/" ":EDU:") t)
+(add-to-list 'sml/replacer-regexp-list
+  '(
+     "^~/Dropbox/UCHICAGO.*/bios/" ":BIOS:"
+     "^~/Dropbox/UCHICAGO4/" ":EDU:"
+     "^~/proj/" ":Dev:"))
 
 ;;; init-general.el ends here

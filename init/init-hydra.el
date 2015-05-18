@@ -1,6 +1,6 @@
 ;; init-hydra.el --- defining custom hydra
 
-(provide 'init-hydra)
+(require 'hydra-examples)
 
 (defhydra hydra-zoom (global-map "H-z")
   "zoom"
@@ -19,7 +19,6 @@
 
 (defhydra hydra-window (global-map "H-w")
   "Window management"
-  ;; TODO: bindings for moving splitters
   ("w" ace-window "select" :exit t)
   ("v" split-window-right "split right")
   ("s" split-window-below "split below")
@@ -27,8 +26,12 @@
   ("k" windmove-up "move up")
   ("h" windmove-left "move left")
   ("l" windmove-right "move right")
-  ("p" purpose-set-window-purpose "set purpose")
-  ("z" toggle-maximize-window :exit t)
+  ("H" hydra-move-splitter-left)
+  ("L" hydra-move-splitter-right)
+  ("J" hydra-move-splitter-up)
+  ("K" hydra-move-splitter-down)
+  ("p" purpose-set-window-purpose "set purpose" :exit t)
+  ("z" toggle-maximize-window "toggle maximize":exit t)
   ("q" delete-window "close" :exit t)
   ("Q" kill-buffer-and-window "close and kill" :exit t))
 
@@ -36,6 +39,15 @@
   "version control"
   ("s" magit-status "git status" :exit t)
   ("b" magit-blame-mode "git blame"))
+
+(defhydra hydra-comment (prog-mode-map "H-c"
+                          :exit t)
+  "commenting"
+  ("i" evilnc-comment-or-uncomment-lines)
+  ("l" evilnc-quick-comment-or-uncomment-to-the-line)
+  ("c" evilnc-copy-and-comment-lines)
+  ("p" evilnc-comment-or-uncomment-paragraphs)
+  ("v" evilnc-toggle-invert-comment-line-by-line))
 
 (after 'org
   (defhydra hydra-org (:exit nil)
@@ -52,5 +64,6 @@
 
   (define-key org-mode-map (kbd "H-o") 'hydra-org/body))
 
+(provide 'init-hydra)
 
 ;; init-hydra.el ends here

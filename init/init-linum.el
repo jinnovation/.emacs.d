@@ -1,6 +1,6 @@
 ;;; init-linum.el --- linum-mode-specific configs
 
-(provide 'init-linum)
+(require 'linum-relative)
 
 (setq linum-format 'dynamic)
 (global-linum-mode 1)
@@ -32,5 +32,9 @@
 of listed in `linum-mode-excludes'."
   (unless (member major-mode linum-mode-excludes)
     ad-do-it))
+
+(setq linum-relative-current-symbol "")
+
+(provide 'init-linum)
 
 ;;; init-linum.el ends here

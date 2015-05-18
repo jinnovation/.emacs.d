@@ -10,14 +10,14 @@
 (require 'evil-leader)
 (require 'window-purpose)
 
-(global-unset-key (kbd "M-c")) ;; capitalize-word
 (global-unset-key (kbd "<menu>"))
 (global-unset-key (kbd "M-`"))
 (global-unset-key (kbd "C-c C-w"))
 (global-unset-key (kbd "M-x"))
 (global-unset-key (kbd "C-x C-n"))      ; set-goal-column
 
-;; toggle-frame-maximized
+(global-unset-key (kbd "<f10>"))
+(global-unset-key (kbd "<f11>"))
 (global-unset-key (kbd "M-<f10>"))
 (global-unset-key (kbd "<escape> <f10>"))
 
@@ -36,13 +36,6 @@
 (global-set-key (kbd "H-b k") 'kill-current-buffer)
 (global-set-key (kbd "H-b n") 'next-buffer)
 
-;; commenting
-(define-key prog-mode-map (kbd "H-c i") 'evilnc-comment-or-uncomment-lines)
-(define-key prog-mode-map (kbd "H-c l") 'evilnc-quick-comment-or-uncomment-to-the-line)
-(define-key prog-mode-map (kbd "H-c c") 'evilnc-copy-and-comment-lines)
-(define-key prog-mode-map (kbd "H-c p") 'evilnc-comment-or-uncomment-paragraphs)
-(define-key prog-mode-map (kbd "H-c v") 'evilnc-toggle-invert-comment-line-by-line)
-
 (global-set-key (kbd "H-a r") 'align-regexp)
 
 (global-set-key (kbd "H-f f")  'helm-find-files)
@@ -53,7 +46,7 @@
 (global-set-key (kbd "C-<tab>")            'other-window)
 (global-set-key (kbd "\<C-S-iso-lefttab>") 'prev-window)
 
-(global-set-key (kbd "<f1>") 'dired-at-current)
+(global-set-key (kbd "H-D") 'dired-at-current)
 (global-set-key (kbd "H-I") 'circe)
 (global-set-key (kbd "H-M") 'mu4e)
 (global-set-key (kbd "H-E") 'elfeed)
@@ -87,9 +80,6 @@
 (define-key evil-insert-state-map (kbd "RET")
   'newline-and-indent)
 
-(after 'evil-easymotion
-  (evilem-default-keybindings "SPC"))
-
 (evil-leader/set-leader "<SPC>")
 
 (define-key purpose-mode-prefix-map (kbd "W") 'purpose-set-window-purpose)
@@ -98,7 +88,8 @@
 (define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
 
 (after 'org
-  (define-key org-mode-map (kbd "C-c o p") 'org-set-property))
+  (define-key org-mode-map (kbd "C-c o p") 'org-set-property)
+  (define-key global-map (kbd "H-C") 'org-capture))
 
 (after 'ess
   (define-key inferior-ess-mode-map (kbd "C-c C-w") nil))

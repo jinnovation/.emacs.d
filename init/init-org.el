@@ -55,8 +55,7 @@
 
 (add-hook 'org-mode-hook
   (lambda ()
-    (fic-mode)
-    (writegood-mode)))
+    (fic-mode)))
 
 (setq org-latex-packages-alist
   '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
@@ -88,5 +87,24 @@
 
 (setq org-blank-before-new-entry
   '((heading . true) (plain-list-item . auto)))
+
+(setq
+  ;; FIXME: parameter-ize dir `agenda'
+  org-default-notes-file "~/agenda/notes.org"
+
+  org-capture-templates
+  '(("r" "Reading" entry (file "~/agenda/reading.org")
+      "* TODO %?\n  Entered on %U\n  %i")))
+
+(setq org-modules
+  '(org-bbdb
+     org-bibtex
+     org-docview
+     org-gnus
+     org-info
+     org-irc
+     org-mhe
+     org-rmail
+     org-w3m))
 
 ;;; init-org.el ends here

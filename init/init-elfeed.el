@@ -24,7 +24,9 @@
      ("http://rss.escapistmagazine.com/news/0.xml"         entertainment videogames)
      ("http://rss.escapistmagazine.com/videos/list/1.xml"  entertainment videogames)
      ("http://www.engadget.com/tag/@gaming/rss.xml"        entertainment videogames)
-     ("http://feeds.feedburner.com/RockPaperShotgun"       entertainment videogames)
+     ("http://feeds.feedburner.com/RockPaperShotgun"       entertainment
+       videogames)
+     ("http://screenrant.com/feed/" entertainment movies)
 
      ;; software
      ("https://news.ycombinator.com/rss"                software news)
@@ -35,6 +37,7 @@
      ("http://feeds.feedburner.com/oreilly/news"        software)
      ("http://www.joelonsoftware.com/rss.xml"           software)
      ("http://onethingwell.org/rss"                     software tech)
+     ("http://syndication.thedailywtf.com/TheDailyWtf"  software)
 
      ("http://pandodaily.com.feedsportal.com/c/35141/f/650422/index.rss"  tech)
      ("https://medium.com/feed/backchannel"                               tech software)
@@ -58,9 +61,10 @@
      ("http://www.questionablecontent.net/QCRSS.xml" comic)
      ("http://phdcomics.com/gradfeed.php"            comic)
 
-     ("http://feeds.feedburner.com/wondermark"       comic)
-     ))
+     ("http://feeds.feedburner.com/wondermark"       comic)))
 
 (setq elfeed-max-connections 10)
+
+(setq url-queue-timeout 30)
 
 ;;; init-elfeed.el ends here
