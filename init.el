@@ -7,6 +7,7 @@
 (cask-initialize)
 (pallet-mode t)
 
+(require 'ess-site)
 
 (pdf-tools-install)
 
