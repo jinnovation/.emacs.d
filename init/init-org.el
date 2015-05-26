@@ -3,6 +3,7 @@
 (provide 'init-org)
 
 (require 'ox-latex)
+(require 'ox-bibtex)
 
 (setq
   org-agenda-files '("~/agenda")
@@ -43,10 +44,7 @@
        ((tags-todo "CATEGORY=\"Movies\""
           ((org-agenda-prefix-format "%:T "))))))
 
-  org-latex-pdf-process
-  '("pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"
-     "pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"
-     "pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"))
+  org-latex-pdf-process (list "latexmk -shell-escape -pdf %f"))
 
 (plist-put org-format-latex-options :scale 1.5)
 
@@ -106,5 +104,11 @@
      org-mhe
      org-rmail
      org-w3m))
+
+(setq org-entities-user
+  '(("supsetneqq" "\\supsetneqq" t "" "[superset of above not equal to]"
+      "[superset of above not equal to]" "⫌")
+     ("subsetneqq" "\\subsetneqq" t "" "[suberset of above not equal to]"
+       "[suberset of above not equal to]" "⫋")))
 
 ;;; init-org.el ends here
