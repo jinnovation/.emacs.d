@@ -10,6 +10,7 @@
 (depends-on "android-mode")
 (depends-on "auctex")
 (depends-on "circe")
+(depends-on "csv-mode")
 (depends-on "debbugs")
 (depends-on "dired+")
 (depends-on "ecukes")
