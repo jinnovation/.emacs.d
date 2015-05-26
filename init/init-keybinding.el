@@ -90,6 +90,9 @@
 (after 'org
   (define-key org-mode-map (kbd "C-c o p") 'org-set-property)
   (redefine-key org-mode-map (kbd "C-c C-e") (kbd "H-e")) ; org-export-dispatch
+  (redefine-key org-mode-map (kbd "C-c C-t") (kbd "H-t")) ; org-todo
+  (redefine-key org-mode-map (kbd "C-c C-p") (kbd "M-p")) ; outline-previous-visible-heading
+  (redefine-key org-mode-map (kbd "C-c C-n") (kbd "M-n")) ; outline-next-visible-heading
   (define-key global-map (kbd "H-C") 'org-capture))
 
 (after 'ess
