@@ -89,6 +89,7 @@
 
 (after 'org
   (define-key org-mode-map (kbd "C-c o p") 'org-set-property)
+  (redefine-key org-mode-map (kbd "C-c C-e") (kbd "H-e")) ; org-export-dispatch
   (define-key global-map (kbd "H-C") 'org-capture))
 
 (after 'ess
