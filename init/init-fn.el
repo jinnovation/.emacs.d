@@ -139,4 +139,9 @@ The return value is the new value of LIST-VAR."
       (window-configuration-to-register '_)
       (delete-other-windows))))
 
+(defun redefine-key (map key-old key-new)
+  (let ((fn (lookup-key map key-old)))
+    (define-key map key-new fn)
+    (define-key map key-old nil)))
+
 ;;; init-fn.el ends here
