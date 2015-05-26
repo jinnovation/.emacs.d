@@ -38,6 +38,7 @@
      ("http://www.joelonsoftware.com/rss.xml"           software)
      ("http://onethingwell.org/rss"                     software tech)
      ("http://syndication.thedailywtf.com/TheDailyWtf"  software)
+     ("http://githubengineering.com/atom.xml"           software tech)
 
      ("http://pandodaily.com.feedsportal.com/c/35141/f/650422/index.rss"  tech)
      ("https://medium.com/feed/backchannel"                               tech software)
