@@ -71,6 +71,9 @@
      (latex . t)
      (R . t)))
 
+(setq org-confirm-babel-evaluate nil
+  org-export-babel-evaluate nil)
+
 (setq org-latex-minted-options
   '(("linenos" "true")
      ("fontsize" "\\scriptsize")

@@ -70,8 +70,8 @@
 
 (fringe-mode '(4 . 0))
 
-(purpose-mode)
-(purpose-load-window-layout)
+;; (purpose-mode)
+;; (purpose-load-window-layout)
 
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))

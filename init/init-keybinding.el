@@ -89,13 +89,17 @@
 
 (after 'org
   (define-key org-mode-map (kbd "C-c o p") 'org-set-property)
-  (redefine-key org-mode-map (kbd "C-c C-e") (kbd "H-e")) ; org-export-dispatch
-  (redefine-key org-mode-map (kbd "C-c C-t") (kbd "H-t")) ; org-todo
-  (redefine-key org-mode-map (kbd "C-c C-p") (kbd "M-p")) ; outline-previous-visible-heading
-  (redefine-key org-mode-map (kbd "C-c C-n") (kbd "M-n")) ; outline-next-visible-heading
+  (define-key org-mode-map (kbd "H-e") 'org-export-dispatch)
+  (define-key org-mode-map (kbd "H-t") 'org-todo)
+  (define-key org-mode-map (kbd "M-p") 'outline-previous-visible-heading)
+  (define-key org-mode-map (kbd "M-n") 'outline-next-visible-heading)
+  
   (define-key global-map (kbd "H-C") 'org-capture))
 
 (after 'ess
   (define-key inferior-ess-mode-map (kbd "C-c C-w") nil))
+
+(after 'mu4e
+  (define-key mu4e-headers-mode-map (kbd "H-u") 'mu4e-update-mail-and-index))
 
 ;;; init-keybinding.el ends here

@@ -50,7 +50,7 @@
 
                   init-compile
 
-                  init-purpose
+                  ;; init-purpose
 
                   ;; environments
                   init-mac))

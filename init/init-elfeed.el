@@ -10,10 +10,10 @@
      ("http://www.tor.com/rss/frontpage_full" literature)
      ("http://longform.org/feed.rss")
      ("http://feeds.feedburner.com/themillionsblog/fedw" literature)
+     ("http://feeds.feedburner.com/mcsweeneys/")
 
      ("http://feeds.bbci.co.uk/news/world/rss.xml"                    news)
      ("http://feeds.bbci.co.uk/news/business/rss.xml"                 news)
-     ("http://feeds.bbci.co.uk/news/science_and_environment/rss.xml"  news)
      ("http://feeds.bbci.co.uk/news/technology/rss.xml"               news tech)
      ("http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml"   news)
 
@@ -24,9 +24,8 @@
      ("http://rss.escapistmagazine.com/news/0.xml"         entertainment videogames)
      ("http://rss.escapistmagazine.com/videos/list/1.xml"  entertainment videogames)
      ("http://www.engadget.com/tag/@gaming/rss.xml"        entertainment videogames)
-     ("http://feeds.feedburner.com/RockPaperShotgun"       entertainment
-       videogames)
-     ("http://screenrant.com/feed/" entertainment movies)
+     ("http://feeds.feedburner.com/RockPaperShotgun"       entertainment videogames)
+     ("http://screenrant.com/feed/"                        entertainment movies)
 
      ;; software
      ("https://news.ycombinator.com/rss"                software news)

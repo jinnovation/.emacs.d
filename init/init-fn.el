@@ -134,14 +134,13 @@ The return value is the new value of LIST-VAR."
   "Maximize window"
   (interactive)
   (if (= 1 (length (window-list)))
-      (jump-to-register '_)
+    (jump-to-register '_)
     (progn
       (window-configuration-to-register '_)
       (delete-other-windows))))
 
 (defun redefine-key (map key-old key-new)
-  (let ((fn (lookup-key map key-old)))
-    (define-key map key-new fn)
-    (define-key map key-old nil)))
+  (define-key map key-new (lookup-key map key-old))
+  (define-key map key-old nil))
 
 ;;; init-fn.el ends here
