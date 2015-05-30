@@ -8,6 +8,7 @@
 (pallet-mode t)
 
 (require 'ess-site)
+(require 'use-package)
 
 (pdf-tools-install)
 

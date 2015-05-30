@@ -52,6 +52,7 @@
 (depends-on "rust-mode")
 (depends-on "smart-mode-line")
 (depends-on "toml-mode")
+(depends-on "use-package")
 (depends-on "vimrc-mode")
 (depends-on "web-mode")
 (depends-on "workgroups")
