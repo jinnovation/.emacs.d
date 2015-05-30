@@ -11,27 +11,32 @@
 (require 'diminish)
 
 (use-package ess-site
+  :init
+  (setq inferior-R-args "--quiet")
+  
   :config
-  (bind-key "C-c C-w" nil inferior-ess-mode-map)
-  (setq inferior-R-args "--quiet"))
+  (bind-key "C-c C-w" nil inferior-ess-mode-map))
 
-(pdf-tools-install)
+(use-package pdf-tools
+  :config
+  (pdf-tools-install))
 
 (use-package paradox
   :init
   (setq paradox-github-token t))
 
 (use-package ace-window
+  :init
+  (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
+  
   :config
-  (add-to-list 'aw-ignored-buffers "mu4e-update")
-  (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p)))
+  (add-to-list 'aw-ignored-buffers "mu4e-update"))
 
 (use-package window-purpose
   :disabled t
-  :config
-  (bind-key "W" 'purpose-set-window-purpose purpose-mode-prefix-map)
-
-  (purpose-x-magit-multi-on)
+  :init
+  (setq purpose-user-regexp-purposes
+    '(("^\\*elfeed"         . admin)))
 
   (setq purpose-user-mode-purposes
     '((circe-channel-mode   . comm)
@@ -55,8 +60,10 @@
        (pdf-view-mode       . view)
        (doc-view-mode       . view)))
 
-  (setq purpose-user-regexp-purposes
-    '(("^\\*elfeed"         . admin)))
+  :config
+  (bind-key "W" 'purpose-set-window-purpose purpose-mode-prefix-map)
+
+  (purpose-x-magit-multi-on)
 
   (purpose-compile-user-configuration)
 
@@ -146,7 +153,7 @@
               circe-query-mode
               circe-channel-mode)
   :bind ("H-I" . circe)
-  :config
+  :init
   (setq
     circe-default-nick "jjin"
     circe-default-user "jjin"
@@ -172,6 +179,10 @@
   (setq
     circe-format-self-say "<{nick}> {body}"
     circe-format-server-topic "*** Topic change by {origin}: {topic-diff}")
+  
+  (setq circe-color-nicks-everywhere t))
+  
+  :config
 
   (add-hook 'circe-chat-mode-hook 'my-circe-prompt)
   (defun my-circe-prompt ()
@@ -181,12 +192,12 @@
         " ")))
 
   (enable-circe-color-nicks)
-  (setq circe-color-nicks-everywhere t))
 
 (use-package sass-mode
   :disabled t
-  :config
+  :init
   (setq scss-compile-at-save nil)
+  :config
   (add-hook 'scss-mode-hook 'rainbow-mode))
 
 (use-package rich-minority
@@ -218,14 +229,15 @@
       (ruby-end-mode))))
 
 (use-package helm
+  :init
+  (setq
+    helm-M-x-fuzzy-match t
+    helm-external-programs-associations '(("pdf" . "zathura"))
+    helm-split-window-in-side-p t)
+  
   :config
   (helm-mode 1)
-  (helm-autoresize-mode t)
-  (setq helm-M-x-fuzzy-match t)
-
-  (setq
-    helm-external-programs-associations '(("pdf" . "zathura"))
-    helm-split-window-in-side-p t))
+  (helm-autoresize-mode t))
 
 (use-package markdown-mode+
   :config
@@ -233,16 +245,17 @@
   (add-hook 'markdown-mode-hook 'fic-mode))
 
 (use-package ansi-color
-  :config
+  :init
   (setq ansi-color-faces-vector
     [default bold shadow italic underline bold bold-italic bold])
+  (setq compilation-scroll-output t)
+  :config
   (defun colorize-compilation-buffer ()
     (toggle-read-only)
     (ansi-color-apply-on-region (point-min) (point-max))
     (toggle-read-only))
 
-  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-  (setq compilation-scroll-output t))
+  (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
 
 (use-package hydra
   :config
@@ -361,20 +374,25 @@
   (use-package hydra
     :config
     (bind-key "C-w" 'hydra-window/body evil-normal-state-map))
+  
   (use-package evil-numbers
     :config
     (bind-key "C-a" 'evil-numbers/inc-at-pt evil-normal-state-map)
     (bind-key "C-c -" 'evil-numbers/dec-at-pt evil-normal-state-map))
+  
   (use-package evil-search-highlight-persist
     :config
     (bind-key "C-l" 'evil-search-highlight-persist-remove-all
       evil-normal-state-map)
     (global-evil-search-highlight-persist t))
+  
   (evil-mode 1)
+  
   (use-package evil-leader
     :config
     (evil-leader/set-leader "<SPC>")
     (global-evil-leader-mode))
+  
   (use-package evil-surround
     :config
     (global-evil-surround-mode 1)))
