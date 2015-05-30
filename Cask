@@ -15,6 +15,7 @@
 (depends-on "dired+")
 (depends-on "ecukes")
 (depends-on "elfeed")
+(depends-on "enh-ruby-mode")
 (depends-on "ess")
 (depends-on "evil")
 (depends-on "evil-leader")

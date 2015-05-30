@@ -5,9 +5,6 @@
 (require 'init-projectile)
 (require 'init-fn)
 
-(global-unset-key (kbd "C-x"))
-(global-set-key (kbd "C-,") ctl-x-map)
-
 (global-unset-key (kbd "<menu>"))
 (global-unset-key (kbd "M-`"))
 (global-unset-key (kbd "C-c C-w"))

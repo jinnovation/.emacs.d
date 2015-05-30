@@ -2,6 +2,4 @@
 
 (provide 'init-doc-view)
 
-(setq doc-view-resolution 200)
-
 ;;; init-doc-view.el ends here
