@@ -87,15 +87,6 @@
 (define-key universal-argument-map (kbd "C-u") 'kill-whole-line)
 (define-key universal-argument-map (kbd "M-u") 'universal-argument-more)
 
-(after 'org
-  (define-key org-mode-map (kbd "C-c o p") 'org-set-property)
-  (define-key org-mode-map (kbd "H-e") 'org-export-dispatch)
-  (define-key org-mode-map (kbd "H-t") 'org-todo)
-  (define-key org-mode-map (kbd "M-p") 'outline-previous-visible-heading)
-  (define-key org-mode-map (kbd "M-n") 'outline-next-visible-heading)
-  
-  (define-key global-map (kbd "H-C") 'org-capture))
-
 (after 'ess
   (define-key inferior-ess-mode-map (kbd "C-c C-w") nil))
 

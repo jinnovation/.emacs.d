@@ -5,46 +5,58 @@
 (require 'ox-latex)
 (require 'ox-bibtex)
 
-(setq
-  org-agenda-files '("~/agenda")
+(use-package org
+  :bind ("H-C" . org-capture)
+  :init
+  (setq org-agenda-files '("~/agenda")
+    org-return-follows-link t
 
-  org-return-follows-link t
+    org-export-dispatch-use-expert-ui t
+    
+    org-latex-create-formula-image-program 'imagemagick
+    org-latex-listings 'minted
+    org-tags-column -80
 
-  org-export-dispatch-use-expert-ui t
+    org-enforce-todo-dependencies t
+    org-enforce-todo-checkbox-dependencies  t
 
-  org-latex-create-formula-image-program 'imagemagick
-  org-latex-listings 'minted
-  org-tags-column -80
+    org-pretty-entities t
+    org-src-fontify-natively t
+    org-list-allow-alphabetical t
 
-  org-enforce-todo-dependencies           t
-  org-enforce-todo-checkbox-dependencies  t
+    org-todo-keywords
+    '((sequence "TODO(t)" "IN-PROGRESS(r)" "|"  "DONE(d)"))
 
-  org-pretty-entities                     t
-  org-src-fontify-natively                t
-  org-alphabetical-lists                  t
+    org-todo-keyword-faces
+    '(("TODO" . org-todo) ("IN-PROGRESS" . "yellow") ("DONE" . org-done))
 
-  org-todo-keywords
-  '((sequence "TODO(t)" "IN-PROGRESS(r)" "|"  "DONE(d)"))
+    org-agenda-custom-commands
+    '(("s" "Schoolwork"
+        ((agenda "" ((org-agenda-ndays 14)
+                      (org-agenda-start-on-weekday nil)
+                      (org-agenda-prefix-format " %-12:c%?-12t% s")))
+          (tags-todo "CATEGORY=\"Schoolwork\""
+            ((org-agenda-prefix-format "%b")))))
 
-  org-todo-keyword-faces
-  '(("TODO" . org-todo) ("IN-PROGRESS" . "yellow") ("DONE" . org-done))
+       ("r" "Reading"
+         ((tags-todo "CATEGORY=\"Reading\""
+            ((org-agenda-prefix-format "%:T ")))))
+       ("m" "Movies"
+         ((tags-todo "CATEGORY=\"Movies\""
+            ((org-agenda-prefix-format "%:T "))))))
 
-  org-agenda-custom-commands
-  '(("s" "Schoolwork"
-      ((agenda "" ((org-agenda-ndays 14)
-                    (org-agenda-start-on-weekday nil)
-                    (org-agenda-prefix-format " %-12:c%?-12t% s")))
-        (tags-todo "CATEGORY=\"Schoolwork\""
-          ((org-agenda-prefix-format "%b")))))
+    org-latex-pdf-process (list "latexmk -shell-escape -pdf %f")
 
-     ("r" "Reading"
-       ((tags-todo "CATEGORY=\"Reading\""
-          ((org-agenda-prefix-format "%:T ")))))
-     ("m" "Movies"
-       ((tags-todo "CATEGORY=\"Movies\""
-          ((org-agenda-prefix-format "%:T "))))))
-
-  org-latex-pdf-process (list "latexmk -shell-escape -pdf %f"))
+    org-entities-user
+    '(("supsetneqq" "\\supsetneqq" t "" "[superset of above not equal to]"
+        "[superset of above not equal to]" "⫌")
+       ("subsetneqq" "\\subsetneqq" t "" "[suberset of above not equal to]"
+         "[suberset of above not equal to]" "⫋")))
+  :config
+  (bind-key "H-t" 'org-todo org-mode-map)
+  (bind-key "H-e" 'org-export-dispatch org-mode-map)
+  (bind-key "M-p" 'outline-previous-visible-heading org-mode-map)
+  (bind-key "M-n" 'outline-next-visible-heading org-mode-map))
 
 (plist-put org-format-latex-options :scale 1.5)
 
@@ -107,11 +119,5 @@
      org-mhe
      org-rmail
      org-w3m))
-
-(setq org-entities-user
-  '(("supsetneqq" "\\supsetneqq" t "" "[superset of above not equal to]"
-      "[superset of above not equal to]" "⫌")
-     ("subsetneqq" "\\subsetneqq" t "" "[suberset of above not equal to]"
-       "[suberset of above not equal to]" "⫋")))
 
 ;;; init-org.el ends here
