@@ -16,6 +16,11 @@
 (setq ansi-color-faces-vector
   [default bold shadow italic underline bold bold-italic bold])
 
+(use-package ace-window
+  :config
+  (add-to-list 'aw-ignored-buffers "mu4e-update")
+  (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p)))
+
 (mapc 'require '(init-fn
                   init-keybinding
                   init-general
@@ -36,7 +41,6 @@
                   init-gnus
                   init-mu4e
                   init-circe
-                  init-aw
 
                   ;; languages
                   init-ruby
