@@ -70,9 +70,6 @@
 
 (fringe-mode '(4 . 0))
 
-;; (purpose-mode)
-;; (purpose-load-window-layout)
-
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
@@ -87,11 +84,5 @@
 (setq echo-keystrokes 0)
 
 (setq image-dired-external-viewer "feh")
-
-(add-to-list 'sml/replacer-regexp-list
-  '(
-     "^~/Dropbox/UCHICAGO.*/bios/" ":BIOS:"
-     "^~/Dropbox/UCHICAGO4/" ":EDU:"
-     "^~/proj/" ":Dev:"))
 
 ;;; init-general.el ends here
