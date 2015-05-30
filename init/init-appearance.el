@@ -3,23 +3,25 @@
 (provide 'init-appearance)
 (require 'init-fn)
 
-(require 'linum)
-(require 'elfeed)
-
 (defconst bg-color "black")
 (defconst default-font "Terminus 08")
 (set-frame-font default-font)
 (set-face-attribute 'mode-line nil :font default-font)
 
-(load-theme 'gotham t)
+(use-package gotham-theme
+  :config
+  (load-theme 'gotham t))
 
 (set-background-color bg-color)
 (set-face-attribute 'fringe nil :background bg-color)
 
-(set-face-attribute 'linum nil :background bg-color)
+(use-package linum
+  :config
+  (set-face-attribute 'linum nil :background bg-color))
 
 ;; FIXME: make color dependent on color scheme
-(if-package-installed "evil-search-highlight-persist"
+(use-package evil-search-highlight-persist
+  :config
   (set-face-attribute
     'evil-search-highlight-persist-highlight-face
     nil

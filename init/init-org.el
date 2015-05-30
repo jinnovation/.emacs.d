@@ -56,7 +56,8 @@
   (bind-key "H-t" 'org-todo org-mode-map)
   (bind-key "H-e" 'org-export-dispatch org-mode-map)
   (bind-key "M-p" 'outline-previous-visible-heading org-mode-map)
-  (bind-key "M-n" 'outline-next-visible-heading org-mode-map))
+  (bind-key "M-n" 'outline-next-visible-heading org-mode-map)
+  (bind-key "H-s" 'org-edit-src-save org-src-mode-map))
 
 (plist-put org-format-latex-options :scale 1.5)
 

@@ -1,7 +1,13 @@
 ;;; init-mu4e.el --- mu4e-specific configurations
 (provide 'init-mu4e)
 
-(require 'mu4e)
+(use-package mu4e
+  :bind (("H-M" . mu4e)
+          ("H-m u" . mu4e-update-mail-and-index)
+          ("H-m i" . mu4e-interrupt-update-mail))
+  :init
+  :config
+  (bind-key "H-u" 'mu4e-update-mail-and-index mu4e-headers-mode-map))
 
 (setq
   mu4e-maildir "~/mail"
