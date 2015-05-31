@@ -19,13 +19,12 @@
   :config
   (set-face-attribute 'linum nil :background bg-color))
 
-;; FIXME: make color dependent on color scheme
 (use-package evil-search-highlight-persist
   :config
   (set-face-attribute
     'evil-search-highlight-persist-highlight-face
     nil
-    :background "DodgerBlue4"))
+    :background (face-attribute 'match :background)))
 
 (when (functionp 'set-fontset-font)
   (set-fontset-font "fontset-default"
