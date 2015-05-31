@@ -1,7 +1,8 @@
 ;;; init-appearance.el --- Color and font configurations
 
 (provide 'init-appearance)
-(require 'init-fn)
+
+(use-package init-fn)
 
 (defconst bg-color "black")
 (defconst default-font "Terminus 08")

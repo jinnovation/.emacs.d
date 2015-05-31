@@ -2,6 +2,11 @@
 
 (provide 'init-fn)
 
+(defun load-if-exists (file)
+  "Loads file, conditional on its existence; no effect if non-existent."
+  (when (file-exists-p file)
+    (load-file file)))
+
 (defun kill-current-buffer ()
   (interactive)
   (kill-buffer (current-buffer)))

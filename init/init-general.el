@@ -1,10 +1,9 @@
 ;;; init-general.el --- general configurations
 
 (provide 'init-general)
-(require 'init-fn)
+(use-package init-fn)
 
-(when (file-exists-p "~/.secrets.el")
-  (load-file "~/.secrets.el"))
+(load-if-exists "~/.secrets.el")
 
 (setq custom-safe-themes t)
 
