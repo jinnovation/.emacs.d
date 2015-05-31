@@ -18,34 +18,34 @@
      - [[#latex][LaTeX]]
      - [[#zsh][zsh]]
  - [[#packages][Packages]]
-     - [[#toc-org][toc-org]]
-     - [[#rainbow-mode][rainbow-mode]]
-     - [[#undo-tree][undo-tree]]
-     - [[#elfeed][Elfeed]]
-     - [[#smart-mode-line][smart-mode-line]]
-     - [[#mu4e][mu4e]]
-     - [[#paradox][Paradox]]
      - [[#ace-window][ace-window]]
+     - [[#ansi-color][ansi-color]]
+     - [[#circe][Circe]]
+     - [[#conf-mode][conf-mode]]
+     - [[#doc-view-mode][doc-view-mode]]
+     - [[#elfeed][Elfeed]]
+     - [[#enh-ruby-mode][enh-ruby-mode]]
+     - [[#ess][ESS]]
+     - [[#evil][Evil]]
+     - [[#git][Git]]
+     - [[#haskell-mode][haskell-mode]]
+     - [[#helm][Helm]]
+     - [[#hydra][Hydra]]
+     - [[#linum][linum]]
+     - [[#markdown-mode][markdown-mode+]]
+     - [[#mu4e][mu4e]]
+     - [[#org-mode][Org-mode]]
+     - [[#paradox][Paradox]]
+     - [[#pdf-tools][pdf-tools]]
+     - [[#projectile][Projectile]]
+     - [[#rainbow-mode][rainbow-mode]]
+     - [[#rich-minority-mode][rich-minority-mode]]
+     - [[#sass-mode][sass-mode]]
+     - [[#smart-mode-line][smart-mode-line]]
+     - [[#toc-org][toc-org]]
+     - [[#undo-tree][undo-tree]]
      - [[#web-mode][web-mode]]
      - [[#window-purpose][window-purpose]]
-     - [[#circe][Circe]]
-     - [[#doc-view-mode][doc-view-mode]]
-     - [[#markdown-mode][markdown-mode+]]
-     - [[#haskell-mode][haskell-mode]]
-     - [[#projectile][Projectile]]
-     - [[#helm][Helm]]
-     - [[#org-mode][Org-mode]]
-     - [[#sass-mode][sass-mode]]
-     - [[#evil][Evil]]
-     - [[#enh-ruby-mode][enh-ruby-mode]]
-     - [[#hydra][Hydra]]
-     - [[#git][Git]]
-     - [[#ansi-color][ansi-color]]
-     - [[#rich-minority-mode][rich-minority-mode]]
-     - [[#pdf-tools][pdf-tools]]
-     - [[#conf-mode][conf-mode]]
-     - [[#ess][ESS]]
-     - [[#linum][linum]]
  - [[#license][License]]
 
 * Preamble
@@ -431,31 +431,112 @@
    
 * Packages
 
-** toc-org
+** ace-window
 
    #+BEGIN_SRC emacs-lisp
-     (use-package toc-org
+     (use-package ace-window
+       :init
+       (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
+
        :config
-       (add-hook 'org-mode-hook 'toc-org-enable))
+       (add-to-list 'aw-ignored-buffers "mu4e-update"))
    #+END_SRC
 
-** rainbow-mode
+** ansi-color
 
    #+BEGIN_SRC emacs-lisp
-     (use-package rainbow-mode
-       :commands (rainbow-mode)
+     (use-package ansi-color
+       :init
+       (setq ansi-color-faces-vector
+         [default bold shadow italic underline bold bold-italic bold])
+       (setq compilation-scroll-output t)
        :config
-       (add-hook 'help-mode-hook 'rainbow-mode))
+       (defun colorize-compilation-buffer ()
+         (toggle-read-only)
+         (ansi-color-apply-on-region (point-min) (point-max))
+         (toggle-read-only))
+
+       (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
    #+END_SRC
-   
-** undo-tree
+
+** Circe
 
    #+BEGIN_SRC emacs-lisp
-     (use-package undo-tree
-       :diminish undo-tree-mode
-       :bind ("C-<backspace>" . undo-tree-undo))
+     (use-package circe
+       :commands (circe-chat-mode
+                   circe-server-mode
+                   circe-query-mode
+                   circe-channel-mode)
+       :bind ("H-I" . circe)
+       :init
+       (setq
+         circe-default-nick "jjin"
+         circe-default-user "jjin"
+         circe-default-part-message "Peace."
+         circe-default-quit-message "Peace.")
+
+       (setq circe-use-cycle-completion t
+         circe-reduce-lurker-spam t)
+
+       (setq circe-network-options
+         '(("Freenode"
+             :nick "jjin"
+             :channels ("#emacs" "#archlinux")
+             :nickserv-password ,freenode-pass)
+            ("Bitlbee"
+              :service "6667"
+              :nickserv-password ,bitlbee-pass
+              :nickserv-mask "\\(bitlbee\\|root\\)!\\(bitlbee\\|root\\)@"
+              :nickserv-identify-challenge "use the \x02identify\x02 command to identify yourself"
+              :nickserv-identify-command "PRIVMSG &bitlbee :identify {password}"
+              :nickserv-identify-confirmation "Password accepted, settings and accounts loaded")))
+
+       (setq
+         circe-format-self-say "<{nick}> {body}"
+         circe-format-server-topic "*** Topic change by {origin}: {topic-diff}")
+       (setq circe-color-nicks-everywhere t)
+
+       :config
+       (add-hook 'circe-chat-mode-hook 'my-circe-prompt)
+       (defun my-circe-prompt ()
+         (lui-set-prompt
+           (concat (propertize (concat (buffer-name) ">")
+                     'face 'circe-prompt-face)
+             " ")))
+
+       (enable-circe-color-nicks)
+
+       (use-package helm-circe
+         :config
+         (bind-key "i" 'helm-circe jjin/chat-map)
+         (bind-key "n" 'helm-circe-new-activity jjin/chat-map)))
    #+END_SRC
-   
+
+** conf-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package conf-mode
+       :mode
+       (("\\.service\\'"    . conf-unix-mode)
+         ("\\.timer\\'"      . conf-unix-mode)
+         ("\\.target\\'"     . conf-unix-mode)
+         ("\\.mount\\'"      . conf-unix-mode)
+         ("\\.automount\\'"  . conf-unix-mode)
+         ("\\.slice\\'"      . conf-unix-mode)
+         ("\\.socket\\'"     . conf-unix-mode)
+         ("\\.path\\'"       . conf-unix-mode)
+         ("conf$"            . conf-mode)
+         ("rc$"              . conf-mode)))
+   #+END_SRC
+
+** doc-view-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package doc-view
+       :init
+       (setq doc-view-resolution 200))
+   #+END_SRC
+
 ** Elfeed
 
    #+BEGIN_SRC emacs-lisp
@@ -532,13 +613,259 @@
        (bind-key "<SPC>" 'next-line elfeed-search-mode-map))
    #+END_SRC
 
-** smart-mode-line
+** enh-ruby-mode
 
    #+BEGIN_SRC emacs-lisp
-     (use-package smart-mode-line
+     (use-package enh-ruby-mode
+       :mode ("Gemfile" "Guardfile")
        :config
-       ;; smart-mode-line initialize
-       (sml/setup))
+       (defvaralias 'ruby-indent-level 'tab-width)
+
+       (add-hook 'ruby-mode-hook
+         (lambda ()
+           (local-set-key (kbd "RET")
+             'newline-and-indent)
+           (ruby-end-mode))))
+   #+END_SRC
+
+** ESS
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package ess-site
+       :init
+       (setq inferior-R-args "--quiet")
+
+       :config
+       (bind-key "C-c C-w" nil inferior-ess-mode-map))
+   #+END_SRC
+
+** Evil
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package evil
+       :defines evil-normal-state-map
+       :init
+       (setq evil-esc-delay 0)
+
+       :config
+       (append-to-list 'evil-emacs-state-modes
+         '(eshell-mode
+            calendar-mode
+
+            finder-mode
+            info-mode
+
+            eww-mode
+            eww-bookmark-mode
+
+            dired-mode
+            image-mode
+            image-dired-thumbnail-mode
+            image-dired-display-image-mode
+            pdf-view-mode
+            pdf-outline-minor-mode
+
+            git-rebase-mode
+
+            inferior-ess-mode
+            ess-help-mode
+
+            paradox-menu-mode
+
+            circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
+            elfeed-search-mode elfeed-show-mode))
+       (append-to-list 'evil-insert-state-modes '(org-capture-mode
+                                                   git-commit-mode))
+
+       (bind-key "<escape>" 'evil-execute-in-normal-state evil-emacs-state-map)
+       (bind-key "L" 'evil-end-of-line evil-normal-state-map)
+       (bind-key "H" 'evil-beginning-of-line evil-normal-state-map)
+       (bind-key "C-w q" 'delete-window evil-normal-state-map)
+       (bind-key "RET" 'insert-newline-after evil-normal-state-map)
+       (bind-key "RET" 'newline-and-indent evil-insert-state-map)
+
+       (use-package hydra
+         :config
+         (bind-key "C-w" 'hydra-window/body evil-normal-state-map))
+
+       (use-package evil-numbers
+         :config
+         (bind-key "C-a" 'evil-numbers/inc-at-pt evil-normal-state-map)
+         (bind-key "C-c -" 'evil-numbers/dec-at-pt evil-normal-state-map))
+
+       (use-package evil-search-highlight-persist
+         :config
+         (bind-key "C-l" 'evil-search-highlight-persist-remove-all
+           evil-normal-state-map)
+         (global-evil-search-highlight-persist t))
+
+       (evil-mode 1)
+
+       (use-package evil-leader
+         :config
+         (evil-leader/set-leader "<SPC>")
+         (global-evil-leader-mode))
+
+       (use-package evil-surround
+         :config
+         (global-evil-surround-mode 1)))
+   #+END_SRC
+
+** Git
+
+*** git-commit-mode
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package git-commit-mode
+        :commands git-commit-mode)
+    #+END_SRC
+
+*** gitconfig-mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package gitconfig-mode
+        :mode "gitconfig")
+    #+END_SRC
+
+*** Magit
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package magit
+        :diminish magit-auto-revert-mode
+        :config
+        (setq magit-last-seen-setup-instructions "1.4.0"))
+    #+END_SRC
+
+** haskell-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package haskell-mode
+       :config
+       (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
+   #+END_SRC
+
+** Helm
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm
+       :bind (("C-x m" . helm-M-x)
+               ("H-f f" . helm-find-files)
+               ("H-b b" . helm-buffers-list))
+       :init
+       (setq
+         helm-M-x-fuzzy-match t
+         helm-external-programs-associations '(("pdf" . "zathura"))
+         helm-split-window-in-side-p t)
+
+       :config
+       (helm-mode 1)
+       (helm-autoresize-mode t))
+   #+END_SRC
+
+** Hydra
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package hydra
+       :commands defhydra
+       :config
+       (use-package hydra-examples)
+       (defhydra hydra-zoom (global-map "H-z")
+         "zoom"
+         ("g" text-scale-increase "in")
+         ("l" text-scale-decrease "out"))
+
+       (defhydra hydra-project (global-map "H-p"
+                                 :exit t)
+         "project"
+         ("p" helm-projectile)
+         ("f" helm-projectile-find-file)
+         ("F" helm-projectile-find-file-in-known-projects)
+         ("a" helm-projectile-ag)
+         ("K" projectile-kill-buffers)
+         ("c" projectile-compile-project))
+
+       (defhydra hydra-window (global-map "H-w")
+         "Window management"
+         ("w" ace-window "select" :exit t)
+         ("v" split-window-right "split right")
+         ("s" split-window-below "split below")
+         ("j" windmove-down "move down")
+         ("k" windmove-up "move up")
+         ("h" windmove-left "move left")
+         ("l" windmove-right "move right")
+         ("H" hydra-move-splitter-left)
+         ("L" hydra-move-splitter-right)
+         ("J" hydra-move-splitter-down)
+         ("K" hydra-move-splitter-up)
+         ("p" purpose-set-window-purpose "set purpose" :exit t)
+         ("z" toggle-maximize-window "toggle maximize":exit t)
+         ("q" delete-window "close" :exit t)
+         ("Q" kill-buffer-and-window "close and kill" :exit t))
+
+       (defhydra hydra-vc (global-map "H-g")
+         "version control"
+         ("s" magit-status "git status" :exit t)
+         ("b" magit-blame-mode "git blame"))
+
+       (use-package evil-nerd-commenter
+         :config
+         (defhydra hydra-comment (prog-mode-map "H-c"
+                                   :exit t)
+           "commenting"
+           ("i" evilnc-comment-or-uncomment-lines)
+           ("l" evilnc-quick-comment-or-uncomment-to-the-line)
+           ("c" evilnc-copy-and-comment-lines)
+           ("p" evilnc-comment-or-uncomment-paragraphs)
+           ("v" evilnc-toggle-invert-comment-line-by-line))))
+   #+END_SRC
+
+** linum
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package linum
+       :config
+       (setq linum-format 'dynamic)
+       (global-linum-mode 1)
+
+       (defconst linum-mode-excludes
+         '(doc-view-mode
+            pdf-view-mode
+
+            magit-mode
+
+            elfeed-show-mode
+            elfeed-search-mode
+            gnus-group-mode
+            mu4e-main-mode
+            mu4e-headers-mode
+            mu4e-view-mode
+
+            circe-chat-mode
+            circe-server-mode
+            circe-query-mode
+            circe-channel-mode
+            eww-mode
+
+            inferior-ess-mode)
+         "List of major modes preventing linum to be enabled in the buffer.")
+
+       (defadvice linum-mode (around linum-mode-selective activate)
+         "Avoids enabling of linum-mode in the buffer having major mode set to one
+     of listed in `linum-mode-excludes'."
+         (unless (member major-mode linum-mode-excludes)
+           ad-do-it))
+
+       (setq linum-relative-current-symbol "")
+       
+       (use-package linum-relative))
+   #+END_SRC
+  
+** markdown-mode+
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package markdown-mode+
+       :config
+       (add-hook 'markdown-mode-hook 'auto-fill-mode)
+       (add-hook 'markdown-mode-hook 'fic-mode))
    #+END_SRC
 
 ** mu4e
@@ -638,181 +965,6 @@
 
          (setq gnus-dired-mail-mode 'mu4e-user-agent)
          (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)))
-   #+END_SRC
-
-** Paradox
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package paradox
-       :config
-       (setq paradox-github-token t))
-   #+END_SRC
-
-** ace-window
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package ace-window
-       :init
-       (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
-
-       :config
-       (add-to-list 'aw-ignored-buffers "mu4e-update"))
-   #+END_SRC
-
-** web-mode
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package web-mode
-       :mode "\\.erb$")
-   #+END_SRC
-
-** window-purpose
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package window-purpose
-       :disabled t
-       :init
-       (setq purpose-user-regexp-purposes
-         '(("^\\*elfeed"         . admin)))
-
-       (setq purpose-user-mode-purposes
-         '((
-            (circe-chat-mode     . comm)
-            (circe-query-mode    . comm)
-            (circe-lagmon-mode   . comm)
-            (circe-server-mode   . comm)
-
-            (haskell-mode        . edit)
-            (ess-mode            . edit)
-            (gitconfig-mode      . edit)
-            (conf-xdefaults-mode . edit)
-            (inferior-ess-mode   . interactive)
-
-            (mu4e-main-mode      . admin)
-            (mu4e-view-mode      . admin)
-            (mu4e-about-mode     . admin)
-            (mu4e-headers-mode   . admin)
-            (mu4e-compose-mode   . edit)
-
-            (pdf-view-mode       . view)
-            (doc-view-mode       . view))))
-
-       :config
-       (bind-key "W" 'purpose-set-window-purpose purpose-mode-prefix-map)
-
-       (purpose-x-magit-multi-on)
-       (purpose-compile-user-configuration)
-
-       (purpose-mode)
-       (purpose-load-window-layout))
-   #+END_SRC
-
-** Circe
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package circe
-       :commands (circe-chat-mode
-                   circe-server-mode
-                   circe-query-mode
-                   circe-channel-mode)
-       :bind ("H-I" . circe)
-       :init
-       (setq
-         circe-default-nick "jjin"
-         circe-default-user "jjin"
-         circe-default-part-message "Peace."
-         circe-default-quit-message "Peace.")
-
-       (setq circe-use-cycle-completion t
-         circe-reduce-lurker-spam t)
-
-       (setq circe-network-options
-         '(("Freenode"
-             :nick "jjin"
-             :channels ("#emacs" "#archlinux")
-             :nickserv-password ,freenode-pass)
-            ("Bitlbee"
-              :service "6667"
-              :nickserv-password ,bitlbee-pass
-              :nickserv-mask "\\(bitlbee\\|root\\)!\\(bitlbee\\|root\\)@"
-              :nickserv-identify-challenge "use the \x02identify\x02 command to identify yourself"
-              :nickserv-identify-command "PRIVMSG &bitlbee :identify {password}"
-              :nickserv-identify-confirmation "Password accepted, settings and accounts loaded")))
-
-       (setq
-         circe-format-self-say "<{nick}> {body}"
-         circe-format-server-topic "*** Topic change by {origin}: {topic-diff}")
-       (setq circe-color-nicks-everywhere t)
-
-       :config
-       (add-hook 'circe-chat-mode-hook 'my-circe-prompt)
-       (defun my-circe-prompt ()
-         (lui-set-prompt
-           (concat (propertize (concat (buffer-name) ">")
-                     'face 'circe-prompt-face)
-             " ")))
-
-       (enable-circe-color-nicks)
-
-       (use-package helm-circe
-         :config
-         (bind-key "i" 'helm-circe jjin/chat-map)
-         (bind-key "n" 'helm-circe-new-activity jjin/chat-map)))
-   #+END_SRC
-
-** doc-view-mode
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package doc-view
-       :init
-       (setq doc-view-resolution 200))
-   #+END_SRC
-
-** markdown-mode+
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package markdown-mode+
-       :config
-       (add-hook 'markdown-mode-hook 'auto-fill-mode)
-       (add-hook 'markdown-mode-hook 'fic-mode))
-   #+END_SRC
-
-** haskell-mode
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package haskell-mode
-       :config
-       (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
-   #+END_SRC
-
-** Projectile
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package projectile
-       :config
-       (setq projectile-enable-caching t
-         projectile-completion-system 'grizzl
-         projectile-switch-project-action 'helm-projectile)
-
-       (projectile-global-mode))
-   #+END_SRC
-
-** Helm
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm
-       :bind (("C-x m" . helm-M-x)
-               ("H-f f" . helm-find-files)
-               ("H-b b" . helm-buffers-list))
-       :init
-       (setq
-         helm-M-x-fuzzy-match t
-         helm-external-programs-associations '(("pdf" . "zathura"))
-         helm-split-window-in-side-p t)
-
-       :config
-       (helm-mode 1)
-       (helm-autoresize-mode t))
    #+END_SRC
 
 ** Org-mode
@@ -952,202 +1104,43 @@
             org-w3m)))
    #+END_SRC
 
-** sass-mode
+** Paradox
 
    #+BEGIN_SRC emacs-lisp
-     (use-package sass-mode
-       :disabled t
-       :init
-       (setq scss-compile-at-save nil)
+     (use-package paradox
        :config
-       (add-hook 'scss-mode-hook 'rainbow-mode))
+       (setq paradox-github-token t))
    #+END_SRC
 
-** Evil
+** pdf-tools
 
    #+BEGIN_SRC emacs-lisp
-     (use-package evil
-       :defines evil-normal-state-map
-       :init
-       (setq evil-esc-delay 0)
-
+     (use-package pdf-tools
        :config
-       (append-to-list 'evil-emacs-state-modes
-         '(eshell-mode
-            calendar-mode
-
-            finder-mode
-            info-mode
-
-            eww-mode
-            eww-bookmark-mode
-
-            dired-mode
-            image-mode
-            image-dired-thumbnail-mode
-            image-dired-display-image-mode
-            pdf-view-mode
-            pdf-outline-minor-mode
-
-            git-rebase-mode
-
-            inferior-ess-mode
-            ess-help-mode
-
-            paradox-menu-mode
-
-            circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
-            elfeed-search-mode elfeed-show-mode))
-       (append-to-list 'evil-insert-state-modes '(org-capture-mode
-                                                   git-commit-mode))
-
-       (bind-key "<escape>" 'evil-execute-in-normal-state evil-emacs-state-map)
-       (bind-key "L" 'evil-end-of-line evil-normal-state-map)
-       (bind-key "H" 'evil-beginning-of-line evil-normal-state-map)
-       (bind-key "C-w q" 'delete-window evil-normal-state-map)
-       (bind-key "RET" 'insert-newline-after evil-normal-state-map)
-       (bind-key "RET" 'newline-and-indent evil-insert-state-map)
-
-       (use-package hydra
-         :config
-         (bind-key "C-w" 'hydra-window/body evil-normal-state-map))
-
-       (use-package evil-numbers
-         :config
-         (bind-key "C-a" 'evil-numbers/inc-at-pt evil-normal-state-map)
-         (bind-key "C-c -" 'evil-numbers/dec-at-pt evil-normal-state-map))
-
-       (use-package evil-search-highlight-persist
-         :config
-         (bind-key "C-l" 'evil-search-highlight-persist-remove-all
-           evil-normal-state-map)
-         (global-evil-search-highlight-persist t))
-
-       (evil-mode 1)
-
-       (use-package evil-leader
-         :config
-         (evil-leader/set-leader "<SPC>")
-         (global-evil-leader-mode))
-
-       (use-package evil-surround
-         :config
-         (global-evil-surround-mode 1)))
+       (pdf-tools-install))
    #+END_SRC
 
-** enh-ruby-mode
+** Projectile
 
    #+BEGIN_SRC emacs-lisp
-     (use-package enh-ruby-mode
-       :mode ("Gemfile" "Guardfile")
+     (use-package projectile
        :config
-       (defvaralias 'ruby-indent-level 'tab-width)
+       (setq projectile-enable-caching t
+         projectile-completion-system 'grizzl
+         projectile-switch-project-action 'helm-projectile)
 
-       (add-hook 'ruby-mode-hook
-         (lambda ()
-           (local-set-key (kbd "RET")
-             'newline-and-indent)
-           (ruby-end-mode))))
+       (projectile-global-mode))
    #+END_SRC
 
-** Hydra
+** rainbow-mode
 
    #+BEGIN_SRC emacs-lisp
-     (use-package hydra
-       :commands defhydra
+     (use-package rainbow-mode
+       :commands (rainbow-mode)
        :config
-       (use-package hydra-examples)
-       (defhydra hydra-zoom (global-map "H-z")
-         "zoom"
-         ("g" text-scale-increase "in")
-         ("l" text-scale-decrease "out"))
-
-       (defhydra hydra-project (global-map "H-p"
-                                 :exit t)
-         "project"
-         ("p" helm-projectile)
-         ("f" helm-projectile-find-file)
-         ("F" helm-projectile-find-file-in-known-projects)
-         ("a" helm-projectile-ag)
-         ("K" projectile-kill-buffers)
-         ("c" projectile-compile-project))
-
-       (defhydra hydra-window (global-map "H-w")
-         "Window management"
-         ("w" ace-window "select" :exit t)
-         ("v" split-window-right "split right")
-         ("s" split-window-below "split below")
-         ("j" windmove-down "move down")
-         ("k" windmove-up "move up")
-         ("h" windmove-left "move left")
-         ("l" windmove-right "move right")
-         ("H" hydra-move-splitter-left)
-         ("L" hydra-move-splitter-right)
-         ("J" hydra-move-splitter-down)
-         ("K" hydra-move-splitter-up)
-         ("p" purpose-set-window-purpose "set purpose" :exit t)
-         ("z" toggle-maximize-window "toggle maximize":exit t)
-         ("q" delete-window "close" :exit t)
-         ("Q" kill-buffer-and-window "close and kill" :exit t))
-
-       (defhydra hydra-vc (global-map "H-g")
-         "version control"
-         ("s" magit-status "git status" :exit t)
-         ("b" magit-blame-mode "git blame"))
-
-       (use-package evil-nerd-commenter
-         :config
-         (defhydra hydra-comment (prog-mode-map "H-c"
-                                   :exit t)
-           "commenting"
-           ("i" evilnc-comment-or-uncomment-lines)
-           ("l" evilnc-quick-comment-or-uncomment-to-the-line)
-           ("c" evilnc-copy-and-comment-lines)
-           ("p" evilnc-comment-or-uncomment-paragraphs)
-           ("v" evilnc-toggle-invert-comment-line-by-line))))
+       (add-hook 'help-mode-hook 'rainbow-mode))
    #+END_SRC
-
-** Git
-
-*** git-commit-mode
-
-    #+BEGIN_SRC emacs-lisp
-      (use-package git-commit-mode
-        :commands git-commit-mode)
-    #+END_SRC
-
-*** gitconfig-mode
-    #+BEGIN_SRC emacs-lisp
-      (use-package gitconfig-mode
-        :mode "gitconfig")
-    #+END_SRC
-
-*** Magit
-
-    #+BEGIN_SRC emacs-lisp
-      (use-package magit
-        :diminish magit-auto-revert-mode
-        :config
-        (setq magit-last-seen-setup-instructions "1.4.0"))
-    #+END_SRC
-
-** ansi-color
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package ansi-color
-       :init
-       (setq ansi-color-faces-vector
-         [default bold shadow italic underline bold bold-italic bold])
-       (setq compilation-scroll-output t)
-       :config
-       (defun colorize-compilation-buffer ()
-         (toggle-read-only)
-         (ansi-color-apply-on-region (point-min) (point-max))
-         (toggle-read-only))
-
-       (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
-   #+END_SRC
-
+   
 ** rich-minority-mode
 
    #+BEGIN_SRC emacs-lisp
@@ -1168,83 +1161,90 @@
          (add-to-list 'rm-excluded-modes mode)))
    #+END_SRC
 
-** pdf-tools
+** sass-mode
 
    #+BEGIN_SRC emacs-lisp
-     (use-package pdf-tools
-       :config
-       (pdf-tools-install))
-   #+END_SRC
-
-** conf-mode
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package conf-mode
-       :mode
-       (("\\.service\\'"    . conf-unix-mode)
-         ("\\.timer\\'"      . conf-unix-mode)
-         ("\\.target\\'"     . conf-unix-mode)
-         ("\\.mount\\'"      . conf-unix-mode)
-         ("\\.automount\\'"  . conf-unix-mode)
-         ("\\.slice\\'"      . conf-unix-mode)
-         ("\\.socket\\'"     . conf-unix-mode)
-         ("\\.path\\'"       . conf-unix-mode)
-         ("conf$"            . conf-mode)
-         ("rc$"              . conf-mode)))
-   #+END_SRC
-
-** ESS
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package ess-site
+     (use-package sass-mode
+       :disabled t
        :init
-       (setq inferior-R-args "--quiet")
-
+       (setq scss-compile-at-save nil)
        :config
-       (bind-key "C-c C-w" nil inferior-ess-mode-map))
+       (add-hook 'scss-mode-hook 'rainbow-mode))
    #+END_SRC
 
-** linum
+** smart-mode-line
 
    #+BEGIN_SRC emacs-lisp
-     (use-package linum
+     (use-package smart-mode-line
        :config
-       (setq linum-format 'dynamic)
-       (global-linum-mode 1)
-
-       (defconst linum-mode-excludes
-         '(doc-view-mode
-            pdf-view-mode
-
-            magit-mode
-
-            elfeed-show-mode
-            elfeed-search-mode
-            gnus-group-mode
-            mu4e-main-mode
-            mu4e-headers-mode
-            mu4e-view-mode
-
-            circe-chat-mode
-            circe-server-mode
-            circe-query-mode
-            circe-channel-mode
-            eww-mode
-
-            inferior-ess-mode)
-         "List of major modes preventing linum to be enabled in the buffer.")
-
-       (defadvice linum-mode (around linum-mode-selective activate)
-         "Avoids enabling of linum-mode in the buffer having major mode set to one
-     of listed in `linum-mode-excludes'."
-         (unless (member major-mode linum-mode-excludes)
-           ad-do-it))
-
-       (setq linum-relative-current-symbol "")
-       
-       (use-package linum-relative))
+       ;; smart-mode-line initialize
+       (sml/setup))
    #+END_SRC
-  
+
+** toc-org
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package toc-org
+       :config
+       (add-hook 'org-mode-hook 'toc-org-enable))
+   #+END_SRC
+
+** undo-tree
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package undo-tree
+       :diminish undo-tree-mode
+       :bind ("C-<backspace>" . undo-tree-undo))
+   #+END_SRC
+   
+** web-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package web-mode
+       :mode "\\.erb$")
+   #+END_SRC
+
+** window-purpose
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package window-purpose
+       :disabled t
+       :init
+       (setq purpose-user-regexp-purposes
+         '(("^\\*elfeed"         . admin)))
+
+       (setq purpose-user-mode-purposes
+         '((
+            (circe-chat-mode     . comm)
+            (circe-query-mode    . comm)
+            (circe-lagmon-mode   . comm)
+            (circe-server-mode   . comm)
+
+            (haskell-mode        . edit)
+            (ess-mode            . edit)
+            (gitconfig-mode      . edit)
+            (conf-xdefaults-mode . edit)
+            (inferior-ess-mode   . interactive)
+
+            (mu4e-main-mode      . admin)
+            (mu4e-view-mode      . admin)
+            (mu4e-about-mode     . admin)
+            (mu4e-headers-mode   . admin)
+            (mu4e-compose-mode   . edit)
+
+            (pdf-view-mode       . view)
+            (doc-view-mode       . view))))
+
+       :config
+       (bind-key "W" 'purpose-set-window-purpose purpose-mode-prefix-map)
+
+       (purpose-x-magit-multi-on)
+       (purpose-compile-user-configuration)
+
+       (purpose-mode)
+       (purpose-load-window-layout))
+   #+END_SRC
+
 * License
 
   #+BEGIN_SRC text
