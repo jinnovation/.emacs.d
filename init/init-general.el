@@ -65,7 +65,10 @@
 
 (add-hook 'help-mode-hook 'rainbow-mode)
 
-(sml/setup)                             ;; smart-mode-line initialize
+(use-package smart-mode-line
+  :config
+  ;; smart-mode-line initialize
+  (sml/setup))
 
 (fringe-mode '(4 . 0))
 
@@ -78,7 +81,9 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 
-(setq magit-last-seen-setup-instructions "1.4.0")
+(use-package magit
+  :config
+  (setq magit-last-seen-setup-instructions "1.4.0"))
 
 (setq echo-keystrokes 0)
 

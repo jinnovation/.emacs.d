@@ -455,15 +455,39 @@
   :mode "gitconfig")
 
 (use-package evil
+  :defines evil-normal-state-map
   :init
   (setq evil-esc-delay 0)
   
   :config
+  (append-to-list 'evil-emacs-state-modes
+    '(eshell-mode
+       calendar-mode
+
+       finder-mode
+       info-mode
+
+       eww-mode
+       eww-bookmark-mode
+
+       dired-mode
+       image-mode
+       image-dired-thumbnail-mode
+       image-dired-display-image-mode
+       pdf-view-mode
+       pdf-outline-minor-mode
+
+       git-rebase-mode
+
+       inferior-ess-mode
+       ess-help-mode
+
+       paradox-menu-mode
+
+       circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
+       elfeed-search-mode elfeed-show-mode))
   (append-to-list 'evil-insert-state-modes '(org-capture-mode
                                               git-commit-mode))
-  (append-to-list 'evil-emacs-state-modes
-    '(circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
-       elfeed-search-mode elfeed-show-mode))
   
   (bind-key "<escape>" 'evil-execute-in-normal-state evil-emacs-state-map)
   (bind-key "L" 'evil-end-of-line evil-normal-state-map)
@@ -499,7 +523,7 @@
     (global-evil-surround-mode 1)))
 
 (use-package org
-  :commands org-capture-mode
+  :commands (org-mode org-capture-mode)
   :bind (("H-C" . org-capture)
           ("H-A" . org-agenda))
   :init
@@ -643,26 +667,3 @@
   :config
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
 
-(append-to-list 'evil-emacs-state-modes
-  '(eshell-mode
-     calendar-mode
-
-     finder-mode
-     info-mode
-
-     eww-mode
-     eww-bookmark-mode
-
-     dired-mode
-     image-mode
-     image-dired-thumbnail-mode
-     image-dired-display-image-mode
-     pdf-view-mode
-     pdf-outline-minor-mode
-
-     git-rebase-mode
-
-     inferior-ess-mode
-     ess-help-mode
-
-     paradox-menu-mode))
