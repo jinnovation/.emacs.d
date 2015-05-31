@@ -5,8 +5,6 @@
 
 (load-if-exists "~/.secrets.el")
 
-(setq custom-safe-themes t)
-
 (defun display-startup-echo-area-message ()
   (message "Happy hacking, and praise RMS."))
 
@@ -64,11 +62,6 @@
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 (add-hook 'help-mode-hook 'rainbow-mode)
-
-(use-package smart-mode-line
-  :config
-  ;; smart-mode-line initialize
-  (sml/setup))
 
 (fringe-mode '(4 . 0))
 

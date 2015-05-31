@@ -13,12 +13,19 @@
 (setq ring-bell-function 'ignore)
 (setq-default x-stretch-cursor t)
 
+(setq custom-safe-themes t)
+
 (use-package ess-site
   :init
   (setq inferior-R-args "--quiet")
   
   :config
   (bind-key "C-c C-w" nil inferior-ess-mode-map))
+
+(use-package smart-mode-line
+  :config
+  ;; smart-mode-line initialize
+  (sml/setup))
 
 (use-package conf-mode
   :mode
