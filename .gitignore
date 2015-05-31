@@ -10,3 +10,5 @@ tramp
 url/
 
 /.ecukes-failing-scenarios
+
+/init.el
