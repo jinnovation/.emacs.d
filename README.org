@@ -332,8 +332,20 @@
 ** Keybindings
 
    #+BEGIN_SRC emacs-lisp
-     (bind-key "C-x |" 'window-toggle-split-direction)
-     (bind-key "C-x k" 'kill-current-buffer)
+     (bind-keys :map global-map
+       ("C-x |" . window-toggle-split-direction)
+       ("C-x k" . kill-current-buffer)
+       ("H-s" . save-buffer)
+       
+       ;; TODO: make prefix map for buffer manipulation
+       ("H-b k" . kill-current-buffer)
+       ("H-b n" . next-buffer)
+
+       ("H-a r" . align-regexp)
+       ("C-<tab>" . other-window)
+       ("\<C-S-iso-lefttab>" . prev-window)
+       ("H-a r" . align-regexp)
+       ("H-D" . dired-at-current))
 
      (unbind-key "<menu>")
      (unbind-key "M-`")
@@ -346,24 +358,12 @@
      (unbind-key "M-<f10>")
      (unbind-key "<escape> <f10>")
 
-     (bind-key "H-s" 'save-buffer)
-
      (define-prefix-command 'jjin/chat-map)
      (bind-key "H-i" 'jjin/chat-map)
 
-     ;; buffer manipulation
-     (bind-key "H-b k" 'kill-current-buffer)
-     (bind-key "H-b n" 'next-buffer)
-
-     (bind-key "H-a r" 'align-regexp)
-
-     (bind-key "C-<tab>" 'other-window)
-     (bind-key "\<C-S-iso-lefttab>" 'prev-window)
-
-     (bind-key "H-D" 'dired-at-current)
-
-     (bind-key "C-u" 'kill-whole-line universal-argument-map)
-     (bind-key "M-u" 'universal-argument-more universal-argument-map)
+     (bind-keys :map universal-argument-map
+       ("C-u" . kill-whole-line)
+       ("M-u" . universal-argument-more))
    #+END_SRC
 
 * Languages
@@ -500,8 +500,10 @@
 
        (use-package helm-circe
          :config
-         (bind-key "i" 'helm-circe jjin/chat-map)
-         (bind-key "n" 'helm-circe-new-activity jjin/chat-map)))
+         (bind-keys :map jjin/chat-map
+           ("i" . helm-circe)
+           ("n" . helm-circe-new-activity))))
+
    #+END_SRC
 
 ** conf-mode
@@ -669,12 +671,13 @@
        (append-to-list 'evil-insert-state-modes '(org-capture-mode
                                                    git-commit-mode))
 
-       (bind-key "<escape>" 'evil-execute-in-normal-state evil-emacs-state-map)
-       (bind-key "L" 'evil-end-of-line evil-normal-state-map)
-       (bind-key "H" 'evil-beginning-of-line evil-normal-state-map)
-       (bind-key "C-w q" 'delete-window evil-normal-state-map)
-       (bind-key "RET" 'insert-newline-after evil-normal-state-map)
-       (bind-key "RET" 'newline-and-indent evil-insert-state-map)
+       (bind-keys :map evil-emacs-state-map
+         ("<escape>" . evil-execute-in-normal-state)
+         ("L"        . evil-end-of-line)
+         ("H"        . evil-beginning-of-line)
+         ("C-w q"    . delete-window)
+         ("RET"      . insert-newline-after)
+         ("RET"      . newline-and-indent))
 
        (use-package hydra
          :config
@@ -682,8 +685,9 @@
 
        (use-package evil-numbers
          :config
-         (bind-key "C-a" 'evil-numbers/inc-at-pt evil-normal-state-map)
-         (bind-key "C-c -" 'evil-numbers/dec-at-pt evil-normal-state-map))
+         (bind-keys :map evil-normal-state-map
+           ("C-a"   . evil-numbers/inc-at-pt)
+           ("C-c -" . evil-numbers/dec-at-pt)))
 
        (use-package evil-search-highlight-persist
          :config
@@ -1014,11 +1018,14 @@
        :config
        (use-package ox-latex)
        (use-package ox-bibtex)
-       (bind-key "H-t" 'org-todo org-mode-map)
-       (bind-key "H-e" 'org-export-dispatch org-mode-map)
-       (bind-key "M-p" 'outline-previous-visible-heading org-mode-map)
-       (bind-key "M-n" 'outline-next-visible-heading org-mode-map)
-       (bind-key "H-s" 'org-edit-src-save org-src-mode-map)
+       (bind-keys :map org-mode-map
+         ("H-t" . org-todo)
+         ("H-e" . org-export-dispatch)
+         ("M-p" . outline-previous-visible-heading)
+         ("M-n" . outline-next-visible-heading))
+
+       (bind-keys :map org-src-mode-map
+         ("H-s" . org-edit-src-save))
 
        (defhydra hydra-org (:exit nil)
          "Org mode"
