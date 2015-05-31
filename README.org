@@ -10,8 +10,17 @@
  - [[#general-configurations][General Configurations]]
      - [[#appearance][Appearance]]
      - [[#environment-specific][Environment-specific]]
+     - [[#keybindings][Keybindings]]
+ - [[#languages][Languages]]
+     - [[#c][C]]
+     - [[#lisp][Lisp]]
+     - [[#javascript][Javascript]]
+     - [[#latex][LaTeX]]
+     - [[#zsh][zsh]]
  - [[#packages][Packages]]
      - [[#toc-org][toc-org]]
+     - [[#rainbow-mode][rainbow-mode]]
+     - [[#undo-tree][undo-tree]]
      - [[#elfeed][Elfeed]]
      - [[#smart-mode-line][smart-mode-line]]
      - [[#mu4e][mu4e]]
@@ -36,7 +45,7 @@
      - [[#pdf-tools][pdf-tools]]
      - [[#conf-mode][conf-mode]]
      - [[#ess][ESS]]
- - [[#todo][TODO]]
+     - [[#linum][linum]]
  - [[#license][License]]
 
 * Preamble
@@ -49,10 +58,14 @@
 
     (require 'cask)
     (cask-initialize)
-    (pallet-mode t)
 
     (require 'use-package)
-    (require 'diminish)
+
+    (use-package pallet
+      :config
+      (pallet-mode t))
+
+    (use-package diminish)
   #+END_SRC
 
 ** Functions
@@ -262,8 +275,6 @@
 
     (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
-    (add-hook 'help-mode-hook 'rainbow-mode)
-
     (fringe-mode '(4 . 0))
 
     (with-eval-after-load 'dired
@@ -326,6 +337,98 @@
           (setq mac-command-modifier 'meta))
     #+END_SRC
 
+** Keybindings
+
+   #+BEGIN_SRC emacs-lisp
+     (bind-key "C-x |" 'window-toggle-split-direction)
+     (bind-key "C-x k" 'kill-current-buffer)
+
+     (unbind-key "<menu>")
+     (unbind-key "M-`")
+     (unbind-key "C-c C-w")
+     (unbind-key "M-x")
+     (unbind-key "C-x C-n")      ; set-goal-column
+
+     (unbind-key "<f10>")
+     (unbind-key "<f11>")
+     (unbind-key "M-<f10>")
+     (unbind-key "<escape> <f10>")
+
+     (bind-key "H-s" 'save-buffer)
+
+     (define-prefix-command 'jjin/chat-map)
+     (bind-key "H-i" 'jjin/chat-map)
+
+     ;; buffer manipulation
+     (bind-key "H-b k" 'kill-current-buffer)
+     (bind-key "H-b n" 'next-buffer)
+
+     (bind-key "H-a r" 'align-regexp)
+
+     (bind-key "C-<tab>" 'other-window)
+     (bind-key "\<C-S-iso-lefttab>" 'prev-window)
+
+     (bind-key "H-D" 'dired-at-current)
+
+     (bind-key "C-u" 'kill-whole-line universal-argument-map)
+     (bind-key "M-u" 'universal-argument-more universal-argument-map)
+   #+END_SRC
+
+* Languages
+  
+** C
+
+   #+BEGIN_SRC emacs-lisp
+     (setq c-block-comment-prefix "* ")
+
+     (defvaralias 'c-basic-offset 'tab-width)
+   #+END_SRC
+
+** Lisp
+
+   #+BEGIN_SRC emacs-lisp
+     (setq lisp-indent-offset 2)
+
+     (add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
+     (add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
+   #+END_SRC
+   
+** Javascript
+   
+   #+BEGIN_SRC emacs-lisp
+     (defvaralias 'js-indent-level 'tab-width)
+   #+END_SRC
+
+** LaTeX
+
+   #+BEGIN_SRC emacs-lisp
+     ;; sets latex-mode to compile w/ pdflatex by default
+     (setq TeX-PDF-mode t
+         TeX-parse-self t
+         TeX-newline-function 'reindent-then-newline-and-indent)
+
+     (eval-after-load "tex"
+         '(setcdr (assoc "LaTeX" TeX-command-list)
+              '("%`%l%(mode) -shell-escape%' %t"
+                   TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX")))
+
+     ;; latex-mode-specific hooks (because latex-mode is not derived from prog-mode)
+     (add-hook 'LaTeX-mode-hook
+         (lambda ()
+             (TeX-fold-mode 1)
+             (fic-mode)
+             (auto-fill-mode)
+             (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
+                                                 TeX-run-TeX nil t))))
+   #+END_SRC
+
+** zsh
+
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'auto-mode-alist '("zshrc$" . sh-mode))
+     (add-to-list 'auto-mode-alist '("\\.zsh$" . sh-mode))
+   #+END_SRC
+   
 * Packages
 
 ** toc-org
@@ -336,6 +439,23 @@
        (add-hook 'org-mode-hook 'toc-org-enable))
    #+END_SRC
 
+** rainbow-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package rainbow-mode
+       :commands (rainbow-mode)
+       :config
+       (add-hook 'help-mode-hook 'rainbow-mode))
+   #+END_SRC
+   
+** undo-tree
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package undo-tree
+       :diminish undo-tree-mode
+       :bind ("C-<backspace>" . undo-tree-undo))
+   #+END_SRC
+   
 ** Elfeed
 
    #+BEGIN_SRC emacs-lisp
@@ -1006,6 +1126,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package magit
+        :diminish magit-auto-revert-mode
         :config
         (setq magit-last-seen-setup-instructions "1.4.0"))
     #+END_SRC
@@ -1034,9 +1155,7 @@
        :config
        (defconst my-rm-excluded-modes
          '(
-            " MRev"
             " Helm"
-            " Undo-Tree"
             " pair"
             " Fill"
             " FIC"
@@ -1085,21 +1204,47 @@
        (bind-key "C-c C-w" nil inferior-ess-mode-map))
    #+END_SRC
 
-* TODO
+** linum
 
-  #+BEGIN_SRC emacs-lisp
-    (mapc 'require '(init-keybinding
+   #+BEGIN_SRC emacs-lisp
+     (use-package linum
+       :config
+       (setq linum-format 'dynamic)
+       (global-linum-mode 1)
 
-                      init-modes
-                      init-linum
+       (defconst linum-mode-excludes
+         '(doc-view-mode
+            pdf-view-mode
 
-                      ;; languages
-                      init-c
-                      init-js
-                      init-lisp
-                      init-latex
-  #+END_SRC
+            magit-mode
 
+            elfeed-show-mode
+            elfeed-search-mode
+            gnus-group-mode
+            mu4e-main-mode
+            mu4e-headers-mode
+            mu4e-view-mode
+
+            circe-chat-mode
+            circe-server-mode
+            circe-query-mode
+            circe-channel-mode
+            eww-mode
+
+            inferior-ess-mode)
+         "List of major modes preventing linum to be enabled in the buffer.")
+
+       (defadvice linum-mode (around linum-mode-selective activate)
+         "Avoids enabling of linum-mode in the buffer having major mode set to one
+     of listed in `linum-mode-excludes'."
+         (unless (member major-mode linum-mode-excludes)
+           ad-do-it))
+
+       (setq linum-relative-current-symbol "")
+       
+       (use-package linum-relative))
+   #+END_SRC
+  
 * License
 
   #+BEGIN_SRC text
