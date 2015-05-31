@@ -53,9 +53,6 @@
   #+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
 
-    ;; packages not managed by Cask or package.el
-    (add-to-list 'load-path (expand-file-name "~/.emacs.d/pkg"))
-
     (require 'cask)
     (cask-initialize)
 
