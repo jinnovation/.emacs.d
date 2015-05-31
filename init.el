@@ -500,7 +500,8 @@
 
 (use-package org
   :commands org-capture-mode
-  :bind ("H-C" . org-capture)
+  :bind (("H-C" . org-capture)
+          ("H-A" . org-agenda))
   :init
   (setq org-agenda-files '("~/agenda")
     org-return-follows-link t
