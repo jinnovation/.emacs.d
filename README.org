@@ -212,8 +212,6 @@
     (setq ring-bell-function 'ignore)
     (setq-default x-stretch-cursor t)
 
-    (setq custom-safe-themes t)
-
     (defun display-startup-echo-area-message ()
       (message "Happy hacking, and praise RMS."))
 
@@ -289,6 +287,8 @@
 ** Appearance
 
    #+BEGIN_SRC emacs-lisp
+     (setq custom-safe-themes t)
+
      (defconst bg-color "black")
      (defconst default-font "Terminus 08")
      (set-frame-font default-font)
