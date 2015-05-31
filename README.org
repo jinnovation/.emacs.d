@@ -136,10 +136,9 @@
          (newline-and-indent)
          (goto-char oldpos)))
 
-     ;; Set transparency of emacs
-     (defun set-transparency (value)
-       "Sets the transparency of the frame window. 0=transparent/100=opaque"
-       (interactive "nTransparency Value (0 - 100 opaque): ")
+     (defun set-opacity (value)
+       "Sets the opacity of the frame window. 0=transparent/100=opaque"
+       (interactive "nOpacity Value (0 - 100 opaque): ")
        (set-frame-parameter (selected-frame) 'alpha value))
 
      (defun enlarge-window-horizontally-repeatable (&optional inc)
@@ -318,7 +317,7 @@
          'unicode
          (font-spec :family "DejaVu Sans Mono")))
 
-     (set-transparency 85)
+     (set-opacity 85)
    #+END_SRC
 
 ** Environment-specific
