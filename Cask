@@ -52,6 +52,7 @@
 (depends-on "ruby-end")
 (depends-on "rust-mode")
 (depends-on "smart-mode-line")
+(depends-on "toc-org")
 (depends-on "toml-mode")
 (depends-on "use-package")
 (depends-on "vimrc-mode")

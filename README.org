@@ -2,6 +2,41 @@
 
 [[http://img.shields.io/:license-mit-blue.svg]]
 
+* Table of Contents                                                        :TOC:
+ - [[#preamble][Preamble]]
+     - [[#functions][Functions]]
+ - [[#general-configurations][General Configurations]]
+     - [[#appearance][Appearance]]
+     - [[#environment-specific][Environment-specific]]
+ - [[#packages][Packages]]
+     - [[#toc-org][toc-org]]
+     - [[#elfeed][Elfeed]]
+     - [[#smart-mode-line][smart-mode-line]]
+     - [[#mu4e][mu4e]]
+     - [[#paradox][Paradox]]
+     - [[#ace-window][ace-window]]
+     - [[#web-mode][web-mode]]
+     - [[#window-purpose][window-purpose]]
+     - [[#circe][Circe]]
+     - [[#doc-view-mode][doc-view-mode]]
+     - [[#markdown-mode][markdown-mode+]]
+     - [[#haskell-mode][haskell-mode]]
+     - [[#projectile][Projectile]]
+     - [[#helm][Helm]]
+     - [[#org-mode][Org-mode]]
+     - [[#sass-mode][sass-mode]]
+     - [[#evil][Evil]]
+     - [[#enh-ruby-mode][enh-ruby-mode]]
+     - [[#hydra][Hydra]]
+     - [[#git][Git]]
+     - [[#ansi-color][ansi-color]]
+     - [[#rich-minority-mode][rich-minority-mode]]
+     - [[#pdf-tools][pdf-tools]]
+     - [[#conf-mode][conf-mode]]
+     - [[#ess][ESS]]
+ - [[#todo][TODO]]
+ - [[#license][License]]
+
 * Preamble
 
   #+BEGIN_SRC emacs-lisp
@@ -290,7 +325,15 @@
     #+END_SRC
     
 * Packages
-  
+
+** toc-org
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package toc-org
+       :config
+       (add-hook 'org-mode-hook 'toc-org-enable))
+   #+END_SRC
+   
 ** Elfeed
 
    #+BEGIN_SRC emacs-lisp
