@@ -2,7 +2,6 @@
 
 (provide 'init-keybinding)
 
-(require 'init-projectile)
 (require 'init-fn)
 
 (global-unset-key (kbd "<menu>"))
@@ -20,9 +19,6 @@
 
 (define-prefix-command 'jjin/chat-map)
 (global-set-key (kbd "H-i") 'jjin/chat-map)
-
-(define-key jjin/chat-map (kbd "i") 'helm-circe)
-(define-key jjin/chat-map (kbd "n") 'helm-circe-new-activity)
 
 ;; buffer manipulation
 (global-set-key (kbd "H-b k") 'kill-current-buffer)
