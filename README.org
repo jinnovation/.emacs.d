@@ -1,0 +1,1082 @@
+#+PROPERTY: header-args:emacs-lisp :exports code :tangle init.el
+
+[[http://img.shields.io/:license-mit-blue.svg]]
+
+* Preamble
+
+  #+BEGIN_SRC emacs-lisp
+    (add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
+
+    ;; packages not managed by Cask or package.el
+    (add-to-list 'load-path (expand-file-name "~/.emacs.d/pkg"))
+
+    (require 'cask)
+    (cask-initialize)
+    (pallet-mode t)
+
+    (require 'use-package)
+    (require 'diminish)
+  #+END_SRC
+
+** Functions
+
+   #+BEGIN_SRC emacs-lisp
+     (defun load-if-exists (file)
+       "Loads file, conditional on its existence; no effect if non-existent."
+       (when (file-exists-p file)
+         (load-file file)))
+
+     (defun kill-current-buffer ()
+       (interactive)
+       (kill-buffer (current-buffer)))
+
+     (defun lock-window ()
+       "Prevents frame from being used to display any other buffer"
+       (interactive)
+       (set-window-dedicated-p (frame-selected-window) t))
+
+     (defun window-toggle-split-direction ()
+       "Switch window split from horizontally to vertically, or vice versa.
+
+     i.e. change right window to bottom, or change bottom window to right."
+       (interactive)
+       (require 'windmove)
+       (let ((done))
+         (dolist (dirs '((right . down) (down . right)))
+           (unless done
+             (let* ((win (selected-window))
+                     (nextdir (car dirs))
+                     (neighbour-dir (cdr dirs))
+                     (next-win (windmove-find-other-window nextdir win))
+                     (neighbour1 (windmove-find-other-window neighbour-dir win))
+                     (neighbour2 (if next-win (with-selected-window next-win
+                                                (windmove-find-other-window
+                                                  neighbour-dir next-win)))))
+
+               (setq done (and (eq neighbour1 neighbour2)
+                            (not (eq (minibuffer-window) next-win))))
+               (if done
+                 (let* ((other-buf (window-buffer next-win)))
+                   (delete-window next-win)
+                   (if (eq nextdir 'right)
+                     (split-window-vertically)
+                     (split-window-horizontally))
+                   (set-window-buffer (windmove-find-other-window neighbour-dir)
+                     other-buf))))))))
+     (defun vsplit-last-buffer ()
+       (interactive)
+       (split-window-vertically)
+       (other-window 1 nil)
+       (switch-to-next-buffer))
+
+     (defun hsplit-last-buffer ()
+       (interactive)
+       (split-window-horizontally)
+       (other-window 1 nil)
+       (switch-to-next-buffer))
+
+     (defun reload-config ()
+       (interactive)
+       (load-file user-init-file))
+
+     (defun edit-config ()
+       (interactive)
+       (find-file user-init-file))
+
+     (defun insert-newline-after ()
+       (interactive)
+       (let ((oldpos (point)))
+         (end-of-line)
+         (newline-and-indent)
+         (goto-char oldpos)))
+
+     ;; Set transparency of emacs
+     (defun set-transparency (value)
+       "Sets the transparency of the frame window. 0=transparent/100=opaque"
+       (interactive "nTransparency Value (0 - 100 opaque): ")
+       (set-frame-parameter (selected-frame) 'alpha value))
+
+     (defun enlarge-window-horizontally-repeatable (&optional inc)
+       (interactive)
+       (let* ((step (if inc inc 5)))
+         (enlarge-window-horizontally step)))
+
+     (defun package-install-from-list (list)
+       (package-refresh-contents)
+       (dolist (package list)
+         (unless (package-installed-p package)
+           (package-install package))))
+
+     (defun projectile-save-and-test (arg)
+       "Saves the current buffer, and then run project test command.
+
+     Normally, this immediately runs the default Projectile project test command;
+     `make test` for Makefile projects, etc. You can force prompt with a prefix ARG."
+       (interactive "P")
+       (save-buffer)
+       (let* ((compilation-read-command (if arg t nil)))
+         (projectile-test-project arg)))
+
+     (defun my-gnus-group-list-subscribed-groups ()
+       "List all subscribed groups with or without un-read messages"
+       (interactive)
+       (gnus-group-list-all-groups 5))
+
+     (defun dired-at-current ()
+       (interactive)
+       (dired default-directory))
+
+     (defun prev-window ()
+       (interactive)
+       (other-window -1))
+
+     (defun append-to-list (list-var elements)
+
+       "Append ELEMENTS to the end of LIST-VAR.
+
+     The return value is the new value of LIST-VAR."
+       (unless (consp elements)
+         (error "ELEMENTS must be a list"))
+       (let ((list (symbol-value list-var)))
+         (if list
+           (setcdr (last list) elements)
+           (set list-var elements)))
+       (symbol-value list-var))
+
+     ;; credit: https://gist.github.com/mads379/3402786
+     (defun toggle-maximize-window ()
+       "Maximize window"
+       (interactive)
+       (if (= 1 (length (window-list)))
+         (jump-to-register '_)
+         (progn
+           (window-configuration-to-register '_)
+           (delete-other-windows))))
+
+     (defun redefine-key (map key-old key-new)
+       (define-key map key-new (lookup-key map key-old))
+       (define-key map key-old nil))
+        
+   #+END_SRC
+   
+* General Configurations
+
+  #+BEGIN_SRC emacs-lisp
+    (load-if-exists "~/.secrets.el")
+
+    (setq ring-bell-function 'ignore)
+    (setq-default x-stretch-cursor t)
+
+    (setq custom-safe-themes t)
+
+    (defun display-startup-echo-area-message ()
+      (message "Happy hacking, and praise RMS."))
+
+    (setq
+      user-mail-address "jjin082693@gmail.com"
+      user-full-name  "Jonathan Jin"
+
+      message-signature
+      (concat "Jonathan Jin\n"
+              "github.com/jinnovation\n"
+              "jjin.me\n"))
+
+    (setq
+      inhibit-startup-screen t
+      inhibit-startup-message t
+      initial-scratch-message ""
+      visible-bell t
+      use-dialog-box nil)
+
+    (setq-default
+      fill-column 80
+      indent-tabs-mode nil
+      tab-width 4)
+
+    (setq next-line-add-newlines t)
+
+    (setq scroll-step 1
+      scroll-margin 3)
+
+    (fset 'yes-or-no-p 'y-or-n-p)
+
+    (tool-bar-mode     0)
+    (scroll-bar-mode   0)
+    (menu-bar-mode     0)
+    (line-number-mode  0)
+
+    (blink-cursor-mode 0)
+
+    (global-auto-revert-mode)
+
+    (global-hl-line-mode 1)
+    (column-number-mode  1)
+    (show-paren-mode     1)
+
+    (electric-pair-mode)
+
+    (delete-selection-mode +1)
+
+    ;; highlights strings like TODO, FIXME, etc.
+    (add-hook 'prog-mode-hook
+      (lambda ()
+        (fic-mode)
+        (turn-on-auto-fill)))
+
+    (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+    (add-hook 'help-mode-hook 'rainbow-mode)
+
+    (fringe-mode '(4 . 0))
+
+    (with-eval-after-load 'dired
+      (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+
+    (setq browse-url-browser-function 'browse-url-xdg-open)
+    (setq browse-url-generic-program (executable-find "firefox")
+      shr-external-browser 'browse-url-generic)
+
+    (put 'dired-find-alternate-file 'disabled nil)
+
+    (setq echo-keystrokes 0)
+
+    (setq image-dired-external-viewer "feh")
+  #+END_SRC
+
+** Appearance
+
+   #+BEGIN_SRC emacs-lisp
+     (defconst bg-color "black")
+     (defconst default-font "Terminus 08")
+     (set-frame-font default-font)
+     (set-face-attribute 'mode-line nil :font default-font)
+
+     (use-package gotham-theme
+       :config
+       (load-theme 'gotham t))
+
+     (set-background-color bg-color)
+     (set-face-attribute 'fringe nil :background bg-color)
+
+     (use-package linum
+       :config
+       (set-face-attribute 'linum nil :background bg-color))
+
+     (use-package evil-search-highlight-persist
+       :config
+       (set-face-attribute
+         'evil-search-highlight-persist-highlight-face
+         nil
+         :background (face-attribute 'match :background)))
+
+     (when (functionp 'set-fontset-font)
+       (set-fontset-font "fontset-default"
+         'unicode
+         (font-spec :family "DejaVu Sans Mono")))
+
+     (set-transparency 85)
+   #+END_SRC
+
+** Environment-specific
+
+*** Mac
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst is-mac (eq system-type 'darwin)
+        "t when system is Mac.")
+
+      (when is-mac
+          (setq mac-command-modifier 'meta))
+    #+END_SRC
+    
+* Packages
+  
+** Elfeed
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package elfeed
+       :commands (elfeed-search-mode elfeed-show-mode)
+       :bind ("H-E" . elfeed)
+       :init
+       (setq elfeed-feeds
+         '(("http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989" news)
+            ("http://ny.curbed.com/atom.xml" realestate news)
+            ("http://www.avclub.com/feed/rss/" film entertainment news)
+            ("http://fivethirtyeight.com/all/feed")
+            ("http://www.tor.com/rss/frontpage_full" literature)
+            ("http://longform.org/feed.rss")
+            ("http://feeds.feedburner.com/themillionsblog/fedw" literature)
+            ("http://feeds.feedburner.com/mcsweeneys/")
+
+            ("http://feeds.bbci.co.uk/news/world/rss.xml"                    news)
+            ("http://feeds.bbci.co.uk/news/business/rss.xml"                 news)
+            ("http://feeds.bbci.co.uk/news/technology/rss.xml"               news tech)
+            ("http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml"   news)
+
+            ("http://en.boxun.com/feed/"                                     news china)
+
+            ("http://feeds.99percentinvisible.org/99percentinvisible" design podcast)
+
+            ("http://rss.escapistmagazine.com/news/0.xml"         entertainment videogames)
+            ("http://rss.escapistmagazine.com/videos/list/1.xml"  entertainment videogames)
+            ("http://www.engadget.com/tag/@gaming/rss.xml"        entertainment videogames)
+            ("http://feeds.feedburner.com/RockPaperShotgun"       entertainment videogames)
+            ("http://screenrant.com/feed/"                        entertainment movies)
+
+            ;; software
+            ("https://news.ycombinator.com/rss"                software news)
+            ("http://usesthis.com/feed/"                       software)
+            ("http://endlessparentheses.com/atom.xml"          software emacs)
+            ("http://feeds.feedburner.com/codinghorror"        software)
+            ("http://feeds.feedburner.com/thisdeveloperslife"  software)
+            ("http://feeds.feedburner.com/oreilly/news"        software)
+            ("http://www.joelonsoftware.com/rss.xml"           software)
+            ("http://onethingwell.org/rss"                     software tech)
+            ("http://syndication.thedailywtf.com/TheDailyWtf"  software)
+            ("http://githubengineering.com/atom.xml"           software tech)
+
+            ("http://pandodaily.com.feedsportal.com/c/35141/f/650422/index.rss"  tech)
+            ("https://medium.com/feed/backchannel"                               tech software)
+            ("http://feeds.feedburner.com/laptopmag"                             tech)
+            ("http://recode.net/feed/"                                           tech)
+            ("http://recode.net/category/reviews/feed/"                          tech)
+            ("http://feeds.feedburner.com/AndroidPolice"                         tech android)
+            ("http://bits.blogs.nytimes.com/feed/"                               tech)
+
+            ("http://www.eater.com/rss/index.xml"                     food)
+            ("http://ny.eater.com/rss/index.xml"                      food ny)
+            ("http://notwithoutsalt.com/feed/"                        food)
+            ("http://feeds.feedburner.com/nymag/Food"                 food)
+            ("http://feeds.feedburner.com/seriouseatsfeaturesvideos"  food)
+            ("http://feeds.feedburner.com/blogspot/sBff")
+
+            ("http://xkcd.com/rss.xml"                      comic)
+            ("http://feeds.feedburner.com/Explosm"          comic)
+            ("http://feed.dilbert.com/dilbert/daily_strip"  comic)
+            ("http://feeds.feedburner.com/smbc-comics/PvLb" comic)
+            ("http://www.questionablecontent.net/QCRSS.xml" comic)
+            ("http://phdcomics.com/gradfeed.php"            comic)
+
+            ("http://feeds.feedburner.com/wondermark"       comic)))
+
+       (setq elfeed-max-connections 10)
+
+       (setq url-queue-timeout 30)
+       
+       :config
+       (bind-key "<SPC>" 'next-line elfeed-search-mode-map))
+   #+END_SRC
+
+** smart-mode-line
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package smart-mode-line
+       :config
+       ;; smart-mode-line initialize
+       (sml/setup))
+   #+END_SRC
+   
+** mu4e
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package mu4e
+       :commands (mu4e-main-mode
+                   mu4e-view-mode
+                   mu4e-about-mode
+                   mu4e-headers-mode
+                   mu4e-compose-mode)
+       :bind (("H-M" . mu4e)
+               ("H-m u" . mu4e-update-mail-and-index)
+               ("H-m i" . mu4e-interrupt-update-mail))
+       :init
+       :config
+       (bind-key "H-u" 'mu4e-update-mail-and-index mu4e-headers-mode-map)
+
+       (setq
+         mu4e-maildir "~/mail"
+
+         mu4e-drafts-folder "/[Gmail].Drafts"
+         mu4e-sent-folder   "/[Gmail].Sent Mail"
+         mu4e-trash-folder  "/[Gmail].Trash"
+         mu4e-refile-folder "/[Gmail].All Mail")
+
+       ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+       ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
+       ;; additional non-Gmail addresses and want assign them different
+       ;; behavior.)
+       (setq mu4e-sent-messages-behavior 'delete)
+
+       ;; you can quickly switch to your Inbox -- press ``ji''
+       (setq mu4e-maildir-shortcuts
+         '(("/INBOX"               . ?i)
+            ("/[Gmail].Sent Mail"   . ?s)
+            ("/[Gmail].Trash"       . ?t)
+            ("/[Gmail].All Mail"    . ?a)))
+
+       ;; allow for updating mail using 'U' in the main view:
+       (setq mu4e-get-mail-command "offlineimap")
+
+       (setq mu4e-user-mail-address-list
+         '("jjin082693@gmail.com"
+            "jjin082693@uchicago.edu"
+            "jonathan@jjin.me"))
+
+       (defvaralias 'mu4e-compose-signature 'message-signature)
+
+       ;; don't keep message buffers around
+       (setq message-kill-buffer-on-exit t)
+
+       (setq
+         mu4e-html-renderer 'w3m
+         mu4e-html2text-command "w3m -dump -T text/html")
+
+       ;; make sure the gnutls command line utils are installed
+       ;; (require 'smtpmail)
+
+       (setq
+         message-send-mail-function 'smtpmail-send-it
+         smtpmail-stream-type 'starttls
+         smtpmail-default-smtp-server "smtp.gmail.com"
+         smtpmail-smtp-server "smtp.gmail.com"
+         smtpmail-smtp-service 587)
+
+       (add-hook 'mu4e-view-mode-hook
+         'visual-line-mode)
+
+       (add-hook 'mu4e-compose-pre-hook
+         (defun my-set-from-address ()
+           "Set the From address based on the To address of the original."
+           (let ((msg mu4e-compose-parent-message)) ;; msg is shorter...
+             (when msg
+               (setq user-mail-address
+                 (cond
+                   ;; TODO; pull from mu4e-user-mail-address-list
+                   ((mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com")
+                     "jjin082693@gmail.com")
+                   ((mu4e-message-contact-field-matches msg :to "jjin082693@uchicago.edu")
+                     "jjin082693@uchicago.edu")
+                   (t "jonathan@jjin.me")))))))
+
+       (use-package gnus-dired
+         :config
+         ;; make the `gnus-dired-mail-buffers' function also work on message-mode derived
+         ;; modes, such as mu4e-compose-mode
+         (defun gnus-dired-mail-buffers ()
+           (let (buffers)
+             (save-current-buffer
+               (dolist (buffer (buffer-list t))
+                 (set-buffer buffer)
+                 (when (and (derived-mode-p 'message-mode)
+                         (null message-sent-message-via))
+                   (push (buffer-name buffer) buffers))))
+             (nreverse buffers)))
+
+         (setq gnus-dired-mail-mode 'mu4e-user-agent)
+         (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)))
+   #+END_SRC
+
+** Paradox
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package paradox
+       :config
+       (setq paradox-github-token t))
+   #+END_SRC
+
+** ace-window
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package ace-window
+       :init
+       (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
+       
+       :config
+       (add-to-list 'aw-ignored-buffers "mu4e-update"))
+   #+END_SRC
+
+** web-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package web-mode
+       :mode "\\.erb$")
+   #+END_SRC
+
+** window-purpose
+   
+   #+BEGIN_SRC emacs-lisp
+     (use-package window-purpose
+       :disabled t
+       :init
+       (setq purpose-user-regexp-purposes
+         '(("^\\*elfeed"         . admin)))
+
+       (setq purpose-user-mode-purposes
+         '((
+            (circe-chat-mode     . comm)
+            (circe-query-mode    . comm)
+            (circe-lagmon-mode   . comm)
+            (circe-server-mode   . comm)
+
+            (haskell-mode        . edit)
+            (ess-mode            . edit)
+            (gitconfig-mode      . edit)
+            (conf-xdefaults-mode . edit)
+            (inferior-ess-mode   . interactive)
+
+            (mu4e-main-mode      . admin)
+            (mu4e-view-mode      . admin)
+            (mu4e-about-mode     . admin)
+            (mu4e-headers-mode   . admin)
+            (mu4e-compose-mode   . edit)
+            
+            (pdf-view-mode       . view)
+            (doc-view-mode       . view))))
+
+       :config
+       (bind-key "W" 'purpose-set-window-purpose purpose-mode-prefix-map)
+
+       (purpose-x-magit-multi-on)
+       (purpose-compile-user-configuration)
+
+       (purpose-mode)
+       (purpose-load-window-layout))
+   #+END_SRC
+
+** Circe
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package circe
+       :commands (circe-chat-mode
+                   circe-server-mode
+                   circe-query-mode
+                   circe-channel-mode)
+       :bind ("H-I" . circe)
+       :init
+       (setq
+         circe-default-nick "jjin"
+         circe-default-user "jjin"
+         circe-default-part-message "Peace."
+         circe-default-quit-message "Peace.")
+
+       (setq circe-use-cycle-completion t
+         circe-reduce-lurker-spam t)
+
+       (setq circe-network-options
+         '(("Freenode"
+             :nick "jjin"
+             :channels ("#emacs" "#archlinux")
+             :nickserv-password ,freenode-pass)
+            ("Bitlbee"
+              :service "6667"
+              :nickserv-password ,bitlbee-pass
+              :nickserv-mask "\\(bitlbee\\|root\\)!\\(bitlbee\\|root\\)@"
+              :nickserv-identify-challenge "use the \x02identify\x02 command to identify yourself"
+              :nickserv-identify-command "PRIVMSG &bitlbee :identify {password}"
+              :nickserv-identify-confirmation "Password accepted, settings and accounts loaded")))
+
+       (setq
+         circe-format-self-say "<{nick}> {body}"
+         circe-format-server-topic "*** Topic change by {origin}: {topic-diff}")
+       (setq circe-color-nicks-everywhere t)
+
+       :config
+       (add-hook 'circe-chat-mode-hook 'my-circe-prompt)
+       (defun my-circe-prompt ()
+         (lui-set-prompt
+           (concat (propertize (concat (buffer-name) ">")
+                     'face 'circe-prompt-face)
+             " ")))
+
+       (enable-circe-color-nicks)
+
+       (use-package helm-circe
+         :config
+         (bind-key "i" 'helm-circe jjin/chat-map)
+         (bind-key "n" 'helm-circe-new-activity jjin/chat-map)))
+   #+END_SRC
+
+** doc-view-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package doc-view
+       :init
+       (setq doc-view-resolution 200))
+   #+END_SRC
+   
+** markdown-mode+
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package markdown-mode+
+       :config
+       (add-hook 'markdown-mode-hook 'auto-fill-mode)
+       (add-hook 'markdown-mode-hook 'fic-mode))
+   #+END_SRC
+
+** haskell-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package haskell-mode
+       :config
+       (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
+   #+END_SRC
+
+** Projectile
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package projectile
+       :config
+       (setq projectile-enable-caching t
+         projectile-completion-system 'grizzl
+         projectile-switch-project-action 'helm-projectile)
+
+       (projectile-global-mode))
+   #+END_SRC
+   
+** Helm
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm
+       :bind (("C-x m" . helm-M-x)
+               ("H-f f" . helm-find-files)
+               ("H-b b" . helm-buffers-list))
+       :init
+       (setq
+         helm-M-x-fuzzy-match t
+         helm-external-programs-associations '(("pdf" . "zathura"))
+         helm-split-window-in-side-p t)
+       
+       :config
+       (helm-mode 1)
+       (helm-autoresize-mode t))
+   #+END_SRC
+
+** Org-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package org
+       :commands (org-mode org-capture-mode)
+       :bind (("H-C" . org-capture)
+               ("H-A" . org-agenda))
+       :init
+       (setq org-agenda-files '("~/agenda")
+         org-return-follows-link t
+
+         org-export-dispatch-use-expert-ui t
+         
+         org-latex-create-formula-image-program 'imagemagick
+         org-latex-listings 'minted
+         org-tags-column -80
+
+         org-enforce-todo-dependencies t
+         org-enforce-todo-checkbox-dependencies  t
+
+         org-pretty-entities t
+         org-src-fontify-natively t
+         org-list-allow-alphabetical t
+
+         org-todo-keywords
+         '((sequence "TODO(t)" "IN-PROGRESS(r)" "|"  "DONE(d)"))
+
+         org-todo-keyword-faces
+         '(("TODO" . org-todo) ("IN-PROGRESS" . "yellow") ("DONE" . org-done))
+
+         org-agenda-custom-commands
+         '(("s" "Schoolwork"
+             ((agenda "" ((org-agenda-ndays 14)
+                           (org-agenda-start-on-weekday nil)
+                           (org-agenda-prefix-format " %-12:c%?-12t% s")))
+               (tags-todo "CATEGORY=\"Schoolwork\""
+                 ((org-agenda-prefix-format "%b")))))
+
+            ("r" "Reading"
+              ((tags-todo "CATEGORY=\"Reading\""
+                 ((org-agenda-prefix-format "%:T ")))))
+            ("m" "Movies"
+              ((tags-todo "CATEGORY=\"Movies\""
+                 ((org-agenda-prefix-format "%:T "))))))
+
+         org-latex-pdf-process (list "latexmk -shell-escape -pdf %f")
+
+         org-entities-user
+         '(("supsetneqq" "\\supsetneqq" t "" "[superset of above not equal to]"
+             "[superset of above not equal to]" "⫌")
+            ("subsetneqq" "\\subsetneqq" t "" "[suberset of above not equal to]"
+              "[suberset of above not equal to]" "⫋")))
+       :config
+       (use-package ox-latex)
+       (use-package ox-bibtex)
+       (bind-key "H-t" 'org-todo org-mode-map)
+       (bind-key "H-e" 'org-export-dispatch org-mode-map)
+       (bind-key "M-p" 'outline-previous-visible-heading org-mode-map)
+       (bind-key "M-n" 'outline-next-visible-heading org-mode-map)
+       (bind-key "H-s" 'org-edit-src-save org-src-mode-map)
+
+       (defhydra hydra-org (:exit nil)
+         "Org mode"
+         ("n" outline-next-visible-heading "heading: next")
+         ("p" outline-previous-visible-heading "heading: prev")
+         ("u" outline-up-heading "heading: up")
+         ("<tab>" org-cycle)
+         ("f" org-forward-heading-same-level "heading: forward")
+         ("b" org-backward-heading-same-level "heading: back")
+         ("t" org-todo "set TODO state")
+         ("s" org-babel-next-src-block "src: next")
+         ("S" org-babel-previous-src-block "src: prev"))
+       
+       (bind-key "H-o" 'hydra-org/body org-mode-map)
+       (plist-put org-format-latex-options :scale 1.5)
+
+       (add-to-list 'org-structure-template-alist
+         '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
+
+       (add-hook 'org-mode-hook
+         (lambda ()
+           (fic-mode)))
+
+       (setq org-latex-packages-alist
+         '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
+
+       (defun my-org-autodone (n-done n-not-done)
+         "Switch entry to DONE when all subentries are done, to TODO otherwise."
+         (let (org-log-done org-log-states)   ; turn off logging
+           (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+       (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
+
+       (org-babel-do-load-languages
+         'org-babel-load-languages
+         '((emacs-lisp . t)
+            (latex . t)
+            (R . t)))
+
+       (setq org-confirm-babel-evaluate nil
+         org-export-babel-evaluate nil)
+
+       (setq org-latex-minted-options
+         '(("linenos" "true")
+            ("fontsize" "\\scriptsize")
+            ("frame" "lines")
+            ("bgcolor" "LightGray")))
+
+       (setq org-export-latex-hyperref-format "\\ref{%s}")
+
+       (setq
+         org-src-window-setup 'current-window
+         org-agenda-window-setup 'current-window)
+
+       (setq org-blank-before-new-entry
+         '((heading . true) (plain-list-item . auto)))
+
+       (setq
+         ;; FIXME: parameter-ize dir `agenda'
+         org-default-notes-file "~/agenda/notes.org"
+
+         org-capture-templates
+         '(("r" "Reading" entry (file "~/agenda/reading.org")
+             "* TODO %?\n  Entered on %U\n  %i")))
+
+       (setq org-modules
+         '(org-bbdb
+            org-bibtex
+            org-docview
+            org-gnus
+            org-info
+            org-irc
+            org-mhe
+            org-rmail
+            org-w3m)))
+   #+END_SRC
+       
+** sass-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package sass-mode
+       :disabled t
+       :init
+       (setq scss-compile-at-save nil)
+       :config
+       (add-hook 'scss-mode-hook 'rainbow-mode))
+   #+END_SRC
+
+** Evil
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package evil
+       :defines evil-normal-state-map
+       :init
+       (setq evil-esc-delay 0)
+       
+       :config
+       (append-to-list 'evil-emacs-state-modes
+         '(eshell-mode
+            calendar-mode
+
+            finder-mode
+            info-mode
+
+            eww-mode
+            eww-bookmark-mode
+
+            dired-mode
+            image-mode
+            image-dired-thumbnail-mode
+            image-dired-display-image-mode
+            pdf-view-mode
+            pdf-outline-minor-mode
+
+            git-rebase-mode
+
+            inferior-ess-mode
+            ess-help-mode
+
+            paradox-menu-mode
+
+            circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
+            elfeed-search-mode elfeed-show-mode))
+       (append-to-list 'evil-insert-state-modes '(org-capture-mode
+                                                   git-commit-mode))
+       
+       (bind-key "<escape>" 'evil-execute-in-normal-state evil-emacs-state-map)
+       (bind-key "L" 'evil-end-of-line evil-normal-state-map)
+       (bind-key "H" 'evil-beginning-of-line evil-normal-state-map)
+       (bind-key "C-w q" 'delete-window evil-normal-state-map)
+       (bind-key "RET" 'insert-newline-after evil-normal-state-map)
+       (bind-key "RET" 'newline-and-indent evil-insert-state-map)
+       
+       (use-package hydra
+         :config
+         (bind-key "C-w" 'hydra-window/body evil-normal-state-map))
+       
+       (use-package evil-numbers
+         :config
+         (bind-key "C-a" 'evil-numbers/inc-at-pt evil-normal-state-map)
+         (bind-key "C-c -" 'evil-numbers/dec-at-pt evil-normal-state-map))
+       
+       (use-package evil-search-highlight-persist
+         :config
+         (bind-key "C-l" 'evil-search-highlight-persist-remove-all
+           evil-normal-state-map)
+         (global-evil-search-highlight-persist t))
+       
+       (evil-mode 1)
+       
+       (use-package evil-leader
+         :config
+         (evil-leader/set-leader "<SPC>")
+         (global-evil-leader-mode))
+       
+       (use-package evil-surround
+         :config
+         (global-evil-surround-mode 1)))
+   #+END_SRC
+   
+** enh-ruby-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package enh-ruby-mode
+       :mode ("Gemfile" "Guardfile")
+       :config
+       (defvaralias 'ruby-indent-level 'tab-width)
+
+       (add-hook 'ruby-mode-hook
+         (lambda ()
+           (local-set-key (kbd "RET")
+             'newline-and-indent)
+           (ruby-end-mode))))
+   #+END_SRC
+
+** Hydra
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package hydra
+       :commands defhydra
+       :config
+       (use-package hydra-examples)
+       (defhydra hydra-zoom (global-map "H-z")
+         "zoom"
+         ("g" text-scale-increase "in")
+         ("l" text-scale-decrease "out"))
+
+       (defhydra hydra-project (global-map "H-p"
+                                 :exit t)
+         "project"
+         ("p" helm-projectile)
+         ("f" helm-projectile-find-file)
+         ("F" helm-projectile-find-file-in-known-projects)
+         ("a" helm-projectile-ag)
+         ("K" projectile-kill-buffers)
+         ("c" projectile-compile-project))
+
+       (defhydra hydra-window (global-map "H-w")
+         "Window management"
+         ("w" ace-window "select" :exit t)
+         ("v" split-window-right "split right")
+         ("s" split-window-below "split below")
+         ("j" windmove-down "move down")
+         ("k" windmove-up "move up")
+         ("h" windmove-left "move left")
+         ("l" windmove-right "move right")
+         ("H" hydra-move-splitter-left)
+         ("L" hydra-move-splitter-right)
+         ("J" hydra-move-splitter-down)
+         ("K" hydra-move-splitter-up)
+         ("p" purpose-set-window-purpose "set purpose" :exit t)
+         ("z" toggle-maximize-window "toggle maximize":exit t)
+         ("q" delete-window "close" :exit t)
+         ("Q" kill-buffer-and-window "close and kill" :exit t))
+
+       (defhydra hydra-vc (global-map "H-g")
+         "version control"
+         ("s" magit-status "git status" :exit t)
+         ("b" magit-blame-mode "git blame"))
+
+       (use-package evil-nerd-commenter
+         :config
+         (defhydra hydra-comment (prog-mode-map "H-c"
+                                   :exit t)
+           "commenting"
+           ("i" evilnc-comment-or-uncomment-lines)
+           ("l" evilnc-quick-comment-or-uncomment-to-the-line)
+           ("c" evilnc-copy-and-comment-lines)
+           ("p" evilnc-comment-or-uncomment-paragraphs)
+           ("v" evilnc-toggle-invert-comment-line-by-line))))
+   #+END_SRC
+   
+** Git
+
+*** git-commit-mode
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package git-commit-mode
+        :commands git-commit-mode)
+    #+END_SRC
+
+*** gitconfig-mode
+    #+BEGIN_SRC emacs-lisp
+      (use-package gitconfig-mode
+        :mode "gitconfig")
+    #+END_SRC
+
+*** Magit
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package magit
+        :config
+        (setq magit-last-seen-setup-instructions "1.4.0"))
+    #+END_SRC
+
+** ansi-color
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package ansi-color
+       :init
+       (setq ansi-color-faces-vector
+         [default bold shadow italic underline bold bold-italic bold])
+       (setq compilation-scroll-output t)
+       :config
+       (defun colorize-compilation-buffer ()
+         (toggle-read-only)
+         (ansi-color-apply-on-region (point-min) (point-max))
+         (toggle-read-only))
+
+       (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
+   #+END_SRC
+
+** rich-minority-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package rich-minority
+       :config
+       (defconst my-rm-excluded-modes
+         '(
+            " MRev"
+            " Helm"
+            " Undo-Tree"
+            " pair"
+            " Fill"
+            " FIC"
+            " company"
+            " end"
+            " Ace - Window"
+            " =>"                            ; aggressive-indent
+            " Rbow"))
+       (dolist (mode my-rm-excluded-modes)
+         (add-to-list 'rm-excluded-modes mode)))
+   #+END_SRC
+
+** pdf-tools
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package pdf-tools
+       :config
+       (pdf-tools-install))
+   #+END_SRC
+
+** conf-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package conf-mode
+       :mode
+       (("\\.service\\'"    . conf-unix-mode)
+         ("\\.timer\\'"      . conf-unix-mode)
+         ("\\.target\\'"     . conf-unix-mode)
+         ("\\.mount\\'"      . conf-unix-mode)
+         ("\\.automount\\'"  . conf-unix-mode)
+         ("\\.slice\\'"      . conf-unix-mode)
+         ("\\.socket\\'"     . conf-unix-mode)
+         ("\\.path\\'"       . conf-unix-mode)
+         ("conf$"            . conf-mode)
+         ("rc$"              . conf-mode)))
+   #+END_SRC
+
+** ESS
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package ess-site
+       :init
+       (setq inferior-R-args "--quiet")
+       
+       :config
+       (bind-key "C-c C-w" nil inferior-ess-mode-map))
+   #+END_SRC
+
+* TODO
+
+  #+BEGIN_SRC emacs-lisp
+    (mapc 'require '(init-keybinding
+
+                      init-modes
+                      init-linum
+
+                      ;; languages
+                      init-c
+                      init-js
+                      init-lisp
+                      init-latex
+  #+END_SRC
+
+* License
+
+  #+BEGIN_SRC text
+    The MIT License (MIT)
+
+    Copyright (c) 2015 Jonathan Jin
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+  #+END_SRC
