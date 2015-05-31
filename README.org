@@ -1,3 +1,5 @@
+#+TITLE: Jonathan Jin's Emacs Configuration
+#+AUTHOR: Jonathan Jin
 #+PROPERTY: header-args:emacs-lisp :exports code :tangle init.el
 
 [[http://img.shields.io/:license-mit-blue.svg]]
@@ -191,9 +193,9 @@
      (defun redefine-key (map key-old key-new)
        (define-key map key-new (lookup-key map key-old))
        (define-key map key-old nil))
-        
+
    #+END_SRC
-   
+
 * General Configurations
 
   #+BEGIN_SRC emacs-lisp
@@ -323,7 +325,7 @@
       (when is-mac
           (setq mac-command-modifier 'meta))
     #+END_SRC
-    
+
 * Packages
 
 ** toc-org
@@ -333,7 +335,7 @@
        :config
        (add-hook 'org-mode-hook 'toc-org-enable))
    #+END_SRC
-   
+
 ** Elfeed
 
    #+BEGIN_SRC emacs-lisp
@@ -405,7 +407,7 @@
        (setq elfeed-max-connections 10)
 
        (setq url-queue-timeout 30)
-       
+
        :config
        (bind-key "<SPC>" 'next-line elfeed-search-mode-map))
    #+END_SRC
@@ -418,7 +420,7 @@
        ;; smart-mode-line initialize
        (sml/setup))
    #+END_SRC
-   
+
 ** mu4e
 
    #+BEGIN_SRC emacs-lisp
@@ -532,7 +534,7 @@
      (use-package ace-window
        :init
        (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
-       
+
        :config
        (add-to-list 'aw-ignored-buffers "mu4e-update"))
    #+END_SRC
@@ -545,7 +547,7 @@
    #+END_SRC
 
 ** window-purpose
-   
+
    #+BEGIN_SRC emacs-lisp
      (use-package window-purpose
        :disabled t
@@ -571,7 +573,7 @@
             (mu4e-about-mode     . admin)
             (mu4e-headers-mode   . admin)
             (mu4e-compose-mode   . edit)
-            
+
             (pdf-view-mode       . view)
             (doc-view-mode       . view))))
 
@@ -645,7 +647,7 @@
        :init
        (setq doc-view-resolution 200))
    #+END_SRC
-   
+
 ** markdown-mode+
 
    #+BEGIN_SRC emacs-lisp
@@ -674,7 +676,7 @@
 
        (projectile-global-mode))
    #+END_SRC
-   
+
 ** Helm
 
    #+BEGIN_SRC emacs-lisp
@@ -687,7 +689,7 @@
          helm-M-x-fuzzy-match t
          helm-external-programs-associations '(("pdf" . "zathura"))
          helm-split-window-in-side-p t)
-       
+
        :config
        (helm-mode 1)
        (helm-autoresize-mode t))
@@ -705,7 +707,7 @@
          org-return-follows-link t
 
          org-export-dispatch-use-expert-ui t
-         
+
          org-latex-create-formula-image-program 'imagemagick
          org-latex-listings 'minted
          org-tags-column -80
@@ -765,7 +767,7 @@
          ("t" org-todo "set TODO state")
          ("s" org-babel-next-src-block "src: next")
          ("S" org-babel-previous-src-block "src: prev"))
-       
+
        (bind-key "H-o" 'hydra-org/body org-mode-map)
        (plist-put org-format-latex-options :scale 1.5)
 
@@ -829,7 +831,7 @@
             org-rmail
             org-w3m)))
    #+END_SRC
-       
+
 ** sass-mode
 
    #+BEGIN_SRC emacs-lisp
@@ -848,7 +850,7 @@
        :defines evil-normal-state-map
        :init
        (setq evil-esc-delay 0)
-       
+
        :config
        (append-to-list 'evil-emacs-state-modes
          '(eshell-mode
@@ -878,41 +880,41 @@
             elfeed-search-mode elfeed-show-mode))
        (append-to-list 'evil-insert-state-modes '(org-capture-mode
                                                    git-commit-mode))
-       
+
        (bind-key "<escape>" 'evil-execute-in-normal-state evil-emacs-state-map)
        (bind-key "L" 'evil-end-of-line evil-normal-state-map)
        (bind-key "H" 'evil-beginning-of-line evil-normal-state-map)
        (bind-key "C-w q" 'delete-window evil-normal-state-map)
        (bind-key "RET" 'insert-newline-after evil-normal-state-map)
        (bind-key "RET" 'newline-and-indent evil-insert-state-map)
-       
+
        (use-package hydra
          :config
          (bind-key "C-w" 'hydra-window/body evil-normal-state-map))
-       
+
        (use-package evil-numbers
          :config
          (bind-key "C-a" 'evil-numbers/inc-at-pt evil-normal-state-map)
          (bind-key "C-c -" 'evil-numbers/dec-at-pt evil-normal-state-map))
-       
+
        (use-package evil-search-highlight-persist
          :config
          (bind-key "C-l" 'evil-search-highlight-persist-remove-all
            evil-normal-state-map)
          (global-evil-search-highlight-persist t))
-       
+
        (evil-mode 1)
-       
+
        (use-package evil-leader
          :config
          (evil-leader/set-leader "<SPC>")
          (global-evil-leader-mode))
-       
+
        (use-package evil-surround
          :config
          (global-evil-surround-mode 1)))
    #+END_SRC
-   
+
 ** enh-ruby-mode
 
    #+BEGIN_SRC emacs-lisp
@@ -984,7 +986,7 @@
            ("p" evilnc-comment-or-uncomment-paragraphs)
            ("v" evilnc-toggle-invert-comment-line-by-line))))
    #+END_SRC
-   
+
 ** Git
 
 *** git-commit-mode
@@ -1078,7 +1080,7 @@
      (use-package ess-site
        :init
        (setq inferior-R-args "--quiet")
-       
+
        :config
        (bind-key "C-c C-w" nil inferior-ess-mode-map))
    #+END_SRC
