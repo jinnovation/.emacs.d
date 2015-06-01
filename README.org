@@ -713,6 +713,12 @@
        :commands helm-projectile)
    #+END_SRC
 
+** =helm-swoop=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm-swoop)
+   #+END_SRC
+
 ** =hydra=
 
    #+BEGIN_SRC emacs-lisp
