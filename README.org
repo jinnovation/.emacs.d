@@ -47,23 +47,21 @@
      - [[#undo-tree][undo-tree]]
      - [[#web-mode][web-mode]]
      - [[#window-purpose][window-purpose]]
- - [[#license][License]]
+ - [[#unlicense][(Un)license]]
 
 * Preamble
 
   #+BEGIN_SRC emacs-lisp
-    (add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
     (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
 
-    (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+    (setq package-archives '(("gnu"        . "http://elpa.gnu.org/packages/")
                               ("marmalade" . "http://marmalade-repo.org/packages/")
-                              ("melpa" . "http://melpa.milkbox.net/packages/")
-                              ("org" . "http://orgmode.org/elpa/")))
+                              ("melpa"     . "http://melpa.milkbox.net/packages/")
+                              ("org"       . "http://orgmode.org/elpa/")))
 
     (package-initialize)
 
     (require 'use-package)
-
     (use-package diminish)
   #+END_SRC
 
@@ -209,7 +207,6 @@
     (load-if-exists "~/.secrets.el")
 
     (setq ring-bell-function 'ignore)
-    (setq-default x-stretch-cursor t)
 
     (defun display-startup-echo-area-message ()
       (message "Happy hacking, and praise RMS."))
@@ -284,50 +281,47 @@
 
 ** Appearance
 
-   #+BEGIN_SRC emacs-lisp
-     (setq custom-safe-themes t)
+*** Themes
+    
+    #+BEGIN_SRC emacs-lisp
+      (use-package gotham-theme
+        :ensure t
+        :config
+        (load-theme 'gotham t))
+    #+END_SRC
 
-     (defconst bg-color "black")
-     (defconst default-font "Terminus 08")
-     (set-frame-font default-font)
-     (set-face-attribute 'mode-line nil :font default-font)
+*** General
 
-     (use-package gotham-theme
-       :ensure t
-       :config
-       (load-theme 'gotham t))
+    #+BEGIN_SRC emacs-lisp
+      (setq-default x-stretch-cursor t)
 
-     (set-background-color bg-color)
-     (set-face-attribute 'fringe nil :background bg-color)
+      (setq custom-safe-themes t)
 
-     (use-package linum
-       :config
-       (set-face-attribute 'linum nil :background bg-color))
+      (defconst bg-color "black")
+      (defconst default-font "Terminus 08")
+      (set-frame-font default-font)
+      (set-face-attribute 'mode-line nil :font default-font)
 
-     (use-package evil-search-highlight-persist
-       :config
-       (set-face-attribute
-         'evil-search-highlight-persist-highlight-face
-         nil
-         :background (face-attribute 'match :background)))
+      (set-background-color bg-color)
+      (set-face-attribute 'fringe nil :background bg-color)
 
-     (when (functionp 'set-fontset-font)
-       (set-fontset-font "fontset-default"
-         'unicode
-         (font-spec :family "DejaVu Sans Mono")))
+      (when (functionp 'set-fontset-font)
+        (set-fontset-font "fontset-default"
+          'unicode
+          (font-spec :family "DejaVu Sans Mono")))
 
-     (set-opacity 85)
-   #+END_SRC
+      (set-opacity 85)
+    #+END_SRC
 
 ** Environment-specific
 
 *** Mac
 
     #+BEGIN_SRC emacs-lisp
-      (defconst is-mac (eq system-type 'darwin)
+      (defconst macosp (eq system-type 'darwin)
         "t when system is Mac.")
 
-      (when is-mac
+      (when macosp
           (setq mac-command-modifier 'meta))
     #+END_SRC
 
@@ -335,20 +329,20 @@
 
    #+BEGIN_SRC emacs-lisp
      (bind-keys :map global-map
-       ("C-x |" . window-toggle-split-direction)
-       ("C-x k" . kill-current-buffer)
-       ("H-s" . save-buffer)
+       ("C-x |"              . window-toggle-split-direction)
+       ("C-x k"              . kill-current-buffer)
+       ("H-s"                . save-buffer)
 
        ;; TODO: make prefix map for buffer manipulation
-       ("H-b k" . kill-current-buffer)
-       ("H-b n" . next-buffer)
+       ("H-b k"              . kill-current-buffer)
+       ("H-b n"              . next-buffer)
 
-       ("H-a r" . align-regexp)
-       ("C-<tab>" . other-window)
+       ("H-a r"              . align-regexp)
+       ("C-<tab>"            . other-window)
        ("\<C-S-iso-lefttab>" . prev-window)
-       ("H-a r" . align-regexp)
-       ("H-D" . dired-at-current)
-       ("RET" . newline-and-indent))
+       ("H-a r"              . align-regexp)
+       ("H-D"                . dired-at-current)
+       ("RET"                . newline-and-indent))
 
      (unbind-key "<menu>")
      (unbind-key "M-`")
@@ -700,7 +694,12 @@
          :config
          (bind-key "C-l" 'evil-search-highlight-persist-remove-all
            evil-normal-state-map)
-         (global-evil-search-highlight-persist t))
+         (global-evil-search-highlight-persist t)
+
+         (set-face-attribute
+           'evil-search-highlight-persist-highlight-face
+           nil
+           :background (face-attribute 'match :background)))
 
        (evil-mode 1)
 
@@ -877,7 +876,8 @@
 
        (setq linum-relative-current-symbol "")
 
-       (use-package linum-relative))
+       (use-package linum-relative)
+       (set-face-attribute 'linum nil :background bg-color))
    #+END_SRC
 
 ** fic-mode
@@ -1002,7 +1002,7 @@
 ** Org-mode
 
    #+BEGIN_SRC emacs-lisp
-     (use-package org-plus-contrib
+     (use-package org
        :ensure t
        :pin org
        :commands (org-mode org-capture-mode)
@@ -1287,7 +1287,7 @@
        (purpose-load-window-layout))
    #+END_SRC
 
-* License
+* (Un)license
 
   #+BEGIN_SRC text
     This is free and unencumbered software released into the public domain.
