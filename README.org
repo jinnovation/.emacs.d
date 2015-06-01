@@ -23,6 +23,9 @@
 
     (package-initialize)
 
+    (unless (package-installed-p 'use-package)
+      (package-install 'use-package))
+
     (require 'use-package)
     (use-package diminish)
   #+END_SRC
