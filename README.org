@@ -22,138 +22,117 @@
                               ("org"       . "http://orgmode.org/elpa/")))
 
     (package-initialize)
-
-    (unless (package-installed-p 'use-package)
-      (package-install 'use-package))
-
-    (require 'use-package)
-    (use-package diminish)
   #+END_SRC
+** Baseline packages
+
+   #+BEGIN_SRC emacs-lisp
+     (unless (package-installed-p 'use-package)
+       (package-install 'use-package))
+
+     (require 'use-package)
+     (use-package diminish)
+
+     (use-package names
+       :ensure t
+       :pin melpa)
+   #+END_SRC
 
 ** Functions
 
    #+BEGIN_SRC emacs-lisp
-     (defun load-if-exists (file)
-       "Loads file, conditional on its existence; no effect if non-existent."
-       (when (file-exists-p file)
-         (load-file file)))
+     (define-namespace jjin-
 
-     (defun kill-current-buffer ()
-       (interactive)
-       (kill-buffer (current-buffer)))
+       (defun load-if-exists (file)
+         "Loads file, conditional on its existence; no effect if non-existent."
+         (when (file-exists-p file)
+           (load-file file)))
 
-     (defun window-toggle-split-direction ()
-       "Switch window split from horizontally to vertically, or vice versa.
+
+       (defun kill-current-buffer ()
+         (interactive)
+         (kill-buffer (current-buffer)))
+
+       (defun window-toggle-split-direction ()
+         "Switch window split from horizontally to vertically, or vice versa.
 
      i.e. change right window to bottom, or change bottom window to right."
-       (interactive)
-       (require 'windmove)
-       (let ((done))
-         (dolist (dirs '((right . down) (down . right)))
-           (unless done
-             (let* ((win (selected-window))
-                     (nextdir (car dirs))
-                     (neighbour-dir (cdr dirs))
-                     (next-win (windmove-find-other-window nextdir win))
-                     (neighbour1 (windmove-find-other-window neighbour-dir win))
-                     (neighbour2 (if next-win (with-selected-window next-win
-                                                (windmove-find-other-window
-                                                  neighbour-dir next-win)))))
+         (interactive)
+         (require 'windmove)
+         (let ((done))
+           (dolist (dirs '((right . down) (down . right)))
+             (unless done
+               (let* ((win (selected-window))
+                       (nextdir (car dirs))
+                       (neighbour-dir (cdr dirs))
+                       (next-win (windmove-find-other-window nextdir win))
+                       (neighbour1 (windmove-find-other-window neighbour-dir win))
+                       (neighbour2 (if next-win (with-selected-window next-win
+                                                  (windmove-find-other-window
+                                                    neighbour-dir next-win)))))
 
-               (setq done (and (eq neighbour1 neighbour2)
-                            (not (eq (minibuffer-window) next-win))))
-               (if done
-                 (let* ((other-buf (window-buffer next-win)))
-                   (delete-window next-win)
-                   (if (eq nextdir 'right)
-                     (split-window-vertically)
-                     (split-window-horizontally))
-                   (set-window-buffer (windmove-find-other-window neighbour-dir)
-                     other-buf))))))))
+                 (setq done (and (eq neighbour1 neighbour2)
+                              (not (eq (minibuffer-window) next-win))))
+                 (if done
+                   (let* ((other-buf (window-buffer next-win)))
+                     (delete-window next-win)
+                     (if (eq nextdir 'right)
+                       (split-window-vertically)
+                       (split-window-horizontally))
+                     (set-window-buffer (windmove-find-other-window neighbour-dir)
+                       other-buf))))))))
 
-     (defun reload-config ()
-       (interactive)
-       (load-file user-init-file))
+       (defun insert-newline-after ()
+         (interactive)
+         (let ((oldpos (point)))
+           (end-of-line)
+           (newline-and-indent)
+           (goto-char oldpos)))
 
-     (defun insert-newline-after ()
-       (interactive)
-       (let ((oldpos (point)))
-         (end-of-line)
-         (newline-and-indent)
-         (goto-char oldpos)))
+       (defun set-opacity (value)
+         "Sets the opacity of the frame window. 0=transparent/100=opaque"
+         (interactive "nOpacity Value (0 - 100 opaque): ")
+         (set-frame-parameter (selected-frame) 'alpha value))
 
-     (defun set-opacity (value)
-       "Sets the opacity of the frame window. 0=transparent/100=opaque"
-       (interactive "nOpacity Value (0 - 100 opaque): ")
-       (set-frame-parameter (selected-frame) 'alpha value))
+       (defun dired-at-current ()
+         (interactive)
+         (dired default-directory))
 
-     (defun enlarge-window-horizontally-repeatable (&optional inc)
-       (interactive)
-       (let* ((step (if inc inc 5)))
-         (enlarge-window-horizontally step)))
+       (defun prev-window ()
+         (interactive)
+         (other-window -1))
 
-     (defun package-install-from-list (list)
-       (package-refresh-contents)
-       (dolist (package list)
-         (unless (package-installed-p package)
-           (package-install package))))
+       (defun append-to-list (list-var elements)
 
-     (defun projectile-save-and-test (arg)
-       "Saves the current buffer, and then run project test command.
-
-     Normally, this immediately runs the default Projectile project test command;
-     `make test` for Makefile projects, etc. You can force prompt with a prefix ARG."
-       (interactive "P")
-       (save-buffer)
-       (let* ((compilation-read-command (if arg t nil)))
-         (projectile-test-project arg)))
-
-     (defun my-gnus-group-list-subscribed-groups ()
-       "List all subscribed groups with or without un-read messages"
-       (interactive)
-       (gnus-group-list-all-groups 5))
-
-     (defun dired-at-current ()
-       (interactive)
-       (dired default-directory))
-
-     (defun prev-window ()
-       (interactive)
-       (other-window -1))
-
-     (defun append-to-list (list-var elements)
-
-       "Append ELEMENTS to the end of LIST-VAR.
+         "Append ELEMENTS to the end of LIST-VAR.
 
      The return value is the new value of LIST-VAR."
-       (unless (consp elements)
-         (error "ELEMENTS must be a list"))
-       (let ((list (symbol-value list-var)))
-         (if list
-           (setcdr (last list) elements)
-           (set list-var elements)))
-       (symbol-value list-var))
+         (unless (consp elements)
+           (error "ELEMENTS must be a list"))
+         (let ((list (symbol-value list-var)))
+           (if list
+             (setcdr (last list) elements)
+             (set list-var elements)))
+         (symbol-value list-var))
 
-     ;; credit: https://gist.github.com/mads379/3402786
-     (defun toggle-maximize-window ()
-       "Maximize window"
-       (interactive)
-       (if (= 1 (length (window-list)))
-         (jump-to-register '_)
-         (progn
-           (window-configuration-to-register '_)
-           (delete-other-windows))))
+       ;; credit: https://gist.github.com/mads379/3402786
+       (defun toggle-maximize-window ()
+         "Maximize window"
+         (interactive)
+         (if (= 1 (length (window-list)))
+           (jump-to-register '_)
+           (progn
+             (window-configuration-to-register '_)
+             (delete-other-windows))))
 
-     (defun redefine-key (map key-old key-new)
-       (define-key map key-new (lookup-key map key-old))
-       (define-key map key-old nil))
-
+       (defun redefine-key (map key-old key-new)
+         (define-key map key-new (lookup-key map key-old))
+         (define-key map key-old nil)))
    #+END_SRC
 
 * General Configurations
 
   #+BEGIN_SRC emacs-lisp
-    (load-if-exists "~/.secrets.el")
+    (jjin-load-if-exists "~/.secrets.el")
 
     (setq ring-bell-function 'ignore)
 
@@ -259,7 +238,7 @@
           'unicode
           (font-spec :family "DejaVu Sans Mono")))
 
-      (set-opacity 85)
+      (jjin-set-opacity 85)
     #+END_SRC
 
 ** Environment-specific
@@ -278,19 +257,19 @@
 
    #+BEGIN_SRC emacs-lisp
      (bind-keys :map global-map
-       ("C-x |"              . window-toggle-split-direction)
-       ("C-x k"              . kill-current-buffer)
+       ("C-x |"              . jjin-window-toggle-split-direction)
+       ("C-x k"              . jjin-kill-current-buffer)
        ("H-s"                . save-buffer)
 
        ;; TODO: make prefix map for buffer manipulation
-       ("H-b k"              . kill-current-buffer)
+       ("H-b k"              . jjin-kill-current-buffer)
        ("H-b n"              . next-buffer)
 
        ("H-a r"              . align-regexp)
        ("C-<tab>"            . other-window)
-       ("\<C-S-iso-lefttab>" . prev-window)
+       ("\<C-S-iso-lefttab>" . jjin-prev-window)
        ("H-a r"              . align-regexp)
-       ("H-D"                . dired-at-current)
+       ("H-D"                . jjin-dired-at-current)
        ("RET"                . newline-and-indent))
 
      (unbind-key "<menu>")
@@ -566,7 +545,7 @@
        (bind-key "C-c C-w" nil inferior-ess-mode-map))
    #+END_SRC
 
-** =evil=
+** Evil (base + extras)
 
    #+BEGIN_SRC emacs-lisp
      (use-package evil
@@ -576,7 +555,7 @@
        (setq evil-esc-delay 0)
 
        :config
-       (append-to-list 'evil-emacs-state-modes
+       (jjin-append-to-list 'evil-emacs-state-modes
          '(eshell-mode
             calendar-mode
 
@@ -604,7 +583,7 @@
 
             circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
             elfeed-search-mode elfeed-show-mode))
-       (append-to-list 'evil-insert-state-modes '(org-capture-mode
+       (jjin-append-to-list 'evil-insert-state-modes '(org-capture-mode
                                                    git-commit-mode))
 
        (bind-keys :map evil-emacs-state-map
@@ -756,7 +735,7 @@
          ("J" hydra-move-splitter-down)
          ("K" hydra-move-splitter-up)
          ("p" purpose-set-window-purpose "set purpose" :exit t)
-         ("z" toggle-maximize-window "toggle maximize":exit t)
+         ("z" jjin-toggle-maximize-window "toggle maximize":exit t)
          ("q" delete-window "close" :exit t)
          ("Q" kill-buffer-and-window "close and kill" :exit t))
 
