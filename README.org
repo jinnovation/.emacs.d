@@ -567,25 +567,11 @@
        (bind-key "<SPC>" 'next-line elfeed-search-mode-map))
    #+END_SRC
 
-** =enh-ruby-mode=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package enh-ruby-mode
-       :mode ("Gemfile" "Guardfile")
-       :config
-       (defvaralias 'ruby-indent-level 'tab-width)
-
-       (add-hook 'ruby-mode-hook
-         (lambda ()
-           (local-set-key (kbd "RET")
-             'newline-and-indent)
-           (ruby-end-mode))))
-   #+END_SRC
-
 ** =ess=
 
    #+BEGIN_SRC emacs-lisp
      (use-package ess
+       :commands (inferior-ess-mode ess-help-mode)
        :init
        (setq inferior-R-args "--quiet")
 
@@ -717,14 +703,6 @@
         (setq magit-last-seen-setup-instructions "1.4.0"))
     #+END_SRC
 
-** =haskell-mode=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package haskell-mode
-       :config
-       (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
-   #+END_SRC
-
 ** =helm=
 
    #+BEGIN_SRC emacs-lisp
@@ -811,6 +789,7 @@
             org-mode
 
             pdf-view-mode
+            paradox-menu-mode
 
             magit-mode
 
@@ -853,15 +832,6 @@
        (add-hook 'LaTeX-mode-hook 'fic-mode))
    #+END_SRC
    
-** =markdown-mode+=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package markdown-mode+
-       :config
-       (add-hook 'markdown-mode-hook 'auto-fill-mode)
-       (add-hook 'markdown-mode-hook 'fic-mode))
-   #+END_SRC
-
 ** =mu4e=
 
    #+BEGIN_SRC emacs-lisp
@@ -1100,7 +1070,9 @@
             org-irc
             org-mhe
             org-rmail
-            org-w3m)))
+            org-w3m))
+
+       (setq org-refile-targets '((nil . (:maxlevel . 10)))))
    #+END_SRC
 
 ** =paradox=
@@ -1162,17 +1134,6 @@
             " Rbow"))
        (dolist (mode my-rm-excluded-modes)
          (add-to-list 'rm-excluded-modes mode)))
-   #+END_SRC
-
-** =sass-mode=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package sass-mode
-       :disabled t
-       :init
-       (setq scss-compile-at-save nil)
-       :config
-       (add-hook 'scss-mode-hook 'rainbow-mode))
    #+END_SRC
 
 ** =smart-mode-line=
@@ -1248,6 +1209,50 @@
        (purpose-mode)
        (purpose-load-window-layout))
    #+END_SRC
+
+** Language modes
+
+*** =enh-ruby-mode=
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package enh-ruby-mode
+        :mode ("Gemfile" "Guardfile")
+        :config
+        (defvaralias 'ruby-indent-level 'tab-width)
+
+        (add-hook 'ruby-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET")
+              'newline-and-indent)
+            (ruby-end-mode))))
+    #+END_SRC
+
+*** =haskell-mode=
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package haskell-mode
+        :config
+        (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
+    #+END_SRC
+*** =markdown-mode+=
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package markdown-mode+
+        :config
+        (add-hook 'markdown-mode-hook 'auto-fill-mode)
+        (add-hook 'markdown-mode-hook 'fic-mode))
+    #+END_SRC
+
+*** =sass-mode=
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package sass-mode
+        :disabled t
+        :init
+        (setq scss-compile-at-save nil)
+        :config
+        (add-hook 'scss-mode-hook 'rainbow-mode))
+    #+END_SRC
 
 * (Un)license
 
