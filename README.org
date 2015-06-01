@@ -18,35 +18,35 @@
      - [[#latex][LaTeX]]
      - [[#zsh][zsh]]
  - [[#packages][Packages]]
-     - [[#ace-window][ace-window]]
-     - [[#ansi-color][ansi-color]]
-     - [[#circe][Circe]]
-     - [[#conf-mode][conf-mode]]
-     - [[#doc-view-mode][doc-view-mode]]
-     - [[#elfeed][Elfeed]]
-     - [[#enh-ruby-mode][enh-ruby-mode]]
-     - [[#ess][ESS]]
-     - [[#evil][Evil]]
+     - [[#ace-window][=ace-window=]]
+     - [[#ansi-color][=ansi-color=]]
+     - [[#circe][=circe=]]
+     - [[#conf-mode][=conf-mode=]]
+     - [[#doc-view-mode][=doc-view-mode=]]
+     - [[#elfeed][=elfeed=]]
+     - [[#enh-ruby-mode][=enh-ruby-mode=]]
+     - [[#ess][=ess=]]
+     - [[#evil][=evil=]]
      - [[#git][Git]]
-     - [[#haskell-mode][haskell-mode]]
-     - [[#helm][Helm]]
-     - [[#hydra][Hydra]]
-     - [[#linum][linum]]
-     - [[#fic-mode][fic-mode]]
-     - [[#markdown-mode][markdown-mode+]]
-     - [[#mu4e][mu4e]]
-     - [[#org-mode][Org-mode]]
-     - [[#paradox][Paradox]]
-     - [[#pdf-tools][pdf-tools]]
-     - [[#projectile][Projectile]]
-     - [[#rainbow-mode][rainbow-mode]]
-     - [[#rich-minority-mode][rich-minority-mode]]
-     - [[#sass-mode][sass-mode]]
-     - [[#smart-mode-line][smart-mode-line]]
-     - [[#toc-org][toc-org]]
-     - [[#undo-tree][undo-tree]]
-     - [[#web-mode][web-mode]]
-     - [[#window-purpose][window-purpose]]
+     - [[#haskell-mode][=haskell-mode=]]
+     - [[#helm][=helm=]]
+     - [[#hydra][=hydra=]]
+     - [[#linum][=linum=]]
+     - [[#fic-mode][=fic-mode=]]
+     - [[#markdown-mode][=markdown-mode+=]]
+     - [[#mu4e][=mu4e=]]
+     - [[#org-mode][=org-mode=]]
+     - [[#paradox][=paradox=]]
+     - [[#pdf-tools][=pdf-tools=]]
+     - [[#projectile][=projectile=]]
+     - [[#rainbow-mode][=rainbow-mode=]]
+     - [[#rich-minority-mode][=rich-minority-mode=]]
+     - [[#sass-mode][=sass-mode=]]
+     - [[#smart-mode-line][=smart-mode-line=]]
+     - [[#toc-org][=toc-org=]]
+     - [[#undo-tree][=undo-tree=]]
+     - [[#web-mode][=web-mode=]]
+     - [[#window-purpose][=window-purpose=]]
  - [[#unlicense][(Un)license]]
 
 * Preamble
@@ -419,7 +419,7 @@
 
 * Packages
 
-** ace-window
+** =ace-window=
 
    #+BEGIN_SRC emacs-lisp
      (use-package ace-window
@@ -431,7 +431,7 @@
        (add-to-list 'aw-ignored-buffers "mu4e-update"))
    #+END_SRC
 
-** ansi-color
+** =ansi-color=
 
    #+BEGIN_SRC emacs-lisp
      (use-package ansi-color
@@ -448,7 +448,7 @@
        (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
    #+END_SRC
 
-** Circe
+** =circe=
 
    #+BEGIN_SRC emacs-lisp
      (use-package circe
@@ -503,7 +503,7 @@
 
    #+END_SRC
 
-** conf-mode
+** =conf-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package conf-mode
@@ -520,7 +520,7 @@
          ("rc$"              . conf-mode)))
    #+END_SRC
 
-** doc-view-mode
+** =doc-view-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package doc-view
@@ -528,7 +528,7 @@
        (setq doc-view-resolution 200))
    #+END_SRC
 
-** Elfeed
+** =elfeed=
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
@@ -605,7 +605,7 @@
        (bind-key "<SPC>" 'next-line elfeed-search-mode-map))
    #+END_SRC
 
-** enh-ruby-mode
+** =enh-ruby-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package enh-ruby-mode
@@ -620,7 +620,7 @@
            (ruby-end-mode))))
    #+END_SRC
 
-** ESS
+** =ess=
 
    #+BEGIN_SRC emacs-lisp
      (use-package ess
@@ -631,7 +631,7 @@
        (bind-key "C-c C-w" nil inferior-ess-mode-map))
    #+END_SRC
 
-** Evil
+** =evil=
 
    #+BEGIN_SRC emacs-lisp
      (use-package evil
@@ -730,7 +730,7 @@
 
 ** Git
 
-*** git-commit-mode
+*** =git-commit-mode=
 
     #+BEGIN_SRC emacs-lisp
       (use-package git-commit-mode
@@ -738,14 +738,14 @@
         :commands git-commit-mode)
     #+END_SRC
 
-*** gitconfig-mode
+*** =gitconfig-mode=
     #+BEGIN_SRC emacs-lisp
       (use-package gitconfig-mode
         :ensure t
         :mode "gitconfig")
     #+END_SRC
 
-*** Magit
+*** =magit=
 
     #+BEGIN_SRC emacs-lisp
       (use-package magit
@@ -755,7 +755,7 @@
         (setq magit-last-seen-setup-instructions "1.4.0"))
     #+END_SRC
 
-** haskell-mode
+** =haskell-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package haskell-mode
@@ -763,7 +763,7 @@
        (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
    #+END_SRC
 
-** Helm
+** =helm=
 
    #+BEGIN_SRC emacs-lisp
      (use-package helm
@@ -786,7 +786,7 @@
        :commands helm-projectile)
    #+END_SRC
 
-** Hydra
+** =hydra=
 
    #+BEGIN_SRC emacs-lisp
      (use-package hydra
@@ -833,7 +833,7 @@
          ("b" magit-blame-mode "git blame")))
    #+END_SRC
 
-** linum
+** =linum=
 
    #+BEGIN_SRC emacs-lisp
      (use-package linum
@@ -880,7 +880,7 @@
        (set-face-attribute 'linum nil :background bg-color))
    #+END_SRC
 
-** fic-mode
+** =fic-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package fic-mode
@@ -891,7 +891,7 @@
        (add-hook 'LaTeX-mode-hook 'fic-mode))
    #+END_SRC
    
-** markdown-mode+
+** =markdown-mode+=
 
    #+BEGIN_SRC emacs-lisp
      (use-package markdown-mode+
@@ -900,7 +900,7 @@
        (add-hook 'markdown-mode-hook 'fic-mode))
    #+END_SRC
 
-** mu4e
+** =mu4e=
 
    #+BEGIN_SRC emacs-lisp
      (use-package mu4e
@@ -999,7 +999,7 @@
          (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)))
    #+END_SRC
 
-** Org-mode
+** =org-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package org
@@ -1141,7 +1141,7 @@
             org-w3m)))
    #+END_SRC
 
-** Paradox
+** =paradox=
 
    #+BEGIN_SRC emacs-lisp
      (use-package paradox
@@ -1150,7 +1150,7 @@
        (setq paradox-github-token t))
    #+END_SRC
 
-** pdf-tools
+** =pdf-tools=
 
    #+BEGIN_SRC emacs-lisp
      (use-package pdf-tools
@@ -1158,7 +1158,7 @@
        (pdf-tools-install))
    #+END_SRC
 
-** Projectile
+** =projectile=
 
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
@@ -1171,7 +1171,7 @@
        (projectile-global-mode))
    #+END_SRC
 
-** rainbow-mode
+** =rainbow-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package rainbow-mode
@@ -1181,7 +1181,7 @@
        (add-hook 'help-mode-hook 'rainbow-mode))
    #+END_SRC
 
-** rich-minority-mode
+** =rich-minority-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package rich-minority
@@ -1202,7 +1202,7 @@
          (add-to-list 'rm-excluded-modes mode)))
    #+END_SRC
 
-** sass-mode
+** =sass-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package sass-mode
@@ -1213,7 +1213,7 @@
        (add-hook 'scss-mode-hook 'rainbow-mode))
    #+END_SRC
 
-** smart-mode-line
+** =smart-mode-line=
    
    #+BEGIN_SRC emacs-lisp
      (use-package smart-mode-line
@@ -1223,7 +1223,7 @@
        (sml/setup))
    #+END_SRC
 
-** toc-org
+** =toc-org=
 
    #+BEGIN_SRC emacs-lisp
      (use-package toc-org
@@ -1231,7 +1231,7 @@
        (add-hook 'org-mode-hook 'toc-org-enable))
    #+END_SRC
 
-** undo-tree
+** =undo-tree=
 
    #+BEGIN_SRC emacs-lisp
      (use-package undo-tree
@@ -1239,14 +1239,14 @@
        :bind ("C-<backspace>" . undo-tree-undo))
    #+END_SRC
 
-** web-mode
+** =web-mode=
 
    #+BEGIN_SRC emacs-lisp
      (use-package web-mode
        :mode "\\.erb$")
    #+END_SRC
 
-** window-purpose
+** =window-purpose=
 
    #+BEGIN_SRC emacs-lisp
      (use-package window-purpose
