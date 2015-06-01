@@ -336,7 +336,7 @@
        ("C-x |" . window-toggle-split-direction)
        ("C-x k" . kill-current-buffer)
        ("H-s" . save-buffer)
-       
+
        ;; TODO: make prefix map for buffer manipulation
        ("H-b k" . kill-current-buffer)
        ("H-b n" . next-buffer)
@@ -345,7 +345,8 @@
        ("C-<tab>" . other-window)
        ("\<C-S-iso-lefttab>" . prev-window)
        ("H-a r" . align-regexp)
-       ("H-D" . dired-at-current))
+       ("H-D" . dired-at-current)
+       ("RET" . newline-and-indent))
 
      (unbind-key "<menu>")
      (unbind-key "M-`")
@@ -367,7 +368,7 @@
    #+END_SRC
 
 * Languages
-  
+
 ** C
 
    #+BEGIN_SRC emacs-lisp
@@ -384,9 +385,9 @@
      (add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
      (add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
    #+END_SRC
-   
+
 ** Javascript
-   
+
    #+BEGIN_SRC emacs-lisp
      (defvaralias 'js-indent-level 'tab-width)
    #+END_SRC
@@ -420,7 +421,7 @@
      (add-to-list 'auto-mode-alist '("zshrc$" . sh-mode))
      (add-to-list 'auto-mode-alist '("\\.zsh$" . sh-mode))
    #+END_SRC
-   
+
 * Packages
 
 ** ace-window
@@ -662,6 +663,8 @@
             git-rebase-mode
 
             inferior-ess-mode
+
+            help-mode
             ess-help-mode
 
             paradox-menu-mode
@@ -675,9 +678,7 @@
          ("<escape>" . evil-execute-in-normal-state)
          ("L"        . evil-end-of-line)
          ("H"        . evil-beginning-of-line)
-         ("C-w q"    . delete-window)
-         ("RET"      . insert-newline-after)
-         ("RET"      . newline-and-indent))
+         ("C-w q"    . delete-window))
 
        (use-package hydra
          :config
@@ -824,6 +825,10 @@
 
        (defconst linum-mode-excludes
          '(doc-view-mode
+
+            ;; linum in org kills performance
+            org-mode
+
             pdf-view-mode
 
             magit-mode
@@ -851,10 +856,10 @@
            ad-do-it))
 
        (setq linum-relative-current-symbol "")
-       
+
        (use-package linum-relative))
    #+END_SRC
-  
+
 ** markdown-mode+
 
    #+BEGIN_SRC emacs-lisp
@@ -1139,7 +1144,7 @@
        :config
        (add-hook 'help-mode-hook 'rainbow-mode))
    #+END_SRC
-   
+
 ** rich-minority-mode
 
    #+BEGIN_SRC emacs-lisp
@@ -1195,7 +1200,7 @@
        :diminish undo-tree-mode
        :bind ("C-<backspace>" . undo-tree-undo))
    #+END_SRC
-   
+
 ** web-mode
 
    #+BEGIN_SRC emacs-lisp
