@@ -32,6 +32,7 @@
      - [[#helm][Helm]]
      - [[#hydra][Hydra]]
      - [[#linum][linum]]
+     - [[#fic-mode][fic-mode]]
      - [[#markdown-mode][markdown-mode+]]
      - [[#mu4e][mu4e]]
      - [[#org-mode][Org-mode]]
@@ -52,15 +53,16 @@
 
   #+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path (expand-file-name "~/.emacs.d/init"))
+    (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
 
-    (require 'cask)
-    (cask-initialize)
+    (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                              ("marmalade" . "http://marmalade-repo.org/packages/")
+                              ("melpa" . "http://melpa.milkbox.net/packages/")
+                              ("org" . "http://orgmode.org/elpa/")))
+
+    (package-initialize)
 
     (require 'use-package)
-
-    (use-package pallet
-      :config
-      (pallet-mode t))
 
     (use-package diminish)
   #+END_SRC
@@ -260,7 +262,6 @@
     ;; highlights strings like TODO, FIXME, etc.
     (add-hook 'prog-mode-hook
       (lambda ()
-        (fic-mode)
         (turn-on-auto-fill)))
 
     (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -292,6 +293,7 @@
      (set-face-attribute 'mode-line nil :font default-font)
 
      (use-package gotham-theme
+       :ensure t
        :config
        (load-theme 'gotham t))
 
@@ -409,7 +411,6 @@
      (add-hook 'LaTeX-mode-hook
          (lambda ()
              (TeX-fold-mode 1)
-             (fic-mode)
              (auto-fill-mode)
              (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t"
                                                  TeX-run-TeX nil t))))
@@ -428,6 +429,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package ace-window
+       :ensure t
        :init
        (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
 
@@ -536,6 +538,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
+       :ensure t
        :commands (elfeed-search-mode elfeed-show-mode)
        :bind ("H-E" . elfeed)
        :init
@@ -626,7 +629,7 @@
 ** ESS
 
    #+BEGIN_SRC emacs-lisp
-     (use-package ess-site
+     (use-package ess
        :init
        (setq inferior-R-args "--quiet")
 
@@ -638,6 +641,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package evil
+       :ensure t
        :defines evil-normal-state-map
        :init
        (setq evil-esc-delay 0)
@@ -685,12 +689,14 @@
          (bind-key "C-w" 'hydra-window/body evil-normal-state-map))
 
        (use-package evil-numbers
+         :ensure t
          :config
          (bind-keys :map evil-normal-state-map
            ("C-a"   . evil-numbers/inc-at-pt)
            ("C-c -" . evil-numbers/dec-at-pt)))
 
        (use-package evil-search-highlight-persist
+         :ensure t
          :config
          (bind-key "C-l" 'evil-search-highlight-persist-remove-all
            evil-normal-state-map)
@@ -699,13 +705,28 @@
        (evil-mode 1)
 
        (use-package evil-leader
+         :ensure t
          :config
          (evil-leader/set-leader "<SPC>")
          (global-evil-leader-mode))
 
        (use-package evil-surround
+         :ensure t
          :config
-         (global-evil-surround-mode 1)))
+         (global-evil-surround-mode 1))
+
+
+       (use-package evil-nerd-commenter
+         :ensure t
+         :config
+         (defhydra hydra-comment (prog-mode-map "H-c"
+                                   :exit t)
+           "commenting"
+           ("i" evilnc-comment-or-uncomment-lines)
+           ("l" evilnc-quick-comment-or-uncomment-to-the-line)
+           ("c" evilnc-copy-and-comment-lines)
+           ("p" evilnc-comment-or-uncomment-paragraphs)
+           ("v" evilnc-toggle-invert-comment-line-by-line))))
    #+END_SRC
 
 ** Git
@@ -714,12 +735,14 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package git-commit-mode
+        :ensure t
         :commands git-commit-mode)
     #+END_SRC
 
 *** gitconfig-mode
     #+BEGIN_SRC emacs-lisp
       (use-package gitconfig-mode
+        :ensure t
         :mode "gitconfig")
     #+END_SRC
 
@@ -727,6 +750,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package magit
+        :ensure t
         :diminish magit-auto-revert-mode
         :config
         (setq magit-last-seen-setup-instructions "1.4.0"))
@@ -744,6 +768,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package helm
+       :ensure t
        :bind (("C-x m" . helm-M-x)
                ("H-f f" . helm-find-files)
                ("H-b b" . helm-buffers-list))
@@ -756,12 +781,17 @@
        :config
        (helm-mode 1)
        (helm-autoresize-mode t))
+
+     (use-package helm-projectile
+       :ensure t
+       :commands helm-projectile)
    #+END_SRC
 
 ** Hydra
 
    #+BEGIN_SRC emacs-lisp
      (use-package hydra
+       :ensure t
        :commands defhydra
        :config
        (use-package hydra-examples)
@@ -801,24 +831,14 @@
        (defhydra hydra-vc (global-map "H-g")
          "version control"
          ("s" magit-status "git status" :exit t)
-         ("b" magit-blame-mode "git blame"))
-
-       (use-package evil-nerd-commenter
-         :config
-         (defhydra hydra-comment (prog-mode-map "H-c"
-                                   :exit t)
-           "commenting"
-           ("i" evilnc-comment-or-uncomment-lines)
-           ("l" evilnc-quick-comment-or-uncomment-to-the-line)
-           ("c" evilnc-copy-and-comment-lines)
-           ("p" evilnc-comment-or-uncomment-paragraphs)
-           ("v" evilnc-toggle-invert-comment-line-by-line))))
+         ("b" magit-blame-mode "git blame")))
    #+END_SRC
 
 ** linum
 
    #+BEGIN_SRC emacs-lisp
      (use-package linum
+       :ensure t
        :config
        (setq linum-format 'dynamic)
        (global-linum-mode 1)
@@ -860,6 +880,17 @@
        (use-package linum-relative))
    #+END_SRC
 
+** fic-mode
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package fic-mode
+       :ensure t
+       :commands fic-mode
+       :config
+       (add-hook 'prog-mode-hook 'fic-mode)
+       (add-hook 'LaTeX-mode-hook 'fic-mode))
+   #+END_SRC
+   
 ** markdown-mode+
 
    #+BEGIN_SRC emacs-lisp
@@ -971,7 +1002,9 @@
 ** Org-mode
 
    #+BEGIN_SRC emacs-lisp
-     (use-package org
+     (use-package org-plus-contrib
+       :ensure t
+       :pin org
        :commands (org-mode org-capture-mode)
        :bind (("H-C" . org-capture)
                ("H-A" . org-agenda))
@@ -1112,6 +1145,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package paradox
+       :ensure t
        :config
        (setq paradox-github-token t))
    #+END_SRC
@@ -1128,6 +1162,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
+       :ensure t
        :config
        (setq projectile-enable-caching t
          projectile-completion-system 'grizzl
@@ -1140,6 +1175,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package rainbow-mode
+       :ensure t
        :commands (rainbow-mode)
        :config
        (add-hook 'help-mode-hook 'rainbow-mode))
@@ -1149,6 +1185,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package rich-minority
+       :ensure t
        :config
        (defconst my-rm-excluded-modes
          '(
@@ -1177,9 +1214,10 @@
    #+END_SRC
 
 ** smart-mode-line
-
+   
    #+BEGIN_SRC emacs-lisp
      (use-package smart-mode-line
+       :ensure t
        :config
        ;; smart-mode-line initialize
        (sml/setup))
