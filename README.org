@@ -42,11 +42,6 @@
        (interactive)
        (kill-buffer (current-buffer)))
 
-     (defun lock-window ()
-       "Prevents frame from being used to display any other buffer"
-       (interactive)
-       (set-window-dedicated-p (frame-selected-window) t))
-
      (defun window-toggle-split-direction ()
        "Switch window split from horizontally to vertically, or vice versa.
 
@@ -75,17 +70,6 @@
                      (split-window-horizontally))
                    (set-window-buffer (windmove-find-other-window neighbour-dir)
                      other-buf))))))))
-     (defun vsplit-last-buffer ()
-       (interactive)
-       (split-window-vertically)
-       (other-window 1 nil)
-       (switch-to-next-buffer))
-
-     (defun hsplit-last-buffer ()
-       (interactive)
-       (split-window-horizontally)
-       (other-window 1 nil)
-       (switch-to-next-buffer))
 
      (defun reload-config ()
        (interactive)
@@ -247,7 +231,7 @@
 ** Appearance
 
 *** Themes
-    
+
     #+BEGIN_SRC emacs-lisp
       (use-package gotham-theme
         :ensure t
@@ -834,7 +818,7 @@
        (add-hook 'prog-mode-hook 'fic-mode)
        (add-hook 'LaTeX-mode-hook 'fic-mode))
    #+END_SRC
-   
+
 ** =mu4e=
 
    #+BEGIN_SRC emacs-lisp
@@ -1140,7 +1124,7 @@
    #+END_SRC
 
 ** =smart-mode-line=
-   
+
    #+BEGIN_SRC emacs-lisp
      (use-package smart-mode-line
        :ensure t
