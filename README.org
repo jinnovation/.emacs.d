@@ -23,6 +23,7 @@
 
     (package-initialize)
   #+END_SRC
+
 ** Baseline packages
 
    #+BEGIN_SRC emacs-lisp
@@ -801,6 +802,7 @@
      (use-package fic-mode
        :ensure t
        :commands fic-mode
+       :diminish fic-mode
        :config
        (add-hook 'prog-mode-hook 'fic-mode)
        (add-hook 'LaTeX-mode-hook 'fic-mode))
@@ -1100,7 +1102,6 @@
             " Helm"
             " pair"
             " Fill"
-            " FIC"
             " company"
             " end"
             " Ace - Window"
@@ -1190,6 +1191,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package enh-ruby-mode
+        :ensure t
         :mode ("Gemfile" "Guardfile")
         :config
         (defvaralias 'ruby-indent-level 'tab-width)
