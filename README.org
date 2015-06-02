@@ -1048,7 +1048,9 @@
             org-rmail
             org-w3m))
 
-       (setq org-refile-targets '((nil . (:maxlevel . 10)))))
+       (setq org-refile-targets '((nil . (:maxlevel . 10))))
+
+       (setq org-export-with-smart-quotes t))
    #+END_SRC
 
 ** =paradox=
