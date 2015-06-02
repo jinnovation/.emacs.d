@@ -536,7 +536,9 @@
 ** =ess=
 
    #+BEGIN_SRC emacs-lisp
-     (use-package ess
+     (use-package ess-site
+       :disabled t
+       :ensure ess
        :commands (inferior-ess-mode ess-help-mode)
        :init
        (setq inferior-R-args "--quiet")
