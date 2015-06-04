@@ -466,7 +466,9 @@
        :bind ("H-E" . elfeed)
        :init
        (setq elfeed-feeds
-         '(("http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989" news)
+         '(("http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989"
+             news)
+            ("http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news )
             ("http://ny.curbed.com/atom.xml" realestate news)
             ("http://www.avclub.com/feed/rss/" film entertainment news)
             ("http://fivethirtyeight.com/all/feed")
