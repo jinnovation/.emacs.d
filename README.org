@@ -1110,7 +1110,8 @@
        :ensure t
        :config
        ;; smart-mode-line initialize
-       (sml/setup))
+       (sml/setup)
+       (smart-mode-line-enable))
    #+END_SRC
 
 ** =toc-org=
