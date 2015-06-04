@@ -1008,8 +1008,8 @@
        (org-babel-do-load-languages
          'org-babel-load-languages
          '((emacs-lisp . t)
-            (latex . t)
-            (R . t)))
+            (latex     . t)
+            (R         . t)))
 
        (setq org-confirm-babel-evaluate nil
          org-export-babel-evaluate nil)
@@ -1027,7 +1027,8 @@
          org-agenda-window-setup 'current-window)
 
        (setq org-blank-before-new-entry
-         '((heading . true) (plain-list-item . auto)))
+         '((heading . true)
+            (plain-list-item . auto)))
 
        (setq
          ;; FIXME: parameter-ize dir `agenda'
@@ -1036,17 +1037,6 @@
          org-capture-templates
          '(("r" "Reading" entry (file "~/agenda/reading.org")
              "* TODO %?\n  Entered on %U\n  %i")))
-
-       (setq org-modules
-         '(org-bbdb
-            org-bibtex
-            org-docview
-            org-gnus
-            org-info
-            org-irc
-            org-mhe
-            org-rmail
-            org-w3m))
 
        (setq org-refile-targets '((nil . (:maxlevel . 10))))
 
