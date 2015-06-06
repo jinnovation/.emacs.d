@@ -1067,7 +1067,11 @@
 
        (setq org-refile-targets '((nil . (:maxlevel . 10))))
 
-       (setq org-export-with-smart-quotes t))
+       (setq org-export-with-smart-quotes t)
+
+       (use-package toc-org
+         :config
+         (add-hook 'org-mode-hook 'toc-org-enable)))
    #+END_SRC
 
 ** =paradox=
@@ -1143,14 +1147,6 @@
        ;; smart-mode-line initialize
        (sml/setup)
        (smart-mode-line-enable))
-   #+END_SRC
-
-** =toc-org=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package toc-org
-       :config
-       (add-hook 'org-mode-hook 'toc-org-enable))
    #+END_SRC
 
 ** =undo-tree=
