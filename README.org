@@ -764,6 +764,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package helm
        :ensure t
+       :diminish helm-mode
        :bind (("C-x m" . helm-M-x)
                ("H-f f" . helm-find-files)
                ("H-b b" . helm-buffers-list))
@@ -1113,6 +1114,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package rainbow-mode
        :ensure t
+       :diminish rainbow-mode
        :commands (rainbow-mode)
        :config
        (add-hook 'help-mode-hook 'rainbow-mode))
@@ -1126,14 +1128,10 @@
        :config
        (defconst my-rm-excluded-modes
          '(
-            " Helm"
             " pair"
             " Fill"
-            " company"
             " end"
-            " Ace - Window"
-            " =>"                            ; aggressive-indent
-            " Rbow"))
+            " Ace - Window"))
        (dolist (mode my-rm-excluded-modes)
          (add-to-list 'rm-excluded-modes mode)))
    #+END_SRC
