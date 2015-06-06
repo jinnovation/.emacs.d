@@ -35,6 +35,8 @@
      (require 'use-package)
      (use-package diminish)
 
+     (setq use-package-verbose t)
+
      (use-package names
        :ensure t
        :pin melpa)
@@ -138,6 +140,8 @@
     (jjin-load-if-exists "~/.secrets.el")
 
     (setq ring-bell-function 'ignore)
+
+    (setq large-file-warning-threshold nil)
 
     (defun display-startup-echo-area-message ()
       (message "Happy hacking, and praise RMS."))
