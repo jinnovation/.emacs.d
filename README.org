@@ -1,5 +1,3 @@
-# -*- eval: (add-hook 'after-save-hook 'org-babel-tangle) -*-
-
 #+TITLE: Jonathan Jin's Emacs Configuration
 #+AUTHOR: Jonathan Jin
 #+PROPERTY: header-args:emacs-lisp :exports code :results none :tangle init.el
@@ -35,8 +33,6 @@
      (require 'use-package)
      (use-package diminish)
 
-     (setq use-package-verbose t)
-
      (use-package names
        :ensure t
        :pin melpa)
@@ -46,7 +42,6 @@
 
    #+BEGIN_SRC emacs-lisp
      (define-namespace jjin-
-
        (defun load-if-exists (file)
          "Loads file, conditional on its existence; no effect if non-existent."
          (when (file-exists-p file)
@@ -131,7 +126,43 @@
 
        (defun redefine-key (map key-old key-new)
          (define-key map key-new (lookup-key map key-old))
-         (define-key map key-old nil)))
+         (define-key map key-old nil))
+
+       ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
+       (defun kove-splitter-left (arg)
+         "Move window splitter left."
+         (interactive "p")
+         (if (let ((windmove-wrap-around))
+               (windmove-find-other-window 'right))
+           (shrink-window-horizontally arg)
+           (enlarge-window-horizontally arg)))
+
+       ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
+       (defun move-splitter-right (arg)
+         "Move window splitter right."
+         (interactive "p")
+         (if (let ((windmove-wrap-around))
+               (windmove-find-other-window 'right))
+           (enlarge-window-horizontally arg)
+           (shrink-window-horizontally arg)))
+
+       ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
+       (defun move-splitter-up (arg)
+         "Move window splitter up."
+         (interactive "p")
+         (if (let ((windmove-wrap-around))
+               (windmove-find-other-window 'up))
+           (enlarge-window arg)
+           (shrink-window arg)))
+
+       ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
+       (defun move-splitter-down (arg)
+         "Move window splitter down."
+         (interactive "p")
+         (if (let ((windmove-wrap-around))
+               (windmove-find-other-window 'up))
+           (shrink-window arg)
+           (enlarge-window arg))))
    #+END_SRC
 
 * General Configurations
@@ -290,8 +321,32 @@
      (unbind-key "M-<f10>")
      (unbind-key "<escape> <f10>")
 
-     (define-prefix-command 'jjin/chat-map)
-     (bind-key "H-i" 'jjin/chat-map)
+     (define-prefix-command 'jjin-chat-map)
+     (bind-key "H-i" 'jjin-chat-map)
+
+     (define-prefix-command 'jjin-window-map)
+     (bind-key "H-w" 'jjin-window-map)
+     (bind-keys :map jjin-window-map
+       ("v" . split-window-right)
+       ("s" . split-window-below)
+       ("j" . windmove-down)
+       ("k" . windmove-up)
+       ("h" . windmove-left)
+       ("l" . windmove-right)
+       ("z" . jjin-toggle-maximize-window)
+       ("q" . delete-window)
+       ("Q" . kill-buffer-and-window)
+       ("H" . jjin-move-splitter-left)
+       ("L" . jjin-move-splitter-right)
+       ("J" . jjin-move-splitter-down)
+       ("K" . jjin-move-splitter-up))
+
+     (define-prefix-command 'jjin-project-map)
+     (bind-key "H-p" 'jjin-project-map)
+
+     (define-prefix-command 'jjin-vc-map)
+     (bind-key "H-g" 'jjin-vc-map)
+
 
      (bind-keys :map universal-argument-map
        ("C-u" . kill-whole-line)
@@ -363,7 +418,8 @@
        (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
 
        :config
-       (add-to-list 'aw-ignored-buffers "mu4e-update"))
+       (add-to-list 'aw-ignored-buffers "mu4e-update")
+       (bind-key "w" 'ace-window jjin-window-map))
    #+END_SRC
 
 ** =ansi-color=
@@ -432,10 +488,9 @@
 
        (use-package helm-circe
          :config
-         (bind-keys :map jjin/chat-map
+         (bind-keys :map jjin-chat-map
            ("i" . helm-circe)
            ("n" . helm-circe-new-activity))))
-
    #+END_SRC
 
 ** =conf-mode=
@@ -676,8 +731,12 @@
       (use-package magit
         :ensure t
         :diminish magit-auto-revert-mode
-        :config
-        (setq magit-last-seen-setup-instructions "1.4.0"))
+        :init
+        (setq magit-last-seen-setup-instructions "1.4.0")
+        :config 
+        (bind-keys :map jjin-vc-map
+          ("s" . magit-status)
+          ("b" . magit-blame-mode)))
     #+END_SRC
 
 ** =helm=
@@ -690,70 +749,25 @@
                ("H-b b" . helm-buffers-list))
        :init
        (setq
-         helm-M-x-fuzzy-match t
          helm-external-programs-associations '(("pdf" . "zathura"))
          helm-split-window-in-side-p t)
 
        :config
        (helm-mode 1)
-       (helm-autoresize-mode t))
+       (helm-autoresize-mode t)
 
-     (use-package helm-projectile
-       :ensure t
-       :commands helm-projectile)
-   #+END_SRC
+       (use-package helm-projectile
+         :ensure t
+         :commands helm-projectile
+         :config
+         (bind-keys :map jjin-project-map
+           ("p" . helm-projectile)
+           ("f" . helm-projectile-find-file)
+           ("F" . helm-projectile-find-file-in-known-projects)
+           ("a" . helm-projectile-ag)))
 
-** =helm-swoop=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm-swoop)
-   #+END_SRC
-
-** =hydra=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package hydra
-       :ensure t
-       :commands defhydra
-       :config
-       (use-package hydra-examples)
-       (defhydra hydra-zoom (global-map "H-z")
-         "zoom"
-         ("g" text-scale-increase "in")
-         ("l" text-scale-decrease "out"))
-
-       (defhydra hydra-project (global-map "H-p"
-                                 :exit t)
-         "project"
-         ("p" helm-projectile)
-         ("f" helm-projectile-find-file)
-         ("F" helm-projectile-find-file-in-known-projects)
-         ("a" helm-projectile-ag)
-         ("K" projectile-kill-buffers)
-         ("c" projectile-compile-project))
-
-       (defhydra hydra-window (global-map "H-w")
-         "Window management"
-         ("w" ace-window "select" :exit t)
-         ("v" split-window-right "split right")
-         ("s" split-window-below "split below")
-         ("j" windmove-down "move down")
-         ("k" windmove-up "move up")
-         ("h" windmove-left "move left")
-         ("l" windmove-right "move right")
-         ("H" hydra-move-splitter-left)
-         ("L" hydra-move-splitter-right)
-         ("J" hydra-move-splitter-down)
-         ("K" hydra-move-splitter-up)
-         ("p" purpose-set-window-purpose "set purpose" :exit t)
-         ("z" jjin-toggle-maximize-window "toggle maximize":exit t)
-         ("q" delete-window "close" :exit t)
-         ("Q" kill-buffer-and-window "close and kill" :exit t))
-
-       (defhydra hydra-vc (global-map "H-g")
-         "version control"
-         ("s" magit-status "git status" :exit t)
-         ("b" magit-blame-mode "git blame")))
+       (use-package helm-swoop
+         :disabled t))
    #+END_SRC
 
 ** =linum=
@@ -782,6 +796,7 @@
             mu4e-main-mode
             mu4e-headers-mode
             mu4e-view-mode
+            mu4e~update-mail-mode
 
             circe-chat-mode
             circe-server-mode
@@ -981,27 +996,12 @@
        (bind-keys :map org-src-mode-map
          ("H-s" . org-edit-src-save))
 
-       (defhydra hydra-org (:exit nil)
-         "Org mode"
-         ("n" outline-next-visible-heading "heading: next")
-         ("p" outline-previous-visible-heading "heading: prev")
-         ("u" outline-up-heading "heading: up")
-         ("<tab>" org-cycle)
-         ("f" org-forward-heading-same-level "heading: forward")
-         ("b" org-backward-heading-same-level "heading: back")
-         ("t" org-todo "set TODO state")
-         ("s" org-babel-next-src-block "src: next")
-         ("S" org-babel-previous-src-block "src: prev"))
-
-       (bind-key "H-o" 'hydra-org/body org-mode-map)
        (plist-put org-format-latex-options :scale 1.5)
 
        (add-to-list 'org-structure-template-alist
          '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
 
-       (add-hook 'org-mode-hook
-         (lambda ()
-           (fic-mode)))
+       (add-hook 'org-mode-hook 'fic-mode)
 
        (setq org-latex-packages-alist
          '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
@@ -1077,6 +1077,10 @@
        (setq projectile-enable-caching t
          projectile-completion-system 'grizzl
          projectile-switch-project-action 'helm-projectile)
+
+       (bind-keys :map jjin-project-map
+         ("K" . projectile-kill-buffers)
+         ("c" . projectile-compile-project))
 
        (projectile-global-mode))
    #+END_SRC
@@ -1178,6 +1182,7 @@
 
        :config
        (bind-key "W" 'purpose-set-window-purpose purpose-mode-prefix-map)
+       (bind-key "p" 'purpose-set-window-purpose jjin-window-map)
 
        (purpose-x-magit-multi-on)
        (purpose-compile-user-configuration)
