@@ -224,10 +224,7 @@
     (delete-selection-mode +1)
 
     ;; highlights strings like TODO, FIXME, etc.
-    (add-hook 'prog-mode-hook
-      (lambda ()
-        (turn-on-auto-fill)))
-
+    (add-hook 'prog-mode-hook 'turn-on-auto-fill)
     (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
     (fringe-mode '(4 . 0))
@@ -751,7 +748,7 @@
       (use-package magit
         :ensure t
         :diminish magit-auto-revert-mode
-        :config 
+        :config
         (bind-keys :map jjin-vc-map
           ("s" . magit-status)
           ("b" . magit-blame-mode))
