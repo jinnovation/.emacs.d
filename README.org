@@ -7,6 +7,7 @@
 * Table of Contents                                                  :TOC:TOC_1:
  - [[#preamble][Preamble]]
  - [[#general-configurations][General Configurations]]
+ - [[#keys][Keys]]
  - [[#languages][Languages]]
  - [[#packages][Packages]]
  - [[#unlicense][(Un)license]]
@@ -291,73 +292,73 @@
           (setq mac-command-modifier 'meta))
     #+END_SRC
 
-** Keys
+* Keys
 
-*** Personal maps
+** Personal maps
 
-    #+BEGIN_SRC emacs-lisp
-      (define-prefix-command 'jjin-project-map)
-      (bind-key "H-p" 'jjin-project-map)
+   #+BEGIN_SRC emacs-lisp
+     (define-prefix-command 'jjin-project-map)
+     (bind-key "H-p" 'jjin-project-map)
 
-      (define-prefix-command 'jjin-vc-map)
-      (bind-key "H-g" 'jjin-vc-map)
+     (define-prefix-command 'jjin-vc-map)
+     (bind-key "H-g" 'jjin-vc-map)
 
-      (define-prefix-command 'jjin-chat-map)
-      (bind-key "H-i" 'jjin-chat-map)
+     (define-prefix-command 'jjin-chat-map)
+     (bind-key "H-i" 'jjin-chat-map)
 
-      (define-prefix-command 'jjin-window-map)
-      (bind-key "H-w" 'jjin-window-map)
-    #+END_SRC
+     (define-prefix-command 'jjin-window-map)
+     (bind-key "H-w" 'jjin-window-map)
+   #+END_SRC
 
-*** Keybindings
+** Keybindings
 
-    #+BEGIN_SRC emacs-lisp
-      (bind-keys :map global-map
-        ("C-x |"              . jjin-window-toggle-split-direction)
-        ("C-x k"              . jjin-kill-current-buffer)
-        ("H-s"                . save-buffer)
+   #+BEGIN_SRC emacs-lisp
+     (bind-keys :map global-map
+       ("C-x |"              . jjin-window-toggle-split-direction)
+       ("C-x k"              . jjin-kill-current-buffer)
+       ("H-s"                . save-buffer)
 
-        ;; TODO: make prefix map for buffer manipulation
-        ("H-b k"              . jjin-kill-current-buffer)
-        ("H-b n"              . next-buffer)
+       ;; TODO: make prefix map for buffer manipulation
+       ("H-b k"              . jjin-kill-current-buffer)
+       ("H-b n"              . next-buffer)
 
-        ("H-a r"              . align-regexp)
-        ("C-<tab>"            . other-window)
-        ("\<C-S-iso-lefttab>" . jjin-prev-window)
-        ("H-a r"              . align-regexp)
-        ("H-D"                . jjin-dired-at-current)
-        ("RET"                . newline-and-indent))
+       ("H-a r"              . align-regexp)
+       ("C-<tab>"            . other-window)
+       ("\<C-S-iso-lefttab>" . jjin-prev-window)
+       ("H-a r"              . align-regexp)
+       ("H-D"                . jjin-dired-at-current)
+       ("RET"                . newline-and-indent))
 
-      (unbind-key "<menu>")
-      (unbind-key "M-`")
-      (unbind-key "C-c C-w")
-      (unbind-key "M-x")
-      (unbind-key "C-x C-n")      ; set-goal-column
+     (unbind-key "<menu>")
+     (unbind-key "M-`")
+     (unbind-key "C-c C-w")
+     (unbind-key "M-x")
+     (unbind-key "C-x C-n")      ; set-goal-column
 
-      (unbind-key "<f10>")
-      (unbind-key "<f11>")
-      (unbind-key "M-<f10>")
-      (unbind-key "<escape> <f10>")
+     (unbind-key "<f10>")
+     (unbind-key "<f11>")
+     (unbind-key "M-<f10>")
+     (unbind-key "<escape> <f10>")
 
-      (bind-keys :map jjin-window-map
-        ("v" . split-window-right)
-        ("s" . split-window-below)
-        ("j" . windmove-down)
-        ("k" . windmove-up)
-        ("h" . windmove-left)
-        ("l" . windmove-right)
-        ("z" . jjin-toggle-maximize-window)
-        ("q" . delete-window)
-        ("Q" . kill-buffer-and-window)
-        ("H" . jjin-move-splitter-left)
-        ("L" . jjin-move-splitter-right)
-        ("J" . jjin-move-splitter-down)
-        ("K" . jjin-move-splitter-up))
+     (bind-keys :map jjin-window-map
+       ("v" . split-window-right)
+       ("s" . split-window-below)
+       ("j" . windmove-down)
+       ("k" . windmove-up)
+       ("h" . windmove-left)
+       ("l" . windmove-right)
+       ("z" . jjin-toggle-maximize-window)
+       ("q" . delete-window)
+       ("Q" . kill-buffer-and-window)
+       ("H" . jjin-move-splitter-left)
+       ("L" . jjin-move-splitter-right)
+       ("J" . jjin-move-splitter-down)
+       ("K" . jjin-move-splitter-up))
 
-      (bind-keys :map universal-argument-map
-        ("C-u" . kill-whole-line)
-        ("M-u" . universal-argument-more))
-    #+END_SRC
+     (bind-keys :map universal-argument-map
+       ("C-u" . kill-whole-line)
+       ("M-u" . universal-argument-more))
+   #+END_SRC
 
 * Languages
 
