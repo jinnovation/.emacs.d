@@ -751,12 +751,12 @@
       (use-package magit
         :ensure t
         :diminish magit-auto-revert-mode
-        :init
-        (setq magit-last-seen-setup-instructions "1.4.0")
         :config 
         (bind-keys :map jjin-vc-map
           ("s" . magit-status)
-          ("b" . magit-blame-mode)))
+          ("b" . magit-blame-mode))
+        ;; removes 1.4.0 warning in arguably cleaner way
+        (remove-hook 'after-init-hook 'magit-maybe-show-setup-instructions))
     #+END_SRC
 
 ** =helm=
