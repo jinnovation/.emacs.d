@@ -291,67 +291,73 @@
           (setq mac-command-modifier 'meta))
     #+END_SRC
 
-** Keybindings
+** Keys
 
-   #+BEGIN_SRC emacs-lisp
-     (bind-keys :map global-map
-       ("C-x |"              . jjin-window-toggle-split-direction)
-       ("C-x k"              . jjin-kill-current-buffer)
-       ("H-s"                . save-buffer)
+*** Personal maps
 
-       ;; TODO: make prefix map for buffer manipulation
-       ("H-b k"              . jjin-kill-current-buffer)
-       ("H-b n"              . next-buffer)
+    #+BEGIN_SRC emacs-lisp
+      (define-prefix-command 'jjin-project-map)
+      (bind-key "H-p" 'jjin-project-map)
 
-       ("H-a r"              . align-regexp)
-       ("C-<tab>"            . other-window)
-       ("\<C-S-iso-lefttab>" . jjin-prev-window)
-       ("H-a r"              . align-regexp)
-       ("H-D"                . jjin-dired-at-current)
-       ("RET"                . newline-and-indent))
+      (define-prefix-command 'jjin-vc-map)
+      (bind-key "H-g" 'jjin-vc-map)
 
-     (unbind-key "<menu>")
-     (unbind-key "M-`")
-     (unbind-key "C-c C-w")
-     (unbind-key "M-x")
-     (unbind-key "C-x C-n")      ; set-goal-column
+      (define-prefix-command 'jjin-chat-map)
+      (bind-key "H-i" 'jjin-chat-map)
 
-     (unbind-key "<f10>")
-     (unbind-key "<f11>")
-     (unbind-key "M-<f10>")
-     (unbind-key "<escape> <f10>")
+      (define-prefix-command 'jjin-window-map)
+      (bind-key "H-w" 'jjin-window-map)
+    #+END_SRC
 
-     (define-prefix-command 'jjin-chat-map)
-     (bind-key "H-i" 'jjin-chat-map)
+*** Keybindings
 
-     (define-prefix-command 'jjin-window-map)
-     (bind-key "H-w" 'jjin-window-map)
-     (bind-keys :map jjin-window-map
-       ("v" . split-window-right)
-       ("s" . split-window-below)
-       ("j" . windmove-down)
-       ("k" . windmove-up)
-       ("h" . windmove-left)
-       ("l" . windmove-right)
-       ("z" . jjin-toggle-maximize-window)
-       ("q" . delete-window)
-       ("Q" . kill-buffer-and-window)
-       ("H" . jjin-move-splitter-left)
-       ("L" . jjin-move-splitter-right)
-       ("J" . jjin-move-splitter-down)
-       ("K" . jjin-move-splitter-up))
+    #+BEGIN_SRC emacs-lisp
+      (bind-keys :map global-map
+        ("C-x |"              . jjin-window-toggle-split-direction)
+        ("C-x k"              . jjin-kill-current-buffer)
+        ("H-s"                . save-buffer)
 
-     (define-prefix-command 'jjin-project-map)
-     (bind-key "H-p" 'jjin-project-map)
+        ;; TODO: make prefix map for buffer manipulation
+        ("H-b k"              . jjin-kill-current-buffer)
+        ("H-b n"              . next-buffer)
 
-     (define-prefix-command 'jjin-vc-map)
-     (bind-key "H-g" 'jjin-vc-map)
+        ("H-a r"              . align-regexp)
+        ("C-<tab>"            . other-window)
+        ("\<C-S-iso-lefttab>" . jjin-prev-window)
+        ("H-a r"              . align-regexp)
+        ("H-D"                . jjin-dired-at-current)
+        ("RET"                . newline-and-indent))
 
+      (unbind-key "<menu>")
+      (unbind-key "M-`")
+      (unbind-key "C-c C-w")
+      (unbind-key "M-x")
+      (unbind-key "C-x C-n")      ; set-goal-column
 
-     (bind-keys :map universal-argument-map
-       ("C-u" . kill-whole-line)
-       ("M-u" . universal-argument-more))
-   #+END_SRC
+      (unbind-key "<f10>")
+      (unbind-key "<f11>")
+      (unbind-key "M-<f10>")
+      (unbind-key "<escape> <f10>")
+
+      (bind-keys :map jjin-window-map
+        ("v" . split-window-right)
+        ("s" . split-window-below)
+        ("j" . windmove-down)
+        ("k" . windmove-up)
+        ("h" . windmove-left)
+        ("l" . windmove-right)
+        ("z" . jjin-toggle-maximize-window)
+        ("q" . delete-window)
+        ("Q" . kill-buffer-and-window)
+        ("H" . jjin-move-splitter-left)
+        ("L" . jjin-move-splitter-right)
+        ("J" . jjin-move-splitter-down)
+        ("K" . jjin-move-splitter-up))
+
+      (bind-keys :map universal-argument-map
+        ("C-u" . kill-whole-line)
+        ("M-u" . universal-argument-more))
+    #+END_SRC
 
 * Languages
 
@@ -754,20 +760,19 @@
 
        :config
        (helm-mode 1)
-       (helm-autoresize-mode t)
+       (helm-autoresize-mode t))
 
-       (use-package helm-projectile
-         :ensure t
-         :commands helm-projectile
-         :config
-         (bind-keys :map jjin-project-map
-           ("p" . helm-projectile)
-           ("f" . helm-projectile-find-file)
-           ("F" . helm-projectile-find-file-in-known-projects)
-           ("a" . helm-projectile-ag)))
+     (use-package helm-projectile
+       :ensure t
+       :config
+       (bind-keys :map jjin-project-map
+         ("p" . helm-projectile)
+         ("f" . helm-projectile-find-file)
+         ("F" . helm-projectile-find-file-in-known-projects)
+         ("a" . helm-projectile-ag)))
 
-       (use-package helm-swoop
-         :disabled t))
+     (use-package helm-swoop
+       :disabled t)
    #+END_SRC
 
 ** =linum=
