@@ -1205,7 +1205,7 @@
 
 ** Language modes
 
-*** =enh-ruby-mode=
+*** Ruby
 
     #+BEGIN_SRC emacs-lisp
       (use-package enh-ruby-mode
@@ -1219,14 +1219,14 @@
         (add-hook 'ruby-mode-hook 'ruby-end-mode))
     #+END_SRC
 
-*** =haskell-mode=
+*** Haskell
 
     #+BEGIN_SRC emacs-lisp
       (use-package haskell-mode
         :config
         (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
     #+END_SRC
-*** =markdown-mode+=
+*** Markdown
 
     #+BEGIN_SRC emacs-lisp
       (use-package markdown-mode+
@@ -1235,7 +1235,7 @@
         (add-hook 'markdown-mode-hook 'fic-mode))
     #+END_SRC
 
-*** =sass-mode=
+*** Sass
 
     #+BEGIN_SRC emacs-lisp
       (use-package sass-mode
