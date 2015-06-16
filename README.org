@@ -176,7 +176,7 @@
     (setq large-file-warning-threshold nil)
 
     (defun display-startup-echo-area-message ()
-      (message "Happy hacking, and praise RMS."))
+      (message "Happy hacking."))
 
     (setq
       user-mail-address "jjin082693@gmail.com"
@@ -701,6 +701,7 @@
        (evil-mode 1)
 
        (use-package evil-leader
+         :disabled t
          :ensure t
          :config
          (evil-leader/set-leader "<SPC>")
@@ -1005,10 +1006,11 @@
        (use-package ox-latex)
        (use-package ox-bibtex)
        (bind-keys :map org-mode-map
-         ("H-t" . org-todo)
-         ("H-e" . org-export-dispatch)
-         ("M-p" . outline-previous-visible-heading)
-         ("M-n" . outline-next-visible-heading))
+         ("H-t"   . org-todo)
+         ("H-e"   . org-export-dispatch)
+         ("M-p"   . outline-previous-visible-heading)
+         ("M-n"   . outline-next-visible-heading)
+         ("H-b t" . org-babel-tangle))
 
        (bind-keys :map org-src-mode-map
          ("H-s" . org-edit-src-save))
@@ -1207,16 +1209,14 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package enh-ruby-mode
-        :ensure t
+        :disabled t
         :mode ("Gemfile" "Guardfile")
         :config
-        (defvaralias 'ruby-indent-level 'tab-width)
+        (defvaralias 'ruby-indent-level 'tab-width))
 
-        (add-hook 'ruby-mode-hook
-          (lambda ()
-            (local-set-key (kbd "RET")
-              'newline-and-indent)
-            (ruby-end-mode))))
+      (use-package ruby-end
+        :config
+        (add-hook 'ruby-mode-hook 'ruby-end-mode))
     #+END_SRC
 
 *** =haskell-mode=
