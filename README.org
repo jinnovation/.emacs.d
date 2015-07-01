@@ -532,6 +532,13 @@
        (setq doc-view-resolution 200))
    #+END_SRC
 
+** =debbugs=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package debbugs
+       :ensure t)
+   #+END_SRC
+
 ** =elfeed=
 
    #+BEGIN_SRC emacs-lisp
@@ -638,6 +645,8 @@
        (jjin-append-to-list 'evil-emacs-state-modes
          '(eshell-mode
             calendar-mode
+
+            debbugs-gnu-mode
 
             finder-mode
             info-mode
@@ -799,6 +808,8 @@
 
             ;; linum in org kills performance
             org-mode
+
+            debbugs-gnu-mode
 
             pdf-view-mode
             paradox-menu-mode
