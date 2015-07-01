@@ -233,7 +233,7 @@
       (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
     (setq browse-url-browser-function 'browse-url-xdg-open)
-    (setq browse-url-generic-program (executable-find "firefox")
+    (setq browse-url-generic-program (executable-find "chromium")
       shr-external-browser 'browse-url-generic)
 
     (put 'dired-find-alternate-file 'disabled nil)
@@ -550,13 +550,15 @@
        (setq elfeed-feeds
          '(("http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989"
              news)
-            ("http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news )
+            ("http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news)
             ("http://ny.curbed.com/atom.xml" realestate news)
             ("http://www.avclub.com/feed/rss/" film entertainment news)
             ("http://fivethirtyeight.com/all/feed")
             ("http://www.tor.com/rss/frontpage_full" literature)
-            ("http://longform.org/feed.rss")
             ("http://feeds.feedburner.com/themillionsblog/fedw" literature)
+            ("http://www.newyorker.com/feed/books" literature)
+            ("http://feeds.feedburner.com/nybooks" literature)
+            ("http://longform.org/feed.rss")
             ("http://feeds.feedburner.com/mcsweeneys/")
 
             ("http://feeds.bbci.co.uk/news/world/rss.xml"                    news)
