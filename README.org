@@ -320,8 +320,6 @@
        ("H-b n"              . next-buffer)
 
        ("H-a r"              . align-regexp)
-       ("C-<tab>"            . other-window)
-       ("\<C-S-iso-lefttab>" . jjin-prev-window)
        ("H-a r"              . align-regexp)
        ("H-D"                . jjin-dired-at-current)
        ("RET"                . newline-and-indent))
@@ -329,7 +327,6 @@
      (unbind-key "<menu>")
      (unbind-key "M-`")
      (unbind-key "C-c C-w")
-     (unbind-key "M-x")
      (unbind-key "C-x C-n")      ; set-goal-column
 
      (unbind-key "<f10>")
@@ -956,7 +953,8 @@
        :pin org
        :commands (org-mode org-capture-mode)
        :bind (("H-C" . org-capture)
-               ("H-A" . org-agenda))
+               ("H-A" . org-agenda)
+               ("RET" . org-return-indent))
        :init
        (setq org-agenda-files '("~/agenda")
          org-return-follows-link t
