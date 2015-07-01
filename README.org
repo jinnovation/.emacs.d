@@ -249,6 +249,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package gotham-theme
+        :if window-system
         :ensure t
         :config
         (load-theme 'gotham t))
