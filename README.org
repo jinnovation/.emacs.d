@@ -571,6 +571,8 @@
             ("http://en.boxun.com/feed/"                                     news china)
 
             ("http://feeds.99percentinvisible.org/99percentinvisible" design podcast)
+            ("http://feeds.feedburner.com/ucllc/artofthemenu"         design)
+            ("http://feeds.feedburner.com/ucllc/brandnew"             design)
 
             ("http://rss.escapistmagazine.com/news/0.xml"         entertainment videogames)
             ("http://rss.escapistmagazine.com/videos/list/1.xml"  entertainment videogames)
