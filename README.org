@@ -348,7 +348,8 @@
        ("H" . jjin-move-splitter-left)
        ("L" . jjin-move-splitter-right)
        ("J" . jjin-move-splitter-down)
-       ("K" . jjin-move-splitter-up))
+       ("K" . jjin-move-splitter-up)
+       ("b" . balance-windows))
 
      (bind-keys :map universal-argument-map
        ("C-u" . kill-whole-line)
