@@ -806,7 +806,7 @@
        (defconst linum-mode-excludes
          '(doc-view-mode
 
-            ;; linum in org kills performance
+            ;; FIXME: make conditional on num lines
             org-mode
 
             debbugs-gnu-mode
