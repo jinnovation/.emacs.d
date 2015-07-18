@@ -681,8 +681,7 @@
 
             circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
             elfeed-search-mode elfeed-show-mode))
-       (jjin-append-to-list 'evil-insert-state-modes '(org-capture-mode
-                                                   git-commit-mode))
+       (jjin-append-to-list 'evil-insert-state-modes '(org-capture-mode))
 
        (bind-keys :map evil-emacs-state-map
          ("<escape>" . evil-execute-in-normal-state)
@@ -740,7 +739,6 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package git-commit-mode
-        :ensure t
         :commands git-commit-mode)
     #+END_SRC
 
@@ -756,7 +754,6 @@
     #+BEGIN_SRC emacs-lisp
       (use-package magit
         :ensure t
-        :diminish magit-auto-revert-mode
         :config
         (bind-keys :map jjin-vc-map
           ("s" . magit-status)
