@@ -306,6 +306,9 @@
 
      (define-prefix-command 'jjin-window-map)
      (bind-key "H-w" 'jjin-window-map)
+
+     (define-prefix-command 'jjin-comment-map)
+     (bind-key "H-c" 'jjin-comment-map)
    #+END_SRC
 
 ** Keybindings
@@ -687,10 +690,6 @@
          ("H"        . evil-beginning-of-line)
          ("C-w q"    . delete-window))
 
-       (use-package hydra
-         :config
-         (bind-key "C-w" 'hydra-window/body evil-normal-state-map))
-
        (use-package evil-numbers
          :ensure t
          :config
@@ -724,18 +723,15 @@
          :config
          (global-evil-surround-mode 1))
 
-
        (use-package evil-nerd-commenter
          :ensure t
          :config
-         (defhydra hydra-comment (prog-mode-map "H-c"
-                                   :exit t)
-           "commenting"
-           ("i" evilnc-comment-or-uncomment-lines)
-           ("l" evilnc-quick-comment-or-uncomment-to-the-line)
-           ("c" evilnc-copy-and-comment-lines)
-           ("p" evilnc-comment-or-uncomment-paragraphs)
-           ("v" evilnc-toggle-invert-comment-line-by-line))))
+         (bind-keys :map jjin-comment-map
+           ("i" . evilnc-comment-or-uncomment-lines)
+           ("l" . evilnc-quick-comment-or-uncomment-to-the-line)
+           ("c" . evilnc-copy-and-comment-lines)
+           ("p" . evilnc-comment-or-uncomment-paragraphs)
+           ("v" . evilnc-toggle-invert-comment-line-by-line))))
    #+END_SRC
 
 ** Git
