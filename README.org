@@ -952,7 +952,13 @@
              (nreverse buffers)))
 
          (setq gnus-dired-mail-mode 'mu4e-user-agent)
-         (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)))
+         (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
+
+       (set-face-attribute 'mu4e-header-highlight-face nil :underline nil)
+
+       (setq mu4e-compose-signature-auto-include nil)
+
+       (setq mail-user-agent 'mu4e-user-agent))
    #+END_SRC
 
 ** =org-mode=
