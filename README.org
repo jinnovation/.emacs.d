@@ -202,6 +202,7 @@
     (setq next-line-add-newlines t)
 
     (setq scroll-step 1
+      scroll-conservatively 10000
       scroll-margin 3)
 
     (fset 'yes-or-no-p 'y-or-n-p)
