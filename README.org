@@ -296,20 +296,20 @@
 ** Personal maps
 
    #+BEGIN_SRC emacs-lisp
-     (define-prefix-command 'jjin-project-map)
-     (bind-key "H-p" 'jjin-project-map)
-
      (define-prefix-command 'jjin-vc-map)
-     (bind-key "H-g" 'jjin-vc-map)
+     (bind-key "C-c v" 'jjin-vc-map)
 
      (define-prefix-command 'jjin-chat-map)
-     (bind-key "H-i" 'jjin-chat-map)
+     (bind-key "C-c i" 'jjin-chat-map)
 
      (define-prefix-command 'jjin-window-map)
-     (bind-key "H-w" 'jjin-window-map)
+     (bind-key "C-c w" 'jjin-window-map)
 
      (define-prefix-command 'jjin-comment-map)
-     (bind-key "H-c" 'jjin-comment-map)
+     (bind-key "C-c c" 'jjin-comment-map)
+
+     (define-prefix-command 'jjin-exec-map)
+     (bind-key "C-c e" 'jjin-exec-map)
    #+END_SRC
 
 ** Keybindings
@@ -318,15 +318,7 @@
      (bind-keys :map global-map
        ("C-x |"              . jjin-window-toggle-split-direction)
        ("C-x k"              . jjin-kill-current-buffer)
-       ("H-s"                . save-buffer)
 
-       ;; TODO: make prefix map for buffer manipulation
-       ("H-b k"              . jjin-kill-current-buffer)
-       ("H-b n"              . next-buffer)
-
-       ("H-a r"              . align-regexp)
-       ("H-a r"              . align-regexp)
-       ("H-D"                . jjin-dired-at-current)
        ("RET"                . newline-and-indent))
 
      (unbind-key "<menu>")
@@ -358,6 +350,10 @@
      (bind-keys :map universal-argument-map
        ("C-u" . kill-whole-line)
        ("M-u" . universal-argument-more))
+
+     (bind-keys :map jjin-exec-map
+       ("m" . mu4e))
+
    #+END_SRC
 
 * Languages
@@ -454,8 +450,8 @@
                    circe-server-mode
                    circe-query-mode
                    circe-channel-mode)
-       :bind ("H-I" . circe)
        :init
+       (bind-key "i" 'circe jjin-exec-map)
        (setq
          circe-default-nick "jjin"
          circe-default-user "jjin"
@@ -551,7 +547,6 @@
      (use-package elfeed
        :ensure t
        :commands (elfeed-search-mode elfeed-show-mode)
-       :bind ("H-E" . elfeed)
        :init
        (setq elfeed-feeds
          '(("http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989"
@@ -624,6 +619,9 @@
 
        (setq url-queue-timeout 30)
 
+       (bind-keys :map jjin-exec-map
+         ("e" . elfeed))
+       
        :config
        (bind-key "<SPC>" 'next-line elfeed-search-mode-map))
    #+END_SRC
@@ -769,9 +767,9 @@
      (use-package helm
        :ensure t
        :diminish helm-mode
-       :bind (("C-x m" . helm-M-x)
-               ("H-f f" . helm-find-files)
-               ("H-b b" . helm-buffers-list))
+       :bind (("C-x m"    . helm-M-x)
+               ("C-x C-f" . helm-find-files)
+               ("C-x b"   . helm-buffers-list))
        :init
        (setq
          helm-external-programs-associations '(("pdf" . "zathura"))
@@ -784,11 +782,11 @@
      (use-package helm-projectile
        :ensure t
        :config
-       (bind-keys :map jjin-project-map
-         ("p" . helm-projectile)
-         ("f" . helm-projectile-find-file)
-         ("F" . helm-projectile-find-file-in-known-projects)
-         ("a" . helm-projectile-ag)))
+       (bind-keys :map projectile-command-map
+         ("p"   . helm-projectile)
+         ("f"   . helm-projectile-find-file)
+         ("F"   . helm-projectile-find-file-in-known-projects)
+         ("s s" . helm-projectile-ag)))
 
      (use-package helm-swoop
        :disabled t)
@@ -866,12 +864,9 @@
                    mu4e-about-mode
                    mu4e-headers-mode
                    mu4e-compose-mode)
-       :bind (("H-M" . mu4e)
-               ("H-m u" . mu4e-update-mail-and-index)
-               ("H-m i" . mu4e-interrupt-update-mail))
        :init
        :config
-       (bind-key "H-u" 'mu4e-update-mail-and-index mu4e-headers-mode-map)
+       (bind-key "m" 'mu4e jjin-exec-map)
 
        (setq
          mu4e-maildir "~/mail"
@@ -969,9 +964,7 @@
        :ensure t
        :pin org
        :commands (org-mode org-capture-mode)
-       :bind (("H-C" . org-capture)
-               ("H-A" . org-agenda)
-               ("RET" . org-return-indent))
+       :bind ("RET" . org-return-indent)
        :init
        (setq org-agenda-files '("~/agenda")
          org-return-follows-link t
@@ -1021,14 +1014,8 @@
        (use-package ox-latex)
        (use-package ox-bibtex)
        (bind-keys :map org-mode-map
-         ("H-t"   . org-todo)
-         ("H-e"   . org-export-dispatch)
          ("M-p"   . outline-previous-visible-heading)
-         ("M-n"   . outline-next-visible-heading)
-         ("H-b t" . org-babel-tangle))
-
-       (bind-keys :map org-src-mode-map
-         ("H-s" . org-edit-src-save))
+         ("M-n"   . outline-next-visible-heading))
 
        (plist-put org-format-latex-options :scale 1.5)
 
@@ -1112,13 +1099,11 @@
      (use-package projectile
        :ensure t
        :config
+       (setq projectile-keymap-prefix (kbd "C-c p"))
+       
        (setq projectile-enable-caching t
          projectile-completion-system 'grizzl
          projectile-switch-project-action 'helm-projectile)
-
-       (bind-keys :map jjin-project-map
-         ("K" . projectile-kill-buffers)
-         ("c" . projectile-compile-project))
 
        (projectile-global-mode))
    #+END_SRC
