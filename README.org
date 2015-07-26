@@ -350,10 +350,6 @@
      (bind-keys :map universal-argument-map
        ("C-u" . kill-whole-line)
        ("M-u" . universal-argument-more))
-
-     (bind-keys :map jjin-exec-map
-       ("m" . mu4e))
-
    #+END_SRC
 
 * Languages
@@ -859,15 +855,16 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package mu4e
-       :commands (mu4e-main-mode
+       :commands (mu4e
+                   mu4e-main-mode
                    mu4e-view-mode
                    mu4e-about-mode
                    mu4e-headers-mode
                    mu4e-compose-mode)
        :init
-       :config
-       (bind-key "m" 'mu4e jjin-exec-map)
+       (bind-keys :map jjin-exec-map ("m" . mu4e))
 
+       :config
        (setq
          mu4e-maildir "~/mail"
 
@@ -956,7 +953,7 @@
 
        (setq mail-user-agent 'mu4e-user-agent))
    #+END_SRC
-
+   
 ** =org-mode=
 
    #+BEGIN_SRC emacs-lisp
