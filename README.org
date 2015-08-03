@@ -264,9 +264,12 @@
       (setq custom-safe-themes t)
 
       (defconst bg-color "black")
-      (defconst default-font "Terminus 08")
-      (set-frame-font default-font)
-      (set-face-attribute 'mode-line nil :font default-font)
+      ;; FIXME: make size dependent on resolution
+      (defconst default-font "Terminus 12")
+
+      (unless (null (x-list-fonts default-font))
+        (set-frame-font default-font)
+        (set-face-attribute 'mode-line nil :font default-font))
 
       (set-background-color bg-color)
       (set-face-attribute 'fringe nil :background bg-color)
