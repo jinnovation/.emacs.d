@@ -279,7 +279,7 @@
           'unicode
           (font-spec :family "DejaVu Sans Mono")))
 
-      (jjin-set-opacity 85)
+      (jjin-set-opacity 90)
     #+END_SRC
 
 ** Environment-specific
@@ -1098,6 +1098,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
        :ensure t
+       :diminish projectile-mode
        :config
        (setq projectile-keymap-prefix (kbd "C-c p"))
        
@@ -1105,7 +1106,10 @@
          projectile-completion-system 'grizzl
          projectile-switch-project-action 'helm-projectile)
 
-       (projectile-global-mode))
+       (projectile-global-mode)
+
+       ;; "disables "mode-line setting by project; extreme hang-up over SSH/Tramp
+       (setq projectile-mode-line "Projectile"))
    #+END_SRC
 
 ** =rainbow-mode=
