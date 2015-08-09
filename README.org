@@ -1166,7 +1166,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package web-mode
-       :mode "\\.erb$")
+       :mode ("\\.erb$" "\\.html$"))
    #+END_SRC
 
 ** =window-purpose=
