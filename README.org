@@ -976,7 +976,6 @@
        :ensure t
        :pin org
        :commands (org-mode org-capture-mode)
-       :bind ("RET" . org-return-indent)
        :init
        (setq org-agenda-files '("~/agenda")
          org-return-follows-link t
@@ -1026,6 +1025,7 @@
        (use-package ox-latex)
        (use-package ox-bibtex)
        (bind-keys :map org-mode-map
+         ("RET" . org-return-indent)
          ("M-p"   . outline-previous-visible-heading)
          ("M-n"   . outline-next-visible-heading))
 
