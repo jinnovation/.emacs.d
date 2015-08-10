@@ -1287,10 +1287,13 @@
 *** Markdown
 
     #+BEGIN_SRC emacs-lisp
-      (use-package markdown-mode+
+      (use-package markdown-mode
+        :mode "\\.md$"
         :config
         (add-hook 'markdown-mode-hook 'auto-fill-mode)
-        (add-hook 'markdown-mode-hook 'fic-mode))
+        (add-hook 'markdown-mode-hook 'fic-mode)
+
+        (use-package markdown-mode+))
     #+END_SRC
 
 *** Sass
