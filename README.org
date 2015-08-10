@@ -242,6 +242,8 @@
     (setq echo-keystrokes 0)
 
     (setq image-dired-external-viewer "feh")
+
+    (setq term-ansi-default-program (getenv "SHELL"))
   #+END_SRC
 
 ** Appearance
@@ -313,16 +315,19 @@
 
      (define-prefix-command 'jjin-exec-map)
      (bind-key "C-c e" 'jjin-exec-map)
+
+     (define-prefix-command 'jjin-term-map)
+     (bind-key "C-c t" 'jjin-term-map)
    #+END_SRC
 
 ** Keybindings
 
    #+BEGIN_SRC emacs-lisp
      (bind-keys :map global-map
-       ("C-x |"              . jjin-window-toggle-split-direction)
-       ("C-x k"              . jjin-kill-current-buffer)
+                ("C-x |"              . jjin-window-toggle-split-direction)
+                ("C-x k"              . jjin-kill-current-buffer)
 
-       ("RET"                . newline-and-indent))
+                ("RET"                . newline-and-indent))
 
      (unbind-key "<menu>")
      (unbind-key "M-`")
@@ -335,24 +340,24 @@
      (unbind-key "<escape> <f10>")
 
      (bind-keys :map jjin-window-map
-       ("v" . split-window-right)
-       ("s" . split-window-below)
-       ("j" . windmove-down)
-       ("k" . windmove-up)
-       ("h" . windmove-left)
-       ("l" . windmove-right)
-       ("z" . jjin-toggle-maximize-window)
-       ("q" . delete-window)
-       ("Q" . kill-buffer-and-window)
-       ("H" . jjin-move-splitter-left)
-       ("L" . jjin-move-splitter-right)
-       ("J" . jjin-move-splitter-down)
-       ("K" . jjin-move-splitter-up)
-       ("b" . balance-windows))
+                ("v" . split-window-right)
+                ("s" . split-window-below)
+                ("j" . windmove-down)
+                ("k" . windmove-up)
+                ("h" . windmove-left)
+                ("l" . windmove-right)
+                ("z" . jjin-toggle-maximize-window)
+                ("q" . delete-window)
+                ("Q" . kill-buffer-and-window)
+                ("H" . jjin-move-splitter-left)
+                ("L" . jjin-move-splitter-right)
+                ("J" . jjin-move-splitter-down)
+                ("K" . jjin-move-splitter-up)
+                ("b" . balance-windows))
 
      (bind-keys :map universal-argument-map
-       ("C-u" . kill-whole-line)
-       ("M-u" . universal-argument-more))
+                ("C-u" . kill-whole-line)
+                ("M-u" . universal-argument-more))
    #+END_SRC
 
 * Languages
@@ -683,6 +688,8 @@
 
             circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
             elfeed-search-mode elfeed-show-mode))
+       ;; FIXME: what's the diff between set-initial-state and adding to list directly?
+       (evil-set-initial-state 'term-mode 'emacs)
        (jjin-append-to-list 'evil-insert-state-modes '(org-capture-mode))
 
        (bind-keys :map evil-emacs-state-map
@@ -839,7 +846,8 @@
             circe-channel-mode
             eww-mode
 
-            inferior-ess-mode)
+            inferior-ess-mode
+            term-mode)
          "List of major modes preventing linum to be enabled in the buffer.")
 
        (defadvice linum-mode (around linum-mode-selective activate)
@@ -864,6 +872,39 @@
        :config
        (add-hook 'prog-mode-hook 'fic-mode)
        (add-hook 'LaTeX-mode-hook 'fic-mode))
+   #+END_SRC
+
+** =multi-term=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package multi-term
+       :ensure t
+       :config
+       (bind-keys :map jjin-term-map
+                  ("t" . multi-term)
+                  ("n" . multi-term-next)
+                  ("p" . multi-term-prev)
+                  ("d" . multi-term-dedicated-open))
+
+       (setq term-bind-key-alist
+             '(("C-c C-k" . term-line-mode)
+               ("M-]" . multi-term-next)
+               ("M-[" . multi-term-prev)
+               ("C-c C-c" . term-interrupt-subjob)
+               ("C-c C-e" . term-send-esc)
+               ("C-m" . term-send-return)
+               ("C-y" . term-paste)
+               ("M-f" . term-send-forward-word)
+               ("M-b" . term-send-backward-word)
+               ("M-o" . term-send-backspace)
+               ("M-p" . term-send-up)
+               ("M-n" . term-send-down)
+               ("M-M" . term-send-forward-kill-word)
+               ("M-N" . term-send-backward-kill-word)
+               ("<M-backspace>" . term-send-backward-kill-word)
+               ("M-r" . term-send-reverse-search-history)
+               ("M-," . term-send-raw)
+               ("M-." . comint-dynamic-complete))))
    #+END_SRC
 
 ** =mu4e=
@@ -1121,7 +1162,8 @@
        (projectile-global-mode)
 
        ;; "disables "mode-line setting by project; extreme hang-up over SSH/Tramp
-       (setq projectile-mode-line "Projectile"))
+       (setq projectile-mode-line "Projectile")
+       (add-to-list 'projectile-globally-ignored-modes "term-mode"))
    #+END_SRC
 
 ** =rainbow-mode=
