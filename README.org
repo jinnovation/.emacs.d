@@ -267,11 +267,17 @@
 
       (defconst bg-color "black")
       ;; FIXME: make size dependent on resolution
-      (defconst default-font "Terminus 12")
+      (defconst default-font "-xos4-Terminus-normal-normal-normal-*-20-*-*-*-c-80-iso10646-1")
+      (defconst larger-font "-xos4-Terminus-normal-normal-normal-*-32-*-*-*-c-80-iso10646-1")
 
-      (unless (null (x-list-fonts default-font))
-        (set-frame-font default-font)
-        (set-face-attribute 'mode-line nil :font default-font))
+      (if window-system
+          (if (> (x-display-pixel-width) 2000)
+              (progn
+              (set-frame-font larger-font)
+              (set-face-attribute 'mode-line nil :font larger-font))
+            (progn
+              (set-frame-font default-font)
+              (set-face-attribute 'mode-line nil :font default-font))))
 
       (set-background-color bg-color)
       (set-face-attribute 'fringe nil :background bg-color)
