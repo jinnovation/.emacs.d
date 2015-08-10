@@ -278,8 +278,8 @@
 
       (when (functionp 'set-fontset-font)
         (set-fontset-font "fontset-default"
-          'unicode
-          (font-spec :family "DejaVu Sans Mono")))
+                          'unicode
+                          (font-spec :family "DejaVu Sans Mono")))
 
       (jjin-set-opacity 90)
     #+END_SRC
@@ -354,10 +354,6 @@
                 ("J" . jjin-move-splitter-down)
                 ("K" . jjin-move-splitter-up)
                 ("b" . balance-windows))
-
-     (bind-keys :map universal-argument-map
-                ("C-u" . kill-whole-line)
-                ("M-u" . universal-argument-more))
    #+END_SRC
 
 * Languages
@@ -373,8 +369,6 @@
 ** Lisp
 
    #+BEGIN_SRC emacs-lisp
-     (setq lisp-indent-offset 2)
-
      (add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
      (add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
    #+END_SRC
@@ -774,7 +768,7 @@
         :config
         (bind-keys :map jjin-vc-map
           ("s" . magit-status)
-          ("b" . magit-blame-mode))
+          ("b" . magit-blame-popup))
         ;; removes 1.4.0 warning in arguably cleaner way
         (remove-hook 'after-init-hook 'magit-maybe-show-setup-instructions))
     #+END_SRC
@@ -884,7 +878,7 @@
                   ("t" . multi-term)
                   ("n" . multi-term-next)
                   ("p" . multi-term-prev)
-                  ("d" . multi-term-dedicated-open))
+                  ("d" . multi-term-dedicated-toggle))
 
        (setq term-bind-key-alist
              '(("C-c C-k" . term-line-mode)
