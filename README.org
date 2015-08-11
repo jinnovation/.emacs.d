@@ -922,12 +922,55 @@
 
        :config
        (setq
-         mu4e-maildir "~/mail"
+        mu4e-maildir "~/mail"
 
-         mu4e-drafts-folder "/[Gmail].Drafts"
-         mu4e-sent-folder   "/[Gmail].Sent Mail"
-         mu4e-trash-folder  "/[Gmail].Trash"
-         mu4e-refile-folder "/[Gmail].All Mail")
+        mu4e-drafts-folder "/personal/[Gmail].Drafts"
+        mu4e-sent-folder   "/personal/[Gmail].Sent Mail")
+
+       (defvar my-mu4e-account-alist
+         '(("okc"
+            (user-mail-address "jonathan@okcupid.com")
+            (mu4e-drafts-folder "/okc/drafts")
+            (mu4e-sent-folder   "/okc/[Gmail].Sent Mail")
+            (mu4e-trash-folder  "/okc/trash")
+            (mu4e-refile-folder "/okc/archive")
+            (smtpmail-smtp-user "jonathan@okcupid.com"))
+           ("personal"
+            (user-mail-address "jonathan@jjin.me")
+            (mu4e-drafts-folder "/personal/[Gmail].Drafts")
+            (mu4e-sent-folder   "/personal/[Gmail].Sent Mail")
+            (mu4e-trash-folder  "/personal/[Gmail].Trash")
+            (mu4e-refile-folder "/personal/[Gmail].All Mail"))))
+
+       ;; TODO: DRY these out
+       (setq mu4e-trash-folder
+             (lambda (msg)
+               "Set the trash folder for MSG."
+               (let ((maildir (mu4e-message-field msg :maildir))
+                     (subject (mu4e-message-field msg :subject))
+                     folder)
+                 (cond
+                  ((string-match "okc" maildir)
+                   ;; FIXME: /dev/null?
+                   (setq folder "/okc/trash"))
+
+                  ((string-match "personal" maildir)
+                   (setq folder "/personal/[Gmail].Trash"))
+                 folder))))
+
+       (setq mu4e-refile-folder
+             (lambda (msg)
+               "Set the refile folder for MSG."
+               (let ((maildir (mu4e-message-field msg :maildir))
+                     (subject (mu4e-message-field msg :subject))
+                     folder)
+                 (cond
+                  ((string-match "okc" maildir)
+                   (setq folder "/okc/[Gmail].All Mail"))
+
+                  ((string-match "personal" maildir)
+                   (setq folder "/personal/[Gmail].All Mail"))
+                 folder))))
 
        ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
        ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
@@ -935,20 +978,22 @@
        ;; behavior.)
        (setq mu4e-sent-messages-behavior 'delete)
 
-       ;; you can quickly switch to your Inbox -- press ``ji''
        (setq mu4e-maildir-shortcuts
-         '(("/INBOX"               . ?i)
-            ("/[Gmail].Sent Mail"   . ?s)
-            ("/[Gmail].Trash"       . ?t)
-            ("/[Gmail].All Mail"    . ?a)))
+             '(("/okc/INBOX"                    . ?i)
+               ("/okc/[Gmail].Sent Mail"        . ?s)
+               ("/okc/[Gmail].All Mail"         . ?a)
+               ("/personal/INBOX"               . ?I)
+               ("/personal/[Gmail].Sent Mail"   . ?S)
+               ("/personal/[Gmail].All Mail"    . ?A)))
 
        ;; allow for updating mail using 'U' in the main view:
        (setq mu4e-get-mail-command "offlineimap")
 
        (setq mu4e-user-mail-address-list
-         '("jjin082693@gmail.com"
-            "jjin082693@uchicago.edu"
-            "jonathan@jjin.me"))
+             '("jjin082693@gmail.com"
+               "jjin082693@uchicago.edu"
+               "jonathan@jjin.me"
+               "jonathan@okcupid.com"))
 
        (defvaralias 'mu4e-compose-signature 'message-signature)
 
@@ -963,28 +1008,27 @@
        ;; (require 'smtpmail)
 
        (setq
-         message-send-mail-function 'smtpmail-send-it
-         smtpmail-stream-type 'starttls
-         smtpmail-default-smtp-server "smtp.gmail.com"
-         smtpmail-smtp-server "smtp.gmail.com"
-         smtpmail-smtp-service 587)
+        message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587)
 
-       (add-hook 'mu4e-view-mode-hook
-         'visual-line-mode)
+       (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
        (add-hook 'mu4e-compose-pre-hook
-         (defun my-set-from-address ()
-           "Set the From address based on the To address of the original."
-           (let ((msg mu4e-compose-parent-message)) ;; msg is shorter...
-             (when msg
-               (setq user-mail-address
-                 (cond
-                   ;; TODO; pull from mu4e-user-mail-address-list
-                   ((mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com")
-                     "jjin082693@gmail.com")
-                   ((mu4e-message-contact-field-matches msg :to "jjin082693@uchicago.edu")
-                     "jjin082693@uchicago.edu")
-                   (t "jonathan@jjin.me")))))))
+                 (defun my-set-from-address ()
+                   "Set the From address based on the To address of the original."
+                   (let ((msg mu4e-compose-parent-message)) ;; msg is shorter...
+                     (when msg
+                       (setq user-mail-address
+                             (cond
+                              ;; TODO; pull from mu4e-user-mail-address-list
+                              ((mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com")
+                               "jjin082693@gmail.com")
+                              ((mu4e-message-contact-field-matches msg :to "jjin082693@uchicago.edu")
+                               "jjin082693@uchicago.edu")
+                              (t "jonathan@jjin.me")))))))
 
        (use-package gnus-dired
          :config
@@ -996,7 +1040,7 @@
                (dolist (buffer (buffer-list t))
                  (set-buffer buffer)
                  (when (and (derived-mode-p 'message-mode)
-                         (null message-sent-message-via))
+                            (null message-sent-message-via))
                    (push (buffer-name buffer) buffers))))
              (nreverse buffers)))
 
@@ -1007,7 +1051,28 @@
 
        (setq mu4e-compose-signature-auto-include nil)
 
-       (setq mail-user-agent 'mu4e-user-agent))
+       (setq mail-user-agent 'mu4e-user-agent)
+
+       (defun my-mu4e-set-account ()
+         "Set the account for composing a message."
+         (let* ((account
+                 (if mu4e-compose-parent-message
+                     (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+                       (string-match "/\\(.*?\\)/" maildir)
+                       (match-string 1 maildir))
+                   (completing-read (format "Compose with account: (%s) "
+                                            (mapconcat #'(lambda (var) (car var))
+                                                       my-mu4e-account-alist "/"))
+                                    (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+                                    nil t nil nil (caar my-mu4e-account-alist))))
+                (account-vars (cdr (assoc account my-mu4e-account-alist))))
+           (if account-vars
+               (mapc #'(lambda (var)
+                         (set (car var) (cadr var)))
+                     account-vars)
+             (error "No email account found"))))
+
+       (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account))
    #+END_SRC
    
 ** =org-mode=
