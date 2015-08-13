@@ -707,10 +707,7 @@
        (jjin-append-to-list 'evil-insert-state-modes '(org-capture-mode))
 
        (bind-keys :map evil-emacs-state-map
-         ("<escape>" . evil-execute-in-normal-state)
-         ("L"        . evil-end-of-line)
-         ("H"        . evil-beginning-of-line)
-         ("C-w q"    . delete-window))
+         ("<escape>" . evil-execute-in-normal-state))
 
        (use-package evil-numbers
          :ensure t
