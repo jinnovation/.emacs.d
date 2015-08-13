@@ -422,6 +422,14 @@
 
 * Packages
 
+** =ace-link=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package ace-link
+       :config
+       (ace-link-setup-default))
+   #+END_SRC
+
 ** =ace-window=
 
    #+BEGIN_SRC emacs-lisp
