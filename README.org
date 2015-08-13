@@ -995,8 +995,9 @@
                ("/personal/[Gmail].Sent Mail"   . ?S)
                ("/personal/[Gmail].All Mail"    . ?A)))
 
-       ;; allow for updating mail using 'U' in the main view:
-       (setq mu4e-get-mail-command "offlineimap")
+       ;; getting mail is left to other parts of the system -- specifically,
+       ;; `offlineimap' and `systemd'
+       (setq mu4e-get-mail-command "true")
 
        (setq mu4e-user-mail-address-list
              '("jjin082693@gmail.com"
