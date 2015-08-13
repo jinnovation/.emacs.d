@@ -943,15 +943,11 @@
             (user-mail-address "jonathan@okcupid.com")
             (mu4e-drafts-folder "/okc/drafts")
             (mu4e-sent-folder   "/okc/[Gmail].Sent Mail")
-            (mu4e-trash-folder  "/okc/trash")
-            (mu4e-refile-folder "/okc/archive")
             (smtpmail-smtp-user "jonathan@okcupid.com"))
            ("personal"
             (user-mail-address "jonathan@jjin.me")
             (mu4e-drafts-folder "/personal/[Gmail].Drafts")
-            (mu4e-sent-folder   "/personal/[Gmail].Sent Mail")
-            (mu4e-trash-folder  "/personal/[Gmail].Trash")
-            (mu4e-refile-folder "/personal/[Gmail].All Mail"))))
+            (mu4e-sent-folder   "/personal/[Gmail].Sent Mail"))))
 
        ;; TODO: DRY these out
        (setq mu4e-trash-folder
@@ -993,6 +989,8 @@
              '(("/okc/INBOX"                    . ?i)
                ("/okc/[Gmail].Sent Mail"        . ?s)
                ("/okc/[Gmail].All Mail"         . ?a)
+               ("/okc/Reports"                  . ?r)
+               ("/okc/Commits"                  . ?c)
                ("/personal/INBOX"               . ?I)
                ("/personal/[Gmail].Sent Mail"   . ?S)
                ("/personal/[Gmail].All Mail"    . ?A)))
