@@ -324,6 +324,9 @@
 
      (define-prefix-command 'jjin-term-map)
      (bind-key "C-c t" 'jjin-term-map)
+
+     (define-prefix-command 'jjin-buffer-map)
+     (bind-key "C-c b" 'jjin-buffer-map)
    #+END_SRC
 
 ** Keybindings
@@ -360,6 +363,9 @@
                 ("J" . jjin-move-splitter-down)
                 ("K" . jjin-move-splitter-up)
                 ("b" . balance-windows))
+
+     (bind-keys :map jjin-buffer-map
+                ("r" . rename-buffer))
    #+END_SRC
 
 * Languages
