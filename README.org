@@ -785,8 +785,9 @@
         :ensure t
         :config
         (bind-keys :map jjin-vc-map
-          ("s" . magit-status)
-          ("b" . magit-blame-popup))
+                   ("s" . magit-status)
+                   ("l" . magit-log-popup)
+                   ("b" . magit-blame-popup))
         ;; removes 1.4.0 warning in arguably cleaner way
         (remove-hook 'after-init-hook 'magit-maybe-show-setup-instructions))
     #+END_SRC
