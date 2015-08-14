@@ -936,19 +936,19 @@
        (setq
         mu4e-maildir "~/mail"
 
-        mu4e-drafts-folder "/personal/[Gmail].Drafts"
-        mu4e-sent-folder   "/personal/[Gmail].Sent Mail")
+        mu4e-drafts-folder "/personal/drafts"
+        mu4e-sent-folder   "/personal/sent")
 
        (defvar my-mu4e-account-alist
          '(("okc"
             (user-mail-address "jonathan@okcupid.com")
             (mu4e-drafts-folder "/okc/drafts")
-            (mu4e-sent-folder   "/okc/[Gmail].Sent Mail")
+            (mu4e-sent-folder   "/okc/sent")
             (smtpmail-smtp-user "jonathan@okcupid.com"))
            ("personal"
             (user-mail-address "jonathan@jjin.me")
-            (mu4e-drafts-folder "/personal/[Gmail].Drafts")
-            (mu4e-sent-folder   "/personal/[Gmail].Sent Mail"))))
+            (mu4e-drafts-folder "/personal/drafts")
+            (mu4e-sent-folder   "/personal/sent"))))
 
        ;; TODO: DRY these out
        (setq mu4e-trash-folder
@@ -963,7 +963,7 @@
                    (setq folder "/okc/trash"))
 
                   ((string-match "personal" maildir)
-                   (setq folder "/personal/[Gmail].Trash"))
+                   (setq folder "/personal/trash"))
                  folder))))
 
        (setq mu4e-refile-folder
@@ -974,10 +974,10 @@
                      folder)
                  (cond
                   ((string-match "okc" maildir)
-                   (setq folder "/okc/[Gmail].All Mail"))
+                   (setq folder "/okc/archive"))
 
                   ((string-match "personal" maildir)
-                   (setq folder "/personal/[Gmail].All Mail"))
+                   (setq folder "/personal/archive"))
                  folder))))
 
        ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
@@ -987,14 +987,15 @@
        (setq mu4e-sent-messages-behavior 'delete)
 
        (setq mu4e-maildir-shortcuts
-             '(("/okc/INBOX"                    . ?i)
-               ("/okc/[Gmail].Sent Mail"        . ?s)
-               ("/okc/[Gmail].All Mail"         . ?a)
-               ("/okc/Reports"                  . ?r)
-               ("/okc/Commits"                  . ?c)
-               ("/personal/INBOX"               . ?I)
-               ("/personal/[Gmail].Sent Mail"   . ?S)
-               ("/personal/[Gmail].All Mail"    . ?A)))
+             '(("/okc/INBOX"        . ?i)
+               ("/okc/sent"         . ?s)
+               ("/okc/archive"      . ?a)
+               ("/okc/Reports"      . ?r)
+               ("/okc/Commits"      . ?c)
+               ("/personal/INBOX"   . ?I)
+               ("/personal/sent"    . ?S)
+               ("/personal/drafts"  . ?D)
+               ("/personal/archive" . ?A)))
 
        ;; getting mail is left to other parts of the system -- specifically,
        ;; `offlineimap' and `systemd'
