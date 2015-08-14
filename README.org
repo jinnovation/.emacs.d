@@ -43,127 +43,127 @@
 
    #+BEGIN_SRC emacs-lisp
      (define-namespace jjin-
-       (defun load-if-exists (file)
-         "Loads file, conditional on its existence; no effect if non-existent."
-         (when (file-exists-p file)
-           (load-file file)))
+     (defun load-if-exists (file)
+       "Loads file, conditional on its existence; no effect if non-existent."
+       (when (file-exists-p file)
+         (load-file file)))
 
 
-       (defun kill-current-buffer ()
-         (interactive)
-         (kill-buffer (current-buffer)))
+     (defun kill-current-buffer ()
+       (interactive)
+       (kill-buffer (current-buffer)))
 
-       (defun window-toggle-split-direction ()
-         "Switch window split from horizontally to vertically, or vice versa.
+     (defun window-toggle-split-direction ()
+       "Switch window split from horizontally to vertically, or vice versa.
 
      i.e. change right window to bottom, or change bottom window to right."
-         (interactive)
-         (require 'windmove)
-         (let ((done))
-           (dolist (dirs '((right . down) (down . right)))
-             (unless done
-               (let* ((win (selected-window))
-                       (nextdir (car dirs))
-                       (neighbour-dir (cdr dirs))
-                       (next-win (windmove-find-other-window nextdir win))
-                       (neighbour1 (windmove-find-other-window neighbour-dir win))
-                       (neighbour2 (if next-win (with-selected-window next-win
-                                                  (windmove-find-other-window
-                                                    neighbour-dir next-win)))))
+       (interactive)
+       (require 'windmove)
+       (let ((done))
+         (dolist (dirs '((right . down) (down . right)))
+           (unless done
+             (let* ((win (selected-window))
+                    (nextdir (car dirs))
+                    (neighbour-dir (cdr dirs))
+                    (next-win (windmove-find-other-window nextdir win))
+                    (neighbour1 (windmove-find-other-window neighbour-dir win))
+                    (neighbour2 (if next-win (with-selected-window next-win
+                                               (windmove-find-other-window
+                                                neighbour-dir next-win)))))
 
-                 (setq done (and (eq neighbour1 neighbour2)
-                              (not (eq (minibuffer-window) next-win))))
-                 (if done
+               (setq done (and (eq neighbour1 neighbour2)
+                               (not (eq (minibuffer-window) next-win))))
+               (if done
                    (let* ((other-buf (window-buffer next-win)))
                      (delete-window next-win)
                      (if (eq nextdir 'right)
-                       (split-window-vertically)
+                         (split-window-vertically)
                        (split-window-horizontally))
                      (set-window-buffer (windmove-find-other-window neighbour-dir)
-                       other-buf))))))))
+                                        other-buf))))))))
 
-       (defun insert-newline-after ()
-         (interactive)
-         (let ((oldpos (point)))
-           (end-of-line)
-           (newline-and-indent)
-           (goto-char oldpos)))
+     (defun insert-newline-after ()
+       (interactive)
+       (let ((oldpos (point)))
+         (end-of-line)
+         (newline-and-indent)
+         (goto-char oldpos)))
 
-       (defun set-opacity (value)
-         "Sets the opacity of the frame window. 0=transparent/100=opaque"
-         (interactive "nOpacity Value (0 - 100 opaque): ")
-         (set-frame-parameter (selected-frame) 'alpha value))
+     (defun set-opacity (value)
+       "Sets the opacity of the frame window. 0=transparent/100=opaque"
+       (interactive "nOpacity Value (0 - 100 opaque): ")
+       (set-frame-parameter (selected-frame) 'alpha value))
 
-       (defun dired-at-current ()
-         (interactive)
-         (dired default-directory))
+     (defun dired-at-current ()
+       (interactive)
+       (dired default-directory))
 
-       (defun prev-window ()
-         (interactive)
-         (other-window -1))
+     (defun prev-window ()
+       (interactive)
+       (other-window -1))
 
-       (defun append-to-list (list-var elements)
+     (defun append-to-list (list-var elements)
 
-         "Append ELEMENTS to the end of LIST-VAR.
+       "Append ELEMENTS to the end of LIST-VAR.
 
      The return value is the new value of LIST-VAR."
-         (unless (consp elements)
-           (error "ELEMENTS must be a list"))
-         (let ((list (symbol-value list-var)))
-           (if list
+       (unless (consp elements)
+         (error "ELEMENTS must be a list"))
+       (let ((list (symbol-value list-var)))
+         (if list
              (setcdr (last list) elements)
-             (set list-var elements)))
-         (symbol-value list-var))
+           (set list-var elements)))
+       (symbol-value list-var))
 
-       ;; credit: https://gist.github.com/mads379/3402786
-       (defun toggle-maximize-window ()
-         "Maximize window"
-         (interactive)
-         (if (= 1 (length (window-list)))
+     ;; credit: https://gist.github.com/mads379/3402786
+     (defun toggle-maximize-window ()
+       "Maximize window"
+       (interactive)
+       (if (= 1 (length (window-list)))
            (jump-to-register '_)
-           (progn
-             (window-configuration-to-register '_)
-             (delete-other-windows))))
+         (progn
+           (window-configuration-to-register '_)
+           (delete-other-windows))))
 
-       (defun redefine-key (map key-old key-new)
-         (define-key map key-new (lookup-key map key-old))
-         (define-key map key-old nil))
+     (defun redefine-key (map key-old key-new)
+       (define-key map key-new (lookup-key map key-old))
+       (define-key map key-old nil))
 
-       ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
-       (defun move-splitter-left (arg)
-         "Move window splitter left."
-         (interactive "p")
-         (if (let ((windmove-wrap-around))
-               (windmove-find-other-window 'right))
+     ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
+     (defun move-splitter-left (arg)
+       "Move window splitter left."
+       (interactive "p")
+       (if (let ((windmove-wrap-around))
+             (windmove-find-other-window 'right))
            (shrink-window-horizontally arg)
-           (enlarge-window-horizontally arg)))
+         (enlarge-window-horizontally arg)))
 
-       ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
-       (defun move-splitter-right (arg)
-         "Move window splitter right."
-         (interactive "p")
-         (if (let ((windmove-wrap-around))
-               (windmove-find-other-window 'right))
+     ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
+     (defun move-splitter-right (arg)
+       "Move window splitter right."
+       (interactive "p")
+       (if (let ((windmove-wrap-around))
+             (windmove-find-other-window 'right))
            (enlarge-window-horizontally arg)
-           (shrink-window-horizontally arg)))
+         (shrink-window-horizontally arg)))
 
-       ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
-       (defun move-splitter-up (arg)
-         "Move window splitter up."
-         (interactive "p")
-         (if (let ((windmove-wrap-around))
-               (windmove-find-other-window 'up))
+     ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
+     (defun move-splitter-up (arg)
+       "Move window splitter up."
+       (interactive "p")
+       (if (let ((windmove-wrap-around))
+             (windmove-find-other-window 'up))
            (enlarge-window arg)
-           (shrink-window arg)))
+         (shrink-window arg)))
 
-       ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
-       (defun move-splitter-down (arg)
-         "Move window splitter down."
-         (interactive "p")
-         (if (let ((windmove-wrap-around))
-               (windmove-find-other-window 'up))
+     ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
+     (defun move-splitter-down (arg)
+       "Move window splitter down."
+       (interactive "p")
+       (if (let ((windmove-wrap-around))
+             (windmove-find-other-window 'up))
            (shrink-window arg)
-           (enlarge-window arg))))
+         (enlarge-window arg))))
    #+END_SRC
 
 * General Configurations
