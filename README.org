@@ -606,6 +606,7 @@
             ("http://usesthis.com/feed/"                       software)
             ("http://endlessparentheses.com/atom.xml"          software emacs)
             ("http://feeds.feedburner.com/codinghorror"        software)
+            ("http://syndication.thedailywtf.com/TheDailyWtf"  software)
             ("http://feeds.feedburner.com/thisdeveloperslife"  software)
             ("http://feeds.feedburner.com/oreilly/news"        software)
             ("http://www.joelonsoftware.com/rss.xml"           software)
