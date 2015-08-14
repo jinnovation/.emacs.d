@@ -130,7 +130,7 @@
          (define-key map key-old nil))
 
        ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
-       (defun kove-splitter-left (arg)
+       (defun move-splitter-left (arg)
          "Move window splitter left."
          (interactive "p")
          (if (let ((windmove-wrap-around))
