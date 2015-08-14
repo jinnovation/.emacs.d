@@ -1041,6 +1041,8 @@
                                "jjin082693@gmail.com")
                               ((mu4e-message-contact-field-matches msg :to "jjin082693@uchicago.edu")
                                "jjin082693@uchicago.edu")
+                              ((mu4e-message-contact-field-matches msg :to "jonathan@okcupid.com")
+                               "jonathan@okcupid.com")
                               (t "jonathan@jjin.me")))))))
 
        (use-package gnus-dired
