@@ -1383,6 +1383,7 @@
         (defvaralias 'ruby-indent-level 'tab-width))
 
       (use-package ruby-end
+        :disabled t
         :config
         (add-hook 'ruby-mode-hook 'ruby-end-mode))
     #+END_SRC
@@ -1391,6 +1392,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package haskell-mode
+        :disabled t
         :config
         (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
     #+END_SRC
