@@ -762,6 +762,16 @@
            ("v" . evilnc-toggle-invert-comment-line-by-line))))
    #+END_SRC
 
+** =fill-column-indicator=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package fill-column-indicator
+       :ensure t
+       :config
+       (add-hook 'prog-mode-hook 'turn-on-fci-mode)
+       (setq fci-rule-color (face-attribute 'hl-line :background)))
+   #+END_SRC
+
 ** Git
 
 *** =git-commit-mode=
