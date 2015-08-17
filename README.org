@@ -652,9 +652,19 @@
 
        (bind-keys :map jjin-exec-map
          ("e" . elfeed))
-       
+
        :config
-       (bind-key "<SPC>" 'next-line elfeed-search-mode-map))
+       (bind-key "<SPC>" 'next-line elfeed-search-mode-map)
+
+       (set-face-attribute
+        'elfeed-search-unread-title-face
+        nil
+        :weight 'normal
+        :foreground (face-attribute 'default :foreground))
+       (set-face-attribute
+        'elfeed-search-title-face
+        nil
+        :foreground (face-attribute 'font-lock-comment-face :foreground)))
    #+END_SRC
 
 ** =ess=
