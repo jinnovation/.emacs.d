@@ -905,9 +905,6 @@
          (unless (member major-mode linum-mode-excludes)
            ad-do-it))
 
-       (setq linum-relative-current-symbol "")
-
-       (use-package linum-relative)
        (set-face-attribute 'linum nil :background bg-color))
    #+END_SRC
 
