@@ -294,7 +294,7 @@
                           'unicode
                           (font-spec :family "DejaVu Sans Mono")))
 
-      (jjin-set-opacity 90)
+      (jjin-set-opacity 80)
     #+END_SRC
 
 ** Environment-specific
