@@ -390,6 +390,10 @@
 
    #+BEGIN_SRC emacs-lisp
      (defvaralias 'js-indent-level 'tab-width)
+
+     (use-package js2-mode
+       :mode "\\.js$"
+       :ensure t)
    #+END_SRC
 
 ** LaTeX
