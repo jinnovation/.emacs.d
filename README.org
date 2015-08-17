@@ -244,6 +244,8 @@
     (setq image-dired-external-viewer "feh")
 
     (setq term-ansi-default-program (getenv "SHELL"))
+
+    (setq enable-remote-dir-locals t)
   #+END_SRC
 
 ** Appearance
