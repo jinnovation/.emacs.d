@@ -163,7 +163,13 @@
        (if (let ((windmove-wrap-around))
              (windmove-find-other-window 'up))
            (shrink-window arg)
-         (enlarge-window arg))))
+         (enlarge-window arg)))
+
+     ;; TODO: set modeline
+     (defun toggle-dedicated ()
+       (interactive)
+       (set-window-dedicated-p (selected-window)
+                               (not (window-dedicated-p (selected-window))))))
    #+END_SRC
 
 * General Configurations
