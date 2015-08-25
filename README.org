@@ -565,7 +565,8 @@
      (use-package dired-open
        :ensure t
        :init
-       (setq dired-open-extensions '(("mp4" . "vlc"))))
+       (setq dired-open-extensions '(("mp4" . "vlc")
+                                     ("avi" . "vlc"))))
    #+END_SRC
 
 ** =doc-view-mode=
