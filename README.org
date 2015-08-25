@@ -861,9 +861,6 @@
          ("f"   . helm-projectile-find-file)
          ("F"   . helm-projectile-find-file-in-known-projects)
          ("s s" . helm-projectile-ag)))
-
-     (use-package helm-swoop
-       :disabled t)
    #+END_SRC
 
 ** =linum=
