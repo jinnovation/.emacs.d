@@ -116,6 +116,8 @@
        (symbol-value list-var))
 
      ;; credit: https://gist.github.com/mads379/3402786
+     ;; TODO: modeline indication
+     ;; TODO: if maximized, prevent other window splitting (use minor mode?)
      (defun toggle-maximize-window ()
        "Maximize window"
        (interactive)
@@ -626,6 +628,7 @@
             ("https://news.ycombinator.com/rss"                software news)
             ("http://usesthis.com/feed/"                       software)
             ("http://endlessparentheses.com/atom.xml"          software emacs)
+            ("http://emacshorrors.com/feed.atom"               software emacs)
             ("http://feeds.feedburner.com/codinghorror"        software)
             ("http://syndication.thedailywtf.com/TheDailyWtf"  software)
             ("http://feeds.feedburner.com/thisdeveloperslife"  software)
@@ -789,8 +792,9 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package fill-column-indicator
+       :commands turn-on-fci-mode
        :ensure t
-       :config
+       :init
        (add-hook 'prog-mode-hook 'turn-on-fci-mode)
        (setq fci-rule-color (face-attribute 'hl-line :background)))
    #+END_SRC
@@ -824,6 +828,11 @@
     #+BEGIN_SRC emacs-lisp
       (use-package magit
         :ensure t
+        :init
+        (setq magit-popup-show-common-commands nil)
+        (setq magit-log-arguments '("--graph"
+                                    "--decorate"
+                                    "--color"))
         :config
         (bind-keys :map jjin-vc-map
                    ("s" . magit-status)
@@ -860,7 +869,8 @@
          ("p"   . helm-projectile)
          ("f"   . helm-projectile-find-file)
          ("F"   . helm-projectile-find-file-in-known-projects)
-         ("s s" . helm-projectile-ag)))
+         ("s s" . helm-projectile-ag)
+         ("s g" . helm-projectile-grep)))
    #+END_SRC
 
 ** =linum=
@@ -1271,9 +1281,15 @@
      (use-package projectile
        :ensure t
        :diminish projectile-mode
+       :init
+       (setq projectile-keymap-prefix (kbd "C-c p")
+             projectile-globally-ignored-files '("TAGS"
+                                                 "GPATH"
+                                                 "GRTAGS"
+                                                 "GSYMS"
+                                                 "GTAGS"))
        :config
-       (setq projectile-keymap-prefix (kbd "C-c p"))
-       
+
        (setq projectile-enable-caching t
          projectile-completion-system 'grizzl
          projectile-switch-project-action 'helm-projectile)
@@ -1413,6 +1429,7 @@
         :config
         (add-hook 'markdown-mode-hook 'auto-fill-mode)
         (add-hook 'markdown-mode-hook 'fic-mode)
+        (add-hook 'markdown-mode-hook 'turn-on-fci-mode)
 
         (use-package markdown-mode+))
     #+END_SRC
