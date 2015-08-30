@@ -298,7 +298,7 @@
         (if (display-graphic-p)
             (progn
               (if (> (frame-pixel-width) 2000)
-                  (set-frame-parameter nil 'font "Terminus 10")
+                  (set-frame-parameter nil 'font "Terminus 08")
                 (set-frame-parameter nil 'font "Terminus 04")))))
 
       (fontify-frame)
@@ -572,9 +572,7 @@
        :ensure t
        :config
        (add-hook 'after-init-hook 'global-company-mode)
-       (setq company-idle-delay 0.1)
-       (use-package helm-company
-         :ensure t))
+       (setq company-idle-delay 0.1))
    #+END_SRC
 
 ** =dired=
@@ -882,11 +880,12 @@
        :ensure t
        :config
        (bind-keys :map projectile-command-map
-         ("p"   . helm-projectile)
-         ("f"   . helm-projectile-find-file)
-         ("F"   . helm-projectile-find-file-in-known-projects)
-         ("s s" . helm-projectile-ag)
-         ("s g" . helm-projectile-grep)))
+                  ("p"   . helm-projectile)
+                  ("a"   . helm-projectile-find-other-file)
+                  ("f"   . helm-projectile-find-file)
+                  ("F"   . helm-projectile-find-file-in-known-projects)
+                  ("s s" . helm-projectile-ag)
+                  ("s g" . helm-projectile-grep)))
    #+END_SRC
 
 ** =linum=
@@ -997,6 +996,16 @@
        (bind-keys :map jjin-exec-map ("m" . mu4e))
 
        :config
+       ;; make sure the gnutls command line utils are installed
+       ;; (require 'smtpmail)
+
+       (setq
+        message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587)
+
        (setq
         mu4e-maildir "~/mail"
 
@@ -1079,16 +1088,6 @@
        (setq
          mu4e-html-renderer 'w3m
          mu4e-html2text-command "w3m -dump -T text/html")
-
-       ;; make sure the gnutls command line utils are installed
-       ;; (require 'smtpmail)
-
-       (setq
-        message-send-mail-function 'smtpmail-send-it
-        smtpmail-stream-type 'starttls
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587)
 
        (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
@@ -1307,8 +1306,8 @@
        :config
 
        (setq projectile-enable-caching t
-         projectile-completion-system 'grizzl
-         projectile-switch-project-action 'helm-projectile)
+             projectile-completion-system 'grizzl
+             projectile-switch-project-action 'helm-projectile)
 
        (projectile-global-mode)
 
