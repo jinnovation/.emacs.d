@@ -1028,9 +1028,10 @@
             (mu4e-sent-folder   "/okc/sent")
             (smtpmail-smtp-user "jonathan@okcupid.com"))
            ("personal"
-            (user-mail-address "jonathan@jjin.me")
+            (user-mail-address "jjin082693@gmail.com")
             (mu4e-drafts-folder "/personal/drafts")
-            (mu4e-sent-folder   "/personal/sent"))))
+            (mu4e-sent-folder   "/personal/sent")
+            (smtpmail-smtp-user "jjin082693@gmail.com"))))
 
        ;; TODO: DRY these out
        (setq mu4e-trash-folder
