@@ -1315,6 +1315,13 @@
                                                  "GRTAGS"
                                                  "GSYMS"
                                                  "GTAGS"))
+       ;; Tame-d + OkC files
+       (add-to-list 'projectile-other-file-alist
+                    '("T" "h" "C"))
+       (add-to-list 'projectile-other-file-alist
+                    '("h" "C" "T"))
+       (add-to-list 'projectile-other-file-alist
+                    '("C" "T" "h"))
        :config
 
        (setq projectile-enable-caching t
