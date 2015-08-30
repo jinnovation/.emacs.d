@@ -850,13 +850,21 @@
                                     "--color"))
         :config
         (bind-keys :map jjin-vc-map
-                   ("s" . magit-status)
+                   ("v" . magit-status)
                    ("l" . magit-log-popup)
                    ("b" . magit-blame-popup)
+                   ("F" . magit-pull-popup)
+                   ("P" . magit-push-popup)
+                   ("z" . magit-stash-popup)
                    ("c" . magit-checkout)
                    ("C" . magit-branch-and-checkout))
         ;; removes 1.4.0 warning in arguably cleaner way
-        (remove-hook 'after-init-hook 'magit-maybe-show-setup-instructions))
+        (remove-hook 'after-init-hook 'magit-maybe-show-setup-instructions)
+
+        (defadvice magit-blame-mode (after switch-to-emacs-state activate)
+          (if magit-blame-mode
+              (evil-emacs-state 1)
+            (evil-normal-state 1))))
     #+END_SRC
 
 ** =helm=
