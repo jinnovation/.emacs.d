@@ -8,8 +8,8 @@
  - [[#preamble][Preamble]]
  - [[#general-configurations][General Configurations]]
  - [[#keys][Keys]]
- - [[#languages][Languages]]
- - [[#packages][Packages]]
+ - [[#development-environments][Development Environments]]
+ - [[#general-packages][General Packages]]
  - [[#unlicense][(Un)license]]
 
 * Preamble
@@ -393,14 +393,30 @@
                 ("r" . rename-buffer))
    #+END_SRC
 
-* Languages
+* Development Environments
 
-** C
+** C/C++
 
    #+BEGIN_SRC emacs-lisp
      (setq c-block-comment-prefix "* ")
 
      (defvaralias 'c-basic-offset 'tab-width)
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package irony
+       :commands irony-mode
+       :init
+       (add-hook 'c-mode-hook 'irony-mode)
+       (add-hook 'c++-mode-hook 'irony-mode)
+       :config
+       (use-package flycheck-irony
+         :config
+         (add-hook 'flycheck-mode-hook 'flycheck-irony-setup)))
+
+     (use-package company-irony
+       :config
+       (add-to-list 'company-backends 'company-irony))
    #+END_SRC
 
 ** Lisp
@@ -449,7 +465,31 @@
      (add-to-list 'auto-mode-alist '("\\.zsh$" . sh-mode))
    #+END_SRC
 
-* Packages
+** Haskell
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package haskell-mode
+       :disabled t
+       :config
+       (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
+   #+END_SRC
+
+** Ruby
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package enh-ruby-mode
+       :disabled t
+       :mode ("Gemfile" "Guardfile")
+       :config
+       (defvaralias 'ruby-indent-level 'tab-width))
+
+     (use-package ruby-end
+       :disabled t
+       :config
+       (add-hook 'ruby-mode-hook 'ruby-end-mode))
+   #+END_SRC
+
+* General Packages
 
 ** =ace-link=
 
@@ -487,6 +527,14 @@
          (toggle-read-only))
 
        (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
+   #+END_SRC
+
+** =calc=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package calc
+       :init
+       (bind-key "c" 'calc jjin-exec-map))
    #+END_SRC
 
 ** =circe=
@@ -568,6 +616,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package company
+       :defines company-backends
        :diminish company-mode
        :ensure t
        :config
@@ -668,6 +717,7 @@
             ("http://feeds.feedburner.com/seriouseatsfeaturesvideos"  food)
             ("http://feeds.feedburner.com/blogspot/sBff")
 
+            ("http://cube-drone.com/rss.xml"                comic software)
             ("http://xkcd.com/rss.xml"                      comic)
             ("http://feeds.feedburner.com/Explosm"          comic)
             ("http://feed.dilbert.com/dilbert/daily_strip"  comic)
@@ -814,6 +864,15 @@
        (setq fci-rule-color (face-attribute 'hl-line :background)))
    #+END_SRC
 
+** =flycheck=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package flycheck
+       :defines flycheck-mode-hook
+       :config
+       (add-hook 'after-init-hook #'global-flycheck-mode))
+   #+END_SRC
+
 ** Git
 
 *** =git-commit-mode=
@@ -853,11 +912,14 @@
                    ("v" . magit-status)
                    ("l" . magit-log-popup)
                    ("b" . magit-blame-popup)
+                   ("f" . magit-fetch-popup)
                    ("F" . magit-pull-popup)
                    ("P" . magit-push-popup)
                    ("z" . magit-stash-popup)
                    ("c" . magit-checkout)
                    ("C" . magit-branch-and-checkout))
+        (bind-keys :map magit-mode-map
+                   ("X" . magit-reset-hard))
         ;; removes 1.4.0 warning in arguably cleaner way
         (remove-hook 'after-init-hook 'magit-maybe-show-setup-instructions)
 
@@ -1318,11 +1380,13 @@
                                                  "GTAGS"))
        ;; Tame-d + OkC files
        (add-to-list 'projectile-other-file-alist
-                    '("T" "h" "C"))
+                    '("T" "h" "Th" "C"))
        (add-to-list 'projectile-other-file-alist
-                    '("h" "C" "T"))
+                    '("h" "Th" "C" "T"))
        (add-to-list 'projectile-other-file-alist
-                    '("C" "T" "h"))
+                    '("C" "T" "h" "Th"))
+       (add-to-list 'projectile-other-file-alist
+                    '("Th" "C" "T" "h"))
        :config
 
        (setq projectile-enable-caching t
@@ -1333,7 +1397,14 @@
 
        ;; "disables "mode-line setting by project; extreme hang-up over SSH/Tramp
        (setq projectile-mode-line "Projectile")
-       (add-to-list 'projectile-globally-ignored-modes "term-mode"))
+       (add-to-list 'projectile-globally-ignored-modes "term-mode")
+
+       (use-package grizzl)
+       (use-package ggtags
+         :config
+         (add-hook 'c-mode-hook 'ggtags-mode)
+         (add-hook 'c++-mode-hook 'ggtags-mode)
+         (add-hook 'java-mode-hook 'ggtags-mode)))
    #+END_SRC
 
 ** =rainbow-mode=
@@ -1433,29 +1504,6 @@
 
 ** Language modes
 
-*** Ruby
-
-    #+BEGIN_SRC emacs-lisp
-      (use-package enh-ruby-mode
-        :disabled t
-        :mode ("Gemfile" "Guardfile")
-        :config
-        (defvaralias 'ruby-indent-level 'tab-width))
-
-      (use-package ruby-end
-        :disabled t
-        :config
-        (add-hook 'ruby-mode-hook 'ruby-end-mode))
-    #+END_SRC
-
-*** Haskell
-
-    #+BEGIN_SRC emacs-lisp
-      (use-package haskell-mode
-        :disabled t
-        :config
-        (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
-    #+END_SRC
 *** Markdown
 
     #+BEGIN_SRC emacs-lisp
