@@ -1418,6 +1418,18 @@
        (smart-mode-line-enable))
    #+END_SRC
 
+** =tramp=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package tramp
+       :init
+       (setq tramp-default-method "ssh")
+       (setq password-cache-expiry nil)
+       :config
+
+       (add-to-list 'tramp-remote-path "~/bin"))
+   #+END_SRC
+
 ** =undo-tree=
 
    #+BEGIN_SRC emacs-lisp
