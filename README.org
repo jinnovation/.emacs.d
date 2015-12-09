@@ -659,6 +659,14 @@
        :ensure t)
    #+END_SRC
 
+** =ediff=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package ediff
+       :init
+       (setq ediff-window-setup-function 'ediff-setup-windows-plain))
+   #+END_SRC
+
 ** =elfeed=
 
    #+BEGIN_SRC emacs-lisp
