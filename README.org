@@ -1475,6 +1475,25 @@
        (purpose-load-window-layout))
    #+END_SRC
 
+** =w3m=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package w3m
+       :commands (w3m)
+       :init
+       (bind-key "w" 'w3m jjin-exec-map)
+
+       :config
+       (unbind-key "B" w3m-mode-map)
+       (bind-keys :map w3m-mode-map
+                  ("P" . w3m-view-previous-page)
+                  ("n" . w3m-tab-next-buffer)
+                  ("p" . w3m-tab-previous-buffer)
+                  ("w" . w3m-delete-buffer))
+
+       (use-package w3m-session))
+   #+END_SRC
+
 ** Language modes
 
 *** Markdown
