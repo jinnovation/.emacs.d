@@ -968,41 +968,14 @@
        (setq linum-format 'dynamic)
        (global-linum-mode 1)
 
-       (defconst linum-mode-excludes
-         '(doc-view-mode
-
-            ;; FIXME: make conditional on num lines
-            org-mode
-
-            debbugs-gnu-mode
-
-            pdf-view-mode
-            paradox-menu-mode
-
-            magit-mode
-
-            elfeed-show-mode
-            elfeed-search-mode
-            gnus-group-mode
-            mu4e-main-mode
-            mu4e-headers-mode
-            mu4e-view-mode
-            mu4e~update-mail-mode
-
-            circe-chat-mode
-            circe-server-mode
-            circe-query-mode
-            circe-channel-mode
-            eww-mode
-
-            inferior-ess-mode
-            term-mode)
-         "List of major modes preventing linum to be enabled in the buffer.")
+       (defconst linum-mode-whitelist
+         '(prog-mode))
 
        (defadvice linum-mode (around linum-mode-selective activate)
          "Avoids enabling of linum-mode in the buffer having major mode set to one
      of listed in `linum-mode-excludes'."
-         (unless (member major-mode linum-mode-excludes)
+         (if (or (member major-mode linum-mode-whitelist)
+                 (member (get-mode-local-parent major-mode) linum-mode-whitelist))
            ad-do-it))
 
        (set-face-attribute 'linum nil :background bg-color))
