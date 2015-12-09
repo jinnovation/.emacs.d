@@ -1520,6 +1520,12 @@
         (add-hook 'scss-mode-hook 'rainbow-mode))
     #+END_SRC
 
+*** YAML
+
+    #+BEGIN_SRC emacs-lisp
+      (use-package yaml-mode
+        :commands (yaml-mode))
+    #+END_SRC
 * (Un)license
 
   #+BEGIN_SRC text :eval never
