@@ -489,6 +489,16 @@
        (add-hook 'ruby-mode-hook 'ruby-end-mode))
    #+END_SRC
 
+** SQL
+
+   #+BEGIN_SRC emacs-lisp
+     (setq sql-mysql-options '("--local-infile"))
+
+     (add-hook 'sql-interactive-mode-hook
+               (lambda ()
+                 (toggle-truncate-lines t)))
+   #+END_SRC
+
 * General Packages
 
 ** =ace-link=
