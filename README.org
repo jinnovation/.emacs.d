@@ -358,7 +358,6 @@
 
    #+BEGIN_SRC emacs-lisp
      (bind-keys :map global-map
-                ("C-x |"              . jjin-window-toggle-split-direction)
                 ("C-x k"              . jjin-kill-current-buffer)
 
                 ("RET"                . newline-and-indent))
@@ -374,6 +373,7 @@
      (unbind-key "<escape> <f10>")
 
      (bind-keys :map jjin-window-map
+                ("|" . jjin-window-toggle-split-direction)
                 ("v" . split-window-right)
                 ("s" . split-window-below)
                 ("j" . windmove-down)
