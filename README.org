@@ -670,11 +670,6 @@
             ("http://longform.org/feed.rss")
             ("http://feeds.feedburner.com/mcsweeneys/")
 
-            ("http://feeds.bbci.co.uk/news/world/rss.xml"                    news)
-            ("http://feeds.bbci.co.uk/news/business/rss.xml"                 news)
-            ("http://feeds.bbci.co.uk/news/technology/rss.xml"               news tech)
-            ("http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml"   news)
-
             ("http://en.boxun.com/feed/"                                     news china)
 
             ("http://feeds.99percentinvisible.org/99percentinvisible" design podcast)
@@ -683,30 +678,51 @@
 
             ("http://rss.escapistmagazine.com/news/0.xml"         entertainment videogames)
             ("http://rss.escapistmagazine.com/videos/list/1.xml"  entertainment videogames)
+            ("http://www.thejimquisition.com/feed/"               entertainment videogames)
             ("http://www.engadget.com/tag/@gaming/rss.xml"        entertainment videogames)
             ("http://feeds.feedburner.com/RockPaperShotgun"       entertainment videogames)
             ("http://screenrant.com/feed/"                        entertainment movies)
 
             ;; software
-            ("https://news.ycombinator.com/rss"                software news)
-            ("http://usesthis.com/feed/"                       software)
-            ("http://endlessparentheses.com/atom.xml"          software emacs)
-            ("http://emacshorrors.com/feed.atom"               software emacs)
-            ("http://emacsninja.com/feed.atom"                 software emacs)
-            ("http://feeds.feedburner.com/codinghorror"        software)
-            ("http://syndication.thedailywtf.com/TheDailyWtf"  software)
-            ("http://feeds.feedburner.com/thisdeveloperslife"  software)
-            ("http://feeds.feedburner.com/oreilly/news"        software)
-            ("http://www.joelonsoftware.com/rss.xml"           software)
-            ("http://onethingwell.org/rss"                     software tech)
-            ("http://syndication.thedailywtf.com/TheDailyWtf"  software)
-            ("http://githubengineering.com/atom.xml"           software tech)
+            ;; Hacker News
+            ("https://news.ycombinator.com/rss"                sw news)
+            ;; The Setup
+            ("http://usesthis.com/feed/"                       sw)
+            ("http://endlessparentheses.com/atom.xml"          sw emacs)
+            ;; Emacs Horrors
+            ("http://emacshorrors.com/feed.atom"               sw emacs)
+            ;; Emacs Ninja
+            ("http://emacsninja.com/feed.atom"                 sw emacs)
+            ;; Coding Horror
+            ("http://feeds.feedburner.com/codinghorror"        sw)
+            ;; The Daily WTF
+            ("http://syndication.thedailywtf.com/TheDailyWtf"  sw)
+            ;; This Developer's Life
+            ("http://feeds.feedburner.com/thisdeveloperslife"  sw)
+            ;; O'Reilly
+            ("http://feeds.feedburner.com/oreilly/news"        sw)
+            ;; Joel On Software
+            ("http://www.joelonsoftware.com/rss.xml"           sw)
+            ;; One Thing Well
+            ("http://onethingwell.org/rss"                     sw tech)
 
+            ;; The Daily WTF
+            ("http://syndication.thedailywtf.com/TheDailyWtf"  sw)
+            ;; Github Engineering
+            ("http://githubengineering.com/atom.xml"           sw tech)
+
+            ;; Riot Games Engineering
+            ("http://engineering.riotgames.com/news/feed"      sw tech lol)
+            ;; Google Testing Blog
+            ("http://feeds.feedburner.com/blogspot/RLXA"       sw google tech)
+
+            ;; Pando Daily
             ("http://pandodaily.com.feedsportal.com/c/35141/f/650422/index.rss"  tech)
-            ("https://medium.com/feed/backchannel"                               tech software)
-            ("http://feeds.feedburner.com/laptopmag"                             tech)
+            ;; Backchannel
+            ("https://medium.com/feed/backchannel"                               tech sw)
             ("http://recode.net/feed/"                                           tech)
             ("http://recode.net/category/reviews/feed/"                          tech)
+            ;; Android Police
             ("http://feeds.feedburner.com/AndroidPolice"                         tech android)
             ("http://bits.blogs.nytimes.com/feed/"                               tech)
 
@@ -717,14 +733,19 @@
             ("http://feeds.feedburner.com/seriouseatsfeaturesvideos"  food)
             ("http://feeds.feedburner.com/blogspot/sBff")
 
-            ("http://cube-drone.com/rss.xml"                comic software)
+            ;; Cube Drone
+            ("http://cube-drone.com/rss.xml"                comic sw)
+            ;; XKCD
             ("http://xkcd.com/rss.xml"                      comic)
-            ("http://feeds.feedburner.com/Explosm"          comic)
-            ("http://feed.dilbert.com/dilbert/daily_strip"  comic)
+            ;; Dilbert (modified for in-feed images)
+            ("http://comicfeeds.chrisbenard.net/view/dilbert/default"  comic)
+            ;; SMBC
             ("http://feeds.feedburner.com/smbc-comics/PvLb" comic)
+            ;; Questionable Content
             ("http://www.questionablecontent.net/QCRSS.xml" comic)
+            ;; PhD Comics
             ("http://phdcomics.com/gradfeed.php"            comic)
-
+            ;; Wondermark
             ("http://feeds.feedburner.com/wondermark"       comic)))
 
        (setq elfeed-max-connections 10)
