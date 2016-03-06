@@ -297,7 +297,7 @@
         (interactive)
         (if (display-graphic-p)
             (progn
-              (if (> (frame-pixel-width) 2000)
+              (if (> (x-display-pixel-width nil) 2000)
                   (set-frame-parameter nil 'font "Terminus 08")
                 (set-frame-parameter nil 'font "Terminus 04")))))
 
