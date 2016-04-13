@@ -1374,7 +1374,13 @@
    #+BEGIN_SRC emacs-lisp
      (use-package pdf-tools
        :config
-       (pdf-tools-install))
+       (pdf-tools-install)
+
+       (let ((foreground-orig (car pdf-view-midnight-colors)))
+         (setq pdf-view-midnight-colors
+               (cons foreground-orig bg-color)))
+
+       (add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode))
    #+END_SRC
 
 ** =projectile=
