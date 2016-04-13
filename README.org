@@ -185,7 +185,30 @@
                            (lambda (buf)
                              (bury-buffer buf)
                              (delete-window (get-buffer-window buf)))
-                           buffer))))
+                           buffer)))
+     (defun get-current-displays ()
+       "Get alist of attributes of displays w/ Emacs buffers."
+       (require 'cl)
+       (interactive)
+       (remove-if
+        (lambda (disp)
+          (eq nil (cdr (assoc 'frames disp))))
+        (display-monitor-attributes-list)))
+
+     (defun fontify-frame ()
+       (interactive)
+       "Adjusts frame's text size according to current display's
+     resolution. Prevents illegibly small text on high-resolution
+     displays and, similarly, impractically large text on
+     low-resolution displays."
+       ;; FIXME: assumes only one emacs frame on one disp
+       (let* ((curr-disp (car (jjin-get-current-displays)))
+              (disp-width (nth 3 (assoc 'geometry curr-disp))))
+         (if (display-graphic-p)
+             (progn
+               (if (> disp-width 2000)
+                   (set-frame-parameter nil 'font "Terminus 08")
+                 (set-frame-parameter nil 'font "Terminus 04")))))))
    #+END_SRC
 
 * General Configurations
@@ -296,16 +319,8 @@
 
       (defconst bg-color "black")
 
-      (defun fontify-frame ()
-        (interactive)
-        (if (display-graphic-p)
-            (progn
-              (if (> (x-display-pixel-width nil) 2000)
-                  (set-frame-parameter nil 'font "Terminus 08")
-                (set-frame-parameter nil 'font "Terminus 04")))))
-
-      (fontify-frame)
-      (add-hook 'focus-in-hook 'fontify-frame)
+      (jjin-fontify-frame)
+      (add-hook 'focus-in-hook 'jjin-fontify-frame)
 
       (set-background-color bg-color)
       (set-face-attribute 'fringe nil :background bg-color)
