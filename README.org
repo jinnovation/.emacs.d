@@ -569,6 +569,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package circe
+       :disabled t
        :commands (circe-chat-mode
                    circe-server-mode
                    circe-query-mode
