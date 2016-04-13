@@ -1154,9 +1154,7 @@
                ("/personal/drafts"  . ?D)
                ("/personal/archive" . ?A)))
 
-       ;; getting mail is left to other parts of the system -- specifically,
-       ;; `offlineimap' and `systemd'
-       (setq mu4e-get-mail-command "true")
+       (setq mu4e-get-mail-command "offlineimap")
 
        (setq mu4e-user-mail-address-list
              '("jjin082693@gmail.com"
