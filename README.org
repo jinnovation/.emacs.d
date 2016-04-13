@@ -423,6 +423,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package irony
+       :disabled t
        :commands irony-mode
        :init
        (add-hook 'c-mode-hook 'irony-mode)
@@ -948,6 +949,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package flycheck
+       :disabled t
        :defines flycheck-mode-hook
        :config
        (add-hook 'after-init-hook #'global-flycheck-mode))
