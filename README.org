@@ -537,8 +537,8 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package ace-link
-       :config
-       (ace-link-setup-default))
+       :commands (ace-link-eww ace-link-setup-default)
+       :init (ace-link-setup-default))
    #+END_SRC
 
 ** =ace-window=
