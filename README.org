@@ -270,6 +270,9 @@
     (setq enable-remote-dir-locals t)
 
     (add-hook 'compilation-finish-functions 'jjin-bury-compile-buffer-if-successful)
+
+    (setq custom-file "~/.emacs-custom.el")
+    (load custom-file)
   #+END_SRC
 
 ** Appearance
