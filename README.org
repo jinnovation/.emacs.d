@@ -674,7 +674,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
-       :ensure t
+       :disabled t
        :commands (elfeed-search-mode elfeed-show-mode)
        :init
        (setq elfeed-feeds
@@ -777,7 +777,10 @@
          ("e" . elfeed))
 
        :config
-       (bind-key "<SPC>" 'next-line elfeed-search-mode-map)
+       (bind-keys :map elfeed-search-mode-map
+                  ("<SPC>" . next-line)
+                  ("U"     . elfeed-unjam))
+       (bind-key "S-<SPC>" 'scroll-down-command elfeed-show-mode-map)
 
        (set-face-attribute
         'elfeed-search-unread-title-face
