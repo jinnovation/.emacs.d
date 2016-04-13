@@ -946,6 +946,7 @@
         (setq magit-log-arguments '("--graph"
                                     "--decorate"
                                     "--color"))
+
         :config
         (bind-keys :map jjin-vc-map
                    ("v" . magit-status)
@@ -1233,6 +1234,10 @@
              (error "No email account found"))))
 
        (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
+
+       (add-to-list 'mu4e-view-actions
+                    '("View in browser" . mu4e-action-view-in-browser)
+                    t)
 
        (setq mu4e-update-interval 300))
    #+END_SRC
