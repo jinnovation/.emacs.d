@@ -517,6 +517,20 @@
                  (toggle-truncate-lines t)))
    #+END_SRC
 
+** Octave
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package octave
+       :mode ("\\.m$" . octave-mode)
+       :interpreter ("octave" . octave-mode)
+       :config
+       (add-to-list 'evil-emacs-state-modes 'octave-help-mode)
+       (add-to-list 'evil-emacs-state-modes 'inferior-octave-mode)
+
+       (setq inferior-octave-prompt ">> ")
+
+       (setq inferior-octave-startup-args '("-i" "--line-editing" "-q" "--traditional")))
+   #+END_SRC
 * General Packages
 
 ** =ace-link=
