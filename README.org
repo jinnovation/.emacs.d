@@ -1406,6 +1406,14 @@
        (add-to-list 'projectile-other-file-alist
                     '("Th" "C" "T" "h"))
        :config
+       (bind-key "<f12>"
+                 (lambda ()
+                   "Save all project buffers and compile"
+                   (interactive)
+                   (projectile-save-project-buffers)
+                   (let (compilation-read-command)
+                     (projectile-compile-project nil)))
+                 projectile-mode-map)
 
        (setq projectile-enable-caching t
              projectile-completion-system 'grizzl
@@ -1583,6 +1591,7 @@
       (use-package yaml-mode
         :commands (yaml-mode))
     #+END_SRC
+
 * (Un)license
 
   #+BEGIN_SRC text :eval never
