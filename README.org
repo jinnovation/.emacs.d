@@ -862,7 +862,12 @@
             paradox-menu-mode
 
             circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
-            elfeed-search-mode elfeed-show-mode))
+            elfeed-search-mode elfeed-show-mode
+
+            ggtags-view-search-history-mode
+
+            w3m-session-select-mode
+            sql-interactive-mode))
        ;; FIXME: what's the diff between set-initial-state and adding to list directly?
        (evil-set-initial-state 'term-mode 'emacs)
        (jjin-append-to-list 'evil-insert-state-modes '(org-capture-mode))
