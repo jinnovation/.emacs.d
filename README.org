@@ -1304,7 +1304,8 @@
      (use-package org
        :ensure t
        :pin org
-       :commands (org-mode org-capture-mode)
+       :mode ("\\.org$" . org-mode)
+       :commands (org-capture)
        :init
        (setq org-agenda-files '("~/agenda")
          org-return-follows-link t
@@ -1379,6 +1380,7 @@
          'org-babel-load-languages
          '((emacs-lisp . t)
             (latex     . t)
+            (python    . t)
             (R         . t)))
 
        (setq org-confirm-babel-evaluate nil
