@@ -531,8 +531,10 @@
        :mode ("\\.m$" . octave-mode)
        :interpreter ("octave" . octave-mode)
        :config
-       (add-to-list 'evil-emacs-state-modes 'octave-help-mode)
-       (add-to-list 'evil-emacs-state-modes 'inferior-octave-mode)
+       (if (featurep 'evil)
+           (progn
+             (add-to-list 'evil-emacs-state-modes 'octave-help-mode)
+             (add-to-list 'evil-emacs-state-modes 'inferior-octave-mode)))
 
        (setq inferior-octave-prompt ">> ")
 
@@ -625,6 +627,13 @@
        (setq circe-color-nicks-everywhere t)
 
        :config
+       (if (featurep 'evil)
+           (progn
+             (add-to-list 'evil-emacs-state-modes 'circe-chat-mode)
+             (add-to-list 'evil-emacs-state-modes 'circe-server-mode)
+             (add-to-list 'evil-emacs-state-modes 'circe-query-mode)
+             (add-to-list 'evil-emacs-state-modes 'circe-channel-mode)))
+
        (add-hook 'circe-chat-mode-hook 'my-circe-prompt)
        (defun my-circe-prompt ()
          (lui-set-prompt
@@ -696,7 +705,10 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package debbugs
-       :ensure t)
+       :ensure t
+       :config
+       (if (featurep 'evil)
+           (add-to-list evil-emacs-state-modes 'debbugs-gnu-mode)))
    #+END_SRC
 
 ** =ediff=
@@ -814,6 +826,10 @@
          ("e" . elfeed))
 
        :config
+       (if (featurep 'evil)
+           (progn
+             (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+             (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)))
        (bind-keys :map elfeed-search-mode-map
                   ("<SPC>" . next-line)
                   ("U"     . elfeed-unjam))
@@ -841,6 +857,10 @@
        (setq inferior-R-args "--quiet")
 
        :config
+       (if (featurep 'evil)
+           (progn
+             (add-to-list 'evil-emacs-state-modes 'inferior-ess-mode)
+             (add-to-list 'evil-emacs-state-modes 'ess-help-mode)))
        (bind-key "C-c C-w" nil inferior-ess-mode-map))
    #+END_SRC
 
@@ -858,8 +878,6 @@
          '(eshell-mode
             calendar-mode
 
-            debbugs-gnu-mode
-
             finder-mode
             info-mode
 
@@ -870,24 +888,11 @@
             image-mode
             image-dired-thumbnail-mode
             image-dired-display-image-mode
-            pdf-view-mode
-            pdf-outline-minor-mode
 
             git-rebase-mode
 
-            inferior-ess-mode
-
             help-mode
-            ess-help-mode
 
-            paradox-menu-mode
-
-            circe-chat-mode circe-server-mode circe-query-mode circe-channel-mode
-            elfeed-search-mode elfeed-show-mode
-
-            ggtags-view-search-history-mode
-
-            w3m-session-select-mode
             sql-interactive-mode))
        ;; FIXME: what's the diff between set-initial-state and adding to list directly?
        (evil-set-initial-state 'term-mode 'emacs)
@@ -1421,6 +1426,8 @@
        :init
        (bind-key "p" 'paradox-list-packages jjin-exec-map)
        :config
+       (if (featurep 'evil)
+           (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode))
        (setq paradox-github-token t))
    #+END_SRC
 
@@ -1435,6 +1442,11 @@
        (let ((foreground-orig (car pdf-view-midnight-colors)))
          (setq pdf-view-midnight-colors
                (cons foreground-orig bg-color)))
+
+       (if (featurep 'evil)
+           (progn
+             (add-to-list 'evil-emacs-state-modes 'pdf-outline-buffer-mode)
+             (add-to-list 'evil-emacs-state-modes 'pdf-view-mode)))
 
        (add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode))
    #+END_SRC
@@ -1484,6 +1496,9 @@
        (use-package grizzl)
        (use-package ggtags
          :config
+         (if (featurep 'evil)
+             (add-to-list 'evil-emacs-state-modes 'ggtags-view-search-history-mode))
+
          (add-hook 'c-mode-hook 'ggtags-mode)
          (add-hook 'c++-mode-hook 'ggtags-mode)
          (add-hook 'java-mode-hook 'ggtags-mode)))
@@ -1605,6 +1620,9 @@
        (bind-key "w" 'w3m jjin-exec-map)
 
        :config
+       (if (featurep 'evil)
+           (add-to-list 'evil-emacs-state-modes 'w3m-session-select-mode))
+
        (unbind-key "B" w3m-mode-map)
        (bind-keys :map w3m-mode-map
                   ("P" . w3m-view-previous-page)
