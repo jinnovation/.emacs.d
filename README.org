@@ -1428,6 +1428,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package pdf-tools
+       :mode ("\\.pdf$" . pdf-view-mode)
        :config
        (pdf-tools-install)
 
