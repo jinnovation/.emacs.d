@@ -1154,18 +1154,14 @@
         mu4e-sent-folder   "/personal/sent")
 
        (defvar my-mu4e-account-alist
-         '(("okc"
-            (user-mail-address "jonathan@okcupid.com")
-            (mu4e-drafts-folder "/okc/drafts")
-            (mu4e-sent-folder   "/okc/sent")
-            (smtpmail-smtp-user "jonathan@okcupid.com"))
-           ("personal"
+         '(("personal"
             (user-mail-address "jjin082693@gmail.com")
             (mu4e-drafts-folder "/personal/drafts")
             (mu4e-sent-folder   "/personal/sent")
             (smtpmail-smtp-user "jjin082693@gmail.com"))))
 
        ;; TODO: DRY these out
+       ;; TODO: remove okc stuff
        (setq mu4e-trash-folder
              (lambda (msg)
                "Set the trash folder for MSG."
@@ -1202,12 +1198,7 @@
        (setq mu4e-sent-messages-behavior 'delete)
 
        (setq mu4e-maildir-shortcuts
-             '(("/okc/INBOX"        . ?i)
-               ("/okc/sent"         . ?s)
-               ("/okc/archive"      . ?a)
-               ("/okc/Reports"      . ?r)
-               ("/okc/Commits"      . ?c)
-               ("/personal/INBOX"   . ?I)
+             '(("/personal/INBOX"   . ?I)
                ("/personal/sent"    . ?S)
                ("/personal/drafts"  . ?D)
                ("/personal/archive" . ?A)))
@@ -1217,8 +1208,7 @@
        (setq mu4e-user-mail-address-list
              '("jjin082693@gmail.com"
                "jjin082693@uchicago.edu"
-               "jonathan@jjin.me"
-               "jonathan@okcupid.com"))
+               "jonathan@jjin.me"))
 
        (defvaralias 'mu4e-compose-signature 'message-signature)
 
@@ -1243,8 +1233,6 @@
                                "jjin082693@gmail.com")
                               ((mu4e-message-contact-field-matches msg :to "jjin082693@uchicago.edu")
                                "jjin082693@uchicago.edu")
-                              ((mu4e-message-contact-field-matches msg :to "jonathan@okcupid.com")
-                               "jonathan@okcupid.com")
                               (t "jonathan@jjin.me")))))))
 
        (use-package gnus-dired
@@ -1466,15 +1454,7 @@
                                                  "GRTAGS"
                                                  "GSYMS"
                                                  "GTAGS"))
-       ;; Tame-d + OkC files
-       (add-to-list 'projectile-other-file-alist
-                    '("T" "h" "Th" "C"))
-       (add-to-list 'projectile-other-file-alist
-                    '("h" "Th" "C" "T"))
-       (add-to-list 'projectile-other-file-alist
-                    '("C" "T" "h" "Th"))
-       (add-to-list 'projectile-other-file-alist
-                    '("Th" "C" "T" "h"))
+
        :config
        (bind-key "<f12>"
                  (lambda ()
