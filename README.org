@@ -444,6 +444,13 @@
        (add-to-list 'auto-mode-alist '("\\.clang-format$" . yaml-mode)))
    #+END_SRC
 
+** Go
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package go-mode
+       :ensure t)
+   #+END_SRC
+
 ** Lisp
 
    #+BEGIN_SRC emacs-lisp
