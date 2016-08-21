@@ -279,15 +279,6 @@
     (with-eval-after-load 'dired
       (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
-    (setq browse-url-browser-function
-          (if (browse-url-can-use-xdg-open)
-              'browse-url-xdg-open
-            'browse-url-default-browser))
-
-    ;; FIXME: regex search for chromium (some distros package the name differently)
-    (setq browse-url-generic-program (executable-find "chromium-browser")
-      shr-external-browser 'browse-url-generic)
-
     (put 'dired-find-alternate-file 'disabled nil)
 
     (setq echo-keystrokes 0)
@@ -589,6 +580,20 @@
          (toggle-read-only))
 
        (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
+   #+END_SRC
+
+** =browse-url=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package browse-url
+       :config
+       (setq browse-url-browser-function
+             (if (browse-url-can-use-xdg-open) 'browse-url-xdg-open
+               'browse-url-default-browser))
+
+       ;; FIXME: regex search for chromium (some distros package the name differently)
+       (setq browse-url-generic-program (executable-find "chromium-browser")
+             shr-external-browser 'browse-url-generic))
    #+END_SRC
 
 ** =calc=
