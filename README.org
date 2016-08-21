@@ -1236,16 +1236,10 @@
        (add-hook 'mu4e-compose-pre-hook
                  (defun my-set-from-address ()
                    "Set the From address based on the To address of the original."
-                   (let ((msg mu4e-compose-parent-message)) ;; msg is shorter...
+                   (let ((msg mu4e-compose-parent-message))
                      (when msg
-                       (setq user-mail-address
-                             (cond
-                              ;; TODO; pull from mu4e-user-mail-address-list
-                              ((mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com")
-                               "jjin082693@gmail.com")
-                              ((mu4e-message-contact-field-matches msg :to "jjin082693@uchicago.edu")
-                               "jjin082693@uchicago.edu")
-                              (t "jonathan@jjin.me")))))))
+                       (let ((addr-me (mu4e-message-contact-field-matches-me msg :to)))
+                         (setq user-mail-address (cdr addr-me)))))))
 
        (use-package gnus-dired
          :config
