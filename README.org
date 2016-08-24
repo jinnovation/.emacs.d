@@ -1074,20 +1074,18 @@
 ** =linum=
 
    #+BEGIN_SRC emacs-lisp
-     (use-package nlinum
+     (use-package linum
        :ensure t
-       :init
-       (setq linum-format 'dynamic)
        :config
-       (global-nlinum-mode 1)
+       (setq linum-format 'dynamic)
+       (global-linum-mode 1)
 
        (defconst linum-mode-whitelist
          '(prog-mode))
 
-       (defadvice nlinum-mode (around nlinum-mode-selective activate)
-         "Limits enabling of nlinum-mode to those buffers having major mode set to
-     one of listed in `linum-mode-whitelist'."
-         (require 'mode-local)
+       (defadvice linum-mode (around linum-mode-selective activate)
+         "Avoids enabling of linum-mode in the buffer having major mode set to one
+     of listed in `linum-mode-excludes'."
          (if (or (member major-mode linum-mode-whitelist)
                  (member (get-mode-local-parent major-mode) linum-mode-whitelist))
            ad-do-it))
