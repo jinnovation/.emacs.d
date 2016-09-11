@@ -19,7 +19,8 @@
 
     (setq package-archives '(("gnu"        . "http://elpa.gnu.org/packages/")
                               ("marmalade" . "http://marmalade-repo.org/packages/")
-                              ("melpa"     . "http://melpa.milkbox.net/packages/")
+                              ("melpa"     . "http://stable.melpa.org/packages/")
+                              ("melpa-unstable" . "http://melpa.org/packages/")
                               ("org"       . "http://orgmode.org/elpa/")))
 
     (package-initialize)
@@ -27,17 +28,23 @@
 
 ** Baseline packages
 
+   We use =use-package= for these configs. Check for its existence and install
+   if necessary here.
+
    #+BEGIN_SRC emacs-lisp
      (unless (package-installed-p 'use-package)
+       (package-refresh-contents)
        (package-install 'use-package))
 
      (eval-when-compile
        (require 'use-package))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp
      (use-package diminish)
 
      (use-package names
-       :ensure t
-       :pin melpa)
+       :ensure t)
    #+END_SRC
 
 ** Functions
@@ -207,7 +214,7 @@
          (if (display-graphic-p)
              (progn
                (if (> disp-width 2000)
-                   (set-frame-parameter nil 'font "Terminus 08")
+                   (set-frame-parameter nil 'font "Terminus 12")
                  (set-frame-parameter nil 'font "Terminus 04")))))))
    #+END_SRC
 
@@ -289,10 +296,12 @@
 
     (setq enable-remote-dir-locals t)
 
-    (add-hook 'compilation-finish-functions 'jjin-bury-compile-buffer-if-successful)
+    ;; (add-hook 'compilation-finish-functions 'jjin-bury-compile-buffer-if-successful)
 
-    (setq custom-file "~/.emacs-custom.el")
-    (load custom-file)
+    (if (file-exists-p "~/.emacs-custom.el")
+        (progn
+          (setq custom-file "~/.emacs-custom.el")
+          (load custom-file)))
   #+END_SRC
 
 ** Appearance
@@ -316,8 +325,7 @@
 
       (defconst bg-color "black")
 
-      (jjin-fontify-frame)
-      (add-hook 'focus-in-hook 'jjin-fontify-frame)
+      (set-frame-font "Terminus 12")
 
       (set-background-color bg-color)
       (set-face-attribute 'fringe nil :background bg-color)
@@ -335,11 +343,10 @@
 *** Mac
 
     #+BEGIN_SRC emacs-lisp
-      (defconst macosp (eq system-type 'darwin)
-        "t when system is Mac.")
-
-      (when macosp
-          (setq mac-command-modifier 'meta))
+      (when (eq system-type 'darwin)
+        (setq mac-command-modifier 'meta)
+        (setq system-uses-terminfo nil)
+        (toggle-frame-fullscreen))
     #+END_SRC
 
 * Keys
@@ -374,7 +381,6 @@
    #+BEGIN_SRC emacs-lisp
      (bind-keys :map global-map
                 ("C-x k"              . jjin-kill-current-buffer)
-
                 ("RET"                . newline-and-indent))
 
      (unbind-key "<menu>")
@@ -443,7 +449,16 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package go-mode
-       :ensure t)
+       :mode "\\.go$"
+       :ensure t
+
+       :init
+       (setq gofmt-command "goimports")
+
+       :config
+       (add-hook 'before-save-hook gofmt-before-save)
+
+       (use-package company-go))
    #+END_SRC
 
 ** Lisp
@@ -592,8 +607,12 @@
                'browse-url-default-browser))
 
        ;; FIXME: regex search for chromium (some distros package the name differently)
-       (setq browse-url-generic-program (executable-find "chromium-browser")
-             shr-external-browser 'browse-url-generic))
+       (setq browse-url-generic-program
+             (if (eq system-type 'darwin)
+                 "open"
+               (executable-find "chromium-browser")))
+       
+       (setq shr-external-browser 'browse-url-generic))
    #+END_SRC
 
 ** =calc=
@@ -703,7 +722,6 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package dired-open
-       :ensure t
        :init
        (setq dired-open-extensions '(("mp4" . "vlc")
                                      ("avi" . "vlc"))))
@@ -724,7 +742,7 @@
        :ensure t
        :config
        (if (featurep 'evil)
-           (add-to-list evil-emacs-state-modes 'debbugs-gnu-mode)))
+           (add-to-list 'evil-emacs-state-modes 'debbugs-gnu-mode)))
    #+END_SRC
 
 ** =ediff=
@@ -918,6 +936,9 @@
        (bind-keys :map evil-emacs-state-map
          ("<escape>" . evil-execute-in-normal-state))
 
+       (bind-keys :map evil-insert-state-map
+                  ("<return>" . newline-and-indent))
+
        (use-package evil-numbers
          :ensure t
          :config
@@ -926,7 +947,7 @@
            ("C-c -" . evil-numbers/dec-at-pt)))
 
        (use-package evil-search-highlight-persist
-         :ensure t
+         ;; :ensure t
          :config
          (bind-key "C-l" 'evil-search-highlight-persist-remove-all
            evil-normal-state-map)
@@ -948,6 +969,7 @@
 
        (use-package evil-surround
          :ensure t
+         :pin melpa-unstable
          :config
          (global-evil-surround-mode 1))
 
@@ -960,6 +982,7 @@
            ("c" . evilnc-copy-and-comment-lines)
            ("p" . evilnc-comment-or-uncomment-paragraphs)
            ("v" . evilnc-toggle-invert-comment-line-by-line))))
+
    #+END_SRC
 
 ** =fill-column-indicator=
@@ -1038,7 +1061,10 @@
         (defadvice magit-blame-mode (after switch-to-emacs-state activate)
           (if magit-blame-mode
               (evil-emacs-state 1)
-            (evil-normal-state 1))))
+            (evil-normal-state 1)))
+
+        (if (featurep 'evil)
+            (add-to-list 'evil-emacs-state-modes 'magit-popup-mode)))
     #+END_SRC
 
 ** =helm=
@@ -1051,9 +1077,8 @@
                ("C-x C-f" . helm-find-files)
                ("C-x b"   . helm-buffers-list))
        :init
-       (setq
-         helm-external-programs-associations '(("pdf" . "zathura"))
-         helm-split-window-in-side-p t)
+       (setq helm-external-programs-associations `(("pdf" . ,(if (eq system-type 'darwin) "open" "zathura"))))
+       (setq helm-split-window-in-side-p t)
 
        :config
        (helm-mode 1)
@@ -1097,7 +1122,6 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package fic-mode
-       :ensure t
        :commands fic-mode
        :diminish fic-mode
        :config
@@ -1142,6 +1166,9 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package mu4e
+       :load-path (lambda ()
+                    (if (eq system-type 'darwin)
+                        "/usr/local/Cellar/mu/0.9.16/share/emacs/site-lisp/mu/mu4e"))
        :commands (mu4e
                    mu4e-main-mode
                    mu4e-view-mode
@@ -1150,6 +1177,9 @@
                    mu4e-compose-mode)
        :init
        (bind-keys :map jjin-exec-map ("m" . mu4e))
+
+       (when (eq system-type 'darwin)
+         (setq mu4e-mu-binary "/usr/local/bin/mu"))
 
        :config
        ;; make sure the gnutls command line utils are installed
@@ -1173,10 +1203,14 @@
             (user-mail-address "jjin082693@gmail.com")
             (mu4e-drafts-folder "/personal/drafts")
             (mu4e-sent-folder   "/personal/sent")
-            (smtpmail-smtp-user "jjin082693@gmail.com"))))
+            (smtpmail-smtp-user "jjin082693@gmail.com"))
+           ("work"
+            (user-mail-address "jonathan.jin@uber.com")
+            (mu4e-drafts-folder "/work/drafts")
+            (mu4e-sent-folder "/work/sent")
+            (smtpmail-smtp-user "jonathan.jin@uber.com"))))
 
        ;; TODO: DRY these out
-       ;; TODO: remove okc stuff
        (setq mu4e-trash-folder
              (lambda (msg)
                "Set the trash folder for MSG."
@@ -1184,9 +1218,8 @@
                      (subject (mu4e-message-field msg :subject))
                      folder)
                  (cond
-                  ((string-match "okc" maildir)
-                   ;; FIXME: /dev/null?
-                   (setq folder "/okc/trash"))
+                  ((string-match "work" maildir)
+                   (setq folder "/work/trash"))
 
                   ((string-match "personal" maildir)
                    (setq folder "/personal/trash"))
@@ -1199,8 +1232,8 @@
                      (subject (mu4e-message-field msg :subject))
                      folder)
                  (cond
-                  ((string-match "okc" maildir)
-                   (setq folder "/okc/archive"))
+                  ((string-match "work" maildir)
+                   (setq folder "/work/archive"))
 
                   ((string-match "personal" maildir)
                    (setq folder "/personal/archive"))
@@ -1216,12 +1249,17 @@
              '(("/personal/INBOX"   . ?I)
                ("/personal/sent"    . ?S)
                ("/personal/drafts"  . ?D)
-               ("/personal/archive" . ?A)))
+               ("/personal/archive" . ?A)
+               ("/work/INBOX"   . ?i)
+               ("/work/sent"    . ?s)
+               ("/work/drafts"  . ?d)
+               ("/work/archive" . ?a)))
 
        (setq mu4e-get-mail-command "offlineimap")
 
        (setq mu4e-user-mail-address-list
              '("jjin082693@gmail.com"
+               "jonathan.jin@uber.com"
                "jjin082693@uchicago.edu"
                "jonathan@jjin.me"))
 
@@ -1292,7 +1330,7 @@
                     '("View in browser" . mu4e-action-view-in-browser)
                     t)
 
-       (setq mu4e-update-interval 300))
+       (setq mu4e-update-interval nil))
    #+END_SRC
    
 ** =org-mode=
