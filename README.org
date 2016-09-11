@@ -1170,11 +1170,11 @@
                     (if (eq system-type 'darwin)
                         "/usr/local/Cellar/mu/0.9.16/share/emacs/site-lisp/mu/mu4e"))
        :commands (mu4e
-                   mu4e-main-mode
-                   mu4e-view-mode
-                   mu4e-about-mode
-                   mu4e-headers-mode
-                   mu4e-compose-mode)
+                  mu4e-main-mode
+                  mu4e-view-mode
+                  mu4e-about-mode
+                  mu4e-headers-mode
+                  mu4e-compose-mode)
        :init
        (bind-keys :map jjin-exec-map ("m" . mu4e))
 
@@ -1198,47 +1198,6 @@
         mu4e-drafts-folder "/personal/drafts"
         mu4e-sent-folder   "/personal/sent")
 
-       (defvar my-mu4e-account-alist
-         '(("personal"
-            (user-mail-address "jjin082693@gmail.com")
-            (mu4e-drafts-folder "/personal/drafts")
-            (mu4e-sent-folder   "/personal/sent")
-            (smtpmail-smtp-user "jjin082693@gmail.com"))
-           ("work"
-            (user-mail-address "jonathan.jin@uber.com")
-            (mu4e-drafts-folder "/work/drafts")
-            (mu4e-sent-folder "/work/sent")
-            (smtpmail-smtp-user "jonathan.jin@uber.com"))))
-
-       ;; TODO: DRY these out
-       (setq mu4e-trash-folder
-             (lambda (msg)
-               "Set the trash folder for MSG."
-               (let ((maildir (mu4e-message-field msg :maildir))
-                     (subject (mu4e-message-field msg :subject))
-                     folder)
-                 (cond
-                  ((string-match "work" maildir)
-                   (setq folder "/work/trash"))
-
-                  ((string-match "personal" maildir)
-                   (setq folder "/personal/trash"))
-                 folder))))
-
-       (setq mu4e-refile-folder
-             (lambda (msg)
-               "Set the refile folder for MSG."
-               (let ((maildir (mu4e-message-field msg :maildir))
-                     (subject (mu4e-message-field msg :subject))
-                     folder)
-                 (cond
-                  ((string-match "work" maildir)
-                   (setq folder "/work/archive"))
-
-                  ((string-match "personal" maildir)
-                   (setq folder "/personal/archive"))
-                 folder))))
-
        ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
        ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
        ;; additional non-Gmail addresses and want assign them different
@@ -1257,30 +1216,16 @@
 
        (setq mu4e-get-mail-command "offlineimap")
 
-       (setq mu4e-user-mail-address-list
-             '("jjin082693@gmail.com"
-               "jonathan.jin@uber.com"
-               "jjin082693@uchicago.edu"
-               "jonathan@jjin.me"))
-
        (defvaralias 'mu4e-compose-signature 'message-signature)
 
        ;; don't keep message buffers around
        (setq message-kill-buffer-on-exit t)
 
        (setq
-         mu4e-html-renderer 'w3m
-         mu4e-html2text-command "w3m -dump -T text/html")
+        mu4e-html-renderer 'w3m
+        mu4e-html2text-command "w3m -dump -T text/html")
 
        (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
-
-       (add-hook 'mu4e-compose-pre-hook
-                 (defun my-set-from-address ()
-                   "Set the From address based on the To address of the original."
-                   (let ((msg mu4e-compose-parent-message))
-                     (when msg
-                       (let ((addr-me (mu4e-message-contact-field-matches-me msg :to)))
-                         (setq user-mail-address (cdr addr-me)))))))
 
        (use-package gnus-dired
          :config
@@ -1305,32 +1250,71 @@
 
        (setq mail-user-agent 'mu4e-user-agent)
 
-       (defun my-mu4e-set-account ()
-         "Set the account for composing a message."
-         (let* ((account
-                 (if mu4e-compose-parent-message
-                     (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
-                       (string-match "/\\(.*?\\)/" maildir)
-                       (match-string 1 maildir))
-                   (completing-read (format "Compose with account: (%s) "
-                                            (mapconcat #'(lambda (var) (car var))
-                                                       my-mu4e-account-alist "/"))
-                                    (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
-                                    nil t nil nil (caar my-mu4e-account-alist))))
-                (account-vars (cdr (assoc account my-mu4e-account-alist))))
-           (if account-vars
-               (mapc #'(lambda (var)
-                         (set (car var) (cadr var)))
-                     account-vars)
-             (error "No email account found"))))
-
-       (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
-
        (add-to-list 'mu4e-view-actions
                     '("View in browser" . mu4e-action-view-in-browser)
                     t)
+       (add-to-list 'mu4e-view-actions
+                    '("Capture message" . mu4e-action-capture-message)
+                    t)
 
-       (setq mu4e-update-interval nil))
+       (setq mu4e-update-interval nil)
+       (setq mu4e-headers-skip-duplicates t)
+
+       (defun mu4e-message-maildir-matches (msg rx)
+         (when rx
+           (if (listp rx)
+               ;; if rx is a list, try each one for a match
+               (or (mu4e-message-maildir-matches msg (car rx))
+                   (mu4e-message-maildir-matches msg (cdr rx)))
+             ;; not a list, check rx
+             (string-match rx (mu4e-message-field msg :maildir)))))
+
+       (setq mu4e-contexts
+             `(,(make-mu4e-context
+                 :name "Personal"
+                 :enter-func
+                 (lambda ()
+                   (mu4e-message "Enter context: Personal"))
+                 :match-func
+                 (lambda (msg)
+                   (when msg
+                     (or
+                      (mu4e-message-maildir-matches msg "^/personal")
+                      (mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com"))))
+                 :vars '((user-mail-address . "jjin082693@gmail.com")
+                         (smtpmail-smtp-user . "jjin082693@gmail.com")
+                         (user-full-name . "Jonathan Jin")
+                         (mu4e-trash-folder . "/personal/trash")
+                         (mu4e-refile-folder . "/personal/archive")))
+               ,(make-mu4e-context
+                 :name "Work"
+                 :enter-func
+                 (lambda ()
+                   (mu4e-message "Enter context: Work"))
+                 :match-func
+                 (lambda (msg)
+                   (when msg
+                     (or
+                      (mu4e-message-maildir-matches msg "^/work")
+                      (mu4e-message-contact-field-matches msg :to '("jonathan.jin@uber.com" "@uber.com$")))))
+                 :vars '((user-mail-address . "jonathan.jin@uber.com")
+                         (smtpmail-smtp-user . "jonathan.jin@uber.com")
+                         (user-full-name . "Jonathan Jin")
+                         (mu4e-trash-folder . "/work/trash")
+                         (mu4e-refile-folder . "/work/archive")))))
+
+       (setq mu4e-compose-context-policy 'ask)
+
+       ;; Sets `mu4e-user-mail-address-list' to the concatenation of all
+       ;; `user-mail-address' values for all contexts. If you have other mail
+       ;; addresses as well, you'll need to add those manually.
+       (setq mu4e-user-mail-address-list
+             (delq nil
+                   (mapcar (lambda (context)
+                             (when (mu4e-context-vars context)
+                               (cdr (assq 'user-mail-address (mu4e-context-vars context)))))
+                           mu4e-contexts))))
+
    #+END_SRC
    
 ** =org-mode=
