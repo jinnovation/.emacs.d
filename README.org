@@ -227,9 +227,6 @@
 
     (setq large-file-warning-threshold nil)
 
-    (defun display-startup-echo-area-message ()
-      (message "Happy hacking."))
-
     (setq
       user-mail-address "jjin082693@gmail.com"
       user-full-name  "Jonathan Jin"
