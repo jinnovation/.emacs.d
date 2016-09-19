@@ -109,19 +109,6 @@
        (interactive)
        (other-window -1))
 
-     (defun append-to-list (list-var elements)
-
-       "Append ELEMENTS to the end of LIST-VAR.
-
-     The return value is the new value of LIST-VAR."
-       (unless (consp elements)
-         (error "ELEMENTS must be a list"))
-       (let ((list (symbol-value list-var)))
-         (if list
-             (setcdr (last list) elements)
-           (set list-var elements)))
-       (symbol-value list-var))
-
      ;; credit: https://gist.github.com/mads379/3402786
      ;; TODO: modeline indication
      ;; TODO: if maximized, prevent other window splitting (use minor mode?)
@@ -906,7 +893,7 @@
        (setq evil-esc-delay 0)
 
        :config
-       (jjin-append-to-list 'evil-emacs-state-modes
+       (mapc (lambda (m) (add-to-list 'evil-emacs-state-modes m t))
          '(eshell-mode
             calendar-mode
 
@@ -925,10 +912,10 @@
 
             help-mode
 
-            sql-interactive-mode))
+            sql-interactive-mode
+            org-capture-mode))
        ;; FIXME: what's the diff between set-initial-state and adding to list directly?
        (evil-set-initial-state 'term-mode 'emacs)
-       (jjin-append-to-list 'evil-insert-state-modes '(org-capture-mode))
 
        (bind-keys :map evil-emacs-state-map
          ("<escape>" . evil-execute-in-normal-state))
