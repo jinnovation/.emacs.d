@@ -216,12 +216,7 @@
 
     (setq
       user-mail-address "jjin082693@gmail.com"
-      user-full-name  "Jonathan Jin"
-
-      message-signature
-      (concat "Jonathan Jin\n"
-              "github.com/jinnovation\n"
-              "jjin.me\n"))
+      user-full-name  "Jonathan Jin")
 
     (setq
       inhibit-startup-screen t
@@ -1200,8 +1195,6 @@
 
        (setq mu4e-get-mail-command "offlineimap")
 
-       (defvaralias 'mu4e-compose-signature 'message-signature)
-
        ;; don't keep message buffers around
        (setq message-kill-buffer-on-exit t)
 
@@ -1266,6 +1259,7 @@
                       (mu4e-message-maildir-matches msg "^/personal")
                       (mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com"))))
                  :vars '((user-mail-address . "jjin082693@gmail.com")
+                         (mu4e-compose-signature . "Jonathan Jin")
                          (smtpmail-smtp-user . "jjin082693@gmail.com")
                          (user-full-name . "Jonathan Jin")
                          (mu4e-trash-folder . "/personal/trash")
@@ -1281,7 +1275,9 @@
                      (or
                       (mu4e-message-maildir-matches msg "^/work")
                       (mu4e-message-contact-field-matches msg :to '("jonathan.jin@uber.com" "@uber.com$")))))
-                 :vars '((user-mail-address . "jonathan.jin@uber.com")
+                 :vars `((user-mail-address . "jonathan.jin@uber.com")
+                         (mu4e-compose-signature . ,(concat "Jonathan Jin\n"
+                                                            "Software Engineer, Observability Applications"))
                          (smtpmail-smtp-user . "jonathan.jin@uber.com")
                          (user-full-name . "Jonathan Jin")
                          (mu4e-trash-folder . "/work/trash")
