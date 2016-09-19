@@ -328,6 +328,16 @@
         (toggle-frame-fullscreen))
     #+END_SRC
 
+** Server
+
+   Make sure =EDITOR= and/or =VISUAL= is/are set to =emacsclient=.
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package server
+       :config
+       (unless (server-running-p) (server-start)))
+   #+END_SRC
+
 * Keys
 
 ** Personal maps
@@ -524,6 +534,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package octave
+       :disabled t
        :mode ("\\.m$" . octave-mode)
        :interpreter ("octave" . octave-mode)
        :config
@@ -555,8 +566,10 @@
        (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
 
        :config
-       (add-to-list 'aw-ignored-buffers "mu4e-update")
-       (bind-key "w" 'ace-window jjin-window-map))
+       (bind-key "w" 'ace-window jjin-window-map)
+       ;; technically should be able to use mu4e~update-name but for whatever reason
+       ;; the mu4e update index function uses the hardcoded string w/ space padding.
+       (add-to-list 'aw-ignored-buffers " *mu4e-update*"))
    #+END_SRC
 
 ** =ansi-color=
@@ -606,7 +619,6 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package circe
-       :disabled t
        :commands (circe-chat-mode
                    circe-server-mode
                    circe-query-mode
@@ -623,6 +635,7 @@
          circe-reduce-lurker-spam t)
 
        (setq circe-network-options
+             ;; FIXME: needs to be backtick
          '(("Freenode"
              :nick "jjin"
              :channels ("#emacs" "#archlinux")
@@ -926,7 +939,7 @@
            ("C-c -" . evil-numbers/dec-at-pt)))
 
        (use-package evil-search-highlight-persist
-         ;; :ensure t
+         :ensure t
          :config
          (bind-key "C-l" 'evil-search-highlight-persist-remove-all
            evil-normal-state-map)
@@ -938,13 +951,6 @@
            :background (face-attribute 'match :background)))
 
        (evil-mode 1)
-
-       (use-package evil-leader
-         :disabled t
-         :ensure t
-         :config
-         (evil-leader/set-leader "<SPC>")
-         (global-evil-leader-mode))
 
        (use-package evil-surround
          :ensure t
@@ -987,6 +993,11 @@
    #+END_SRC
 
 ** Git
+
+   #+BEGIN_SRC emacs-lisp
+     (bind-keys :map jjin-vc-map
+                ("g" . vc-git-grep))
+   #+END_SRC
 
 *** =git-commit-mode=
 
@@ -1061,7 +1072,10 @@
 
        :config
        (helm-mode 1)
-       (helm-autoresize-mode t))
+       (helm-autoresize-mode t)
+
+       (bind-keys :map jjin-vc-map
+                  ("g" . helm-grep-do-git-grep)))
 
      (use-package helm-projectile
        :ensure t
@@ -1086,6 +1100,8 @@
 
        (defconst linum-mode-whitelist
          '(prog-mode))
+
+       (require 'mode-local)
 
        (defadvice linum-mode (around linum-mode-selective activate)
          "Avoids enabling of linum-mode in the buffer having major mode set to one
@@ -1157,10 +1173,10 @@
        :init
        (bind-keys :map jjin-exec-map ("m" . mu4e))
 
+       :config
        (when (eq system-type 'darwin)
          (setq mu4e-mu-binary "/usr/local/bin/mu"))
 
-       :config
        ;; make sure the gnutls command line utils are installed
        ;; (require 'smtpmail)
 
@@ -1406,7 +1422,7 @@
          org-default-notes-file "~/agenda/notes.org"
 
          org-capture-templates
-         '(("r" "Reading" entry (file "~/agenda/reading.org")
+         '(("r" "Reading" entry (file "~/proj/lists/read.org")
              "* TODO %?\n  Entered on %U\n  %i")))
 
        (setq org-refile-targets '((nil . (:maxlevel . 10))))
@@ -1488,7 +1504,6 @@
        (setq projectile-mode-line "Projectile")
        (add-to-list 'projectile-globally-ignored-modes "term-mode")
 
-       (use-package grizzl)
        (use-package ggtags
          :config
          (with-eval-after-load 'evil
@@ -1635,6 +1650,8 @@
     #+BEGIN_SRC emacs-lisp
       (use-package markdown-mode
         :mode "\\.md$"
+        :init
+        (setq markdown-asymmetric-header t)
         :config
         (add-hook 'markdown-mode-hook 'auto-fill-mode)
         (add-hook 'markdown-mode-hook 'fic-mode)
@@ -1658,7 +1675,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package yaml-mode
-        :commands (yaml-mode))
+        :mode "\\.yaml$")
     #+END_SRC
 
 * (Un)license
