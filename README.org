@@ -548,7 +548,7 @@
        :mode ("\\.m$" . octave-mode)
        :interpreter ("octave" . octave-mode)
        :config
-       (if (featurep 'evil)
+       (with-eval-after-load 'evil
            (progn
              (add-to-list 'evil-emacs-state-modes 'octave-help-mode)
              (add-to-list 'evil-emacs-state-modes 'inferior-octave-mode)))
@@ -662,7 +662,7 @@
        (setq circe-color-nicks-everywhere t)
 
        :config
-       (if (featurep 'evil)
+       (with-eval-after-load 'evil
            (progn
              (add-to-list 'evil-emacs-state-modes 'circe-chat-mode)
              (add-to-list 'evil-emacs-state-modes 'circe-server-mode)
@@ -741,7 +741,7 @@
      (use-package debbugs
        :ensure t
        :config
-       (if (featurep 'evil)
+       (with-eval-after-load 'evil
            (add-to-list 'evil-emacs-state-modes 'debbugs-gnu-mode)))
    #+END_SRC
 
@@ -860,7 +860,7 @@
          ("e" . elfeed))
 
        :config
-       (if (featurep 'evil)
+       (with-eval-after-load 'evil
            (progn
              (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
              (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)))
@@ -891,7 +891,7 @@
        (setq inferior-R-args "--quiet")
 
        :config
-       (if (featurep 'evil)
+       (with-eval-after-load 'evil
            (progn
              (add-to-list 'evil-emacs-state-modes 'inferior-ess-mode)
              (add-to-list 'evil-emacs-state-modes 'ess-help-mode)))
@@ -1063,7 +1063,7 @@
               (evil-emacs-state 1)
             (evil-normal-state 1)))
 
-        (if (featurep 'evil)
+        (with-eval-after-load 'evil
             (add-to-list 'evil-emacs-state-modes 'magit-popup-mode)))
     #+END_SRC
 
@@ -1447,7 +1447,7 @@
        :init
        (bind-key "p" 'paradox-list-packages jjin-exec-map)
        :config
-       (if (featurep 'evil)
+       (with-eval-after-load 'evil
            (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode))
        (setq paradox-github-token t))
    #+END_SRC
@@ -1464,7 +1464,7 @@
          (setq pdf-view-midnight-colors
                (cons foreground-orig bg-color)))
 
-       (if (featurep 'evil)
+       (with-eval-after-load 'evil
            (progn
              (add-to-list 'evil-emacs-state-modes 'pdf-outline-buffer-mode)
              (add-to-list 'evil-emacs-state-modes 'pdf-view-mode)))
@@ -1496,9 +1496,11 @@
                      (projectile-compile-project nil)))
                  projectile-mode-map)
 
-       (setq projectile-enable-caching t
-             projectile-completion-system 'grizzl
-             projectile-switch-project-action 'helm-projectile)
+       (setq projectile-enable-caching t)
+
+       (with-eval-after-load 'helm
+           (setq projectile-completion-system 'helm
+                 projectile-switch-project-action 'helm-projectile))
 
        (projectile-global-mode)
 
@@ -1509,7 +1511,7 @@
        (use-package grizzl)
        (use-package ggtags
          :config
-         (if (featurep 'evil)
+         (with-eval-after-load 'evil
              (add-to-list 'evil-emacs-state-modes 'ggtags-view-search-history-mode))
 
          (add-hook 'c-mode-hook 'ggtags-mode)
@@ -1633,7 +1635,7 @@
        (bind-key "w" 'w3m jjin-exec-map)
 
        :config
-       (if (featurep 'evil)
+       (with-eval-after-load 'evil
            (add-to-list 'evil-emacs-state-modes 'w3m-session-select-mode))
 
        (unbind-key "B" w3m-mode-map)
