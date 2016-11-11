@@ -18,9 +18,8 @@
     (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
 
     (setq package-archives '(("gnu"        . "http://elpa.gnu.org/packages/")
-                              ("marmalade" . "http://marmalade-repo.org/packages/")
-                              ("melpa"     . "http://stable.melpa.org/packages/")
-                              ("melpa-unstable" . "http://melpa.org/packages/")
+                              ("melpa-stable"     . "http://stable.melpa.org/packages/")
+                              ("melpa" . "http://melpa.org/packages/")
                               ("org"       . "http://orgmode.org/elpa/")))
 
     (package-initialize)
@@ -333,9 +332,9 @@
    Make sure =EDITOR= and/or =VISUAL= is/are set to =emacsclient=.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package server
-       :config
-       (unless (server-running-p) (server-start)))
+     ;; (use-package server
+     ;;   :config
+     ;;   (unless (server-running-p) (server-start)))
    #+END_SRC
 
 * Keys
@@ -363,6 +362,9 @@
 
      (define-prefix-command 'jjin-buffer-map)
      (bind-key "C-c b" 'jjin-buffer-map)
+
+     (define-prefix-command 'jjin-mail-map)
+     (bind-key "C-c m" 'jjin-mail-map)
    #+END_SRC
 
 ** Keybindings
@@ -445,7 +447,7 @@
        (setq gofmt-command "goimports")
 
        :config
-       (add-hook 'before-save-hook gofmt-before-save)
+       (add-hook 'before-save-hook 'gofmt-before-save)
 
        (use-package company-go))
    #+END_SRC
@@ -463,9 +465,13 @@
      (defvaralias 'js-indent-level 'tab-width)
 
      (use-package js2-mode
-       :mode "\\.js$"
+       :mode (("\\.js$" . js2-mode)
+              ("\\.jsx$" . js2-jsx-mode))
        :ensure t)
+
    #+END_SRC
+
+** Java
 
 ** LaTeX
 
@@ -603,7 +609,7 @@
              (if (eq system-type 'darwin)
                  "open"
                (executable-find "chromium-browser")))
-       
+
        (setq shr-external-browser 'browse-url-generic))
    #+END_SRC
 
@@ -691,7 +697,7 @@
          ("\\.slice\\'"      . conf-unix-mode)
          ("\\.socket\\'"     . conf-unix-mode)
          ("\\.path\\'"       . conf-unix-mode)
-         
+
          ;; general
          ("conf\\(ig\\)?$"   . conf-mode)
          ("rc$"              . conf-mode)))
@@ -954,7 +960,7 @@
 
        (use-package evil-surround
          :ensure t
-         :pin melpa-unstable
+         :pin melpa-stable
          :config
          (global-evil-surround-mode 1))
 
@@ -1169,9 +1175,11 @@
                   mu4e-view-mode
                   mu4e-about-mode
                   mu4e-headers-mode
-                  mu4e-compose-mode)
+                  mu4e-compose-mode
+                  mu4e-update-mail-and-index)
        :init
        (bind-keys :map jjin-exec-map ("m" . mu4e))
+       (bind-keys :map jjin-mail-map ("m" . mu4e-update-mail-and-index))
 
        :config
        (when (eq system-type 'darwin)
@@ -1215,6 +1223,9 @@
        (setq message-kill-buffer-on-exit t)
 
        (setq
+        ;; FIXME: if w3m not installed:
+        ;; - log it
+        ;; - leave as default
         mu4e-html-renderer 'w3m
         mu4e-html2text-command "w3m -dump -T text/html")
 
@@ -1252,6 +1263,7 @@
 
        (setq mu4e-update-interval nil)
        (setq mu4e-headers-skip-duplicates t)
+       (setq mu4e-view-show-images t)
 
        (defun mu4e-message-maildir-matches (msg rx)
          (when rx
@@ -1312,7 +1324,7 @@
                            mu4e-contexts))))
 
    #+END_SRC
-   
+
 ** =org-mode=
 
    #+BEGIN_SRC emacs-lisp
@@ -1446,6 +1458,7 @@
        (with-eval-after-load 'evil
            (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode))
        (setq paradox-github-token t))
+
    #+END_SRC
 
 ** =pdf-tools=
