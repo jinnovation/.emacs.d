@@ -17,10 +17,10 @@
   #+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
 
-    (setq package-archives '(("gnu"        . "http://elpa.gnu.org/packages/")
-                              ("melpa-stable"     . "http://stable.melpa.org/packages/")
-                              ("melpa" . "http://melpa.org/packages/")
-                              ("org"       . "http://orgmode.org/elpa/")))
+    (setq package-archives '(("gnu"           . "http://elpa.gnu.org/packages/")
+                              ("melpa-stable" . "http://stable.melpa.org/packages/")
+                              ("melpa"        . "http://melpa.org/packages/")
+                              ("org"          . "http://orgmode.org/elpa/")))
 
     (package-initialize)
   #+END_SRC
@@ -119,10 +119,6 @@
          (progn
            (window-configuration-to-register '_)
            (delete-other-windows))))
-
-     (defun redefine-key (map key-old key-new)
-       (define-key map key-new (lookup-key map key-old))
-       (define-key map key-old nil))
 
      ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
      (defun move-splitter-left (arg)
@@ -255,7 +251,6 @@
 
     (delete-selection-mode +1)
 
-    ;; highlights strings like TODO, FIXME, etc.
     (add-hook 'prog-mode-hook 'turn-on-auto-fill)
     (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
@@ -274,11 +269,10 @@
 
     (setq enable-remote-dir-locals t)
 
-    ;; (add-hook 'compilation-finish-functions 'jjin-bury-compile-buffer-if-successful)
-
-    (if (file-exists-p "~/.emacs-custom.el")
+    (defconst custom-file-path "~/.emacs-custom.el")
+    (if (file-exists-p custom-file-path)
         (progn
-          (setq custom-file "~/.emacs-custom.el")
+          (setq custom-file custom-file-path)
           (load custom-file)))
   #+END_SRC
 
@@ -406,6 +400,14 @@
    #+END_SRC
 
 * Development Environments
+
+
+** General Style
+
+   #+BEGIN_SRC emacs-lisp
+     (c-set-offset 'arglist-intro '+)
+     (c-set-offset 'arglist-close 0)
+   #+END_SRC
 
 ** C/C++
 
@@ -536,11 +538,18 @@
                  (toggle-truncate-lines t)))
    #+END_SRC
 
+** Thrift
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package thrift
+       :config
+       (setq thrift-indent-level 4))
+   #+END_SRC
+
 ** Octave
 
    #+BEGIN_SRC emacs-lisp
      (use-package octave
-       :disabled t
        :mode ("\\.m$" . octave-mode)
        :interpreter ("octave" . octave-mode)
        :config
@@ -985,7 +994,7 @@
        :init
        (add-hook 'prog-mode-hook 'turn-on-fci-mode)
        (add-hook 'text-mode-hook 'turn-on-fci-mode)
-       (setq fci-rule-color (face-attribute 'hl-line :background)))
+       (setq fci-rule-color (face-attribute 'highlight :background)))
    #+END_SRC
 
 ** =flycheck=
@@ -1291,6 +1300,7 @@
                          (smtpmail-smtp-user . "jjin082693@gmail.com")
                          (user-full-name . "Jonathan Jin")
                          (mu4e-trash-folder . "/personal/trash")
+                         (mu4e-drafts-folder . "/personal/drafts")
                          (mu4e-refile-folder . "/personal/archive")))
                ,(make-mu4e-context
                  :name "Work"
@@ -1305,10 +1315,12 @@
                       (mu4e-message-contact-field-matches msg :to '("jonathan.jin@uber.com" "@uber.com$")))))
                  :vars `((user-mail-address . "jonathan.jin@uber.com")
                          (mu4e-compose-signature . ,(concat "Jonathan Jin\n"
-                                                            "Software Engineer, Observability Applications"))
+                                                            "Software Engineer, Observability Applications\n"
+                                                            "t.uber.com/jonathan.jin/filememos"))
                          (smtpmail-smtp-user . "jonathan.jin@uber.com")
                          (user-full-name . "Jonathan Jin")
                          (mu4e-trash-folder . "/work/trash")
+                         (mu4e-drafts-folder . "/work/drafts")
                          (mu4e-refile-folder . "/work/archive")))))
 
        (setq mu4e-compose-context-policy 'ask)
@@ -1321,7 +1333,9 @@
                    (mapcar (lambda (context)
                              (when (mu4e-context-vars context)
                                (cdr (assq 'user-mail-address (mu4e-context-vars context)))))
-                           mu4e-contexts))))
+                           mu4e-contexts)))
+
+       (setq mu4e-view-show-addresses t))
 
    #+END_SRC
 
@@ -1408,7 +1422,8 @@
          '((emacs-lisp . t)
             (latex     . t)
             (python    . t)
-            (R         . t)))
+            (R         . t)
+            (sh        . t)))
 
        (setq org-confirm-babel-evaluate nil
          org-export-babel-evaluate nil)
