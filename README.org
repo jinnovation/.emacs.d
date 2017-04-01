@@ -281,11 +281,18 @@
 *** Themes
 
     #+BEGIN_SRC emacs-lisp
+
       (use-package gotham-theme
+        :if window-system
+        :disabled t
+        :config
+        (load-theme 'gotham t)) 
+
+      (use-package nord-theme
         :if window-system
         :ensure t
         :config
-        (load-theme 'gotham t))
+        (load-theme 'nord t))
     #+END_SRC
 
 *** General
@@ -295,12 +302,7 @@
 
       (setq custom-safe-themes t)
 
-      (defconst bg-color "black")
-
       (set-frame-font "Terminus 12")
-
-      (set-background-color bg-color)
-      (set-face-attribute 'fringe nil :background bg-color)
 
       (when (functionp 'set-fontset-font)
         (set-fontset-font "fontset-default"
@@ -1123,9 +1125,7 @@
      of listed in `linum-mode-excludes'."
          (if (or (member major-mode linum-mode-whitelist)
                  (member (get-mode-local-parent major-mode) linum-mode-whitelist))
-           ad-do-it))
-
-       (set-face-attribute 'linum nil :background bg-color))
+           ad-do-it)))
    #+END_SRC
 
 ** =fic-mode=
@@ -1486,7 +1486,7 @@
 
        (let ((foreground-orig (car pdf-view-midnight-colors)))
          (setq pdf-view-midnight-colors
-               (cons foreground-orig bg-color)))
+               (cons foreground-orig "black")))
 
        (with-eval-after-load 'evil
            (progn
@@ -1574,8 +1574,9 @@
    #+BEGIN_SRC emacs-lisp
      (use-package smart-mode-line
        :ensure t
+       :init
+       (setq sml/theme 'respectful)
        :config
-       ;; smart-mode-line initialize
        (sml/setup)
        (smart-mode-line-enable))
    #+END_SRC
