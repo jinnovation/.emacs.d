@@ -1285,10 +1285,7 @@
 
        (setq mu4e-contexts
              `(,(make-mu4e-context
-                 :name "Personal"
-                 :enter-func
-                 (lambda ()
-                   (mu4e-message "Enter context: Personal"))
+                 :name "personal"
                  :match-func
                  (lambda (msg)
                    (when msg
@@ -1303,17 +1300,14 @@
                          (mu4e-drafts-folder . "/personal/drafts")
                          (mu4e-refile-folder . "/personal/archive")))
                ,(make-mu4e-context
-                 :name "Work"
-                 :enter-func
-                 (lambda ()
-                   (mu4e-message "Enter context: Work"))
+                 :name "work"
                  :match-func
                  (lambda (msg)
                    (when msg
                      (or
                       (mu4e-message-maildir-matches msg "^/work")
                       (mu4e-message-contact-field-matches msg :to '("jonathan.jin@uber.com" "@uber.com$")))))
-                 :vars `((user-mail-address . "jonathan.jin@uber.com")
+                 :vars '((user-mail-address . "jonathan.jin@uber.com")
                          (mu4e-compose-signature . ,(concat "Jonathan Jin\n"
                                                             "Software Engineer, Observability Applications\n"
                                                             "t.uber.com/jonathan.jin/filememos"))
