@@ -561,6 +561,7 @@
              (add-to-list 'evil-emacs-state-modes 'inferior-octave-mode)))
 
        (setq inferior-octave-prompt ">> ")
+       (setq inferior-octave-dynamic-complete-functions '(comint-filename-completion))
 
        (setq inferior-octave-startup-args '("-i" "--line-editing" "-q" "--traditional")))
    #+END_SRC
@@ -1480,14 +1481,12 @@
 
        (let ((foreground-orig (car pdf-view-midnight-colors)))
          (setq pdf-view-midnight-colors
-               (cons foreground-orig "black")))
+               (cons "white" "black")))
 
        (with-eval-after-load 'evil
            (progn
              (add-to-list 'evil-emacs-state-modes 'pdf-outline-buffer-mode)
-             (add-to-list 'evil-emacs-state-modes 'pdf-view-mode)))
-
-       (add-hook 'pdf-view-mode-hook 'pdf-view-midnight-minor-mode))
+             (add-to-list 'evil-emacs-state-modes 'pdf-view-mode))))
    #+END_SRC
 
 ** =projectile=
