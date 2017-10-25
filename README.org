@@ -5,12 +5,12 @@
 [[http://img.shields.io/:license-unlicense-blue.svg]]
 
 * Table of Contents                                                  :TOC:TOC_1:
- - [[#preamble][Preamble]]
- - [[#general-configurations][General Configurations]]
- - [[#keys][Keys]]
- - [[#development-environments][Development Environments]]
- - [[#general-packages][General Packages]]
- - [[#unlicense][(Un)license]]
+- [[#preamble][Preamble]]
+- [[#general-configurations][General Configurations]]
+- [[#keys][Keys]]
+- [[#development-environments][Development Environments]]
+- [[#general-packages][General Packages]]
+- [[#unlicense][(Un)license]]
 
 * Preamble
 
@@ -453,7 +453,9 @@
        :config
        (add-hook 'before-save-hook 'gofmt-before-save)
 
-       (use-package company-go))
+       (use-package company-go)
+       (use-package go-guru))
+
    #+END_SRC
 
 ** Lisp
@@ -544,8 +546,12 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package thrift
+
        :config
-       (setq thrift-indent-level 4))
+       (add-hook 'thrift-mode-hook
+                 (lambda ()
+                   (setq comment-start "//")
+                   (setq comment-end ""))))
    #+END_SRC
 
 ** Octave
@@ -560,11 +566,21 @@
              (add-to-list 'evil-emacs-state-modes 'octave-help-mode)
              (add-to-list 'evil-emacs-state-modes 'inferior-octave-mode)))
 
+       (setq inferior-octave-program "octave-cli")
        (setq inferior-octave-prompt ">> ")
        (setq inferior-octave-dynamic-complete-functions '(comint-filename-completion))
 
        (setq inferior-octave-startup-args '("-i" "--line-editing" "-q" "--traditional")))
    #+END_SRC
+
+** Matlab
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package matlab
+       :init
+       (setq matlab-shell-command-switches '("-nodesktop")))
+   #+END_SRC
+
 * General Packages
 
 ** =ace-link=
@@ -1092,6 +1108,12 @@
        (helm-mode 1)
        (helm-autoresize-mode t)
 
+       (defvar helm-source-file-not-found
+         (helm-build-dummy-source
+             "Create file"
+           :action
+           (lambda (c) (find-file c))))
+
        (bind-keys :map jjin-vc-map
                   ("g" . helm-grep-do-git-grep)))
 
@@ -1104,7 +1126,9 @@
                   ("f"   . helm-projectile-find-file)
                   ("F"   . helm-projectile-find-file-in-known-projects)
                   ("s s" . helm-projectile-ag)
-                  ("s g" . helm-projectile-grep)))
+                  ("s g" . helm-projectile-grep))
+
+       (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
    #+END_SRC
 
 ** =linum=
@@ -1308,7 +1332,7 @@
                      (or
                       (mu4e-message-maildir-matches msg "^/work")
                       (mu4e-message-contact-field-matches msg :to '("jonathan.jin@uber.com" "@uber.com$")))))
-                 :vars '((user-mail-address . "jonathan.jin@uber.com")
+                 :vars `((user-mail-address . "jonathan.jin@uber.com")
                          (mu4e-compose-signature . ,(concat "Jonathan Jin\n"
                                                             "Software Engineer, Observability Applications\n"
                                                             "t.uber.com/jonathan.jin/filememos"))
@@ -1418,7 +1442,9 @@
             (latex     . t)
             (python    . t)
             (R         . t)
-            (sh        . t)))
+            (octave    . t)
+            (matlab    . t)
+            (shell     . t)))
 
        (setq org-confirm-babel-evaluate nil
          org-export-babel-evaluate nil)
@@ -1426,8 +1452,7 @@
        (setq org-latex-minted-options
          '(("linenos" "true")
             ("fontsize" "\\scriptsize")
-            ("frame" "lines")
-            ("bgcolor" "LightGray")))
+            ("frame" "lines")))
 
        (setq org-export-latex-hyperref-format "\\ref{%s}")
 
@@ -1501,7 +1526,8 @@
                                                  "GPATH"
                                                  "GRTAGS"
                                                  "GSYMS"
-                                                 "GTAGS"))
+                                                 "GTAGS")
+             projectile-globally-ignored-file-suffixes '("~"))
 
        :config
        (bind-key "<f12>"
