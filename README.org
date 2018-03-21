@@ -216,7 +216,7 @@
     (setq
       inhibit-startup-screen t
       inhibit-startup-message t
-      initial-scratch-message ""
+      initial-scratch-message nil
       visible-bell t
       use-dialog-box nil)
 
@@ -233,10 +233,12 @@
 
     (fset 'yes-or-no-p 'y-or-n-p)
 
-    (tool-bar-mode     0)
-    (scroll-bar-mode   0)
-    (menu-bar-mode     0)
-    (line-number-mode  0)
+    (if window-system
+        (progn
+          (tool-bar-mode     0)
+          (scroll-bar-mode   0)
+          (menu-bar-mode     0)
+          (line-number-mode  0)))
 
     (blink-cursor-mode 0)
 
@@ -276,6 +278,15 @@
           (load custom-file)))
   #+END_SRC
 
+** Scratch Org-mode
+
+   I spend more time in Org-mode than I do writing Elisp.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq initial-major-mode 'org-mode)
+   #+END_SRC
+
+   
 ** Appearance
 
 *** Themes
@@ -333,6 +344,15 @@
      ;;   (unless (server-running-p) (server-start)))
    #+END_SRC
 
+** Final
+
+   We set these parameters after visual environment has finished configuration,
+   since some settings, e.g. that for =split-width-threshold=, are dependent.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq split-width-threshold (* 0.8 (frame-width)))
+   #+END_SRC
+   
 * Keys
 
 ** Personal maps
@@ -455,7 +475,6 @@
 
        (use-package company-go)
        (use-package go-guru))
-
    #+END_SRC
 
 ** Lisp
@@ -579,6 +598,14 @@
      (use-package matlab
        :init
        (setq matlab-shell-command-switches '("-nodesktop")))
+   #+END_SRC
+
+** Python
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package pyvenv)
+
+     (use-package ob-ipython)
    #+END_SRC
 
 * General Packages
@@ -747,6 +774,8 @@
 ** =dired=
 
    #+BEGIN_SRC emacs-lisp
+     (setq dired-listing-switches "-alh")
+
      (use-package dired-open
        :init
        (setq dired-open-extensions '(("mp4" . "vlc")
@@ -1102,7 +1131,7 @@
                ("C-x b"   . helm-buffers-list))
        :init
        (setq helm-external-programs-associations `(("pdf" . ,(if (eq system-type 'darwin) "open" "zathura"))))
-       (setq helm-split-window-in-side-p t)
+       (setq helm-split-window-inside-p t)
 
        :config
        (helm-mode 1)
@@ -1116,6 +1145,13 @@
 
        (bind-keys :map jjin-vc-map
                   ("g" . helm-grep-do-git-grep)))
+
+     (use-package helm-make
+       :ensure t
+       :commands helm-make-projectile
+       :init
+       (setq helm-make-cache-targets t)
+       (setq helm-make-list-target-method 'qp))
 
      (use-package helm-projectile
        :ensure t
@@ -1355,7 +1391,6 @@
                            mu4e-contexts)))
 
        (setq mu4e-view-show-addresses t))
-
    #+END_SRC
 
 ** =org-mode=
@@ -1408,10 +1443,14 @@
 
          org-entities-user
          '(("supsetneqq" "\\supsetneqq" t "" "[superset of above not equal to]"
-             "[superset of above not equal to]" "⫌")
+            "[superset of above not equal to]" "⫌")
+           ("subseteq" "\\subseteq" t "" "[subset of above equal to]" "subset of above equal to" "⊆")
             ("subsetneqq" "\\subsetneqq" t "" "[suberset of above not equal to]"
               "[suberset of above not equal to]" "⫋")))
        :config
+       (use-package ob-python
+         :init
+         (setq org-babel-python-command "python3"))
        (use-package ox-latex)
        (use-package ox-bibtex)
        (bind-keys :map org-mode-map
@@ -1441,13 +1480,14 @@
          '((emacs-lisp . t)
             (latex     . t)
             (python    . t)
+            (ipython   . t)
             (R         . t)
             (octave    . t)
             (matlab    . t)
             (shell     . t)))
 
-       (setq org-confirm-babel-evaluate nil
-         org-export-babel-evaluate nil)
+       (setq org-confirm-babel-evaluate nil)
+       (setq org-export-use-babel t)
 
        (setq org-latex-minted-options
          '(("linenos" "true")
@@ -1538,6 +1578,18 @@
                    (let (compilation-read-command)
                      (projectile-compile-project nil)))
                  projectile-mode-map)
+
+       (bind-key "c"
+                 (lambda (arg)
+                   "Run `helm-make-projectile' if the package is
+     installed and the project contains a Makefile. Otherwise,
+     fallback to default, i.e. `projectile-compile-project'."
+                   (interactive "P")
+                   (if (and (package-installed-p 'helm-make)
+                            (file-exists-p (concat (projectile-project-root) "Makefile")))
+                       (helm-make-projectile (prefix-numeric-value arg))
+                     (projectile-compile-project arg)))
+                 projectile-command-map)
 
        (setq projectile-enable-caching t)
 
