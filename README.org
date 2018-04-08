@@ -196,8 +196,14 @@
          (if (display-graphic-p)
              (progn
                (if (> disp-width 2000)
-                   (set-frame-parameter nil 'font "Terminus (TTF) 12")
-                 (set-frame-parameter nil 'font "Terminus (TTF) 04")))))))
+                   (set-frame-parameter nil 'font
+                                        (if (eq system-type 'darwin)
+                                            "Terminus (TTF) 12"
+                                          "Terminus 12"))
+                 (set-frame-parameter nil 'font
+                                      (if (eq system-type 'darwin)
+                                          "Terminus (TTF) 04"
+                                        "Terminus 04")))))))
    #+END_SRC
 
 * General Configurations
@@ -313,7 +319,7 @@
 
       (setq custom-safe-themes t)
 
-      (set-frame-font "Terminus (TTF) 12")
+      (set-frame-font (if (eq system-type 'darwin) "Terminus (TTF) 12" "Terminus 12"))
 
       (when (functionp 'set-fontset-font)
         (set-fontset-font "fontset-default"
