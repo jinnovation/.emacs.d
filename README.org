@@ -452,10 +452,12 @@
          (add-hook 'flycheck-mode-hook 'flycheck-irony-setup)))
 
      (use-package company-irony
+       :disabled t
        :config
        (add-to-list 'company-backends 'company-irony))
 
      (use-package clang-format
+       :disabled t
        :config
        (add-to-list 'auto-mode-alist '("\\.clang-format$" . yaml-mode)))
    #+END_SRC
@@ -473,7 +475,7 @@
        :config
        (add-hook 'before-save-hook 'gofmt-before-save)
 
-       (use-package company-go)
+       (use-package company-go :disabled t)
        (use-package go-guru))
    #+END_SRC
 
@@ -608,6 +610,12 @@
      (use-package ob-ipython)
    #+END_SRC
 
+** Emacs Lisp
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package elisp-mode
+       :bind (("C-c C-j" . find-function)))
+   #+END_SRC
 * General Packages
 
 ** =ace-link=
@@ -1604,6 +1612,7 @@
        (add-to-list 'projectile-globally-ignored-modes "term-mode")
 
        (use-package ggtags
+         :disabled t
          :config
          (with-eval-after-load 'evil
              (add-to-list 'evil-emacs-state-modes 'ggtags-view-search-history-mode))
@@ -1728,6 +1737,7 @@
        :commands (w3m)
        :init
        (bind-key "w" 'w3m jjin-exec-map)
+       (setq w3m-fill-column 80)
 
        :config
        (with-eval-after-load 'evil
