@@ -192,18 +192,11 @@
      low-resolution displays."
        ;; FIXME: assumes only one emacs frame on one disp
        (let* ((curr-disp (car (jjin-get-current-displays)))
-              (disp-width (nth 3 (assoc 'geometry curr-disp))))
+              (disp-width (nth 3 (assoc 'geometry curr-disp)))
+              (font-name (if (eq system-type 'darwin) "Terminus (TTF)" "Terminus"))
+              (font-size (if (> disp-width 2000) "12" "04")))
          (if (display-graphic-p)
-             (progn
-               (if (> disp-width 2000)
-                   (set-frame-parameter nil 'font
-                                        (if (eq system-type 'darwin)
-                                            "Terminus (TTF) 12"
-                                          "Terminus 12"))
-                 (set-frame-parameter nil 'font
-                                      (if (eq system-type 'darwin)
-                                          "Terminus (TTF) 04"
-                                        "Terminus 04")))))))
+             (set-frame-parameter nil 'font (string-join `(,font-name ,font-size) " "))))))
    #+END_SRC
 
 * General Configurations
@@ -292,7 +285,6 @@
      (setq initial-major-mode 'org-mode)
    #+END_SRC
 
-   
 ** Appearance
 
 *** Themes
