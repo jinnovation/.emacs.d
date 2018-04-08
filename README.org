@@ -1194,17 +1194,6 @@
            ad-do-it)))
    #+END_SRC
 
-** =fic-mode=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package fic-mode
-       :commands fic-mode
-       :diminish fic-mode
-       :config
-       (add-hook 'prog-mode-hook 'fic-mode)
-       (add-hook 'LaTeX-mode-hook 'fic-mode))
-   #+END_SRC
-
 ** =multi-term=
 
    #+BEGIN_SRC emacs-lisp
@@ -1399,7 +1388,7 @@
    #+END_SRC
 
 ** =org-mode=
-
+   
    #+BEGIN_SRC emacs-lisp
      (use-package org
        :ensure t
@@ -1529,7 +1518,7 @@
 ** Org-page
 
    #+BEGIN_SRC emacs-lisp
-   (use-package org-page)
+     (use-package org-page)
    #+END_SRC
 
 ** =paradox=
