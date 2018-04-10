@@ -2,8 +2,6 @@
 #+AUTHOR: Jonathan Jin
 #+PROPERTY: header-args:emacs-lisp :exports code :results none :tangle init.el
 
-[[http://img.shields.io/:license-unlicense-blue.svg]]
-
 * Table of Contents                                                  :TOC:TOC_1:
 - [[#preamble][Preamble]]
 - [[#general-configurations][General Configurations]]
