@@ -337,9 +337,9 @@
    Make sure =EDITOR= and/or =VISUAL= is/are set to =emacsclient=.
 
    #+BEGIN_SRC emacs-lisp
-     ;; (use-package server
-     ;;   :config
-     ;;   (unless (server-running-p) (server-start)))
+     (use-package server
+       :config
+       (unless (server-running-p) (server-start)))
    #+END_SRC
 
 ** Final
@@ -611,7 +611,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elisp-mode
-       :bind (("C-c C-j" . find-function)))
+       :bind (("C-c C-f" . find-function)))
    #+END_SRC
 * General Packages
 
@@ -1347,8 +1347,8 @@
                      (or
                       (mu4e-message-maildir-matches msg "^/personal")
                       (mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com"))))
-                 :vars '((user-mail-address . "jjin082693@gmail.com")
-                         (mu4e-compose-signature . "Jonathan Jin")
+                 :vars `((user-mail-address . "jjin082693@gmail.com")
+                         (mu4e-compose-signature . ,(concat "Jonathan Jin\n" "jjin.info"))
                          (smtpmail-smtp-user . "jjin082693@gmail.com")
                          (user-full-name . "Jonathan Jin")
                          (mu4e-trash-folder . "/personal/trash")
