@@ -2,13 +2,19 @@
 #+AUTHOR: Jonathan Jin
 #+PROPERTY: header-args:emacs-lisp :exports code :results none :tangle init.el
 
-* Table of Contents                                                  :TOC:TOC_1:
-- [[#preamble][Preamble]]
-- [[#general-configurations][General Configurations]]
-- [[#keys][Keys]]
-- [[#development-environments][Development Environments]]
-- [[#general-packages][General Packages]]
-- [[#unlicense][(Un)license]]
+#+HTML_HEAD:    <!-- Global site tag (gtag.js) - Google Analytics -->
+#+HTML_HEAD:    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42551205-2"></script>
+#+HTML_HEAD:    <script>
+#+HTML_HEAD:    window.dataLayer = window.dataLayer || [];
+#+HTML_HEAD:    function gtag(){dataLayer.push(arguments);}
+#+HTML_HEAD:    gtag('js', new Date());
+#+HTML_HEAD:    gtag('config', 'UA-42551205-2');
+#+HTML_HEAD:    </script>
+
+
+#+EXPORT_FILE_NAME: index
+
+#+SETUPFILE: theme.setup
 
 * Preamble
 
@@ -270,9 +276,7 @@
 
     (defconst custom-file-path "~/.emacs-custom.el")
     (if (file-exists-p custom-file-path)
-        (progn
-          (setq custom-file custom-file-path)
-          (load custom-file)))
+        (load (setq custom-file custom-file-path)))
   #+END_SRC
 
 ** Scratch Org-mode
@@ -603,6 +607,18 @@
      (use-package pyvenv)
 
      (use-package ob-ipython)
+
+     (use-package elpy
+       :ensure t
+       :init
+       (setq elpy-modules '(elpy-module-company
+                            elpy-module-eldoc
+                            elpy-module-flymake
+                            elpy-module-pyvenv
+                            elpy-module-yasnippet
+                            elpy-module-sane-defaults))
+       (elpy-enable))
+  
    #+END_SRC
 
 ** Emacs Lisp
@@ -938,6 +954,15 @@
         :foreground (face-attribute 'font-lock-comment-face :foreground)))
    #+END_SRC
 
+** Eshell
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package eshell
+       :config
+       (bind-keys :map jjin-term-map
+                  ("e" . eshell)))
+   #+END_SRC
+
 ** =ess=
 
    #+BEGIN_SRC emacs-lisp
@@ -1043,8 +1068,8 @@
        :commands turn-on-fci-mode
        :ensure t
        :init
-       (add-hook 'prog-mode-hook 'turn-on-fci-mode)
-       (add-hook 'text-mode-hook 'turn-on-fci-mode)
+       ;; (add-hook 'prog-mode-hook 'turn-on-fci-mode)
+       ;; (add-hook 'text-mode-hook 'turn-on-fci-mode)
        (setq fci-rule-color (face-attribute 'highlight :background)))
    #+END_SRC
 
@@ -1806,3 +1831,7 @@
 
     For more information, please refer to <http://unlicense.org>
   #+END_SRC
+
+# Local Variables:
+# after-save-hook: org-html-export-to-html
+# End:
