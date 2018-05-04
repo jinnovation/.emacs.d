@@ -958,9 +958,19 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package eshell
+       :init
+       (setq eshell-rc-script (concat user-emacs-directory "eshell/profile"))
        :config
+       (with-eval-after-load 'evil
+         (progn
+           (delete 'eshell-mode evil-insert-state-modes)
+           (add-to-list 'evil-emacs-state-modes 'eshell-mode)))
        (bind-keys :map jjin-term-map
                   ("e" . eshell)))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle eshell/profile
+   (setenv "EDITOR" "emacsclient")
    #+END_SRC
 
 ** =ess=
@@ -1337,7 +1347,7 @@
 
        (set-face-attribute 'mu4e-header-highlight-face nil :underline nil)
 
-       (setq mu4e-compose-signature-auto-include nil)
+       (setq mu4e-compose-signature-auto-include t)
 
        (setq mail-user-agent 'mu4e-user-agent)
 
@@ -1371,7 +1381,10 @@
                       (mu4e-message-maildir-matches msg "^/personal")
                       (mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com"))))
                  :vars `((user-mail-address . "jjin082693@gmail.com")
-                         (mu4e-compose-signature . ,(concat "Jonathan Jin\n" "jjin.info"))
+                         (mu4e-compose-signature
+                          . ,(concat "Jonathan Jin\n"
+                                     "Software Engineer, Uber Technologies\n"
+                                     "jjin.info"))
                          (smtpmail-smtp-user . "jjin082693@gmail.com")
                          (user-full-name . "Jonathan Jin")
                          (mu4e-trash-folder . "/personal/trash")
