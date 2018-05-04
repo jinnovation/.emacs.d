@@ -1,3 +1,5 @@
+# -*- after-save-hook: (org-html-export-to-html org-babel-tangle); -*-
+
 #+TITLE: Jonathan Jin's Emacs Configuration
 #+AUTHOR: Jonathan Jin
 #+PROPERTY: header-args:emacs-lisp :exports code :results none :tangle init.el
@@ -419,6 +421,16 @@
 
      (bind-keys :map jjin-buffer-map
                 ("r" . rename-buffer))
+   #+END_SRC
+
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (with-eval-after-load 'hydra
+       (defhydra jjin-hydra-window (global-map "C-c M-j w")
+         "Commands relating to window manipulation."
+         ("h" windmove-left "move left" :exit t)
+         ("l" windmove-right "move right" :exit t)
+         ("j" windmove-down "move down" :exit t)
+         ("k" windmove-up "move up" :exit t)))
    #+END_SRC
 
 * Development Environments
@@ -1205,6 +1217,13 @@
        (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
    #+END_SRC
 
+** Hydra
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package hydra
+       :ensure t)
+   #+END_SRC
+
 ** =linum=
 
    #+BEGIN_SRC emacs-lisp
@@ -1845,6 +1864,3 @@
     For more information, please refer to <http://unlicense.org>
   #+END_SRC
 
-# Local Variables:
-# after-save-hook: org-html-export-to-html
-# End:
