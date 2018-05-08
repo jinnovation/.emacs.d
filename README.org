@@ -13,7 +13,6 @@
 #+HTML_HEAD:    gtag('config', 'UA-42551205-2');
 #+HTML_HEAD:    </script>
 
-
 #+EXPORT_FILE_NAME: index
 
 #+SETUPFILE: theme.setup
@@ -1319,8 +1318,6 @@
        (add-to-list 'org-structure-template-alist
          '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
 
-       (add-hook 'org-mode-hook 'fic-mode)
-
        (setq org-latex-packages-alist
          '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
 
@@ -1529,14 +1526,18 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package w3m
-       :commands (w3m)
+       :bind (:map jjin-exec-map
+                   ("w" . w3m))
+       :commands w3m
        :init
-       (bind-key "w" 'w3m jjin-exec-map)
        (setq w3m-fill-column 80)
 
        :config
        (with-eval-after-load 'evil
            (add-to-list 'evil-emacs-state-modes 'w3m-session-select-mode))
+       (with-eval-after-load 'ace-link
+         (bind-keys :map w3m-mode-map
+                    ("o" . ace-link-w3m)))
 
        (unbind-key "B" w3m-mode-map)
        (bind-keys :map w3m-mode-map
@@ -1559,8 +1560,6 @@
         (setq markdown-asymmetric-header t)
         :config
         (add-hook 'markdown-mode-hook 'auto-fill-mode)
-        (add-hook 'markdown-mode-hook 'fic-mode)
-        (add-hook 'markdown-mode-hook 'turn-on-fci-mode)
 
         (use-package markdown-mode+))
     #+END_SRC
