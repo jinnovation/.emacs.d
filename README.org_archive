@@ -1,0 +1,440 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/jjin/.emacs.d/README.org
+
+
+* =circe=
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-05-07 Mon 23:57
+  :ARCHIVE_FILE: ~/.emacs.d/README.org
+  :ARCHIVE_OLPATH: General Packages
+  :ARCHIVE_CATEGORY: README
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package circe
+      :commands (circe-chat-mode
+                  circe-server-mode
+                  circe-query-mode
+                  circe-channel-mode)
+      :init
+      (bind-key "i" 'circe jjin-exec-map)
+      (setq
+        circe-default-nick "jjin"
+        circe-default-user "jjin"
+        circe-default-part-message "Peace."
+        circe-default-quit-message "Peace.")
+
+      (setq circe-use-cycle-completion t
+        circe-reduce-lurker-spam t)
+
+      (setq circe-network-options
+            ;; FIXME: needs to be backtick
+        '(("Freenode"
+            :nick "jjin"
+            :channels ("#emacs" "#archlinux")
+            :nickserv-password ,freenode-pass)
+           ("Bitlbee"
+             :service "6667"
+             :nickserv-password ,bitlbee-pass
+             :nickserv-mask "\\(bitlbee\\|root\\)!\\(bitlbee\\|root\\)@"
+             :nickserv-identify-challenge "use the \x02identify\x02 command to identify yourself"
+             :nickserv-identify-command "PRIVMSG &bitlbee :identify {password}"
+             :nickserv-identify-confirmation "Password accepted, settings and accounts loaded")))
+
+      (setq
+        circe-format-self-say "<{nick}> {body}"
+        circe-format-server-topic "*** Topic change by {origin}: {topic-diff}")
+      (setq circe-color-nicks-everywhere t)
+
+      :config
+      (with-eval-after-load 'evil
+          (progn
+            (add-to-list 'evil-emacs-state-modes 'circe-chat-mode)
+            (add-to-list 'evil-emacs-state-modes 'circe-server-mode)
+            (add-to-list 'evil-emacs-state-modes 'circe-query-mode)
+            (add-to-list 'evil-emacs-state-modes 'circe-channel-mode)))
+
+      (add-hook 'circe-chat-mode-hook 'my-circe-prompt)
+      (defun my-circe-prompt ()
+        (lui-set-prompt
+          (concat (propertize (concat (buffer-name) ">")
+                    'face 'circe-prompt-face)
+            " ")))
+
+      (enable-circe-color-nicks)
+
+      (use-package helm-circe
+        :config
+        (bind-keys :map jjin-chat-map
+          ("i" . helm-circe)
+          ("n" . helm-circe-new-activity))))
+  #+END_SRC
+
+
+* =elfeed=
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-05-07 Mon 23:59
+  :ARCHIVE_FILE: ~/.emacs.d/README.org
+  :ARCHIVE_OLPATH: General Packages
+  :ARCHIVE_CATEGORY: README
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package elfeed
+      :disabled t
+      :commands (elfeed-search-mode elfeed-show-mode)
+      :init
+      (setq elfeed-feeds
+        '(("http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989"
+            news)
+           ("http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news)
+           ("http://ny.curbed.com/atom.xml" realestate news)
+           ("http://www.avclub.com/feed/rss/" film entertainment news)
+           ("http://fivethirtyeight.com/all/feed")
+           ("http://www.tor.com/rss/frontpage_full" literature)
+           ("http://feeds.feedburner.com/themillionsblog/fedw" literature)
+           ("http://www.newyorker.com/feed/books" literature)
+           ("http://feeds.feedburner.com/nybooks" literature)
+           ("http://longform.org/feed.rss")
+           ("http://feeds.feedburner.com/mcsweeneys/")
+
+           ("http://en.boxun.com/feed/"                                     news china)
+
+           ("http://feeds.99percentinvisible.org/99percentinvisible" design podcast)
+           ("http://feeds.feedburner.com/ucllc/artofthemenu"         design)
+           ("http://feeds.feedburner.com/ucllc/brandnew"             design)
+
+           ("http://rss.escapistmagazine.com/news/0.xml"         entertainment videogames)
+           ("http://rss.escapistmagazine.com/videos/list/1.xml"  entertainment videogames)
+           ("http://www.thejimquisition.com/feed/"               entertainment videogames)
+           ("http://www.engadget.com/tag/@gaming/rss.xml"        entertainment videogames)
+           ("http://feeds.feedburner.com/RockPaperShotgun"       entertainment videogames)
+           ("http://screenrant.com/feed/"                        entertainment movies)
+
+           ;; software
+           ;; Hacker News
+           ("https://news.ycombinator.com/rss"                sw news)
+           ;; The Setup
+           ("http://usesthis.com/feed/"                       sw)
+           ("http://endlessparentheses.com/atom.xml"          sw emacs)
+           ;; Emacs Horrors
+           ("http://emacshorrors.com/feed.atom"               sw emacs)
+           ;; Emacs Ninja
+           ("http://emacsninja.com/feed.atom"                 sw emacs)
+           ;; Coding Horror
+           ("http://feeds.feedburner.com/codinghorror"        sw)
+           ;; The Daily WTF
+           ("http://syndication.thedailywtf.com/TheDailyWtf"  sw)
+           ;; This Developer's Life
+           ("http://feeds.feedburner.com/thisdeveloperslife"  sw)
+           ;; O'Reilly
+           ("http://feeds.feedburner.com/oreilly/news"        sw)
+           ;; Joel On Software
+           ("http://www.joelonsoftware.com/rss.xml"           sw)
+           ;; One Thing Well
+           ("http://onethingwell.org/rss"                     sw tech)
+
+           ;; The Daily WTF
+           ("http://syndication.thedailywtf.com/TheDailyWtf"  sw)
+           ;; Github Engineering
+           ("http://githubengineering.com/atom.xml"           sw tech)
+
+           ;; Riot Games Engineering
+           ("http://engineering.riotgames.com/news/feed"      sw tech lol)
+           ;; Google Testing Blog
+           ("http://feeds.feedburner.com/blogspot/RLXA"       sw google tech)
+
+           ;; Pando Daily
+           ("http://pandodaily.com.feedsportal.com/c/35141/f/650422/index.rss"  tech)
+           ;; Backchannel
+           ("https://medium.com/feed/backchannel"                               tech sw)
+           ("http://recode.net/feed/"                                           tech)
+           ("http://recode.net/category/reviews/feed/"                          tech)
+           ;; Android Police
+           ("http://feeds.feedburner.com/AndroidPolice"                         tech android)
+           ("http://bits.blogs.nytimes.com/feed/"                               tech)
+
+           ("http://www.eater.com/rss/index.xml"                     food)
+           ("http://ny.eater.com/rss/index.xml"                      food ny)
+           ("http://notwithoutsalt.com/feed/"                        food)
+           ("http://feeds.feedburner.com/nymag/Food"                 food)
+           ("http://feeds.feedburner.com/seriouseatsfeaturesvideos"  food)
+           ("http://feeds.feedburner.com/blogspot/sBff")
+
+           ;; Cube Drone
+           ("http://cube-drone.com/rss.xml"                comic sw)
+           ;; XKCD
+           ("http://xkcd.com/rss.xml"                      comic)
+           ;; Dilbert (modified for in-feed images)
+           ("http://comicfeeds.chrisbenard.net/view/dilbert/default"  comic)
+           ;; SMBC
+           ("http://feeds.feedburner.com/smbc-comics/PvLb" comic)
+           ;; Questionable Content
+           ("http://www.questionablecontent.net/QCRSS.xml" comic)
+           ;; PhD Comics
+           ("http://phdcomics.com/gradfeed.php"            comic)
+           ;; Wondermark
+           ("http://feeds.feedburner.com/wondermark"       comic)))
+
+      (setq elfeed-max-connections 10)
+
+      (setq url-queue-timeout 30)
+
+      (bind-keys :map jjin-exec-map
+        ("e" . elfeed))
+
+      :config
+      (with-eval-after-load 'evil
+          (progn
+            (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+            (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)))
+      (bind-keys :map elfeed-search-mode-map
+                 ("<SPC>" . next-line)
+                 ("U"     . elfeed-unjam))
+      (bind-key "S-<SPC>" 'scroll-down-command elfeed-show-mode-map)
+
+      (set-face-attribute
+       'elfeed-search-unread-title-face
+       nil
+       :weight 'normal
+       :foreground (face-attribute 'default :foreground))
+      (set-face-attribute
+       'elfeed-search-title-face
+       nil
+       :foreground (face-attribute 'font-lock-comment-face :foreground)))
+  #+END_SRC
+
+
+* =elfeed=
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-05-07 Mon 23:59
+  :ARCHIVE_FILE: ~/.emacs.d/README.org
+  :ARCHIVE_OLPATH: General Packages
+  :ARCHIVE_CATEGORY: README
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package elfeed
+      :disabled t
+      :commands (elfeed-search-mode elfeed-show-mode)
+      :init
+      (setq elfeed-feeds
+        '(("http://www.aljazeera.com/Services/Rss/?PostingId=2007731105943979989"
+            news)
+           ("http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news)
+           ("http://ny.curbed.com/atom.xml" realestate news)
+           ("http://www.avclub.com/feed/rss/" film entertainment news)
+           ("http://fivethirtyeight.com/all/feed")
+           ("http://www.tor.com/rss/frontpage_full" literature)
+           ("http://feeds.feedburner.com/themillionsblog/fedw" literature)
+           ("http://www.newyorker.com/feed/books" literature)
+           ("http://feeds.feedburner.com/nybooks" literature)
+           ("http://longform.org/feed.rss")
+           ("http://feeds.feedburner.com/mcsweeneys/")
+
+           ("http://en.boxun.com/feed/"                                     news china)
+
+           ("http://feeds.99percentinvisible.org/99percentinvisible" design podcast)
+           ("http://feeds.feedburner.com/ucllc/artofthemenu"         design)
+           ("http://feeds.feedburner.com/ucllc/brandnew"             design)
+
+           ("http://rss.escapistmagazine.com/news/0.xml"         entertainment videogames)
+           ("http://rss.escapistmagazine.com/videos/list/1.xml"  entertainment videogames)
+           ("http://www.thejimquisition.com/feed/"               entertainment videogames)
+           ("http://www.engadget.com/tag/@gaming/rss.xml"        entertainment videogames)
+           ("http://feeds.feedburner.com/RockPaperShotgun"       entertainment videogames)
+           ("http://screenrant.com/feed/"                        entertainment movies)
+
+           ;; software
+           ;; Hacker News
+           ("https://news.ycombinator.com/rss"                sw news)
+           ;; The Setup
+           ("http://usesthis.com/feed/"                       sw)
+           ("http://endlessparentheses.com/atom.xml"          sw emacs)
+           ;; Emacs Horrors
+           ("http://emacshorrors.com/feed.atom"               sw emacs)
+           ;; Emacs Ninja
+           ("http://emacsninja.com/feed.atom"                 sw emacs)
+           ;; Coding Horror
+           ("http://feeds.feedburner.com/codinghorror"        sw)
+           ;; The Daily WTF
+           ("http://syndication.thedailywtf.com/TheDailyWtf"  sw)
+           ;; This Developer's Life
+           ("http://feeds.feedburner.com/thisdeveloperslife"  sw)
+           ;; O'Reilly
+           ("http://feeds.feedburner.com/oreilly/news"        sw)
+           ;; Joel On Software
+           ("http://www.joelonsoftware.com/rss.xml"           sw)
+           ;; One Thing Well
+           ("http://onethingwell.org/rss"                     sw tech)
+
+           ;; The Daily WTF
+           ("http://syndication.thedailywtf.com/TheDailyWtf"  sw)
+           ;; Github Engineering
+           ("http://githubengineering.com/atom.xml"           sw tech)
+
+           ;; Riot Games Engineering
+           ("http://engineering.riotgames.com/news/feed"      sw tech lol)
+           ;; Google Testing Blog
+           ("http://feeds.feedburner.com/blogspot/RLXA"       sw google tech)
+
+           ;; Pando Daily
+           ("http://pandodaily.com.feedsportal.com/c/35141/f/650422/index.rss"  tech)
+           ;; Backchannel
+           ("https://medium.com/feed/backchannel"                               tech sw)
+           ("http://recode.net/feed/"                                           tech)
+           ("http://recode.net/category/reviews/feed/"                          tech)
+           ;; Android Police
+           ("http://feeds.feedburner.com/AndroidPolice"                         tech android)
+           ("http://bits.blogs.nytimes.com/feed/"                               tech)
+
+           ("http://www.eater.com/rss/index.xml"                     food)
+           ("http://ny.eater.com/rss/index.xml"                      food ny)
+           ("http://notwithoutsalt.com/feed/"                        food)
+           ("http://feeds.feedburner.com/nymag/Food"                 food)
+           ("http://feeds.feedburner.com/seriouseatsfeaturesvideos"  food)
+           ("http://feeds.feedburner.com/blogspot/sBff")
+
+           ;; Cube Drone
+           ("http://cube-drone.com/rss.xml"                comic sw)
+           ;; XKCD
+           ("http://xkcd.com/rss.xml"                      comic)
+           ;; Dilbert (modified for in-feed images)
+           ("http://comicfeeds.chrisbenard.net/view/dilbert/default"  comic)
+           ;; SMBC
+           ("http://feeds.feedburner.com/smbc-comics/PvLb" comic)
+           ;; Questionable Content
+           ("http://www.questionablecontent.net/QCRSS.xml" comic)
+           ;; PhD Comics
+           ("http://phdcomics.com/gradfeed.php"            comic)
+           ;; Wondermark
+           ("http://feeds.feedburner.com/wondermark"       comic)))
+
+      (setq elfeed-max-connections 10)
+
+      (setq url-queue-timeout 30)
+
+      (bind-keys :map jjin-exec-map
+        ("e" . elfeed))
+
+      :config
+      (with-eval-after-load 'evil
+          (progn
+            (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+            (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)))
+      (bind-keys :map elfeed-search-mode-map
+                 ("<SPC>" . next-line)
+                 ("U"     . elfeed-unjam))
+      (bind-key "S-<SPC>" 'scroll-down-command elfeed-show-mode-map)
+
+      (set-face-attribute
+       'elfeed-search-unread-title-face
+       nil
+       :weight 'normal
+       :foreground (face-attribute 'default :foreground))
+      (set-face-attribute
+       'elfeed-search-title-face
+       nil
+       :foreground (face-attribute 'font-lock-comment-face :foreground)))
+  #+END_SRC
+
+
+* =window-purpose=
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-05-08 Tue 00:04
+  :ARCHIVE_FILE: ~/.emacs.d/README.org
+  :ARCHIVE_OLPATH: General Packages
+  :ARCHIVE_CATEGORY: README
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package window-purpose
+      :disabled t
+      :init
+      (setq purpose-user-regexp-purposes
+        '(("^\\*elfeed"         . admin)))
+
+      (setq purpose-user-mode-purposes
+        '((
+           (circe-chat-mode     . comm)
+           (circe-query-mode    . comm)
+           (circe-lagmon-mode   . comm)
+           (circe-server-mode   . comm)
+
+           (haskell-mode        . edit)
+           (ess-mode            . edit)
+           (gitconfig-mode      . edit)
+           (conf-xdefaults-mode . edit)
+           (inferior-ess-mode   . interactive)
+
+           (mu4e-main-mode      . admin)
+           (mu4e-view-mode      . admin)
+           (mu4e-about-mode     . admin)
+           (mu4e-headers-mode   . admin)
+           (mu4e-compose-mode   . edit)
+
+           (pdf-view-mode       . view)
+           (doc-view-mode       . view))))
+
+      :config
+      (bind-key "W" 'purpose-set-window-purpose purpose-mode-prefix-map)
+
+      (purpose-x-magit-multi-on)
+      (purpose-compile-user-configuration)
+
+      (purpose-mode)
+      (purpose-load-window-layout))
+  #+END_SRC
+
+
+* Sass
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-05-08 Tue 00:04
+  :ARCHIVE_FILE: ~/.emacs.d/README.org
+  :ARCHIVE_OLPATH: General Packages/Language modes
+  :ARCHIVE_CATEGORY: README
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package sass-mode
+      :disabled t
+      :init
+      (setq scss-compile-at-save nil)
+      :config
+      (add-hook 'scss-mode-hook 'rainbow-mode))
+  #+END_SRC
+
+
+* =rainbow-mode=
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-05-08 Tue 00:21
+  :ARCHIVE_FILE: ~/.emacs.d/README.org
+  :ARCHIVE_OLPATH: General Packages
+  :ARCHIVE_CATEGORY: README
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package rainbow-mode
+      :ensure t
+      :diminish rainbow-mode
+      :commands (rainbow-mode)
+      :config
+      (add-hook 'help-mode-hook 'rainbow-mode))
+  #+END_SRC
+
+
+* =web-mode=
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2018-05-08 Tue 00:22
+  :ARCHIVE_FILE: ~/.emacs.d/README.org
+  :ARCHIVE_OLPATH: General Packages
+  :ARCHIVE_CATEGORY: README
+  :END:
+
+  #+BEGIN_SRC emacs-lisp
+    (use-package web-mode
+      :mode ("\\.erb$" "\\.html$"))
+  #+END_SRC
+
