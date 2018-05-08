@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-05-08 Tue 00:22 -->
+<!-- 2018-05-08 Tue 00:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Jonathan Jin&rsquo;s Emacs Configuration</title>
@@ -248,115 +248,115 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgad36613">1. Preamble</a>
+<li><a href="#org622dcfb">1. Preamble</a>
 <ul>
-<li><a href="#org9a4b09d">1.1. Baseline packages</a></li>
-<li><a href="#org7987661">1.2. Functions</a></li>
+<li><a href="#orgd1b61dc">1.1. Baseline packages</a></li>
+<li><a href="#orgd3d71d4">1.2. Functions</a></li>
 </ul>
 </li>
-<li><a href="#orgd2420e4">2. General Configurations</a>
+<li><a href="#org77b88e4">2. General Configurations</a>
 <ul>
-<li><a href="#org90b1542">2.1. Scratch Org-mode</a></li>
-<li><a href="#orgfa9dd52">2.2. Appearance</a>
+<li><a href="#orgc8f3005">2.1. Scratch Org-mode</a></li>
+<li><a href="#orgd03ce95">2.2. Appearance</a>
 <ul>
-<li><a href="#org245ec35">2.2.1. Themes</a></li>
-<li><a href="#orgf878776">2.2.2. General</a></li>
+<li><a href="#org2b047f1">2.2.1. Themes</a></li>
+<li><a href="#org01a6bf8">2.2.2. General</a></li>
 </ul>
 </li>
-<li><a href="#org41a51ba">2.3. Environment-specific</a>
+<li><a href="#orgc707a02">2.3. Environment-specific</a>
 <ul>
-<li><a href="#org75c8d19">2.3.1. Mac</a></li>
+<li><a href="#org406e92f">2.3.1. Mac</a></li>
 </ul>
 </li>
-<li><a href="#org5acc906">2.4. Server</a></li>
-<li><a href="#org06e3774">2.5. Final</a></li>
+<li><a href="#orga1574c8">2.4. Server</a></li>
+<li><a href="#org35822f4">2.5. Final</a></li>
 </ul>
 </li>
-<li><a href="#org7517537">3. Keys</a>
+<li><a href="#org93f4ddb">3. Keys</a>
 <ul>
-<li><a href="#orgc470a77">3.1. Personal maps</a></li>
-<li><a href="#org32f70f7">3.2. Keybindings</a></li>
+<li><a href="#orga8dcebe">3.1. Personal maps</a></li>
+<li><a href="#org591877f">3.2. Keybindings</a></li>
 </ul>
 </li>
-<li><a href="#orgdc6ae3f">4. Development Environments</a>
+<li><a href="#org545e702">4. Development Environments</a>
 <ul>
-<li><a href="#orgba5edaf">4.1. General Style</a></li>
-<li><a href="#org6b2dcdd">4.2. C/C++</a></li>
-<li><a href="#orgdf0d8af">4.3. Go</a></li>
-<li><a href="#org26d5544">4.4. Lisp</a></li>
-<li><a href="#orge2e95e7">4.5. Javascript</a></li>
-<li><a href="#org4a976df">4.6. Java</a></li>
-<li><a href="#org8e469be">4.7. LaTeX</a></li>
-<li><a href="#orgec7ad46">4.8. zsh</a></li>
-<li><a href="#org44b195f">4.9. Haskell</a></li>
-<li><a href="#org39454d7">4.10. Ruby</a></li>
-<li><a href="#org7adafd5">4.11. SQL</a></li>
-<li><a href="#org0824e6d">4.12. Thrift</a></li>
-<li><a href="#orge41e702">4.13. Octave</a></li>
-<li><a href="#orgd8cf80f">4.14. Matlab</a></li>
-<li><a href="#org9c9c886">4.15. Python</a></li>
-<li><a href="#org9fdefbd">4.16. Emacs Lisp</a></li>
+<li><a href="#orgfa6fb03">4.1. General Style</a></li>
+<li><a href="#orga7b28db">4.2. C/C++</a></li>
+<li><a href="#org279416e">4.3. Go</a></li>
+<li><a href="#org2607736">4.4. Lisp</a></li>
+<li><a href="#org2e1c5fc">4.5. Javascript</a></li>
+<li><a href="#orgf330731">4.6. Java</a></li>
+<li><a href="#orgea616b8">4.7. LaTeX</a></li>
+<li><a href="#orgdc4b613">4.8. zsh</a></li>
+<li><a href="#org504956f">4.9. Haskell</a></li>
+<li><a href="#org2b33996">4.10. Ruby</a></li>
+<li><a href="#org7c26d14">4.11. SQL</a></li>
+<li><a href="#org79abc95">4.12. Thrift</a></li>
+<li><a href="#org8b85c81">4.13. Octave</a></li>
+<li><a href="#orga2a4e00">4.14. Matlab</a></li>
+<li><a href="#org9fb5089">4.15. Python</a></li>
+<li><a href="#orga013529">4.16. Emacs Lisp</a></li>
 </ul>
 </li>
-<li><a href="#org1714315">5. General Packages</a>
+<li><a href="#org1b26954">5. General Packages</a>
 <ul>
-<li><a href="#org8f850fe">5.1. <code>ace-link</code></a></li>
-<li><a href="#org84fda1a">5.2. <code>ace-window</code></a></li>
-<li><a href="#orgfa76a58">5.3. <code>ansi-color</code></a></li>
-<li><a href="#org9823da8">5.4. <code>browse-url</code></a></li>
-<li><a href="#org0754822">5.5. <code>calc</code></a></li>
-<li><a href="#org63c1e3c">5.6. <code>conf-mode</code></a></li>
-<li><a href="#org8830dad">5.7. <code>company</code></a></li>
-<li><a href="#orgad6d25e">5.8. <code>dired</code></a></li>
-<li><a href="#orgcfae798">5.9. <code>doc-view-mode</code></a></li>
-<li><a href="#org913b375">5.10. <code>debbugs</code></a></li>
-<li><a href="#orgcac6afc">5.11. <code>ediff</code></a></li>
-<li><a href="#org2bf6b4b">5.12. Eshell</a>
+<li><a href="#orgd4bb04a">5.1. <code>ace-link</code></a></li>
+<li><a href="#org0d4f81a">5.2. <code>ace-window</code></a></li>
+<li><a href="#org527d3d6">5.3. <code>ansi-color</code></a></li>
+<li><a href="#org63b0ddc">5.4. <code>browse-url</code></a></li>
+<li><a href="#org61bdd68">5.5. <code>calc</code></a></li>
+<li><a href="#orge859c7a">5.6. <code>conf-mode</code></a></li>
+<li><a href="#org9b4c99f">5.7. <code>company</code></a></li>
+<li><a href="#org1578740">5.8. <code>dired</code></a></li>
+<li><a href="#orgf997b4b">5.9. <code>doc-view-mode</code></a></li>
+<li><a href="#org9263975">5.10. <code>debbugs</code></a></li>
+<li><a href="#org6fcd09c">5.11. <code>ediff</code></a></li>
+<li><a href="#orgdc520e7">5.12. Eshell</a>
 <ul>
-<li><a href="#org19e7135">5.12.1. Initialization file</a></li>
+<li><a href="#orgb5ada9e">5.12.1. Initialization file</a></li>
 </ul>
 </li>
-<li><a href="#org5c3ce68">5.13. <code>ess</code></a></li>
-<li><a href="#org9c45d4a">5.14. Evil (base + extras)</a></li>
-<li><a href="#org7f953ce">5.15. <code>fill-column-indicator</code></a></li>
-<li><a href="#orge5fe327">5.16. <code>flycheck</code></a></li>
-<li><a href="#org9d8ce42">5.17. Git</a>
+<li><a href="#org5ea0030">5.13. <code>ess</code></a></li>
+<li><a href="#org03cc19f">5.14. Evil (base + extras)</a></li>
+<li><a href="#org71e217d">5.15. <code>fill-column-indicator</code></a></li>
+<li><a href="#org6da02da">5.16. <code>flycheck</code></a></li>
+<li><a href="#orgc6bd2b6">5.17. Git</a>
 <ul>
-<li><a href="#org95b336b">5.17.1. <code>git-commit-mode</code></a></li>
-<li><a href="#orgc6f7342">5.17.2. <code>gitconfig-mode</code></a></li>
-<li><a href="#orgc38429a">5.17.3. <code>gitignore-mode</code></a></li>
-<li><a href="#org13b2782">5.17.4. <code>magit</code></a></li>
+<li><a href="#org98a3c3c">5.17.1. <code>git-commit-mode</code></a></li>
+<li><a href="#orgd3c9f4e">5.17.2. <code>gitconfig-mode</code></a></li>
+<li><a href="#orgd5ffd6b">5.17.3. <code>gitignore-mode</code></a></li>
+<li><a href="#org1f2340a">5.17.4. <code>magit</code></a></li>
 </ul>
 </li>
-<li><a href="#org4795d79">5.18. <code>helm</code></a></li>
-<li><a href="#org2c911ee">5.19. <code>linum</code></a></li>
-<li><a href="#org8189a1a">5.20. <code>multi-term</code></a></li>
-<li><a href="#org562db54">5.21. <code>mu4e</code></a></li>
-<li><a href="#org26e7602">5.22. <code>org-mode</code></a></li>
-<li><a href="#orgbbe97ba">5.23. Org-page</a></li>
-<li><a href="#org8cfd6bf">5.24. <code>paradox</code></a></li>
-<li><a href="#org6ed4f5e">5.25. <code>pdf-tools</code></a></li>
-<li><a href="#org8ccc520">5.26. <code>projectile</code></a></li>
-<li><a href="#org45a0901">5.27. <code>rich-minority-mode</code></a></li>
-<li><a href="#org1454c57">5.28. <code>smart-mode-line</code></a></li>
-<li><a href="#org7d0f11a">5.29. <code>tramp</code></a></li>
-<li><a href="#org57e11d2">5.30. <code>undo-tree</code></a></li>
-<li><a href="#orgb3a4b59">5.31. <code>w3m</code></a></li>
-<li><a href="#org0d30399">5.32. Language modes</a>
+<li><a href="#org54450f7">5.18. <code>helm</code></a></li>
+<li><a href="#org25f616e">5.19. <code>linum</code></a></li>
+<li><a href="#org3070166">5.20. <code>multi-term</code></a></li>
+<li><a href="#org27df6fa">5.21. <code>mu4e</code></a></li>
+<li><a href="#org94f63d3">5.22. <code>org-mode</code></a></li>
+<li><a href="#org3d2ec1b">5.23. Org-page</a></li>
+<li><a href="#org9ae5205">5.24. <code>paradox</code></a></li>
+<li><a href="#orgf70565a">5.25. <code>pdf-tools</code></a></li>
+<li><a href="#org53a937c">5.26. <code>projectile</code></a></li>
+<li><a href="#org4b6e0ef">5.27. <code>rich-minority-mode</code></a></li>
+<li><a href="#org193182e">5.28. <code>smart-mode-line</code></a></li>
+<li><a href="#orgdbc414c">5.29. <code>tramp</code></a></li>
+<li><a href="#orgef54f8e">5.30. <code>undo-tree</code></a></li>
+<li><a href="#orgab1be85">5.31. <code>w3m</code></a></li>
+<li><a href="#org0b9d220">5.32. Language modes</a>
 <ul>
-<li><a href="#org79cd84e">5.32.1. Markdown</a></li>
-<li><a href="#orgecbf560">5.32.2. YAML</a></li>
+<li><a href="#org77687d0">5.32.1. Markdown</a></li>
+<li><a href="#orgf3ce604">5.32.2. YAML</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgb7a4b12">6. (Un)license</a></li>
+<li><a href="#org7a12be5">6. (Un)license</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgad36613" class="outline-2">
-<h2 id="orgad36613"><span class="section-number-2">1</span> Preamble</h2>
+<div id="outline-container-org622dcfb" class="outline-2">
+<h2 id="org622dcfb"><span class="section-number-2">1</span> Preamble</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-to-list 'load-path (expand-file-name <span style="color: #A3BE8C;">"~/.emacs.d/elpa"</span>))
@@ -371,8 +371,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org9a4b09d" class="outline-3">
-<h3 id="org9a4b09d"><span class="section-number-3">1.1</span> Baseline packages</h3>
+<div id="outline-container-orgd1b61dc" class="outline-3">
+<h3 id="orgd1b61dc"><span class="section-number-3">1.1</span> Baseline packages</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 We use <code>use-package</code> for these configs. Check for its existence and install
@@ -399,8 +399,8 @@ if necessary here.
 </div>
 </div>
 
-<div id="outline-container-org7987661" class="outline-3">
-<h3 id="org7987661"><span class="section-number-3">1.2</span> Functions</h3>
+<div id="outline-container-orgd3d71d4" class="outline-3">
+<h3 id="orgd3d71d4"><span class="section-number-3">1.2</span> Functions</h3>
 <div class="outline-text-3" id="text-1-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">define-namespace</span> jjin-
@@ -557,8 +557,8 @@ if necessary here.
 </div>
 </div>
 
-<div id="outline-container-orgd2420e4" class="outline-2">
-<h2 id="orgd2420e4"><span class="section-number-2">2</span> General Configurations</h2>
+<div id="outline-container-org77b88e4" class="outline-2">
+<h2 id="org77b88e4"><span class="section-number-2">2</span> General Configurations</h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(jjin-load-if-exists <span style="color: #A3BE8C;">"~/.secrets.el"</span>)
@@ -636,8 +636,8 @@ if necessary here.
 </div>
 </div>
 
-<div id="outline-container-org90b1542" class="outline-3">
-<h3 id="org90b1542"><span class="section-number-3">2.1</span> Scratch Org-mode</h3>
+<div id="outline-container-orgc8f3005" class="outline-3">
+<h3 id="orgc8f3005"><span class="section-number-3">2.1</span> Scratch Org-mode</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 I spend more time in Org-mode than I do writing Elisp.
@@ -650,12 +650,12 @@ I spend more time in Org-mode than I do writing Elisp.
 </div>
 </div>
 
-<div id="outline-container-orgfa9dd52" class="outline-3">
-<h3 id="orgfa9dd52"><span class="section-number-3">2.2</span> Appearance</h3>
+<div id="outline-container-orgd03ce95" class="outline-3">
+<h3 id="orgd03ce95"><span class="section-number-3">2.2</span> Appearance</h3>
 <div class="outline-text-3" id="text-2-2">
 </div>
-<div id="outline-container-org245ec35" class="outline-4">
-<h4 id="org245ec35"><span class="section-number-4">2.2.1</span> Themes</h4>
+<div id="outline-container-org2b047f1" class="outline-4">
+<h4 id="org2b047f1"><span class="section-number-4">2.2.1</span> Themes</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">
@@ -675,8 +675,8 @@ I spend more time in Org-mode than I do writing Elisp.
 </div>
 </div>
 
-<div id="outline-container-orgf878776" class="outline-4">
-<h4 id="orgf878776"><span class="section-number-4">2.2.2</span> General</h4>
+<div id="outline-container-org01a6bf8" class="outline-4">
+<h4 id="org01a6bf8"><span class="section-number-4">2.2.2</span> General</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">setq-default</span> x-stretch-cursor t)
@@ -697,12 +697,12 @@ I spend more time in Org-mode than I do writing Elisp.
 </div>
 </div>
 
-<div id="outline-container-org41a51ba" class="outline-3">
-<h3 id="org41a51ba"><span class="section-number-3">2.3</span> Environment-specific</h3>
+<div id="outline-container-orgc707a02" class="outline-3">
+<h3 id="orgc707a02"><span class="section-number-3">2.3</span> Environment-specific</h3>
 <div class="outline-text-3" id="text-2-3">
 </div>
-<div id="outline-container-org75c8d19" class="outline-4">
-<h4 id="org75c8d19"><span class="section-number-4">2.3.1</span> Mac</h4>
+<div id="outline-container-org406e92f" class="outline-4">
+<h4 id="org406e92f"><span class="section-number-4">2.3.1</span> Mac</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">when</span> (eq system-type 'darwin)
@@ -715,8 +715,8 @@ I spend more time in Org-mode than I do writing Elisp.
 </div>
 </div>
 
-<div id="outline-container-org5acc906" class="outline-3">
-<h3 id="org5acc906"><span class="section-number-3">2.4</span> Server</h3>
+<div id="outline-container-orga1574c8" class="outline-3">
+<h3 id="orga1574c8"><span class="section-number-3">2.4</span> Server</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 Make sure <code>EDITOR</code> and/or <code>VISUAL</code> is/are set to <code>emacsclient</code>.
@@ -731,8 +731,8 @@ Make sure <code>EDITOR</code> and/or <code>VISUAL</code> is/are set to <code>ema
 </div>
 </div>
 
-<div id="outline-container-org06e3774" class="outline-3">
-<h3 id="org06e3774"><span class="section-number-3">2.5</span> Final</h3>
+<div id="outline-container-org35822f4" class="outline-3">
+<h3 id="org35822f4"><span class="section-number-3">2.5</span> Final</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 We set these parameters after visual environment has finished configuration,
@@ -747,12 +747,12 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org7517537" class="outline-2">
-<h2 id="org7517537"><span class="section-number-2">3</span> Keys</h2>
+<div id="outline-container-org93f4ddb" class="outline-2">
+<h2 id="org93f4ddb"><span class="section-number-2">3</span> Keys</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgc470a77" class="outline-3">
-<h3 id="orgc470a77"><span class="section-number-3">3.1</span> Personal maps</h3>
+<div id="outline-container-orga8dcebe" class="outline-3">
+<h3 id="orga8dcebe"><span class="section-number-3">3.1</span> Personal maps</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(define-prefix-command 'jjin-vc-map)
@@ -780,8 +780,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org32f70f7" class="outline-3">
-<h3 id="org32f70f7"><span class="section-number-3">3.2</span> Keybindings</h3>
+<div id="outline-container-org591877f" class="outline-3">
+<h3 id="org591877f"><span class="section-number-3">3.2</span> Keybindings</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">bind-keys</span> <span style="color: #81A1C1;">:map</span> global-map
@@ -831,12 +831,12 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgdc6ae3f" class="outline-2">
-<h2 id="orgdc6ae3f"><span class="section-number-2">4</span> Development Environments</h2>
+<div id="outline-container-org545e702" class="outline-2">
+<h2 id="org545e702"><span class="section-number-2">4</span> Development Environments</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orgba5edaf" class="outline-3">
-<h3 id="orgba5edaf"><span class="section-number-3">4.1</span> General Style</h3>
+<div id="outline-container-orgfa6fb03" class="outline-3">
+<h3 id="orgfa6fb03"><span class="section-number-3">4.1</span> General Style</h3>
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(c-set-offset 'arglist-intro '+)
@@ -846,8 +846,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org6b2dcdd" class="outline-3">
-<h3 id="org6b2dcdd"><span class="section-number-3">4.2</span> C/C++</h3>
+<div id="outline-container-orga7b28db" class="outline-3">
+<h3 id="orga7b28db"><span class="section-number-3">4.2</span> C/C++</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">setq</span> c-block-comment-prefix <span style="color: #A3BE8C;">"* "</span>)
@@ -882,8 +882,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgdf0d8af" class="outline-3">
-<h3 id="orgdf0d8af"><span class="section-number-3">4.3</span> Go</h3>
+<div id="outline-container-org279416e" class="outline-3">
+<h3 id="org279416e"><span class="section-number-3">4.3</span> Go</h3>
 <div class="outline-text-3" id="text-4-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">go-mode</span>
@@ -903,8 +903,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org26d5544" class="outline-3">
-<h3 id="org26d5544"><span class="section-number-3">4.4</span> Lisp</h3>
+<div id="outline-container-org2607736" class="outline-3">
+<h3 id="org2607736"><span class="section-number-3">4.4</span> Lisp</h3>
 <div class="outline-text-3" id="text-4-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #A3BE8C;">"emacs$"</span> . emacs-lisp-mode))
@@ -914,8 +914,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orge2e95e7" class="outline-3">
-<h3 id="orge2e95e7"><span class="section-number-3">4.5</span> Javascript</h3>
+<div id="outline-container-org2e1c5fc" class="outline-3">
+<h3 id="org2e1c5fc"><span class="section-number-3">4.5</span> Javascript</h3>
 <div class="outline-text-3" id="text-4-5">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">defvaralias</span> '<span style="color: #D8DEE9;">js-indent-level</span> 'tab-width)
@@ -930,12 +930,12 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org4a976df" class="outline-3">
-<h3 id="org4a976df"><span class="section-number-3">4.6</span> Java</h3>
+<div id="outline-container-orgf330731" class="outline-3">
+<h3 id="orgf330731"><span class="section-number-3">4.6</span> Java</h3>
 </div>
 
-<div id="outline-container-org8e469be" class="outline-3">
-<h3 id="org8e469be"><span class="section-number-3">4.7</span> LaTeX</h3>
+<div id="outline-container-orgea616b8" class="outline-3">
+<h3 id="orgea616b8"><span class="section-number-3">4.7</span> LaTeX</h3>
 <div class="outline-text-3" id="text-4-7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span style="color: #4c566a;">;; </span><span style="color: #4c566a;">sets latex-mode to compile w/ pdflatex by default</span>
@@ -960,8 +960,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgec7ad46" class="outline-3">
-<h3 id="orgec7ad46"><span class="section-number-3">4.8</span> zsh</h3>
+<div id="outline-container-orgdc4b613" class="outline-3">
+<h3 id="orgdc4b613"><span class="section-number-3">4.8</span> zsh</h3>
 <div class="outline-text-3" id="text-4-8">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #A3BE8C;">"zshrc$"</span> . sh-mode))
@@ -971,8 +971,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org44b195f" class="outline-3">
-<h3 id="org44b195f"><span class="section-number-3">4.9</span> Haskell</h3>
+<div id="outline-container-org504956f" class="outline-3">
+<h3 id="org504956f"><span class="section-number-3">4.9</span> Haskell</h3>
 <div class="outline-text-3" id="text-4-9">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">haskell-mode</span>
@@ -984,8 +984,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org39454d7" class="outline-3">
-<h3 id="org39454d7"><span class="section-number-3">4.10</span> Ruby</h3>
+<div id="outline-container-org2b33996" class="outline-3">
+<h3 id="org2b33996"><span class="section-number-3">4.10</span> Ruby</h3>
 <div class="outline-text-3" id="text-4-10">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">enh-ruby-mode</span>
@@ -1003,8 +1003,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org7adafd5" class="outline-3">
-<h3 id="org7adafd5"><span class="section-number-3">4.11</span> SQL</h3>
+<div id="outline-container-org7c26d14" class="outline-3">
+<h3 id="org7c26d14"><span class="section-number-3">4.11</span> SQL</h3>
 <div class="outline-text-3" id="text-4-11">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">setq</span> sql-mysql-options '(<span style="color: #A3BE8C;">"--local-infile"</span>))
@@ -1017,8 +1017,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org0824e6d" class="outline-3">
-<h3 id="org0824e6d"><span class="section-number-3">4.12</span> Thrift</h3>
+<div id="outline-container-org79abc95" class="outline-3">
+<h3 id="org79abc95"><span class="section-number-3">4.12</span> Thrift</h3>
 <div class="outline-text-3" id="text-4-12">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">thrift</span>
@@ -1033,8 +1033,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orge41e702" class="outline-3">
-<h3 id="orge41e702"><span class="section-number-3">4.13</span> Octave</h3>
+<div id="outline-container-org8b85c81" class="outline-3">
+<h3 id="org8b85c81"><span class="section-number-3">4.13</span> Octave</h3>
 <div class="outline-text-3" id="text-4-13">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">octave</span>
@@ -1056,8 +1056,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgd8cf80f" class="outline-3">
-<h3 id="orgd8cf80f"><span class="section-number-3">4.14</span> Matlab</h3>
+<div id="outline-container-orga2a4e00" class="outline-3">
+<h3 id="orga2a4e00"><span class="section-number-3">4.14</span> Matlab</h3>
 <div class="outline-text-3" id="text-4-14">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">matlab</span>
@@ -1068,8 +1068,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org9c9c886" class="outline-3">
-<h3 id="org9c9c886"><span class="section-number-3">4.15</span> Python</h3>
+<div id="outline-container-org9fb5089" class="outline-3">
+<h3 id="org9fb5089"><span class="section-number-3">4.15</span> Python</h3>
 <div class="outline-text-3" id="text-4-15">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">pyvenv</span>)
@@ -1092,8 +1092,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org9fdefbd" class="outline-3">
-<h3 id="org9fdefbd"><span class="section-number-3">4.16</span> Emacs Lisp</h3>
+<div id="outline-container-orga013529" class="outline-3">
+<h3 id="orga013529"><span class="section-number-3">4.16</span> Emacs Lisp</h3>
 <div class="outline-text-3" id="text-4-16">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">elisp-mode</span>
@@ -1103,12 +1103,12 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 </div>
-<div id="outline-container-org1714315" class="outline-2">
-<h2 id="org1714315"><span class="section-number-2">5</span> General Packages</h2>
+<div id="outline-container-org1b26954" class="outline-2">
+<h2 id="org1b26954"><span class="section-number-2">5</span> General Packages</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org8f850fe" class="outline-3">
-<h3 id="org8f850fe"><span class="section-number-3">5.1</span> <code>ace-link</code></h3>
+<div id="outline-container-orgd4bb04a" class="outline-3">
+<h3 id="orgd4bb04a"><span class="section-number-3">5.1</span> <code>ace-link</code></h3>
 <div class="outline-text-3" id="text-5-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">ace-link</span>
@@ -1119,8 +1119,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org84fda1a" class="outline-3">
-<h3 id="org84fda1a"><span class="section-number-3">5.2</span> <code>ace-window</code></h3>
+<div id="outline-container-org0d4f81a" class="outline-3">
+<h3 id="org0d4f81a"><span class="section-number-3">5.2</span> <code>ace-window</code></h3>
 <div class="outline-text-3" id="text-5-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">ace-window</span>
@@ -1137,8 +1137,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgfa76a58" class="outline-3">
-<h3 id="orgfa76a58"><span class="section-number-3">5.3</span> <code>ansi-color</code></h3>
+<div id="outline-container-org527d3d6" class="outline-3">
+<h3 id="org527d3d6"><span class="section-number-3">5.3</span> <code>ansi-color</code></h3>
 <div class="outline-text-3" id="text-5-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">ansi-color</span>
@@ -1158,8 +1158,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org9823da8" class="outline-3">
-<h3 id="org9823da8"><span class="section-number-3">5.4</span> <code>browse-url</code></h3>
+<div id="outline-container-org63b0ddc" class="outline-3">
+<h3 id="org63b0ddc"><span class="section-number-3">5.4</span> <code>browse-url</code></h3>
 <div class="outline-text-3" id="text-5-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">browse-url</span>
@@ -1180,8 +1180,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org0754822" class="outline-3">
-<h3 id="org0754822"><span class="section-number-3">5.5</span> <code>calc</code></h3>
+<div id="outline-container-org61bdd68" class="outline-3">
+<h3 id="org61bdd68"><span class="section-number-3">5.5</span> <code>calc</code></h3>
 <div class="outline-text-3" id="text-5-5">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">calc</span>
@@ -1192,8 +1192,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org63c1e3c" class="outline-3">
-<h3 id="org63c1e3c"><span class="section-number-3">5.6</span> <code>conf-mode</code></h3>
+<div id="outline-container-orge859c7a" class="outline-3">
+<h3 id="orge859c7a"><span class="section-number-3">5.6</span> <code>conf-mode</code></h3>
 <div class="outline-text-3" id="text-5-6">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">conf-mode</span>
@@ -1217,8 +1217,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org8830dad" class="outline-3">
-<h3 id="org8830dad"><span class="section-number-3">5.7</span> <code>company</code></h3>
+<div id="outline-container-org9b4c99f" class="outline-3">
+<h3 id="org9b4c99f"><span class="section-number-3">5.7</span> <code>company</code></h3>
 <div class="outline-text-3" id="text-5-7">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">company</span>
@@ -1233,8 +1233,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgad6d25e" class="outline-3">
-<h3 id="orgad6d25e"><span class="section-number-3">5.8</span> <code>dired</code></h3>
+<div id="outline-container-org1578740" class="outline-3">
+<h3 id="org1578740"><span class="section-number-3">5.8</span> <code>dired</code></h3>
 <div class="outline-text-3" id="text-5-8">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">setq</span> dired-listing-switches <span style="color: #A3BE8C;">"-alh"</span>)
@@ -1248,8 +1248,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgcfae798" class="outline-3">
-<h3 id="orgcfae798"><span class="section-number-3">5.9</span> <code>doc-view-mode</code></h3>
+<div id="outline-container-orgf997b4b" class="outline-3">
+<h3 id="orgf997b4b"><span class="section-number-3">5.9</span> <code>doc-view-mode</code></h3>
 <div class="outline-text-3" id="text-5-9">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">doc-view</span>
@@ -1260,8 +1260,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org913b375" class="outline-3">
-<h3 id="org913b375"><span class="section-number-3">5.10</span> <code>debbugs</code></h3>
+<div id="outline-container-org9263975" class="outline-3">
+<h3 id="org9263975"><span class="section-number-3">5.10</span> <code>debbugs</code></h3>
 <div class="outline-text-3" id="text-5-10">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">debbugs</span>
@@ -1274,8 +1274,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgcac6afc" class="outline-3">
-<h3 id="orgcac6afc"><span class="section-number-3">5.11</span> <code>ediff</code></h3>
+<div id="outline-container-org6fcd09c" class="outline-3">
+<h3 id="org6fcd09c"><span class="section-number-3">5.11</span> <code>ediff</code></h3>
 <div class="outline-text-3" id="text-5-11">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">ediff</span>
@@ -1286,8 +1286,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org2bf6b4b" class="outline-3">
-<h3 id="org2bf6b4b"><span class="section-number-3">5.12</span> Eshell</h3>
+<div id="outline-container-orgdc520e7" class="outline-3">
+<h3 id="orgdc520e7"><span class="section-number-3">5.12</span> Eshell</h3>
 <div class="outline-text-3" id="text-5-12">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">eshell</span>
@@ -1304,8 +1304,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org19e7135" class="outline-4">
-<h4 id="org19e7135"><span class="section-number-4">5.12.1</span> Initialization file</h4>
+<div id="outline-container-orgb5ada9e" class="outline-4">
+<h4 id="orgb5ada9e"><span class="section-number-4">5.12.1</span> Initialization file</h4>
 <div class="outline-text-4" id="text-5-12-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(setenv <span style="color: #A3BE8C;">"EDITOR"</span> <span style="color: #A3BE8C;">"emacsclient"</span>)
@@ -1315,8 +1315,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org5c3ce68" class="outline-3">
-<h3 id="org5c3ce68"><span class="section-number-3">5.13</span> <code>ess</code></h3>
+<div id="outline-container-org5ea0030" class="outline-3">
+<h3 id="org5ea0030"><span class="section-number-3">5.13</span> <code>ess</code></h3>
 <div class="outline-text-3" id="text-5-13">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">ess-site</span>
@@ -1337,8 +1337,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org9c45d4a" class="outline-3">
-<h3 id="org9c45d4a"><span class="section-number-3">5.14</span> Evil (base + extras)</h3>
+<div id="outline-container-org03cc19f" class="outline-3">
+<h3 id="org03cc19f"><span class="section-number-3">5.14</span> Evil (base + extras)</h3>
 <div class="outline-text-3" id="text-5-14">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">evil</span>
@@ -1379,50 +1379,55 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
   (<span style="color: #81A1C1;">bind-keys</span> <span style="color: #81A1C1;">:map</span> evil-insert-state-map
              (<span style="color: #A3BE8C;">"&lt;return&gt;"</span> . newline-and-indent))
 
-  (<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">evil-numbers</span>
-    <span style="color: #81A1C1;">:ensure</span> t
-    <span style="color: #81A1C1;">:config</span>
-    (<span style="color: #81A1C1;">bind-keys</span> <span style="color: #81A1C1;">:map</span> evil-normal-state-map
-      (<span style="color: #A3BE8C;">"C-a"</span>   . evil-numbers/inc-at-pt)
-      (<span style="color: #A3BE8C;">"C-c -"</span> . evil-numbers/dec-at-pt)))
+  (evil-mode 1))
 
-  (<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">evil-search-highlight-persist</span>
-    <span style="color: #81A1C1;">:ensure</span> t
-    <span style="color: #81A1C1;">:config</span>
-    (<span style="color: #81A1C1;">bind-key</span> <span style="color: #A3BE8C;">"C-l"</span> 'evil-search-highlight-persist-remove-all
-      evil-normal-state-map)
-    (global-evil-search-highlight-persist t)
+(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">evil-numbers</span>
+  <span style="color: #81A1C1;">:after</span> evil
+  <span style="color: #81A1C1;">:ensure</span> t
+  <span style="color: #81A1C1;">:config</span>
+  (<span style="color: #81A1C1;">bind-keys</span> <span style="color: #81A1C1;">:map</span> evil-normal-state-map
+             (<span style="color: #A3BE8C;">"C-a"</span>   . evil-numbers/inc-at-pt)
+             (<span style="color: #A3BE8C;">"C-c -"</span> . evil-numbers/dec-at-pt)))
 
-    (set-face-attribute
-      'evil-search-highlight-persist-highlight-face
-      nil
-      <span style="color: #81A1C1;">:background</span> (face-attribute 'match <span style="color: #81A1C1;">:background</span>)))
+(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">evil-search-highlight-persist</span>
+  <span style="color: #81A1C1;">:after</span> evil
+  <span style="color: #81A1C1;">:ensure</span> t
+  <span style="color: #81A1C1;">:config</span>
+  (<span style="color: #81A1C1;">bind-key</span> <span style="color: #A3BE8C;">"C-l"</span> 'evil-search-highlight-persist-remove-all
+            evil-normal-state-map)
+  (global-evil-search-highlight-persist t)
 
-  (evil-mode 1)
+  (set-face-attribute
+   'evil-search-highlight-persist-highlight-face
+   nil
+   <span style="color: #81A1C1;">:background</span> (face-attribute 'match <span style="color: #81A1C1;">:background</span>)))
 
-  (<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">evil-surround</span>
-    <span style="color: #81A1C1;">:ensure</span> t
-    <span style="color: #81A1C1;">:pin</span> melpa-stable
-    <span style="color: #81A1C1;">:config</span>
-    (global-evil-surround-mode 1))
 
-  (<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">evil-nerd-commenter</span>
-    <span style="color: #81A1C1;">:ensure</span> t
-    <span style="color: #81A1C1;">:config</span>
-    (<span style="color: #81A1C1;">bind-keys</span> <span style="color: #81A1C1;">:map</span> jjin-comment-map
-      (<span style="color: #A3BE8C;">"i"</span> . evilnc-comment-or-uncomment-lines)
-      (<span style="color: #A3BE8C;">"l"</span> . evilnc-quick-comment-or-uncomment-to-the-line)
-      (<span style="color: #A3BE8C;">"c"</span> . evilnc-copy-and-comment-lines)
-      (<span style="color: #A3BE8C;">"p"</span> . evilnc-comment-or-uncomment-paragraphs)
-      (<span style="color: #A3BE8C;">"v"</span> . evilnc-toggle-invert-comment-line-by-line))))
+(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">evil-surround</span>
+  <span style="color: #81A1C1;">:after</span> evil
+  <span style="color: #81A1C1;">:ensure</span> t
+  <span style="color: #81A1C1;">:pin</span> melpa-stable
+  <span style="color: #81A1C1;">:config</span>
+  (global-evil-surround-mode 1))
+
+(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">evil-nerd-commenter</span>
+  <span style="color: #81A1C1;">:after</span> evil
+  <span style="color: #81A1C1;">:ensure</span> t
+  <span style="color: #81A1C1;">:config</span>
+  (<span style="color: #81A1C1;">bind-keys</span> <span style="color: #81A1C1;">:map</span> jjin-comment-map
+             (<span style="color: #A3BE8C;">"i"</span> . evilnc-comment-or-uncomment-lines)
+             (<span style="color: #A3BE8C;">"l"</span> . evilnc-quick-comment-or-uncomment-to-the-line)
+             (<span style="color: #A3BE8C;">"c"</span> . evilnc-copy-and-comment-lines)
+             (<span style="color: #A3BE8C;">"p"</span> . evilnc-comment-or-uncomment-paragraphs)
+             (<span style="color: #A3BE8C;">"v"</span> . evilnc-toggle-invert-comment-line-by-line)))
 
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org7f953ce" class="outline-3">
-<h3 id="org7f953ce"><span class="section-number-3">5.15</span> <code>fill-column-indicator</code></h3>
+<div id="outline-container-org71e217d" class="outline-3">
+<h3 id="org71e217d"><span class="section-number-3">5.15</span> <code>fill-column-indicator</code></h3>
 <div class="outline-text-3" id="text-5-15">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">fill-column-indicator</span>
@@ -1437,8 +1442,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orge5fe327" class="outline-3">
-<h3 id="orge5fe327"><span class="section-number-3">5.16</span> <code>flycheck</code></h3>
+<div id="outline-container-org6da02da" class="outline-3">
+<h3 id="org6da02da"><span class="section-number-3">5.16</span> <code>flycheck</code></h3>
 <div class="outline-text-3" id="text-5-16">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">flycheck</span>
@@ -1451,8 +1456,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org9d8ce42" class="outline-3">
-<h3 id="org9d8ce42"><span class="section-number-3">5.17</span> Git</h3>
+<div id="outline-container-orgc6bd2b6" class="outline-3">
+<h3 id="orgc6bd2b6"><span class="section-number-3">5.17</span> Git</h3>
 <div class="outline-text-3" id="text-5-17">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">bind-keys</span> <span style="color: #81A1C1;">:map</span> jjin-vc-map
@@ -1461,8 +1466,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org95b336b" class="outline-4">
-<h4 id="org95b336b"><span class="section-number-4">5.17.1</span> <code>git-commit-mode</code></h4>
+<div id="outline-container-org98a3c3c" class="outline-4">
+<h4 id="org98a3c3c"><span class="section-number-4">5.17.1</span> <code>git-commit-mode</code></h4>
 <div class="outline-text-4" id="text-5-17-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">git-commit-mode</span>
@@ -1472,8 +1477,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgc6f7342" class="outline-4">
-<h4 id="orgc6f7342"><span class="section-number-4">5.17.2</span> <code>gitconfig-mode</code></h4>
+<div id="outline-container-orgd3c9f4e" class="outline-4">
+<h4 id="orgd3c9f4e"><span class="section-number-4">5.17.2</span> <code>gitconfig-mode</code></h4>
 <div class="outline-text-4" id="text-5-17-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">gitconfig-mode</span>
@@ -1484,8 +1489,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgc38429a" class="outline-4">
-<h4 id="orgc38429a"><span class="section-number-4">5.17.3</span> <code>gitignore-mode</code></h4>
+<div id="outline-container-orgd5ffd6b" class="outline-4">
+<h4 id="orgd5ffd6b"><span class="section-number-4">5.17.3</span> <code>gitignore-mode</code></h4>
 <div class="outline-text-4" id="text-5-17-3">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">gitignore-mode</span>
@@ -1496,8 +1501,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org13b2782" class="outline-4">
-<h4 id="org13b2782"><span class="section-number-4">5.17.4</span> <code>magit</code></h4>
+<div id="outline-container-org1f2340a" class="outline-4">
+<h4 id="org1f2340a"><span class="section-number-4">5.17.4</span> <code>magit</code></h4>
 <div class="outline-text-4" id="text-5-17-4">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">magit</span>
@@ -1537,8 +1542,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org4795d79" class="outline-3">
-<h3 id="org4795d79"><span class="section-number-3">5.18</span> <code>helm</code></h3>
+<div id="outline-container-org54450f7" class="outline-3">
+<h3 id="org54450f7"><span class="section-number-3">5.18</span> <code>helm</code></h3>
 <div class="outline-text-3" id="text-5-18">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">helm</span>
@@ -1565,6 +1570,7 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
              (<span style="color: #A3BE8C;">"g"</span> . helm-grep-do-git-grep)))
 
 (<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">helm-make</span>
+  <span style="color: #81A1C1;">:requires</span> helm
   <span style="color: #81A1C1;">:after</span> helm
   <span style="color: #81A1C1;">:ensure</span> t
   <span style="color: #81A1C1;">:commands</span> helm-make-projectile
@@ -1573,25 +1579,24 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
   (<span style="color: #81A1C1;">setq</span> helm-make-list-target-method 'qp))
 
 (<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">helm-projectile</span>
-  <span style="color: #81A1C1;">:after</span> (helm projectile)
-  <span style="color: #81A1C1;">:ensure</span> t
-  <span style="color: #81A1C1;">:config</span>
-  (<span style="color: #81A1C1;">bind-keys</span> <span style="color: #81A1C1;">:map</span> projectile-command-map
+  <span style="color: #81A1C1;">:after</span> projectile
+  <span style="color: #81A1C1;">:bind</span> (<span style="color: #81A1C1;">:map</span> projectile-command-map
              (<span style="color: #A3BE8C;">"p"</span>   . helm-projectile)
              (<span style="color: #A3BE8C;">"a"</span>   . helm-projectile-find-other-file)
              (<span style="color: #A3BE8C;">"f"</span>   . helm-projectile-find-file)
              (<span style="color: #A3BE8C;">"F"</span>   . helm-projectile-find-file-in-known-projects)
              (<span style="color: #A3BE8C;">"s s"</span> . helm-projectile-ag)
              (<span style="color: #A3BE8C;">"s g"</span> . helm-projectile-grep))
-
+  <span style="color: #81A1C1;">:ensure</span> t
+  <span style="color: #81A1C1;">:config</span>
   (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2c911ee" class="outline-3">
-<h3 id="org2c911ee"><span class="section-number-3">5.19</span> <code>linum</code></h3>
+<div id="outline-container-org25f616e" class="outline-3">
+<h3 id="org25f616e"><span class="section-number-3">5.19</span> <code>linum</code></h3>
 <div class="outline-text-3" id="text-5-19">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">linum</span>
@@ -1616,8 +1621,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org8189a1a" class="outline-3">
-<h3 id="org8189a1a"><span class="section-number-3">5.20</span> <code>multi-term</code></h3>
+<div id="outline-container-org3070166" class="outline-3">
+<h3 id="org3070166"><span class="section-number-3">5.20</span> <code>multi-term</code></h3>
 <div class="outline-text-3" id="text-5-20">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">multi-term</span>
@@ -1653,8 +1658,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org562db54" class="outline-3">
-<h3 id="org562db54"><span class="section-number-3">5.21</span> <code>mu4e</code></h3>
+<div id="outline-container-org27df6fa" class="outline-3">
+<h3 id="org27df6fa"><span class="section-number-3">5.21</span> <code>mu4e</code></h3>
 <div class="outline-text-3" id="text-5-21">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">mu4e</span>
@@ -1817,8 +1822,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org26e7602" class="outline-3">
-<h3 id="org26e7602"><span class="section-number-3">5.22</span> <code>org-mode</code></h3>
+<div id="outline-container-org94f63d3" class="outline-3">
+<h3 id="org94f63d3"><span class="section-number-3">5.22</span> <code>org-mode</code></h3>
 <div class="outline-text-3" id="text-5-22">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">org</span>
@@ -1949,8 +1954,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgbbe97ba" class="outline-3">
-<h3 id="orgbbe97ba"><span class="section-number-3">5.23</span> Org-page</h3>
+<div id="outline-container-org3d2ec1b" class="outline-3">
+<h3 id="org3d2ec1b"><span class="section-number-3">5.23</span> Org-page</h3>
 <div class="outline-text-3" id="text-5-23">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">org-page</span>)
@@ -1959,8 +1964,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org8cfd6bf" class="outline-3">
-<h3 id="org8cfd6bf"><span class="section-number-3">5.24</span> <code>paradox</code></h3>
+<div id="outline-container-org9ae5205" class="outline-3">
+<h3 id="org9ae5205"><span class="section-number-3">5.24</span> <code>paradox</code></h3>
 <div class="outline-text-3" id="text-5-24">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">paradox</span>
@@ -1978,8 +1983,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org6ed4f5e" class="outline-3">
-<h3 id="org6ed4f5e"><span class="section-number-3">5.25</span> <code>pdf-tools</code></h3>
+<div id="outline-container-orgf70565a" class="outline-3">
+<h3 id="orgf70565a"><span class="section-number-3">5.25</span> <code>pdf-tools</code></h3>
 <div class="outline-text-3" id="text-5-25">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">pdf-tools</span>
@@ -2000,8 +2005,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org8ccc520" class="outline-3">
-<h3 id="org8ccc520"><span class="section-number-3">5.26</span> <code>projectile</code></h3>
+<div id="outline-container-org53a937c" class="outline-3">
+<h3 id="org53a937c"><span class="section-number-3">5.26</span> <code>projectile</code></h3>
 <div class="outline-text-3" id="text-5-26">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">projectile</span>
@@ -2064,8 +2069,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org45a0901" class="outline-3">
-<h3 id="org45a0901"><span class="section-number-3">5.27</span> <code>rich-minority-mode</code></h3>
+<div id="outline-container-org4b6e0ef" class="outline-3">
+<h3 id="org4b6e0ef"><span class="section-number-3">5.27</span> <code>rich-minority-mode</code></h3>
 <div class="outline-text-3" id="text-5-27">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">rich-minority</span>
@@ -2084,8 +2089,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org1454c57" class="outline-3">
-<h3 id="org1454c57"><span class="section-number-3">5.28</span> <code>smart-mode-line</code></h3>
+<div id="outline-container-org193182e" class="outline-3">
+<h3 id="org193182e"><span class="section-number-3">5.28</span> <code>smart-mode-line</code></h3>
 <div class="outline-text-3" id="text-5-28">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">smart-mode-line</span>
@@ -2100,8 +2105,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org7d0f11a" class="outline-3">
-<h3 id="org7d0f11a"><span class="section-number-3">5.29</span> <code>tramp</code></h3>
+<div id="outline-container-orgdbc414c" class="outline-3">
+<h3 id="orgdbc414c"><span class="section-number-3">5.29</span> <code>tramp</code></h3>
 <div class="outline-text-3" id="text-5-29">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">tramp</span>
@@ -2116,8 +2121,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org57e11d2" class="outline-3">
-<h3 id="org57e11d2"><span class="section-number-3">5.30</span> <code>undo-tree</code></h3>
+<div id="outline-container-orgef54f8e" class="outline-3">
+<h3 id="orgef54f8e"><span class="section-number-3">5.30</span> <code>undo-tree</code></h3>
 <div class="outline-text-3" id="text-5-30">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">undo-tree</span>
@@ -2128,8 +2133,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgb3a4b59" class="outline-3">
-<h3 id="orgb3a4b59"><span class="section-number-3">5.31</span> <code>w3m</code></h3>
+<div id="outline-container-orgab1be85" class="outline-3">
+<h3 id="orgab1be85"><span class="section-number-3">5.31</span> <code>w3m</code></h3>
 <div class="outline-text-3" id="text-5-31">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">w3m</span>
@@ -2155,12 +2160,12 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-org0d30399" class="outline-3">
-<h3 id="org0d30399"><span class="section-number-3">5.32</span> Language modes</h3>
+<div id="outline-container-org0b9d220" class="outline-3">
+<h3 id="org0b9d220"><span class="section-number-3">5.32</span> Language modes</h3>
 <div class="outline-text-3" id="text-5-32">
 </div>
-<div id="outline-container-org79cd84e" class="outline-4">
-<h4 id="org79cd84e"><span class="section-number-4">5.32.1</span> Markdown</h4>
+<div id="outline-container-org77687d0" class="outline-4">
+<h4 id="org77687d0"><span class="section-number-4">5.32.1</span> Markdown</h4>
 <div class="outline-text-4" id="text-5-32-1">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">markdown-mode</span>
@@ -2178,8 +2183,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgecbf560" class="outline-4">
-<h4 id="orgecbf560"><span class="section-number-4">5.32.2</span> YAML</h4>
+<div id="outline-container-orgf3ce604" class="outline-4">
+<h4 id="orgf3ce604"><span class="section-number-4">5.32.2</span> YAML</h4>
 <div class="outline-text-4" id="text-5-32-2">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span style="color: #81A1C1;">use-package</span> <span style="color: #81A1C1;">yaml-mode</span>
@@ -2191,8 +2196,8 @@ since some settings, e.g. that for <code>split-width-threshold</code>, are depen
 </div>
 </div>
 
-<div id="outline-container-orgb7a4b12" class="outline-2">
-<h2 id="orgb7a4b12"><span class="section-number-2">6</span> (Un)license</h2>
+<div id="outline-container-org7a12be5" class="outline-2">
+<h2 id="org7a12be5"><span class="section-number-2">6</span> (Un)license</h2>
 <div class="outline-text-2" id="text-6">
 <div class="org-src-container">
 <pre class="src src-text">This is free and unencumbered software released into the public domain.
@@ -2226,7 +2231,7 @@ For more information, please refer to <a href="http://unlicense.org">&lt;http://
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Jonathan Jin</p>
-<p class="date">Created: 2018-05-08 Tue 00:22</p>
+<p class="date">Created: 2018-05-08 Tue 00:35</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

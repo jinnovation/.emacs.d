@@ -850,42 +850,47 @@
        (bind-keys :map evil-insert-state-map
                   ("<return>" . newline-and-indent))
 
-       (use-package evil-numbers
-         :ensure t
-         :config
-         (bind-keys :map evil-normal-state-map
-           ("C-a"   . evil-numbers/inc-at-pt)
-           ("C-c -" . evil-numbers/dec-at-pt)))
+       (evil-mode 1))
 
-       (use-package evil-search-highlight-persist
-         :ensure t
-         :config
-         (bind-key "C-l" 'evil-search-highlight-persist-remove-all
-           evil-normal-state-map)
-         (global-evil-search-highlight-persist t)
+     (use-package evil-numbers
+       :after evil
+       :ensure t
+       :config
+       (bind-keys :map evil-normal-state-map
+                  ("C-a"   . evil-numbers/inc-at-pt)
+                  ("C-c -" . evil-numbers/dec-at-pt)))
 
-         (set-face-attribute
-           'evil-search-highlight-persist-highlight-face
-           nil
-           :background (face-attribute 'match :background)))
+     (use-package evil-search-highlight-persist
+       :after evil
+       :ensure t
+       :config
+       (bind-key "C-l" 'evil-search-highlight-persist-remove-all
+                 evil-normal-state-map)
+       (global-evil-search-highlight-persist t)
 
-       (evil-mode 1)
+       (set-face-attribute
+        'evil-search-highlight-persist-highlight-face
+        nil
+        :background (face-attribute 'match :background)))
 
-       (use-package evil-surround
-         :ensure t
-         :pin melpa-stable
-         :config
-         (global-evil-surround-mode 1))
 
-       (use-package evil-nerd-commenter
-         :ensure t
-         :config
-         (bind-keys :map jjin-comment-map
-           ("i" . evilnc-comment-or-uncomment-lines)
-           ("l" . evilnc-quick-comment-or-uncomment-to-the-line)
-           ("c" . evilnc-copy-and-comment-lines)
-           ("p" . evilnc-comment-or-uncomment-paragraphs)
-           ("v" . evilnc-toggle-invert-comment-line-by-line))))
+     (use-package evil-surround
+       :after evil
+       :ensure t
+       :pin melpa-stable
+       :config
+       (global-evil-surround-mode 1))
+
+     (use-package evil-nerd-commenter
+       :after evil
+       :ensure t
+       :config
+       (bind-keys :map jjin-comment-map
+                  ("i" . evilnc-comment-or-uncomment-lines)
+                  ("l" . evilnc-quick-comment-or-uncomment-to-the-line)
+                  ("c" . evilnc-copy-and-comment-lines)
+                  ("p" . evilnc-comment-or-uncomment-paragraphs)
+                  ("v" . evilnc-toggle-invert-comment-line-by-line)))
 
    #+END_SRC
 
@@ -1003,6 +1008,7 @@
                   ("g" . helm-grep-do-git-grep)))
 
      (use-package helm-make
+       :requires helm
        :after helm
        :ensure t
        :commands helm-make-projectile
@@ -1011,17 +1017,16 @@
        (setq helm-make-list-target-method 'qp))
 
      (use-package helm-projectile
-       :after (helm projectile)
-       :ensure t
-       :config
-       (bind-keys :map projectile-command-map
+       :after projectile
+       :bind (:map projectile-command-map
                   ("p"   . helm-projectile)
                   ("a"   . helm-projectile-find-other-file)
                   ("f"   . helm-projectile-find-file)
                   ("F"   . helm-projectile-find-file-in-known-projects)
                   ("s s" . helm-projectile-ag)
                   ("s g" . helm-projectile-grep))
-
+       :ensure t
+       :config
        (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
    #+END_SRC
 
