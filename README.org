@@ -1253,7 +1253,7 @@
    
    #+BEGIN_SRC emacs-lisp
      (use-package org
-       :ensure t
+       :ensure org-plus-contrib
        :pin org
        :mode ("\\.org$" . org-mode)
        :commands (org-capture)
@@ -1336,7 +1336,8 @@
          '((emacs-lisp . t)
             (latex     . t)
             (python    . t)
-            (ipython   . t)
+            ;; FIXME: Make this contingent on ob-ipython
+            ;; (ipython   . t)
             (R         . t)
             (octave    . t)
             (matlab    . t)
