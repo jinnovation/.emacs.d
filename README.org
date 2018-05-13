@@ -315,7 +315,11 @@
 
       (setq custom-safe-themes t)
 
-      (set-frame-font (if (eq system-type 'darwin) "Terminus (TTF) 12" "Terminus 12"))
+      (set-frame-font
+       (cond 
+        ((string= "gnu/linux" system-type) "-xos4-terminus-medium-r-normal--28-*-72-72-c-140-iso10646-1")
+        ((string= "darwin" system-type) "Terminus (TTF) 12")
+         (t "Terminus 12")))
 
       (when (functionp 'set-fontset-font)
         (set-fontset-font "fontset-default"
