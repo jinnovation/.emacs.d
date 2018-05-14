@@ -478,7 +478,9 @@
        :ensure t
 
        :init
-       (setq gofmt-command "goimports")
+       (if (executable-find "goimports")
+           (setq gofmt-command "goimports")
+         (message "Goimports not found; using default `gofmt-command'"))
 
        :config
        (add-hook 'before-save-hook 'gofmt-before-save)
@@ -1011,8 +1013,6 @@
                   ("g" . helm-grep-do-git-grep)))
 
      (use-package helm-make
-       :requires helm
-       :after helm
        :ensure t
        :commands helm-make-projectile
        :init
