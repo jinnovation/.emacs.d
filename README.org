@@ -335,6 +335,8 @@
     #+BEGIN_SRC emacs-lisp
       (when (eq system-type 'darwin)
         (setq mac-command-modifier 'meta)
+        (setq mac-right-command-modifier 'control)
+        (setq mac-option-modifier 'super)
         (setq system-uses-terminfo nil)
         (toggle-frame-fullscreen))
     #+END_SRC
@@ -355,7 +357,7 @@
    since some settings, e.g. that for =split-width-threshold=, are dependent.
 
    #+BEGIN_SRC emacs-lisp
-     (setq split-width-threshold (* 0.8 (frame-width)))
+     (setq split-width-threshold 120)
    #+END_SRC
    
 * Keys
@@ -1421,7 +1423,7 @@
        :ensure t
        :diminish projectile-mode
        :init
-       (setq projectile-keymap-prefix (kbd "C-c p")
+       (setq projectile-keymap-prefix (kbd "s-p")
              projectile-globally-ignored-files '("TAGS"
                                                  "GPATH"
                                                  "GRTAGS"
