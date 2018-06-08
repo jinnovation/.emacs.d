@@ -644,6 +644,27 @@
      (use-package elisp-mode
        :bind (("C-c C-f" . find-function)))
    #+END_SRC
+
+** Markdown
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package markdown-mode
+       :mode "\\.md$"
+       :init
+       (setq markdown-asymmetric-header t)
+       :config
+       (add-hook 'markdown-mode-hook 'auto-fill-mode)
+
+       (use-package markdown-mode+))
+   #+END_SRC
+
+** YAML
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package yaml-mode
+       :mode "\\.yaml$")
+   #+END_SRC
+
 * General Packages
 
 ** =ace-link=
@@ -1556,28 +1577,6 @@
 
        (use-package w3m-session))
    #+END_SRC
-
-** Language modes
-
-*** Markdown
-
-    #+BEGIN_SRC emacs-lisp
-      (use-package markdown-mode
-        :mode "\\.md$"
-        :init
-        (setq markdown-asymmetric-header t)
-        :config
-        (add-hook 'markdown-mode-hook 'auto-fill-mode)
-
-        (use-package markdown-mode+))
-    #+END_SRC
-
-*** YAML
-
-    #+BEGIN_SRC emacs-lisp
-      (use-package yaml-mode
-        :mode "\\.yaml$")
-    #+END_SRC
 
 * (Un)license
 
