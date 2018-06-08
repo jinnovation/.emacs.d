@@ -304,7 +304,8 @@
         :if window-system
         :ensure t
         :config
-        (load-theme 'nord t))
+        (load-theme 'nord t)
+        (setq nord-comment-brightness 10))
     #+END_SRC
 
 *** General
