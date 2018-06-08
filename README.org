@@ -964,6 +964,8 @@
                                     "--decorate"
                                     "--color"))
 
+        (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
+
         :config
         (bind-keys :map jjin-vc-map
                    ("v" . magit-status)
