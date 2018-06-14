@@ -879,9 +879,6 @@
        (bind-keys :map evil-emacs-state-map
          ("<escape>" . evil-execute-in-normal-state))
 
-       (bind-keys :map evil-insert-state-map
-                  ("<return>" . newline-and-indent))
-
        (evil-mode 1))
 
      (use-package evil-numbers
@@ -1027,6 +1024,8 @@
        :init
        (setq helm-external-programs-associations `(("pdf" . ,(if (eq system-type 'darwin) "open" "zathura"))))
        (setq helm-split-window-inside-p t)
+
+       (setq helm-mode-fuzzy-match t)
 
        :config
        (helm-mode 1)
@@ -1286,6 +1285,7 @@
        :mode ("\\.org$" . org-mode)
        :commands (org-capture)
        :init
+       (setq org-special-ctrl-a/e t)
        (setq org-agenda-files '("~/agenda")
          org-return-follows-link t
 
@@ -1332,11 +1332,14 @@
             ("subsetneqq" "\\subsetneqq" t "" "[suberset of above not equal to]"
               "[suberset of above not equal to]" "⫋")))
        :config
+
        (use-package ob-python
          :init
          (setq org-babel-python-command "python3"))
+
        (use-package ox-latex)
        (use-package ox-bibtex)
+       (use-package ox-md)
        (bind-keys :map org-mode-map
          ("RET" . org-return-indent)
          ("M-p"   . outline-previous-visible-heading)
@@ -1387,13 +1390,12 @@
          '((heading . true)
             (plain-list-item . auto)))
 
-       (setq
-         ;; FIXME: parameter-ize dir `agenda'
-         org-default-notes-file "~/agenda/notes.org"
+       ;; FIXME: parameter-ize dir `agenda'
+       (setq org-default-notes-file "~/agenda/notes.org")
 
-         org-capture-templates
-         '(("r" "Reading" entry (file "~/proj/lists/read.org")
-             "* TODO %?\n  Entered on %U\n  %i")))
+       (setq org-capture-templates
+             `(("r" "Reading" entry (file "~/proj/lists/read.org")
+                "* TODO %?\n  Entered on %U\n  %i")))
 
        (setq org-refile-targets '((nil . (:maxlevel . 10))))
 
@@ -1402,6 +1404,13 @@
        (use-package toc-org
          :config
          (add-hook 'org-mode-hook 'toc-org-enable)))
+
+     (use-package evil-org
+       :after (evil org)
+       :config
+       (add-hook 'org-mode-hook 'evil-org-mode)
+       (evil-org-set-key-theme))
+
    #+END_SRC
 
 ** Org-page
