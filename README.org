@@ -30,27 +30,37 @@
     (package-initialize)
   #+END_SRC
 
-** Baseline packages
+** Front Matter
 
-   We use =use-package= for these configs. Check for its existence and install
-   if necessary here.
+*** Straight
+
+    #+BEGIN_SRC emacs-lisp
+      (let ((bootstrap-file
+             (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+            (bootstrap-version 4))
+        (unless (file-exists-p bootstrap-file)
+          (with-current-buffer
+              (url-retrieve-synchronously
+               "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+               'silent 'inhibit-cookies)
+            (goto-char (point-max))
+            (eval-print-last-sexp)))
+        (load bootstrap-file nil 'nomessage))
+    #+END_SRC
+
+    #+BEGIN_SRC emacs-lisp
+    (straight-use-package 'use-package)
+    #+END_SRC
+    
+*** Baseline 
 
    #+BEGIN_SRC emacs-lisp
-     (unless (package-installed-p 'use-package)
-       (package-refresh-contents)
-       (package-install 'use-package))
-
-     (eval-when-compile
-       (require 'use-package))
-   #+END_SRC
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package diminish)
+     (use-package diminish :straight t)
 
      (use-package names
-       :ensure t)
+       :straight t)
    #+END_SRC
-
+    
 ** Functions
 
    #+BEGIN_SRC emacs-lisp
@@ -302,7 +312,7 @@
 
       (use-package nord-theme
         :if window-system
-        :ensure t
+        :straight t
         :config
         (load-theme 'nord t)
         (setq nord-comment-brightness 10))
@@ -415,7 +425,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package hydra
        :after ace-window
-       :ensure t
+       :straight t
        :config
        (defhydra jjin-hydra-window (global-map "C-c w")
          "Commands relating to window manipulation"
@@ -481,7 +491,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package go-mode
        :mode "\\.go$"
-       :ensure t
+       :straight t
 
        :init
        (if (executable-find "goimports")
@@ -510,7 +520,7 @@
      (use-package js2-mode
        :mode (("\\.js$" . js2-mode)
               ("\\.jsx$" . js2-jsx-mode))
-       :ensure t)
+       :straight t)
 
    #+END_SRC
 
@@ -626,7 +636,7 @@
      (use-package ob-ipython)
 
      (use-package elpy
-       :ensure t
+       :straight t
        :init
        (setq elpy-modules '(elpy-module-company
                             elpy-module-eldoc
@@ -679,7 +689,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package ace-window
-       :ensure t
+       :straight t
        :init
        (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
 
@@ -759,7 +769,7 @@
      (use-package company
        :defines company-backends
        :diminish company-mode
-       :ensure t
+       :straight t
        :config
        (add-hook 'after-init-hook 'global-company-mode)
        (setq company-idle-delay 0.1))
@@ -782,16 +792,6 @@
      (use-package doc-view
        :init
        (setq doc-view-resolution 200))
-   #+END_SRC
-
-** =debbugs=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package debbugs
-       :ensure t
-       :config
-       (with-eval-after-load 'evil
-           (add-to-list 'evil-emacs-state-modes 'debbugs-gnu-mode)))
    #+END_SRC
 
 ** =ediff=
@@ -883,7 +883,7 @@
 
      (use-package evil-numbers
        :after evil
-       :ensure t
+       :straight t
        :config
        (bind-keys :map evil-normal-state-map
                   ("C-a"   . evil-numbers/inc-at-pt)
@@ -891,7 +891,7 @@
 
      (use-package evil-search-highlight-persist
        :after evil
-       :ensure t
+       :straight t
        :config
        (bind-key "C-l" 'evil-search-highlight-persist-remove-all
                  evil-normal-state-map)
@@ -912,7 +912,7 @@
 
      (use-package evil-nerd-commenter
        :after evil
-       :ensure t
+       :straight t
        :config
        (bind-keys :map jjin-comment-map
                   ("i" . evilnc-comment-or-uncomment-lines)
@@ -928,7 +928,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package fill-column-indicator
        :commands turn-on-fci-mode
-       :ensure t
+       :straight t
        :init
        ;; (add-hook 'prog-mode-hook 'turn-on-fci-mode)
        ;; (add-hook 'text-mode-hook 'turn-on-fci-mode)
@@ -962,7 +962,7 @@
 *** =gitconfig-mode=
     #+BEGIN_SRC emacs-lisp
       (use-package gitconfig-mode
-        :ensure t
+        :straight t
         :mode "gitconfig")
     #+END_SRC
 
@@ -970,7 +970,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package gitignore-mode
-        :ensure t
+        :straight t
         :mode "gitignore")
     #+END_SRC
 
@@ -978,7 +978,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package magit
-        :ensure t
+        :straight t
         :init
         (setq magit-popup-show-common-commands nil)
         (setq magit-log-arguments '("--graph"
@@ -1016,7 +1016,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package helm
-       :ensure t
+       :straight t
        :diminish helm-mode
        :bind (("C-x m"    . helm-M-x)
                ("C-x C-f" . helm-find-files)
@@ -1041,7 +1041,7 @@
                   ("g" . helm-grep-do-git-grep)))
 
      (use-package helm-make
-       :ensure t
+       :straight t
        :commands helm-make-projectile
        :init
        (setq helm-make-cache-targets t)
@@ -1056,7 +1056,7 @@
                   ("F"   . helm-projectile-find-file-in-known-projects)
                   ("s s" . helm-projectile-ag)
                   ("s g" . helm-projectile-grep))
-       :ensure t
+       :straight t
        :config
        (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
    #+END_SRC
@@ -1065,7 +1065,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package linum
-       :ensure t
+       :straight t
        :config
        (setq linum-format 'dynamic)
        (global-linum-mode 1)
@@ -1087,7 +1087,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package multi-term
-       :ensure t
+       :straight t
        :config
        (bind-keys :map jjin-term-map
                   ("t" . multi-term)
@@ -1456,7 +1456,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
-       :ensure t
+       :straight t
        :diminish projectile-mode
        :init
        (setq projectile-keymap-prefix (kbd "s-p")
@@ -1516,7 +1516,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package rich-minority
-       :ensure t
+       :straight t
        :config
        (defconst my-rm-excluded-modes
          '(
@@ -1532,7 +1532,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package smart-mode-line
-       :ensure t
+       :straight t
        :init
        (setq sml/theme 'respectful)
        :config
