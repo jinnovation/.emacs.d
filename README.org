@@ -593,7 +593,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package thrift
-
+       :if (eq system-type 'darwin) ;; only need this on work computer
        :config
        (add-hook 'thrift-mode-hook
                  (lambda ()
@@ -624,6 +624,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package matlab
+       :disabled t
        :init
        (setq matlab-shell-command-switches '("-nodesktop")))
    #+END_SRC
@@ -808,6 +809,7 @@
      (use-package eshell
        :init
        (setq eshell-rc-script (concat user-emacs-directory "eshell/profile"))
+       (setq eshell-modify-global-environment t)
        :config
        (with-eval-after-load 'evil
          (progn
