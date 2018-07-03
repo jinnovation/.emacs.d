@@ -1425,7 +1425,6 @@
    #+BEGIN_SRC emacs-lisp
      (use-package paradox
        :commands (paradox-list-packages)
-       :ensure t
        :init
        (bind-key "p" 'paradox-list-packages jjin-exec-map)
        :config
