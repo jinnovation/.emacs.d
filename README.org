@@ -847,7 +847,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package evil
-       :ensure t
+       :straight t
        :pin melpa
        :defines evil-normal-state-map
        :init
@@ -904,10 +904,9 @@
         nil
         :background (face-attribute 'match :background)))
 
-
      (use-package evil-surround
        :after evil
-       :ensure t
+       :straight t
        :pin melpa-stable
        :config
        (global-evil-surround-mode 1))
@@ -1408,11 +1407,11 @@
          (add-hook 'org-mode-hook 'toc-org-enable)))
 
      (use-package evil-org
+       :straight t
        :after (evil org)
        :config
        (add-hook 'org-mode-hook 'evil-org-mode)
        (evil-org-set-key-theme))
-
    #+END_SRC
 
 ** Org-page
