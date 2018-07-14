@@ -11,3 +11,4 @@ url/
 /.ecukes-failing-scenarios
 
 /init.el
+/straight/
