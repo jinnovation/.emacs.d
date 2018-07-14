@@ -28,7 +28,7 @@
  ("melpa" . "898cc59239f9aef6012baabf29fa35a9c7fd8d70")
  ("multi-term" . "f954e4e18b0a035151d34852387e724d87a3316f")
  ("names" . "d8baba5360e5253938a25d3e005455b6d2d86971")
- ("nord-emacs" . "290aa9221a10e107acb0f06d0ec338fcb3e44785")
+ ("nord-emacs" . "b5c1dc762fe3acaa88a0ce9640085d45d0109c43")
  ("pkg-info.el" . "76ba7415480687d05a4353b27fea2ae02b8d9d61")
  ("popup-el" . "80829dd46381754639fb764da11c67235fe63282")
  ("projectile" . "98de987369119bd0db94c562267c0b1847a9c737")
