@@ -525,8 +525,6 @@
 
    #+END_SRC
 
-** Java
-
 ** LaTeX
 
    #+BEGIN_SRC emacs-lisp
