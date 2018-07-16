@@ -352,8 +352,7 @@
         (setq mac-option-modifier 'meta)
 
         (setq mac-right-option-modifier 'super)
-        (setq system-uses-terminfo nil)
-        (toggle-frame-fullscreen))
+        (setq system-uses-terminfo nil))
     #+END_SRC
 
 ** Server
@@ -659,19 +658,23 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package markdown-mode
+       :straight t
        :mode "\\.md$"
        :init
        (setq markdown-asymmetric-header t)
        :config
-       (add-hook 'markdown-mode-hook 'auto-fill-mode)
+       (add-hook 'markdown-mode-hook 'auto-fill-mode))
 
-       (use-package markdown-mode+))
+     (use-package markdown-mode+
+       :straight t
+       :after markdown-mode)
    #+END_SRC
 
 ** YAML
 
    #+BEGIN_SRC emacs-lisp
      (use-package yaml-mode
+       :straight t
        :mode "\\.yaml$")
    #+END_SRC
 
@@ -681,6 +684,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package ace-link
+       :straight t
        :commands (ace-link-eww ace-link-setup-default)
        :init (ace-link-setup-default))
    #+END_SRC
@@ -781,6 +785,7 @@
      (setq dired-listing-switches "-alh")
 
      (use-package dired-open
+       :straight t
        :init
        (setq dired-open-extensions '(("mp4" . "vlc")
                                      ("avi" . "vlc"))))
