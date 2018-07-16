@@ -1421,20 +1421,6 @@
      (use-package org-page)
    #+END_SRC
 
-** =paradox=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package paradox
-       :commands (paradox-list-packages)
-       :init
-       (bind-key "p" 'paradox-list-packages jjin-exec-map)
-       :config
-       (with-eval-after-load 'evil
-           (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode))
-       (setq paradox-github-token t))
-
-   #+END_SRC
-
 ** =pdf-tools=
 
    #+BEGIN_SRC emacs-lisp
