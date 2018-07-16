@@ -594,7 +594,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package thrift
-
+       :if (eq system-type 'darwin) ;; only need this on work computer
        :config
        (add-hook 'thrift-mode-hook
                  (lambda ()
@@ -625,6 +625,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package matlab
+       :disabled t
        :init
        (setq matlab-shell-command-switches '("-nodesktop")))
    #+END_SRC
@@ -809,6 +810,7 @@
      (use-package eshell
        :init
        (setq eshell-rc-script (concat user-emacs-directory "eshell/profile"))
+       (setq eshell-modify-global-environment t)
        :config
        (with-eval-after-load 'evil
          (progn
@@ -846,7 +848,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package evil
-       :ensure t
+       :straight t
        :pin melpa
        :defines evil-normal-state-map
        :init
@@ -903,10 +905,9 @@
         nil
         :background (face-attribute 'match :background)))
 
-
      (use-package evil-surround
        :after evil
-       :ensure t
+       :straight t
        :pin melpa-stable
        :config
        (global-evil-surround-mode 1))
@@ -1407,11 +1408,11 @@
          (add-hook 'org-mode-hook 'toc-org-enable)))
 
      (use-package evil-org
+       :straight t
        :after (evil org)
        :config
        (add-hook 'org-mode-hook 'evil-org-mode)
        (evil-org-set-key-theme))
-
    #+END_SRC
 
 ** Org-page
@@ -1425,7 +1426,6 @@
    #+BEGIN_SRC emacs-lisp
      (use-package paradox
        :commands (paradox-list-packages)
-       :ensure t
        :init
        (bind-key "p" 'paradox-list-packages jjin-exec-map)
        :config
