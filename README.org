@@ -852,7 +852,6 @@
    #+BEGIN_SRC emacs-lisp
      (use-package evil
        :straight t
-       :pin melpa
        :defines evil-normal-state-map
        :init
        (setq evil-esc-delay 0)
@@ -911,7 +910,6 @@
      (use-package evil-surround
        :after evil
        :straight t
-       :pin melpa-stable
        :config
        (global-evil-surround-mode 1))
 
