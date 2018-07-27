@@ -807,6 +807,17 @@
        (setq ediff-window-setup-function 'ediff-setup-windows-plain))
    #+END_SRC
 
+** Elfeed
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package elfeed
+       :straight t)
+
+     (use-package elfeed-protocol
+       :straight t
+       :after elfeed)
+   #+END_SRC
+   
 ** Eshell
 
    #+BEGIN_SRC emacs-lisp
