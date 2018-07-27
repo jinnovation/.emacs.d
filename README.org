@@ -52,6 +52,19 @@
     (straight-use-package 'use-package)
     #+END_SRC
     
+*** =use-package=
+
+    The =:if= clause lets us suppress configuration/loading of a given package
+    if a provided condition doesn't hold. The following will log such cases
+    non-fatally.
+
+    #+BEGIN_SRC emacs-lisp
+      (defun jjin/use-package-if-prehook (name _keyword pred rest state)
+        (if (not pred) (error "predicate failed; skipping package")))
+
+      (advice-add 'use-package-handler/:if :before 'jjin/use-package-if-prehook)
+    #+END_SRC
+    
 *** Baseline 
 
    #+BEGIN_SRC emacs-lisp
