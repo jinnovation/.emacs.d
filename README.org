@@ -632,8 +632,6 @@
    #+BEGIN_SRC emacs-lisp
      (use-package pyvenv)
 
-     (use-package ob-ipython)
-
      (use-package elpy
        :straight t
        :init
@@ -811,11 +809,24 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
-       :straight t)
+       :straight t
+       :bind (:map jjin-exec-map
+                   ("e" . elfeed))
+       :init
+       (setq elfeed-use-curl t)
+       (setq elfeed-log-level 'debug))
 
      (use-package elfeed-protocol
+       :after elfeed
        :straight t
-       :after elfeed)
+       :if (-all-p 'boundp '(jjin/secret/ttrss-domain
+                             jjin/secret/ttrss-username
+                             jjin/secret/ttrss-pass))
+       :init
+       (setq elfeed-feeds
+             (list (format "ttrss+http://%s:%s@%s" jjin/secret/ttrss-username jjin/secret/ttrss-pass jjin/secret/ttrss-domain)))
+       :config
+       (elfeed-protocol-enable))
    #+END_SRC
    
 ** Eshell
@@ -1172,16 +1183,17 @@
        (setq mu4e-sent-messages-behavior 'delete)
 
        (setq mu4e-maildir-shortcuts
-             '(("/personal/INBOX"   . ?I)
-               ("/personal/sent"    . ?S)
-               ("/personal/drafts"  . ?D)
-               ("/personal/archive" . ?A)
-               ("/work/INBOX"   . ?i)
-               ("/work/sent"    . ?s)
-               ("/work/drafts"  . ?d)
-               ("/work/archive" . ?a)))
+             '(("/personal/INBOX"   . ?i)
+               ("/personal/sent"    . ?s)
+               ("/personal/drafts"  . ?d)
+               ("/personal/archive" . ?a)))
 
-       (setq mu4e-get-mail-command "offlineimap")
+       (setq mu4e-get-mail-command
+             (if (not (executable-find "offlineimap"))
+                 (progn
+                   (use-package-error "mu4e: binary offlineimap not found; `mu4e-get-mail-command' falling back to no-op.")
+                   "true")
+               "offlineimap"))
 
        ;; don't keep message buffers around
        (setq message-kill-buffer-on-exit t)
@@ -1256,24 +1268,7 @@
                          (user-full-name . "Jonathan Jin")
                          (mu4e-trash-folder . "/personal/trash")
                          (mu4e-drafts-folder . "/personal/drafts")
-                         (mu4e-refile-folder . "/personal/archive")))
-               ,(make-mu4e-context
-                 :name "work"
-                 :match-func
-                 (lambda (msg)
-                   (when msg
-                     (or
-                      (mu4e-message-maildir-matches msg "^/work")
-                      (mu4e-message-contact-field-matches msg :to '("jonathan.jin@uber.com" "@uber.com$")))))
-                 :vars `((user-mail-address . "jonathan.jin@uber.com")
-                         (mu4e-compose-signature . ,(concat "Jonathan Jin\n"
-                                                            "Software Engineer, Observability Applications\n"
-                                                            "t.uber.com/jonathan.jin/filememos"))
-                         (smtpmail-smtp-user . "jonathan.jin@uber.com")
-                         (user-full-name . "Jonathan Jin")
-                         (mu4e-trash-folder . "/work/trash")
-                         (mu4e-drafts-folder . "/work/drafts")
-                         (mu4e-refile-folder . "/work/archive")))))
+                         (mu4e-refile-folder . "/personal/archive")))))
 
        (setq mu4e-compose-context-policy 'ask)
 
@@ -1430,7 +1425,8 @@
 ** Org-page
 
    #+BEGIN_SRC emacs-lisp
-     (use-package org-page)
+     (use-package org-page
+     :straight t)
    #+END_SRC
 
 ** =pdf-tools=
