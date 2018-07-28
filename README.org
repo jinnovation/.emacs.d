@@ -859,13 +859,21 @@
 
      (use-package elfeed-protocol
        :after elfeed
-       :straight t
+       :straight (:host github
+                        :type git
+                        :repo "jinnovation/elfeed-protocol"
+                        :branch "canary"
+                        :upstream (:host github :repo "fasheng/elfeed-protocol"))
+
        :if (-all-p 'boundp '(jjin/secret/ttrss-domain
                              jjin/secret/ttrss-username
                              jjin/secret/ttrss-pass))
        :init
        (setq elfeed-feeds
              (list (format "ttrss+http://%s:%s@%s" jjin/secret/ttrss-username jjin/secret/ttrss-pass jjin/secret/ttrss-domain)))
+
+       (setq elfeed-protocol-ttrss-categories-as-tags t)
+
        :config
        (elfeed-protocol-enable))
    #+END_SRC
