@@ -4,15 +4,6 @@
 #+AUTHOR: Jonathan Jin
 #+PROPERTY: header-args:emacs-lisp :exports code :results none :tangle init.el
 
-#+HTML_HEAD:    <!-- Global site tag (gtag.js) - Google Analytics -->
-#+HTML_HEAD:    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42551205-2"></script>
-#+HTML_HEAD:    <script>
-#+HTML_HEAD:    window.dataLayer = window.dataLayer || [];
-#+HTML_HEAD:    function gtag(){dataLayer.push(arguments);}
-#+HTML_HEAD:    gtag('js', new Date());
-#+HTML_HEAD:    gtag('config', 'UA-42551205-2');
-#+HTML_HEAD:    </script>
-
 #+EXPORT_FILE_NAME: index
 
 #+SETUPFILE: theme.setup
