@@ -842,10 +842,10 @@
      (use-package elfeed-protocol
        :after elfeed
        :straight (:host github
-                        :type git
-                        :repo "jinnovation/elfeed-protocol"
-                        :branch "canary"
-                        :upstream (:host github :repo "fasheng/elfeed-protocol"))
+                  :type git
+                  :repo "jinnovation/elfeed-protocol"
+                  :branch "canary"
+                  :upstream (:host github :repo "fasheng/elfeed-protocol"))
 
        :if (-all-p 'boundp '(jjin/secret/ttrss-domain
                              jjin/secret/ttrss-username
