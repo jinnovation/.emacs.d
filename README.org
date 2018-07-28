@@ -377,15 +377,6 @@
        :config
        (unless (server-running-p) (server-start)))
    #+END_SRC
-
-** Final
-
-   We set these parameters after visual environment has finished configuration,
-   since some settings, e.g. that for =split-width-threshold=, are dependent.
-
-   #+BEGIN_SRC emacs-lisp
-     (setq split-width-threshold 120)
-   #+END_SRC
    
 * Keys
 
