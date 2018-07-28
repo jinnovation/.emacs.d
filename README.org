@@ -824,10 +824,38 @@
      (use-package elfeed
        :straight t
        :bind (:map jjin-exec-map
-                   ("e" . elfeed))
+              ("e" . elfeed)
+              :map elfeed-search-mode-map
+              ("<SPC>" . next-line)
+              ("U" . elfeed-unjam)
+              :map elfeed-show-mode-map
+              ("S-<SPC>" . scroll-down-command))
+
        :init
        (setq elfeed-use-curl t)
-       (setq elfeed-log-level 'debug))
+       (setq elfeed-log-level 'debug)
+
+       :config
+       (with-eval-after-load 'evil
+         (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+         (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode))
+
+       (set-face-attribute 'elfeed-search-feed-face
+                           nil
+                           :foreground (face-attribute 'warning :foreground))
+
+       (set-face-attribute 'elfeed-search-tag-face
+                           nil
+                           :foreground (face-attribute 'success :foreground))
+
+       (set-face-attribute 'elfeed-search-unread-title-face
+                           nil
+                           :weight 'normal
+                           :foreground (face-attribute 'default :foreground))
+
+       (set-face-attribute 'elfeed-search-title-face
+                           nil
+                           :foreground (face-attribute 'font-lock-comment-face :foreground)))
 
      (use-package elfeed-protocol
        :after elfeed
