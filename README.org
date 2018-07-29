@@ -1496,6 +1496,15 @@
                                                  "GTAGS")
              projectile-globally-ignored-file-suffixes '("~"))
 
+       ;; We'd like projects contained within other projects, e.g. packages pulled
+       ;; into the .emacs.d/.straight dir via straight.el, to be recognized as
+       ;; Projectile packages.
+       (setq projectile-project-root-files-functions
+             '(projectile-root-local
+               projectile-root-top-down
+               projectile-root-top-down-recurring
+               projectile-root-bottom-up))
+
        :config
        (bind-key "<f12>"
                  (lambda ()
