@@ -1075,6 +1075,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package helm
        :straight t
+       :demand t
        :diminish helm-mode
        :bind (("C-x m"    . helm-M-x)
                ("C-x C-f" . helm-find-files)
