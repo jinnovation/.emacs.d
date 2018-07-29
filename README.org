@@ -494,10 +494,15 @@
          (message "Goimports not found; using default `gofmt-command'"))
 
        :config
-       (add-hook 'before-save-hook 'gofmt-before-save)
+       (add-hook 'before-save-hook 'gofmt-before-save))
 
-       (use-package company-go :disabled t)
-       (use-package go-guru))
+     (use-package company-go
+       :after go
+       :disabled t)
+
+     (use-package go-guru
+       :after go
+       :straight t)
    #+END_SRC
 
 ** Lisp
