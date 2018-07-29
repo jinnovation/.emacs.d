@@ -517,6 +517,8 @@
               ("\\.jsx$" . js2-jsx-mode))
        :straight t)
 
+     (use-package json-mode
+       :straight t)
    #+END_SRC
 
 ** LaTeX
