@@ -8,7 +8,7 @@
  ("diminish.el" . "565a983a39d2e2cffab5df13b34f3b6116723208")
  ("dired-hacks" . "3fd347a0823312e966872bd0d26d9a75b2898c9c")
  ("elfeed" . "a6fc231e47f1071cd4d1363926868761f7f0bcd8")
- ("elfeed-protocol" . "cacb42a9bc87e0acb11574ab513867078e4a2862")
+ ("elfeed-protocol" . "c42c05f12cb0fccd6cf152bb6f28a622f40a5ed4")
  ("elpa" . "ea2bd9fc340739bbc660571110ddd0d86da20472")
  ("elpy" . "47eac168f38e40fc07f56ea37fb1bee7f645e42a")
  ("emacs-async" . "d17c11e6082aa51f421bb037b828bdb15f405618")
