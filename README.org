@@ -1325,13 +1325,56 @@
    #+END_SRC
 
 ** =org-mode=
-   
+
+   The following is a temporary hack until straight.el supports building Org,
+   see:
+  
+   - https://github.com/raxod502/straight.el/issues/211
+   - https://github.com/raxod502/radian/issues/410
+  
+   There are three things missing from our version of Org: the functions
+   =org-git-version= and =org-release=, and the feature =org-version=. We
+   provide all three of those ourself, therefore.
+
+   #+BEGIN_SRC emacs-lisp
+     (require 'subr-x)
+     (straight-use-package 'git)
+
+     (defun org-git-version ()
+       "The Git version of org-mode.
+     Inserted by installing org-mode or when a release is made."
+       (require 'git)
+       (let ((git-repo (expand-file-name
+                        "straight/repos/org/" user-emacs-directory)))
+         (string-trim
+          (git-run "describe"
+                   "--match=release\*"
+                   "--abbrev=6"
+                   "HEAD"))))
+
+     (defun org-release ()
+       "The release version of org-mode.
+     Inserted by installing org-mode or when a release is made."
+       (require 'git)
+       (let ((git-repo (expand-file-name
+                        "straight/repos/org/" user-emacs-directory)))
+         (string-trim
+          (string-remove-prefix
+           "release_"
+           (git-run "describe"
+                    "--match=release\*"
+                    "--abbrev=0"
+                    "HEAD")))))
+
+     (provide 'org-version)
+   #+END_SRC
+
+   The following is the *actual* configuration.
+
    #+BEGIN_SRC emacs-lisp
      (use-package org
-       :ensure org-plus-contrib
-       :pin org
+       :straight org-plus-contrib
        :mode ("\\.org$" . org-mode)
-       :commands (org-capture)
        :init
        (setq org-special-ctrl-a/e t)
        (setq org-agenda-files '("~/agenda")
@@ -1395,9 +1438,6 @@
 
        (plist-put org-format-latex-options :scale 1.5)
 
-       (add-to-list 'org-structure-template-alist
-         '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
-
        (setq org-latex-packages-alist
          '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
 
@@ -1447,11 +1487,12 @@
 
        (setq org-refile-targets '((nil . (:maxlevel . 10))))
 
-       (setq org-export-with-smart-quotes t)
+       (setq org-export-with-smart-quotes t))
 
-       (use-package toc-org
-         :config
-         (add-hook 'org-mode-hook 'toc-org-enable)))
+     (use-package toc-org
+       :after org
+       :config
+       (add-hook 'org-mode-hook 'toc-org-enable))
 
      (use-package evil-org
        :straight t
@@ -1459,12 +1500,16 @@
        :config
        (add-hook 'org-mode-hook 'evil-org-mode)
        (evil-org-set-key-theme))
+
+     (use-package org-tempo
+       :after org)
    #+END_SRC
 
 ** Org-page
 
    #+BEGIN_SRC emacs-lisp
      (use-package org-page
+     :after org
      :straight t)
    #+END_SRC
 
