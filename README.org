@@ -433,7 +433,6 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package hydra
-       :after ace-window
        :straight t
        :config
        (defhydra jjin-hydra-window (global-map "C-c w")
@@ -707,6 +706,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package ace-window
+       :commands ace-window
        :straight t
        :init
        (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
