@@ -380,43 +380,10 @@
    reach.
 
    #+begin_src emacs-lisp
-     (defcustom jjin-exec-applications nil
-       "Mapping between symbolic identifiers and corresponding
-     'execution functions.'  Use this mapping to expose functions to
-     `jjin-execute' for easy access"
-       :type '(alist :key-type symbol :value-type function))
-
-     (defun jjin-execute ()
-       "Select an 'application' from ``jjin-exec-applications' and
-       execute it."
-       (interactive)
-       (let* ((prompt "> ")
-              (selections (mapcar (lambda (asoc) (symbol-name (car asoc))) jjin-exec-applications))
-              (key (intern (completing-read prompt selections nil t))))
-         (funcall (alist-get key jjin-exec-applications))))
-
-     (defun helm-jjin-execute-handler (prompt
-                                       collection
-                                       predicate
-                                       require-match
-                                       initial-input
-                                       hist
-                                       def
-                                       inherit-input-method
-                                       name
-                                       buffer)
-       (helm-comp-read prompt
-                       collection
-                       :must-match t
-                       :fuzzy t
-                       :name "Available Applications"
-                       :buffer "Execute"
-                       :nomark t))
-
-     (with-eval-after-load 'helm
-       (add-to-list 'helm-completing-read-handlers-alist '(jjin-execute . helm-jjin-execute-handler)))
-
-     (bind-key "C-c e" 'jjin-execute)
+     (use-package helm-exec
+       :after helm
+       :straight (:local-repo "~/proj/helm-exec")
+       :bind (("C-c e" . helm-exec-execute)))
    #+end_src
   
 * Keys
@@ -790,7 +757,8 @@
    #+BEGIN_SRC emacs-lisp
      (use-package calc
        :init
-       (add-to-list 'jjin-exec-applications '(calc . calc)))
+       (with-eval-after-load 'helm-exec
+         (helm-exec-register-executable 'calc)))
    #+END_SRC
 
 ** =conf-mode=
@@ -867,7 +835,8 @@
               ("S-<SPC>" . scroll-down-command))
 
        :init
-       (add-to-list 'jjin-exec-applications '(elfeed . elfeed))
+       (with-eval-after-load 'helm-exec
+         (helm-exec-register-executable 'elfeed 'elfeed))
 
        (setq elfeed-use-curl t)
        (setq elfeed-log-level 'debug)
@@ -1238,7 +1207,8 @@
                         "/usr/local/Cellar/mu/0.9.16/share/emacs/site-lisp/mu/mu4e"))
        :commands (mu4e mu4e-update-mail-and-index)
        :init
-       (add-to-list 'jjin-exec-applications '(mu4e . mu4e))
+       (with-eval-after-load 'helm-exec
+         (helm-exec-register-executable 'mu4e 'mu4e))
        (bind-keys :map jjin-mail-map ("m" . mu4e-update-mail-and-index))
        (setq mu4e-context-policy 'pick-first)
 
@@ -1703,7 +1673,8 @@
      (use-package w3m
        :commands w3m
        :init
-       (add-to-list 'jjin-exec-applications '(w3m . w3m))
+       (with-eval-after-load 'helm-exec
+         (helm-exec-register-executable 'w3m 'w3m))
        (setq w3m-fill-column 80)
 
        :config
