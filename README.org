@@ -369,6 +369,56 @@
        (unless (server-running-p) (server-start)))
    #+END_SRC
    
+** "Launcher"
+
+   I like to keep several functions within Emacs within a short key press away;
+   these tend to correspond to "applications" such as email, RSS, Slack,
+   etc.
+
+   The following allows me to emulate [[https://en.wikipedia.org/wiki/Spotlight_(software)][macOS's Spotlight functionality]] in a
+   lightweight manner, to put these regularly used "applications" within easy
+   reach.
+
+   #+begin_src emacs-lisp
+     (defcustom jjin-exec-applications nil
+       "Mapping between symbolic identifiers and corresponding
+     'execution functions.'  Use this mapping to expose functions to
+     `jjin-execute' for easy access"
+       :type '(alist :key-type symbol :value-type function))
+
+     (defun jjin-execute ()
+       "Select an 'application' from ``jjin-exec-applications' and
+       execute it."
+       (interactive)
+       (let* ((prompt "> ")
+              (selections (mapcar (lambda (asoc) (symbol-name (car asoc))) jjin-exec-applications))
+              (key (intern (completing-read prompt selections nil t))))
+         (funcall (alist-get key jjin-exec-applications))))
+
+     (defun helm-jjin-execute-handler (prompt
+                                       collection
+                                       predicate
+                                       require-match
+                                       initial-input
+                                       hist
+                                       def
+                                       inherit-input-method
+                                       name
+                                       buffer)
+       (helm-comp-read prompt
+                       collection
+                       :must-match t
+                       :fuzzy t
+                       :name "Available Applications"
+                       :buffer "Execute"
+                       :nomark t))
+
+     (with-eval-after-load 'helm
+       (add-to-list 'helm-completing-read-handlers-alist '(jjin-execute . helm-jjin-execute-handler)))
+
+     (bind-key "C-c e" 'jjin-execute)
+   #+end_src
+  
 * Keys
 
 ** Personal maps
@@ -382,9 +432,6 @@
 
      (define-prefix-command 'jjin-comment-map)
      (bind-key "C-c c" 'jjin-comment-map)
-
-     (define-prefix-command 'jjin-exec-map)
-     (bind-key "C-c e" 'jjin-exec-map)
 
      (define-prefix-command 'jjin-term-map)
      (bind-key "C-c t" 'jjin-term-map)
@@ -743,7 +790,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package calc
        :init
-       (bind-key "c" 'calc jjin-exec-map))
+       (add-to-list 'jjin-exec-applications '(calc . calc)))
    #+END_SRC
 
 ** =conf-mode=
@@ -812,15 +859,16 @@
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
        :straight t
-       :bind (:map jjin-exec-map
-              ("e" . elfeed)
-              :map elfeed-search-mode-map
+       :commands elfeed
+       :bind (:map elfeed-search-mode-map
               ("<SPC>" . next-line)
               ("U" . elfeed-unjam)
               :map elfeed-show-mode-map
               ("S-<SPC>" . scroll-down-command))
 
        :init
+       (add-to-list 'jjin-exec-applications '(elfeed . elfeed))
+
        (setq elfeed-use-curl t)
        (setq elfeed-log-level 'debug)
 
@@ -879,6 +927,7 @@
          (progn
            (delete 'eshell-mode evil-insert-state-modes)
            (add-to-list 'evil-emacs-state-modes 'eshell-mode)))
+
        (bind-keys :map jjin-term-map
                   ("e" . eshell)))
    #+END_SRC
@@ -1189,7 +1238,7 @@
                         "/usr/local/Cellar/mu/0.9.16/share/emacs/site-lisp/mu/mu4e"))
        :commands (mu4e mu4e-update-mail-and-index)
        :init
-       (bind-keys :map jjin-exec-map ("m" . mu4e))
+       (add-to-list 'jjin-exec-applications '(mu4e . mu4e))
        (bind-keys :map jjin-mail-map ("m" . mu4e-update-mail-and-index))
        (setq mu4e-context-policy 'pick-first)
 
@@ -1652,10 +1701,9 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package w3m
-       :bind (:map jjin-exec-map
-                   ("w" . w3m))
        :commands w3m
        :init
+       (add-to-list 'jjin-exec-applications '(w3m . w3m))
        (setq w3m-fill-column 80)
 
        :config
