@@ -405,9 +405,6 @@
 
      (define-prefix-command 'jjin-buffer-map)
      (bind-key "C-c b" 'jjin-buffer-map)
-
-     (define-prefix-command 'jjin-mail-map)
-     (bind-key "C-c m" 'jjin-mail-map)
    #+END_SRC
 
 ** Keybindings
@@ -1208,9 +1205,14 @@
                         "/usr/local/Cellar/mu/0.9.16/share/emacs/site-lisp/mu/mu4e"))
        :commands (mu4e mu4e-update-mail-and-index)
        :init
+       (defhydra jjin-hydra-mu4e (:exit t)
+         "Auxiliary commands for mu4e"
+         ("m" mu4e-update-mail-and-index "update"))
+
        (with-eval-after-load 'helm-exec
-         (helm-exec-register-executable 'mu4e 'mu4e))
-       (bind-keys :map jjin-mail-map ("m" . mu4e-update-mail-and-index))
+         (helm-exec-register-executable 'mu4e
+                                        :alt 'jjin-hydra-mu4e/body))
+
        (setq mu4e-context-policy 'pick-first)
 
        (setq mu4e-headers-include-related nil)
