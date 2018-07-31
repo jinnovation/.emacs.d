@@ -433,6 +433,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package hydra
+       :commands defhydra
        :straight t
        :config
        (defhydra jjin-hydra-window (global-map "C-c w")
