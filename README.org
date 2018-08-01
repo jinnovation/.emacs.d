@@ -662,7 +662,8 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elisp-mode
-       :bind (("C-c C-f" . find-function)))
+       :bind (("C-c C-f" . find-function)
+              ("C-c C-v" . find-variable)))
    #+END_SRC
 
 ** Markdown
