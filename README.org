@@ -1396,8 +1396,13 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package org
+       :bind (:map org-mode-map
+              ("RET" . org-return-indent)
+              ("M-p" . outline-previous-visible-heading)
+              ("M-n" . outline-next-visible-heading))
        :straight org-plus-contrib
        :mode ("\\.org$" . org-mode)
+
        :init
        (setq org-special-ctrl-a/e t)
        (setq org-agenda-files '("~/agenda")
@@ -1454,10 +1459,6 @@
        (use-package ox-latex)
        (use-package ox-bibtex)
        (use-package ox-md)
-       (bind-keys :map org-mode-map
-         ("RET" . org-return-indent)
-         ("M-p"   . outline-previous-visible-heading)
-         ("M-n"   . outline-next-visible-heading))
 
        (plist-put org-format-latex-options :scale 1.5)
 
