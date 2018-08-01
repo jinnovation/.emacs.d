@@ -30,6 +30,7 @@
  ("go-mode.el" . "7f87c32464d2eb22ac7a413cac741a89fbfdc740")
  ("goto-chg" . "e5b38e4e1378f6ea48fa9e8439f49c2998654aa4")
  ("helm" . "f81fbcff230afb214bb562e383cb472be2265e80")
+ ("helm-exec" . "fde1ad8b6cbc018073c5a2f77a444194454cab05")
  ("helm-make" . "e72cdacecb46421dfbde9febdc352a5f06425176")
  ("helm-projectile" . "74349fc9132502af2b2e6ca9a51185ae4c9391b4")
  ("highlight.el" . "6f92253690dde26d9bfd21546fdf68ef2fdd486b")
@@ -64,6 +65,5 @@
  ("use-package" . "3fb8f39f5901a4c0ef7887283e56e60b541675ea")
  ("with-editor" . "3e6424764ee06fb50c580283baea3851c6f9ea66")
  ("yaml-mode" . "40067a10ac1360f0b9533f0bbbb2eea128e2574d")
- ("yasnippet" . "1e713608682685d4a9b78519c84e3196e207c353")
- ("~/proj/helm-exec" . "dcebca04c513b252a30a698802f928e156202e97"))
+ ("yasnippet" . "1e713608682685d4a9b78519c84e3196e207c353"))
 :jupiter

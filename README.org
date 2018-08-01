@@ -382,7 +382,7 @@
    #+begin_src emacs-lisp
      (use-package helm-exec
        :after helm
-       :straight (:local-repo "~/proj/helm-exec")
+       :straight (:host github :repo "jinnovation/helm-exec")
        :bind (("C-c e" . helm-exec-execute)))
    #+end_src
   
