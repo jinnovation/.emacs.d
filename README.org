@@ -1450,16 +1450,8 @@
            ("subseteq" "\\subseteq" t "" "[subset of above equal to]" "subset of above equal to" "⊆")
             ("subsetneqq" "\\subsetneqq" t "" "[suberset of above not equal to]"
               "[suberset of above not equal to]" "⫋")))
+
        :config
-
-       (use-package ob-python
-         :init
-         (setq org-babel-python-command "python3"))
-
-       (use-package ox-latex)
-       (use-package ox-bibtex)
-       (use-package ox-md)
-
        (plist-put org-format-latex-options :scale 1.5)
 
        (setq org-latex-packages-alist
@@ -1512,6 +1504,20 @@
        (setq org-refile-targets '((nil . (:maxlevel . 10))))
 
        (setq org-export-with-smart-quotes t))
+
+     (use-package ox-latex
+       :after org)
+
+     (use-package ox-bibtex
+       :after org)
+
+     (use-package ox-md
+       :after org)
+
+     (use-package ob-python
+       :after org
+       :init
+       (setq org-babel-python-command "python3"))
 
      (use-package toc-org
        :after org
