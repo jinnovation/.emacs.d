@@ -1683,27 +1683,29 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package w3m
+       :straight t
+       :bind (:map w3m-mode-map
+              ("P" . w3m-view-previous-page)
+              ("n" . w3m-tab-next-buffer)
+              ("p" . w3m-tab-previous-buffer)
+              ("w" . w3m-delete-buffer))
        :commands w3m
        :init
        (with-eval-after-load 'helm-exec
-         (helm-exec-register-executable 'w3m 'w3m))
+         (helm-exec-register-executable 'w3m))
        (setq w3m-fill-column 80)
 
        :config
        (with-eval-after-load 'evil
-           (add-to-list 'evil-emacs-state-modes 'w3m-session-select-mode))
+         (add-to-list 'evil-emacs-state-modes 'w3m-session-select-mode))
        (with-eval-after-load 'ace-link
          (bind-keys :map w3m-mode-map
                     ("o" . ace-link-w3m)))
 
-       (unbind-key "B" w3m-mode-map)
-       (bind-keys :map w3m-mode-map
-                  ("P" . w3m-view-previous-page)
-                  ("n" . w3m-tab-next-buffer)
-                  ("p" . w3m-tab-previous-buffer)
-                  ("w" . w3m-delete-buffer))
+       (unbind-key "B" w3m-mode-map))
 
-       (use-package w3m-session))
+     (use-package w3m-session
+       :after w3m)
    #+END_SRC
 
 * (Un)license
