@@ -40,7 +40,9 @@
     #+END_SRC
 
     #+BEGIN_SRC emacs-lisp
-    (straight-use-package 'use-package)
+      (straight-use-package 'use-package)
+      (use-package use-package-ensure-system-package
+        :straight t)
     #+END_SRC
     
 *** =use-package=
@@ -63,6 +65,12 @@
 
      (use-package names
        :straight t)
+
+     (use-package system-packages
+       :straight t
+       :init
+       (when (eq system-type 'darwin)
+         (setq system-packages-package-manager 'brew)))
    #+END_SRC
     
 ** Functions
@@ -382,7 +390,7 @@
    #+begin_src emacs-lisp
      (use-package helm-exec
        :after helm
-       :straight (:repo "git@github.com:jinnovation/helm-exec.git")
+       :straight (:repo "https://github.com/jinnovation/helm-exec.git")
        :bind (("C-c e" . helm-exec-execute)))
    #+end_src
   
@@ -821,6 +829,15 @@
        (setq ediff-window-setup-function 'ediff-setup-windows-plain))
    #+END_SRC
 
+** =exec-path-from-shell=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package exec-path-from-shell
+       :straight t
+       :config
+       (exec-path-from-shell-initialize))
+    #+END_SRC
+
 ** Elfeed
 
    #+BEGIN_SRC emacs-lisp
@@ -1201,9 +1218,9 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package mu4e
-       :load-path (lambda ()
-                    (if (eq system-type 'darwin)
-                        "/usr/local/Cellar/mu/0.9.16/share/emacs/site-lisp/mu/mu4e"))
+       :ensure-system-package
+       ((mu . mu)
+        (offlineimap . offlineimap))
        :commands (mu4e mu4e-update-mail-and-index)
        :init
        (defhydra jjin-hydra-mu4e (:exit t)
@@ -1252,9 +1269,7 @@
 
        (setq mu4e-get-mail-command
              (if (not (executable-find "offlineimap"))
-                 (progn
-                   (use-package-error "mu4e: binary offlineimap not found; `mu4e-get-mail-command' falling back to no-op.")
-                   "true")
+                "true" 
                "offlineimap"))
 
        ;; don't keep message buffers around
