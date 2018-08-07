@@ -612,6 +612,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package thrift
+       :straight t
        :if (eq system-type 'darwin) ;; only need this on work computer
        :config
        (add-hook 'thrift-mode-hook
@@ -909,12 +910,14 @@
        (setq eshell-modify-global-environment t)
        :config
        (with-eval-after-load 'evil
-         (progn
-           (delete 'eshell-mode evil-insert-state-modes)
-           (add-to-list 'evil-emacs-state-modes 'eshell-mode)))
+         (delete 'eshell-mode evil-insert-state-modes)
+         (add-to-list 'evil-emacs-state-modes 'eshell-mode))
 
        (bind-keys :map jjin-term-map
-                  ("e" . eshell)))
+                  ("e" . eshell))
+
+       (defun eshell/la (&rest args)
+         (eshell/ls "--almost-all" "-l" args)))
    #+END_SRC
    
 *** Initialization file
