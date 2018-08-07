@@ -1220,7 +1220,8 @@
      (use-package mu4e
        :ensure-system-package
        ((mu . mu)
-        (offlineimap . offlineimap))
+        (offlineimap . offlineimap)
+        (w3m . w3m))
        :commands (mu4e mu4e-update-mail-and-index)
        :init
        (defhydra jjin-hydra-mu4e (:exit t)
@@ -1232,7 +1233,6 @@
                                         :alt 'jjin-hydra-mu4e/body))
 
        (setq mu4e-context-policy 'pick-first)
-
        (setq mu4e-headers-include-related nil)
 
        :config
@@ -1265,11 +1265,15 @@
              '(("/personal/INBOX"   . ?i)
                ("/personal/sent"    . ?s)
                ("/personal/drafts"  . ?d)
-               ("/personal/archive" . ?a)))
+               ("/personal/archive" . ?a)
+               ("/work/INBOX" . ?I)
+               ("/work/sent" . ?S)
+               ("/work/drafts" . ?D)
+               ("/work/archive" . ?A)))
 
        (setq mu4e-get-mail-command
              (if (not (executable-find "offlineimap"))
-                "true" 
+                 "true" 
                "offlineimap"))
 
        ;; don't keep message buffers around
@@ -1345,7 +1349,25 @@
                          (user-full-name . "Jonathan Jin")
                          (mu4e-trash-folder . "/personal/trash")
                          (mu4e-drafts-folder . "/personal/drafts")
-                         (mu4e-refile-folder . "/personal/archive")))))
+                         (mu4e-refile-folder . "/personal/archive")))
+
+                  ,(make-mu4e-context
+                    :name "work"
+                    :match-func
+                    (lambda (msg)
+                      (when msg
+                        (or
+                         (mu4e-message-maildir-matches msg "^/work")
+                         (mu4e-message-contact-field-matches msg :to "jonathanj@twitter.com"))))
+                    :vars `((user-mail-address . "jonathanj@twitter.com")
+                            (mu4e-compose-signature
+                             . ,(concat "Jonathan Jin\n"
+                                        "Software Engineer, Cortex"))
+                            (smtpmail-smtp-user . "jonathanj@twitter.com")
+                            (user-full-name . "Jonathan Jin")
+                            (mu4e-trash-folder . "/work/trash")
+                            (mu4e-drafts-folder . "/work/drafts")
+                            (mu4e-refile-folder . "/work/archive")))))
 
        (setq mu4e-compose-context-policy 'ask)
 
