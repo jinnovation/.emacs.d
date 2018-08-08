@@ -1074,7 +1074,7 @@
         :mode "gitignore")
     #+END_SRC
 
-*** =magit=
+*** Magit
 
     #+BEGIN_SRC emacs-lisp
       (use-package magit
@@ -1110,8 +1110,17 @@
 
         (with-eval-after-load 'evil
             (add-to-list 'evil-emacs-state-modes 'magit-popup-mode)))
-    #+END_SRC
 
+
+      (use-package magit-arcanist
+        :after magit
+        :straight (:repo "git@github.com:jinnovation/magit-arcanist.git")
+        :init
+        (setq magit-arcanist-key (kbd "@"))
+        :config
+        (magit-arcanist-enable))
+    #+END_SRC
+    
 ** =helm=
 
    #+BEGIN_SRC emacs-lisp
