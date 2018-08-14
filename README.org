@@ -358,11 +358,9 @@
 
     #+BEGIN_SRC emacs-lisp
       (when (eq system-type 'darwin)
-
         (setq mac-command-modifier 'meta)
         (setq mac-right-command-modifier 'meta)
-        (setq mac-option-modifier 'meta)
-
+        (setq mac-option-modifier 'super)
         (setq mac-right-option-modifier 'super)
         (setq system-uses-terminfo nil))
     #+END_SRC
@@ -434,6 +432,9 @@
 
      (bind-keys :map jjin-buffer-map
                 ("r" . rename-buffer))
+
+     (bind-keys :map global-map
+                ("<s-backspace>" . backward-kill-word))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
@@ -652,7 +653,8 @@
 ** Python
 
    #+BEGIN_SRC emacs-lisp
-     (use-package pyvenv)
+     (use-package pyvenv
+       :straight t)
 
      (use-package elpy
        :straight t
@@ -664,7 +666,7 @@
                             elpy-module-yasnippet
                             elpy-module-sane-defaults))
        (elpy-enable))
-  
+
    #+END_SRC
 
 ** Emacs Lisp
@@ -1050,6 +1052,8 @@
    #+BEGIN_SRC emacs-lisp
      (bind-keys :map jjin-vc-map
                 ("g" . vc-git-grep))
+
+     (setq vc-handled-backends nil)
    #+END_SRC
 
 *** =git-commit-mode=
@@ -1080,6 +1084,16 @@
       (use-package magit
         :straight t
         :init
+
+        (add-to-list
+         'safe-local-variable-values
+         '(magit-status-headers-hook . (list
+                                        magit-insert-error-header
+                                        magit-insert-diff-filter-header
+                                        magit-insert-head-branch-header
+                                        magit-insert-upstream-branch-header
+                                        magit-insert-push-branch-header)))
+
         (setq magit-popup-show-common-commands nil)
         (setq magit-log-arguments '("--graph"
                                     "--decorate"
@@ -1319,7 +1333,7 @@
 
        (set-face-attribute 'mu4e-header-highlight-face nil :underline nil)
 
-       (setq mu4e-compose-signature-auto-include t)
+       (setq mu4e-compose-signature-auto-include nil)
 
        (setq mail-user-agent 'mu4e-user-agent)
 
@@ -1355,7 +1369,7 @@
                  :vars `((user-mail-address . "jjin082693@gmail.com")
                          (mu4e-compose-signature
                           . ,(concat "Jonathan Jin\n"
-                                     "Software Engineer, Uber Technologies\n"
+                                     "Machine Learning Software Engineer, Twitter Cortex\n"
                                      "jjin.info"))
                          (smtpmail-smtp-user . "jjin082693@gmail.com")
                          (user-full-name . "Jonathan Jin")
@@ -1374,7 +1388,7 @@
                     :vars `((user-mail-address . "jonathanj@twitter.com")
                             (mu4e-compose-signature
                              . ,(concat "Jonathan Jin\n"
-                                        "Software Engineer, Cortex"))
+                                        "Software Engineer, ML Platform Tools, Cortex"))
                             (smtpmail-smtp-user . "jonathanj@twitter.com")
                             (user-full-name . "Jonathan Jin")
                             (mu4e-trash-folder . "/work/trash")
@@ -1636,6 +1650,8 @@
                projectile-root-bottom-up))
 
        :config
+       (add-to-list 'projectile-project-root-files "OWNERS")
+
        (bind-key "<f12>"
                  (lambda ()
                    "Save all project buffers and compile"
