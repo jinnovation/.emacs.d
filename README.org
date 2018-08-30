@@ -392,6 +392,12 @@
        :bind (("C-c e" . helm-exec-execute)))
    #+end_src
   
+** Nested .dir-locals.el
+
+   #+begin_src emacs-lisp
+     (use-package nested-dir-local
+       :straight (:repo "git@github.com:jinnovation/nested-dir-locals.el.git"))
+   #+end_src
 * Keys
 
 ** Personal maps
