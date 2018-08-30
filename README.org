@@ -476,6 +476,13 @@
      (c-set-offset 'arglist-close 0)
    #+END_SRC
 
+** Aurora
+
+   #+begin_src emacs-lisp
+     (use-package aurora-config-mode
+       :straight t)
+   #+end_src
+
 ** C/C++
 
    #+BEGIN_SRC emacs-lisp
