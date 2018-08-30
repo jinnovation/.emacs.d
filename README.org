@@ -1044,9 +1044,10 @@
      (use-package fill-column-indicator
        :commands turn-on-fci-mode
        :straight t
+       :disabled t
        :init
-       ;; (add-hook 'prog-mode-hook 'turn-on-fci-mode)
-       ;; (add-hook 'text-mode-hook 'turn-on-fci-mode)
+       (add-hook 'prog-mode-hook 'turn-on-fci-mode)
+       (add-hook 'text-mode-hook 'turn-on-fci-mode)
        (setq fci-rule-color (face-attribute 'highlight :background)))
    #+END_SRC
 
@@ -1136,7 +1137,8 @@
             (evil-normal-state 1)))
 
         (with-eval-after-load 'evil
-            (add-to-list 'evil-emacs-state-modes 'magit-popup-mode)))
+          (add-to-list 'evil-emacs-state-modes 'magit-popup-mode))
+        (add-hook 'magit-revision-mode-hook 'goto-address-mode))
 
 
       (use-package magit-arcanist
@@ -1475,13 +1477,14 @@
        :bind (:map org-mode-map
               ("RET" . org-return-indent)
               ("M-p" . outline-previous-visible-heading)
-              ("M-n" . outline-next-visible-heading))
+              ("M-n" . outline-next-visible-heading)
+              ("s-t" . org-todo))
        :straight org-plus-contrib
        :mode ("\\.org$" . org-mode)
-
        :init
        (setq org-special-ctrl-a/e t)
-       (setq org-agenda-files '("~/agenda")
+       (setq org-agenda-files '("~/agenda/"))
+       (setq
          org-return-follows-link t
 
          org-export-dispatch-use-expert-ui t
@@ -1501,24 +1504,24 @@
          '((sequence "TODO(t)" "IN-PROGRESS(r)" "|"  "DONE(d)"))
 
          org-todo-keyword-faces
-         '(("TODO" . org-todo) ("IN-PROGRESS" . "yellow") ("DONE" . org-done))
+         '(("TODO" . org-todo) ("IN-PROGRESS" . "yellow") ("DONE" . org-done)))
 
-         org-agenda-custom-commands
-         '(("s" "Schoolwork"
-             ((agenda "" ((org-agenda-ndays 14)
-                           (org-agenda-start-on-weekday nil)
-                           (org-agenda-prefix-format " %-12:c%?-12t% s")))
-               (tags-todo "CATEGORY=\"Schoolwork\""
-                 ((org-agenda-prefix-format "%b")))))
+       (setq org-agenda-custom-commands
+             '(("s" "Schoolwork"
+                ((agenda "" ((org-agenda-ndays 14)
+                             (org-agenda-start-on-weekday nil)
+                             (org-agenda-prefix-format " %-12:c%?-12t% s")))
+                 (tags-todo "CATEGORY=\"Schoolwork\""
+                            ((org-agenda-prefix-format "%b")))))
 
-            ("r" "Reading"
-              ((tags-todo "CATEGORY=\"Reading\""
-                 ((org-agenda-prefix-format "%:T ")))))
-            ("m" "Movies"
-              ((tags-todo "CATEGORY=\"Movies\""
-                 ((org-agenda-prefix-format "%:T "))))))
-
-         org-latex-pdf-process (list "latexmk -shell-escape -pdf %f")
+               ("r" "Reading"
+                ((tags-todo "CATEGORY=\"Reading\""
+                            ((org-agenda-prefix-format "%:T ")))))
+               ("m" "Movies"
+                ((tags-todo "CATEGORY=\"Movies\""
+                            ((org-agenda-prefix-format "%:T ")))))))
+         (setq
+          org-latex-pdf-process (list "latexmk -shell-escape -pdf %f")
 
          org-entities-user
          '(("supsetneqq" "\\supsetneqq" t "" "[superset of above not equal to]"
@@ -1575,11 +1578,18 @@
 
        (setq org-capture-templates
              `(("r" "Reading" entry (file "~/proj/lists/read.org")
-                "* TODO %?\n  Entered on %U\n  %i")))
+                "* TODO %?\n  Entered on %U\n  %i")
+               ("t" "Task" entry (file "")
+                "* TODO %?\n %i")))
 
        (setq org-refile-targets '((nil . (:maxlevel . 10))))
 
-       (setq org-export-with-smart-quotes t))
+       (setq org-export-with-smart-quotes t)
+       (with-eval-after-load 'ace-link
+         (bind-keys :map org-agenda-mode-map
+                    ("M-o" . ace-link-org))
+         (bind-keys :map org-mode-map
+                    ("M-o" . ace-link-org))))
 
      (use-package ox-latex
        :after org)
@@ -1596,6 +1606,7 @@
        (setq org-babel-python-command "python3"))
 
      (use-package toc-org
+       :disabled t
        :after org
        :config
        (add-hook 'org-mode-hook 'toc-org-enable))
