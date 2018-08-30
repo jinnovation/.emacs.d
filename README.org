@@ -1,4 +1,4 @@
-# -*- after-save-hook: (org-html-export-to-html org-babel-tangle); -*-
+# -*- after-save-hook: (org-babel-tangle); -*-
 
 #+TITLE: Jonathan Jin's Emacs Configuration
 #+AUTHOR: Jonathan Jin
