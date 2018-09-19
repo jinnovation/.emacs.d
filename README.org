@@ -1158,6 +1158,7 @@
 
         :config
         (bind-keys :map jjin-vc-map
+                   ("!" . magit-git-command-topdir)
                    ("v" . magit-status)
                    ("l" . magit-log-popup)
                    ("b" . magit-blame-popup)
@@ -1181,12 +1182,13 @@
           (add-to-list 'evil-emacs-state-modes 'magit-popup-mode))
         (add-hook 'magit-revision-mode-hook 'goto-address-mode))
 
-
       (use-package magit-arcanist
         :after magit
         :straight (:repo "git@github.com:jinnovation/magit-arcanist.git")
         :init
         (setq magit-arcanist-key (kbd "@"))
+        :bind (:map jjin-vc-map
+               ("a" . magit-arcanist-popup))
         :config
         (magit-arcanist-enable))
     #+END_SRC
