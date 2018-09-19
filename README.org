@@ -1673,6 +1673,17 @@
 
 ** =projectile=
 
+   #+begin_src emacs-lisp
+     ;; TODO: For sake of Constant Reader, give some context as to why this might be
+     ;; necessary (at least for me)
+     (defun jjin/projectile-absolute-compilation-dir-maybe ()
+       "Returns the default compilation dir of the current Projectile project type if
+       it is an absolute path; otherwise, return nil."
+       (let* ((type (projectile-project-type))
+              (comp-dir (projectile-default-compilation-dir type)))
+         (if (and comp-dir (file-name-absolute-p comp-dir)) comp-dir nil)))
+   #+end_src
+
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
        :straight t
@@ -1694,10 +1705,20 @@
                projectile-root-top-down
                projectile-root-top-down-recurring
                projectile-root-bottom-up))
-
        :config
-       (add-to-list 'projectile-project-root-files "OWNERS")
-
+       (advice-add 'projectile-compilation-dir
+                   :before-until
+                   'jjin/projectile-absolute-compilation-dir-maybe)
+                   
+       ;; MacOS file system is case insensitive. This means that, when combined with
+       ;; top-down root discovery, .git directory's `description' file conflicts with
+       ;; the `DESCRIPTION' element -- intended for R projects -- in the default
+       ;; value of `projectile-project-root-file'.
+       ;;
+       ;; Since I really don't use R and don't plan to anytime soon, removing it from
+       ;; here. Can revisit if/when ever necessary.
+       (setq projectile-project-root-files
+             (remove "DESCRIPTION" projectile-project-root-files))
        (bind-key "<f12>"
                  (lambda ()
                    "Save all project buffers and compile"
