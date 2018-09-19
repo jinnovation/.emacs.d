@@ -680,6 +680,8 @@
 ** Python
 
    #+BEGIN_SRC emacs-lisp
+     (setq python-fill-docstring-style 'symmetric)
+
      (use-package pyvenv
        :straight t)
 
@@ -693,7 +695,6 @@
                             elpy-module-yasnippet
                             elpy-module-sane-defaults))
        (elpy-enable))
-
    #+END_SRC
 
 ** Emacs Lisp
