@@ -1526,7 +1526,6 @@
        :mode ("\\.org$" . org-mode)
        :init
        (setq org-special-ctrl-a/e t)
-       (setq org-agenda-files '("~/agenda/"))
        (setq
          org-return-follows-link t
 
@@ -1574,6 +1573,7 @@
               "[suberset of above not equal to]" "⫋")))
 
        :config
+       (setq org-agenda-files '("~/agenda/"))
        (plist-put org-format-latex-options :scale 1.5)
 
        (setq org-latex-packages-alist
@@ -1629,8 +1629,8 @@
 
        (setq org-export-with-smart-quotes t)
        (with-eval-after-load 'ace-link
-         (bind-keys :map org-agenda-mode-map
-                    ("M-o" . ace-link-org))
+         ;; (bind-keys :map org-agenda-mode-map
+         ;;            ("M-o" . ace-link-org))
          (bind-keys :map org-mode-map
                     ("M-o" . ace-link-org))))
 
