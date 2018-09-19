@@ -365,6 +365,20 @@
         (setq system-uses-terminfo nil))
     #+END_SRC
 
+    =compilation-mode= invokes shell in a non-interactive shell, which means
+    that configurations in =.bashrc= do not get surfaced. This can cause
+    complications in cases where, for instance, successful compilation is
+    predicated on conditions set within a provisioned profile file that I do not
+    control. When Bash is started non-interactively, it looks for =BASH_ENV= in
+    the environment, expands its value if it appears there, and uses the
+    expanded value as the name of a file to read and execute. As such, we set
+    that environment value to our startup file here.
+
+    #+begin_src emacs-lisp
+      (when (eq system-type 'darwin) (setenv "BASH_ENV" "$HOME/.bashrc"))
+    #+end_src
+    
+
 ** Server
 
    Make sure =EDITOR= and/or =VISUAL= is/are set to =emacsclient=.
