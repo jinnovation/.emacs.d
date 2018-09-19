@@ -729,6 +729,13 @@
        :mode "\\.yaml$")
    #+END_SRC
 
+** Scala
+
+   #+begin_src emacs-lisp
+     (use-package scala-mode
+       :straight t)
+   #+end_src
+   
 * General Packages
 
 ** =ace-link=
