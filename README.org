@@ -611,6 +611,14 @@
        (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
    #+END_SRC
 
+** Pants
+
+   #+begin_src emacs-lisp
+     (use-package pants-build-mode
+       :mode ("BUILD$")
+       :straight (:repo "git@github.com:jinnovation/pants-build-mode.git"))
+   #+end_src
+   
 ** Ruby
 
    #+BEGIN_SRC emacs-lisp
@@ -729,6 +737,17 @@
        :mode "\\.yaml$")
    #+END_SRC
 
+** Twitter
+
+   #+begin_src emacs-lisp
+     (with-eval-after-load 'projectile
+       (projectile-register-project-type 'twitter-source-sub nil
+                                         :compilation-dir "~/workspace/source/"
+                                         :compile "./pants "
+                                         :test "./pants test "
+                                         :run "./pants "))
+   #+end_src
+   
 ** Scala
 
    #+begin_src emacs-lisp
