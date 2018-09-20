@@ -1193,11 +1193,11 @@
         (with-eval-after-load 'evil
           (add-to-list 'evil-emacs-state-modes 'magit-popup-mode))
 
-        (add-hook 'magit-revision-mode-hook 'goto-address-mode)
+        (add-hook 'magit-revision-mode-hook 'goto-address-mode))
 
-        (advice-add 'magit-commit-diff
-                    :around
-                    'jjin/do-if-merge-not-in-progress))
+        ;; (advice-add 'magit-commit-diff
+        ;;             :before-until
+        ;;             'magit-merge-in-progress-p))
 
       (use-package magit-arcanist
         :after magit
