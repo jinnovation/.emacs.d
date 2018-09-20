@@ -1482,7 +1482,9 @@
                                (cdr (assq 'user-mail-address (mu4e-context-vars context)))))
                            mu4e-contexts)))
 
-       (setq mu4e-view-show-addresses t))
+       (setq mu4e-view-show-addresses t)
+
+       (add-hook 'mu4e-view-mode-hook 'mu4e-view-fill-long-lines))
    #+END_SRC
 
 ** =org-mode=
