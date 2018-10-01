@@ -1195,7 +1195,19 @@
         (with-eval-after-load 'evil
           (add-to-list 'evil-emacs-state-modes 'magit-popup-mode))
 
-        (add-hook 'magit-revision-mode-hook 'goto-address-mode))
+        (add-hook 'magit-revision-mode-hook 'goto-address-mode)
+
+        (magit-define-popup-action 'magit-diff-popup ?U
+          "Diff upstream"
+          (lambda (&optional args files)
+            (interactive (magit-diff-arguments))
+            (magit-diff  "@{u}..HEAD" args)))
+
+        (magit-define-popup-action 'magit-merge-popup ?u
+          "Merge upstream"
+          (lambda (&optional args)
+            (interactive (list (magit-merge-arguments)))
+            (magit-merge "@{u}" args))))
 
         ;; (advice-add 'magit-commit-diff
         ;;             :before-until
