@@ -1178,7 +1178,9 @@
                    ("P" . magit-push-popup)
                    ("z" . magit-stash-popup)
                    ("c" . magit-checkout)
-                   ("C" . magit-branch-and-checkout))
+                   ("C" . magit-branch-and-checkout)
+                   :map git-rebase-mode-map
+                   ("u" . git-rebase-undo))
         (bind-keys :map magit-mode-map
                    ("X" . magit-reset-hard))
 
