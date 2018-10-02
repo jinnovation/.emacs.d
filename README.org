@@ -1197,6 +1197,8 @@
 
         (add-hook 'magit-revision-mode-hook 'goto-address-mode)
 
+        (magit-define-popup-option 'magit-commit-popup ?M "Attach message" "--message=")
+
         (magit-define-popup-action 'magit-diff-popup ?U
           "Diff upstream"
           (lambda (&optional args files)
@@ -1251,7 +1253,11 @@
            (lambda (c) (find-file c))))
 
        (bind-keys :map jjin-vc-map
-                  ("g" . helm-grep-do-git-grep)))
+                  ("g" . helm-grep-do-git-grep))
+
+       ;; (bind-key "C-c C-j" 'helm-org-in-buffer-headings org-mode-map)
+
+       )
 
      (use-package helm-make
        :straight t
