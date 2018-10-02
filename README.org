@@ -1205,11 +1205,22 @@
             (interactive (magit-diff-arguments))
             (magit-diff  "@{u}..HEAD" args)))
 
-        (magit-define-popup-action 'magit-merge-popup ?u
-          "Merge upstream"
-          (lambda (&optional args)
-            (interactive (list (magit-merge-arguments)))
-            (magit-merge "@{u}" args))))
+        (plist-put magit-merge-popup :actions (cons "Actions" (plist-get magit-merge-popup :actions)))
+        (plist-put magit-merge-popup
+                   :actions
+                   (cons '(?U "Upstream" (lambda (&optional args)
+                                           (interactive (magit-diff-arguments))
+                                           (magit-merge "@{u}" args)))
+                         (plist-get magit-merge-popup :actions)))
+        (plist-put
+         magit-merge-popup
+         :actions
+         (cons
+          (lambda ()
+            (concat (propertize "Merge into " 'face 'magit-popup-heading)
+                    (propertize (or (magit-get-current-branch) "HEAD") 'face 'magit-branch-local)
+                    (propertize " from" 'face 'magit-popup-heading)))
+          (plist-get magit-merge-popup :actions))))
 
         ;; (advice-add 'magit-commit-diff
         ;;             :before-until
