@@ -940,9 +940,8 @@
        :after elfeed
        :straight (:host github
                   :type git
-                  :repo "jinnovation/elfeed-protocol"
-                  :branch "canary"
-                  :upstream (:host github :repo "fasheng/elfeed-protocol"))
+                  :repo "fasheng/elfeed-protocol"
+                  :fork (:host github :repo "jinnovation/elfeed-protocol" :branch "canary"))
 
        :if (-all-p 'boundp '(jjin/secret/ttrss-domain
                              jjin/secret/ttrss-username
@@ -1178,9 +1177,11 @@
                    ("P" . magit-push-popup)
                    ("z" . magit-stash-popup)
                    ("c" . magit-checkout)
-                   ("C" . magit-branch-and-checkout)
-                   :map git-rebase-mode-map
-                   ("u" . git-rebase-undo))
+                   ("C" . magit-branch-and-checkout))
+
+        (with-eval-after-load 'git-rebase
+          (bind-keys :map git-rebase-mode-map ("u" . git-rebase-undo)))
+
         (bind-keys :map magit-mode-map
                    ("X" . magit-reset-hard))
 
@@ -1576,27 +1577,20 @@
        :mode ("\\.org$" . org-mode)
        :init
        (setq org-special-ctrl-a/e t)
-       (setq
-         org-return-follows-link t
+       (setq org-return-follows-link t)
 
-         org-export-dispatch-use-expert-ui t
+       (setq org-export-dispatch-use-expert-ui t)
 
-         org-latex-create-formula-image-program 'imagemagick
-         org-latex-listings 'minted
-         org-tags-column -80
-
-         org-enforce-todo-dependencies t
-         org-enforce-todo-checkbox-dependencies  t
-
-         org-pretty-entities t
-         org-src-fontify-natively t
-         org-list-allow-alphabetical t
-
-         org-todo-keywords
-         '((sequence "TODO(t)" "IN-PROGRESS(r)" "|"  "DONE(d)"))
-
-         org-todo-keyword-faces
-         '(("TODO" . org-todo) ("IN-PROGRESS" . "yellow") ("DONE" . org-done)))
+       (setq org-latex-create-formula-image-program 'imagemagick)
+       (setq org-latex-listings 'minted)
+       (setq org-tags-column -80)
+       
+       (setq org-enforce-todo-dependencies t)
+       (setq org-enforce-todo-checkbox-dependencies  t)
+       
+       (setq org-pretty-entities t)
+       (setq org-src-fontify-natively t)
+       (setq org-list-allow-alphabetical t)
 
        (setq org-agenda-custom-commands
              '(("s" "Schoolwork"
@@ -1709,7 +1703,8 @@
        :after (evil org)
        :config
        (add-hook 'org-mode-hook 'evil-org-mode)
-       (evil-org-set-key-theme))
+       (evil-org-set-key-theme)
+       (setq evil-org-special-o/O '(table-row)))
 
      (use-package org-tempo
        :after org)
