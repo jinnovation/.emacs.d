@@ -1516,6 +1516,12 @@
 
        (setq mu4e-view-show-addresses t)
 
+       (add-to-list 'mu4e-bookmarks
+                    '("(maildir:\"/personal/INBOX\" OR maildir:\"/work/INBOX\") flag:unread"
+                      "Unread INBOXes"
+                      ?U)
+                    t)
+
        (add-hook 'mu4e-view-mode-hook 'mu4e-view-fill-long-lines))
    #+END_SRC
 
