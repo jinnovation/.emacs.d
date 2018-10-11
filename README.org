@@ -1213,6 +1213,14 @@
             (interactive (magit-diff-arguments))
             (magit-diff  "@{u}..HEAD" args)))
 
+
+        (defun jjin/magit-find-file-from-upstream (file)
+          "Same behavior as `magit-find-file', but specifically for the
+      upstream branch."
+          (interactive
+           (list (magit-read-file-from-rev (magit-get-upstream-branch) "Find file")))
+          (magit-find-file (magit-get-upstream-branch) file))
+
         (plist-put magit-merge-popup :actions (cons "Actions" (plist-get magit-merge-popup :actions)))
         (plist-put magit-merge-popup
                    :actions
