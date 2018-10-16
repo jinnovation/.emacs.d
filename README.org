@@ -747,12 +747,7 @@
                                          :test "./pants test "
                                          :run "./pants "))
      (use-package twitter-source
-       :straight (:local-repo "~/proj/twitter-source.el")
-       :config
-       (with-eval-after-load 'helm-files
-         (add-to-list 'helm-find-files-actions
-                      '("Twitter Source Execute" . twitter-source-compile)
-                      t)))
+       :straight (:local-repo "~/workspace/twitter-source.el"))
    #+end_src
    
 ** Scala
@@ -1224,7 +1219,7 @@
         (plist-put magit-merge-popup :actions (cons "Actions" (plist-get magit-merge-popup :actions)))
         (plist-put magit-merge-popup
                    :actions
-                   (cons '(?U "Upstream" (lambda (&optional args)
+                   (cons '(?U "Upstream" (lambda (ignored &optional args)
                                            (interactive (magit-diff-arguments))
                                            (magit-merge "@{u}" args)))
                          (plist-get magit-merge-popup :actions)))
