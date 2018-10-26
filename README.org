@@ -1145,6 +1145,10 @@
         "Displays the diff during commit only in cases where a merge is
         not in progress."
         (when (not (magit-merge-in-progress-p)) (funcall oldfun)))
+
+      (defun jjin/magit-fetch-from-origin-master ()
+        (interactive)
+        (magit-git-fetch "origin" "master"))
     #+end_src
 
     #+BEGIN_SRC emacs-lisp
@@ -1176,6 +1180,7 @@
                    ("b" . magit-blame-popup)
                    ("f" . magit-fetch-popup)
                    ("F" . magit-pull-popup)
+                   ("m" . magit-merge-popup)
                    ("P" . magit-push-popup)
                    ("z" . magit-stash-popup)
                    ("c" . magit-checkout)
@@ -1231,7 +1236,10 @@
             (concat (propertize "Merge into " 'face 'magit-popup-heading)
                     (propertize (or (magit-get-current-branch) "HEAD") 'face 'magit-branch-local)
                     (propertize " from" 'face 'magit-popup-heading)))
-          (plist-get magit-merge-popup :actions))))
+          (plist-get magit-merge-popup :actions)))
+
+        (magit-define-popup-action 'magit-fetch-popup
+          ?U "from origin/master" 'jjin/magit-fetch-from-origin-master))
 
         ;; (advice-add 'magit-commit-diff
         ;;             :before-until
