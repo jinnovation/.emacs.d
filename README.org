@@ -1149,6 +1149,10 @@
       (defun jjin/magit-fetch-from-origin-master ()
         (interactive)
         (magit-git-fetch "origin" "master"))
+
+      (defun jjin/magit-checkout-previous-branch ()
+        (interactive)
+        (magit-checkout (magit-get-previous-branch)))
     #+end_src
 
     #+BEGIN_SRC emacs-lisp
@@ -1239,7 +1243,14 @@
           (plist-get magit-merge-popup :actions)))
 
         (magit-define-popup-action 'magit-fetch-popup
-          ?U "from origin/master" 'jjin/magit-fetch-from-origin-master))
+          ?U "from origin/master" 'jjin/magit-fetch-from-origin-master)
+
+        (magit-define-popup-action 'magit-branch-popup
+          ?P
+          (lambda () (concat
+                      "Checkout "
+                      (propertize (magit-get-previous-branch) 'face 'magit-popup-argument)))
+          'jjin/magit-checkout-previous-branch))
 
         ;; (advice-add 'magit-commit-diff
         ;;             :before-until
