@@ -455,6 +455,12 @@
 
      (bind-keys :map global-map
                 ("<s-backspace>" . backward-kill-word))
+
+     (bind-keys :map global-map
+                ("s-s" . save-buffer))
+
+     (use-package org-src
+       :bind (("s-s" . org-edit-src-save)))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
