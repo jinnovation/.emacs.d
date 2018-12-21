@@ -1840,8 +1840,8 @@
        :straight t
        :diminish projectile-mode
        :init
-       (setq projectile-keymap-prefix (kbd "s-p")
-             projectile-globally-ignored-files '("TAGS"
+       (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+       (setq projectile-globally-ignored-files '("TAGS"
                                                  "GPATH"
                                                  "GRTAGS"
                                                  "GSYMS"
