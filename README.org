@@ -967,6 +967,24 @@
 ** Eshell
 
    #+BEGIN_SRC emacs-lisp
+     ;; From: https://www.emacswiki.org/emacs/EshellPrompt
+     (defun shortened-path (path max-len)
+           "Return a modified version of `path', replacing some components
+           with single characters starting from the left to try and get
+           the path down to `max-len'"
+           (let* ((components (split-string (abbreviate-file-name path) "/"))
+                  (len (+ (1- (length components))
+                          (reduce '+ components :key 'length)))
+                  (str ""))
+             (while (and (> len max-len)
+                         (cdr components))
+               (setq str (concat str (if (= 0 (length (car components)))
+                                         "/"
+                                       (string (elt (car components) 0) ?/)))
+                     len (- len (1- (length (car components))))
+                     components (cdr components)))
+             (concat str (reduce (lambda (a b) (concat a "/" b)) components))))
+
      (use-package eshell
        :init
        (setq eshell-rc-script (concat user-emacs-directory "eshell/profile"))
@@ -980,7 +998,26 @@
                   ("e" . eshell))
 
        (defun eshell/la (&rest args)
-         (eshell/ls "--almost-all" "-l" args)))
+         (eshell/ls "--almost-all" "-l" args))
+
+       (with-eval-after-load 'magit
+         (setq eshell-prompt-function
+               (lambda ()
+                 (concat
+                  (propertize "┌─[" 'face 'font-lock-string-face)
+                  (propertize (user-login-name) 'face 'font-lock-function-name-face)
+                  (propertize "@" 'face 'font-lock-string-face)
+                  (when-let ((b (magit-get-current-branch)))
+                    (propertize (magit-get-current-branch) 'face `(:foreground "yellow")))
+                  (propertize "]──[" 'face 'font-lock-string-face)
+                  (propertize (format-time-string "%H:%M:%S" (current-time)) 'face 'font-lock-keyword-face)
+                  (propertize "]──[" 'face 'font-lock-string-face)
+                  (propertize (shortened-path (eshell/pwd) 40) 'face `(:foreground "white"))
+                  (propertize "]\n" 'face 'font-lock-string-face)
+                  (propertize "└─>" 'face 'font-lock-string-face)
+                  (propertize (if (= (user-uid) 0) " #" " $") 'face 'font-lock-string-face)
+                  " "
+                  )))))
    #+END_SRC
    
 *** Initialization file
