@@ -945,11 +945,12 @@
                            :foreground (face-attribute 'font-lock-comment-face :foreground)))
 
      (use-package elfeed-protocol
+       :disabled t
        :after elfeed
        :straight (:host github
                   :type git
                   :repo "fasheng/elfeed-protocol"
-                  :fork (:host github :repo "jinnovation/elfeed-protocol" :branch "canary"))
+                  :fork (:host github :repo "jinnovation/elfeed-protocol" :branch "master"))
 
        :if (-all-p 'boundp '(jjin/secret/ttrss-domain
                              jjin/secret/ttrss-username
