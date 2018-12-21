@@ -1195,7 +1195,9 @@
 
       (defun jjin/magit-checkout-previous-branch ()
         (interactive)
-        (magit-checkout (magit-get-previous-branch)))
+        (if-let ((p (magit-get-previous-branch)))
+            (magit-checkout p)
+          (error "No previous branch")))
     #+end_src
 
     #+BEGIN_SRC emacs-lisp
@@ -1290,9 +1292,13 @@
 
         (magit-define-popup-action 'magit-branch-popup
           ?P
-          (lambda () (concat
-                      "Checkout "
-                      (propertize (magit-get-previous-branch) 'face 'magit-popup-argument)))
+          (lambda ()
+            (if-let ((p (magit-get-previous-branch)))
+                (concat
+                 "Checkout "
+                 (propertize (magit-get-previous-branch) 'face
+                             'magit-popup-argument))
+              "No previous branch"))
           'jjin/magit-checkout-previous-branch))
 
         ;; (advice-add 'magit-commit-diff
@@ -1844,16 +1850,20 @@
        ;; We'd like projects contained within other projects, e.g. packages pulled
        ;; into the .emacs.d/.straight dir via straight.el, to be recognized as
        ;; Projectile packages.
-       (setq projectile-project-root-files-functions
-             '(projectile-root-local
-               projectile-root-top-down
-               projectile-root-top-down-recurring
-               projectile-root-bottom-up))
+
+       ;; TODO: This doesn't play well with monorepo structures that might have
+       ;; multiple "project root" files scattered throughout the codebase.
+       ;; (setq projectile-project-root-files-functions
+       ;;       '(projectile-root-local
+       ;;         projectile-root-top-down
+       ;;         projectile-root-top-down-recurring
+       ;;         projectile-root-bottom-up))
+
        :config
        (advice-add 'projectile-compilation-dir
                    :before-until
                    'jjin/projectile-absolute-compilation-dir-maybe)
-                   
+
        ;; MacOS file system is case insensitive. This means that, when combined with
        ;; top-down root discovery, .git directory's `description' file conflicts with
        ;; the `DESCRIPTION' element -- intended for R projects -- in the default
