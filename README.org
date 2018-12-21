@@ -694,7 +694,7 @@
 ** Python
 
    #+BEGIN_SRC emacs-lisp
-     (setq python-fill-docstring-style 'symmetric)
+     (setq python-fill-docstring-style 'pep-257)
 
      (use-package pyvenv
        :straight t)
