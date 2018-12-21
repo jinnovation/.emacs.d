@@ -41,7 +41,7 @@
  ("json-mode" . "ffc92b1eefc54963703b43be140f4c8c8ad348f7")
  ("json-reformat" . "8eb6668ed447988aea06467ba8f42e1f2178246f")
  ("json-snatcher" . "c4cecc0a5051bd364373aa499c47a1bb7a5ac51c")
- ("magit" . "7013f01c5d102c8fabe36fef4de51ed50fa82b91")
+ ("magit" . "d866fb3624bdeb87f0c56e359239e4474362d0af")
  ("magit-arcanist" . "e9ccde12284f3b9827dd2e07f47e6db670106790")
  ("magit-popup" . "6e07f745a18af514c2885eeabe9b2b2a5216e53c")
  ("markdown-mode" . "74c0a0680806fc2e9f5ebd93dd117767ebc2fd2e")
