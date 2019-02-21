@@ -747,7 +747,7 @@
 
    #+begin_src emacs-lisp
      (with-eval-after-load 'projectile
-       (projectile-register-project-type 'twitter-source-sub nil
+       (projectile-register-project-type 'twitter-source-sub '(".pants.d")
                                          :compilation-dir "~/workspace/source/"
                                          :compile "./pants "
                                          :test "./pants test "
@@ -990,6 +990,8 @@
        :init
        (setq eshell-rc-script (concat user-emacs-directory "eshell/profile"))
        (setq eshell-modify-global-environment t)
+       (setq eshell-banner-message "")
+
        :config
        (with-eval-after-load 'evil
          (delete 'eshell-mode evil-insert-state-modes)
@@ -1225,16 +1227,17 @@
         :config
         (bind-keys :map jjin-vc-map
                    ("!" . magit-git-command-topdir)
-                   ("v" . magit-status)
-                   ("l" . magit-log-popup)
-                   ("b" . magit-blame-popup)
-                   ("f" . magit-fetch-popup)
+                   ("C" . magit-branch-and-checkout)
                    ("F" . magit-pull-popup)
-                   ("m" . magit-merge-popup)
                    ("P" . magit-push-popup)
-                   ("z" . magit-stash-popup)
+                   ("b" . magit-blame-popup)
                    ("c" . magit-checkout)
-                   ("C" . magit-branch-and-checkout))
+                   ("d" . magit-diff-popup)
+                   ("f" . magit-fetch-popup)
+                   ("l" . magit-log-popup)
+                   ("m" . magit-merge-popup)
+                   ("v" . magit-status)
+                   ("z" . magit-stash-popup))
 
         (with-eval-after-load 'git-rebase
           (bind-keys :map git-rebase-mode-map ("u" . git-rebase-undo)))
@@ -1295,10 +1298,7 @@
           ?P
           (lambda ()
             (if-let ((p (magit-get-previous-branch)))
-                (concat
-                 "Checkout "
-                 (propertize (magit-get-previous-branch) 'face
-                             'magit-popup-argument))
+                "Checkout previous branch"
               "No previous branch"))
           'jjin/magit-checkout-previous-branch))
 
@@ -1669,13 +1669,15 @@
        (setq org-latex-create-formula-image-program 'imagemagick)
        (setq org-latex-listings 'minted)
        (setq org-tags-column -80)
-       
+
        (setq org-enforce-todo-dependencies t)
        (setq org-enforce-todo-checkbox-dependencies  t)
-       
+
        (setq org-pretty-entities t)
        (setq org-src-fontify-natively t)
        (setq org-list-allow-alphabetical t)
+
+       (setq org-deadline-warning-days 7)
 
        (setq org-agenda-custom-commands
              '(("s" "Schoolwork"
@@ -1840,7 +1842,6 @@
        :straight t
        :diminish projectile-mode
        :init
-       (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
        (setq projectile-globally-ignored-files '("TAGS"
                                                  "GPATH"
                                                  "GRTAGS"
@@ -1861,6 +1862,7 @@
        ;;         projectile-root-bottom-up))
 
        :config
+       (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
        (advice-add 'projectile-compilation-dir
                    :before-until
                    'jjin/projectile-absolute-compilation-dir-maybe)
