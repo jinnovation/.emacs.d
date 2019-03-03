@@ -1206,6 +1206,9 @@
     #+end_src
 
     #+BEGIN_SRC emacs-lisp
+      ;; TODO: Magit has migrated to using transient, so all commented sections will
+      ;; eventually need to be updated or removed.
+
       (use-package magit
         :straight t
         :init
