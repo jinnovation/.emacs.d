@@ -1222,7 +1222,7 @@
                                         magit-insert-upstream-branch-header
                                         magit-insert-push-branch-header)))
 
-        (setq magit-popup-show-common-commands nil)
+        ;; (setq magit-popup-show-common-commands nil)
         (setq magit-log-arguments '("--graph"
                                     "--decorate"
                                     "--color"))
@@ -1233,16 +1233,16 @@
         (bind-keys :map jjin-vc-map
                    ("!" . magit-git-command-topdir)
                    ("C" . magit-branch-and-checkout)
-                   ("F" . magit-pull-popup)
-                   ("P" . magit-push-popup)
-                   ("b" . magit-blame-popup)
+                   ("F" . magit-pull)
+                   ("P" . magit-push)
+                   ("b" . magit-blame)
                    ("c" . magit-checkout)
-                   ("d" . magit-diff-popup)
-                   ("f" . magit-fetch-popup)
-                   ("l" . magit-log-popup)
-                   ("m" . magit-merge-popup)
+                   ("d" . magit-diff)
+                   ("f" . magit-fetch)
+                   ("l" . magit-log)
+                   ("m" . magit-merge)
                    ("v" . magit-status)
-                   ("z" . magit-stash-popup))
+                   ("z" . magit-stash))
 
         (with-eval-after-load 'git-rebase
           (bind-keys :map git-rebase-mode-map ("u" . git-rebase-undo)))
@@ -1263,13 +1263,13 @@
 
         (add-hook 'magit-revision-mode-hook 'goto-address-mode)
 
-        (magit-define-popup-option 'magit-commit-popup ?M "Attach message" "--message=")
+        ;; (magit-define-popup-option 'magit-commit-popup ?M "Attach message" "--message=")
 
-        (magit-define-popup-action 'magit-diff-popup ?U
-          "Diff upstream"
-          (lambda (&optional args files)
-            (interactive (magit-diff-arguments))
-            (magit-diff  "@{u}..HEAD" args)))
+        ;; (magit-define-popup-action 'magit-diff-popup ?U
+        ;;   "Diff upstream"
+        ;;   (lambda (&optional args files)
+        ;;     (interactive (magit-diff-arguments))
+        ;;     (magit-diff  "@{u}..HEAD" args)))
 
 
         (defun jjin/magit-find-file-from-upstream (file)
@@ -1279,33 +1279,36 @@
            (list (magit-read-file-from-rev (magit-get-upstream-branch) "Find file")))
           (magit-find-file (magit-get-upstream-branch) file))
 
-        (plist-put magit-merge-popup :actions (cons "Actions" (plist-get magit-merge-popup :actions)))
-        (plist-put magit-merge-popup
-                   :actions
-                   (cons '(?U "Upstream" (lambda (ignored &optional args)
-                                           (interactive (magit-diff-arguments))
-                                           (magit-merge "@{u}" args)))
-                         (plist-get magit-merge-popup :actions)))
-        (plist-put
-         magit-merge-popup
-         :actions
-         (cons
-          (lambda ()
-            (concat (propertize "Merge into " 'face 'magit-popup-heading)
-                    (propertize (or (magit-get-current-branch) "HEAD") 'face 'magit-branch-local)
-                    (propertize " from" 'face 'magit-popup-heading)))
-          (plist-get magit-merge-popup :actions)))
+        )
 
-        (magit-define-popup-action 'magit-fetch-popup
-          ?U "from origin/master" 'jjin/magit-fetch-from-origin-master)
+        ;; (plist-put magit-merge-popup :actions (cons "Actions" (plist-get magit-merge-popup :actions)))
+        ;; (plist-put magit-merge-popup
+        ;;            :actions
+        ;;            (cons '(?U "Upstream" (lambda (ignored &optional args)
+        ;;                                    (interactive (magit-diff-arguments))
+        ;;                                    (magit-merge "@{u}" args)))
+        ;;                  (plist-get magit-merge-popup :actions)))
 
-        (magit-define-popup-action 'magit-branch-popup
-          ?P
-          (lambda ()
-            (if-let ((p (magit-get-previous-branch)))
-                "Checkout previous branch"
-              "No previous branch"))
-          'jjin/magit-checkout-previous-branch))
+        ;; (plist-put
+        ;;  magit-merge-popup
+        ;;  :actions
+        ;;  (cons
+        ;;   (lambda ()
+        ;;     (concat (propertize "Merge into " 'face 'magit-popup-heading)
+        ;;             (propertize (or (magit-get-current-branch) "HEAD") 'face 'magit-branch-local)
+        ;;             (propertize " from" 'face 'magit-popup-heading)))
+        ;;   (plist-get magit-merge-popup :actions)))
+
+        ;; (magit-define-popup-action 'magit-fetch-popup
+        ;;   ?U "from origin/master" 'jjin/magit-fetch-from-origin-master)
+
+        ;; (magit-define-popup-action 'magit-branch-popup
+        ;;   ?P
+        ;;   (lambda ()
+        ;;     (if-let ((p (magit-get-previous-branch)))
+        ;;         "Checkout previous branch"
+        ;;       "No previous branch"))
+        ;;   'jjin/magit-checkout-previous-branch))
 
         ;; (advice-add 'magit-commit-diff
         ;;             :before-until
