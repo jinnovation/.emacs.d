@@ -1012,7 +1012,7 @@
                   (propertize "@" 'face 'font-lock-string-face)
                   (when-let ((b (magit-get-current-branch)))
                     (propertize b 'face `(:foreground "yellow")))
-                  (when (magit-anything-unstaged-p)
+                  (when (magit-anything-modified-p)
                     (propertize "*" 'face `(:foreground "yellow")))
                   (propertize "]──[" 'face 'font-lock-string-face)
                   (propertize (format-time-string "%H:%M:%S" (current-time)) 'face 'font-lock-keyword-face)
@@ -1330,8 +1330,8 @@
        :demand t
        :diminish helm-mode
        :bind (("C-x m"    . helm-M-x)
-               ("C-x C-f" . helm-find-files)
-               ("C-x b"   . helm-buffers-list))
+              ("C-x C-f" . helm-find-files)
+              ("C-x b"   . helm-buffers-list))
        :init
        (setq helm-external-programs-associations `(("pdf" . ,(if (eq system-type 'darwin) "open" "zathura"))))
        (setq helm-split-window-inside-p t)
@@ -1353,6 +1353,7 @@
 
        ;; (bind-key "C-c C-j" 'helm-org-in-buffer-headings org-mode-map)
 
+       (setq helm-ff-candidate-number-limit 500)
        )
 
      (use-package helm-make
@@ -1365,12 +1366,12 @@
      (use-package helm-projectile
        :after projectile
        :bind (:map projectile-command-map
-                  ("p"   . helm-projectile)
-                  ("a"   . helm-projectile-find-other-file)
-                  ("f"   . helm-projectile-find-file)
-                  ("F"   . helm-projectile-find-file-in-known-projects)
-                  ("s s" . helm-projectile-ag)
-                  ("s g" . helm-projectile-grep))
+                   ("p"   . helm-projectile)
+                   ("a"   . helm-projectile-find-other-file)
+                   ("f"   . helm-projectile-find-file)
+                   ("F"   . helm-projectile-find-file-in-known-projects)
+                   ("s s" . helm-projectile-ag)
+                   ("s g" . helm-projectile-grep))
        :straight t
        :config
        (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
