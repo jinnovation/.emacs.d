@@ -1209,6 +1209,11 @@
       ;; TODO: Magit has migrated to using transient, so all commented sections will
       ;; eventually need to be updated or removed.
 
+      (use-package transient
+        :straight t
+        :init
+        (setq transient-show-common-commands nil))
+
       (use-package magit
         :straight t
         :init
@@ -1222,7 +1227,6 @@
                                         magit-insert-upstream-branch-header
                                         magit-insert-push-branch-header)))
 
-        ;; (setq magit-popup-show-common-commands nil)
         (setq magit-log-arguments '("--graph"
                                     "--decorate"
                                     "--color"))
@@ -1263,7 +1267,12 @@
 
         (add-hook 'magit-revision-mode-hook 'goto-address-mode)
 
-        ;; (magit-define-popup-option 'magit-commit-popup ?M "Attach message" "--message=")
+        (transient-append-suffix 'magit-commit 'magit-commit:--reuse-message
+          '("-m"
+            "Attach message"
+            "--message="
+            :prompt "Message"
+            :reader magit-read-string))
 
         ;; (magit-define-popup-action 'magit-diff-popup ?U
         ;;   "Diff upstream"
