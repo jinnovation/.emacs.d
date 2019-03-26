@@ -4,6 +4,8 @@
 #+AUTHOR: Jonathan Jin
 #+PROPERTY: header-args:emacs-lisp :exports code :results none :tangle init.el
 
+#+STARTUP: showall
+
 #+EXPORT_FILE_NAME: index
 
 #+SETUPFILE: theme.setup
@@ -69,6 +71,7 @@
      (use-package system-packages
        :straight t
        :init
+       (setq system-packages-use-sudo nil)
        (when (eq system-type 'darwin)
          (setq system-packages-package-manager 'brew)))
    #+END_SRC
@@ -753,6 +756,7 @@
                                          :test "./pants test "
                                          :run "./pants "))
      (use-package twitter-source
+       :after transient
        :straight (:local-repo "~/workspace/twitter-source.el"))
    #+end_src
    
@@ -1328,8 +1332,7 @@
         :straight (:repo "git@github.com:jinnovation/magit-arcanist.git")
         :init
         (setq magit-arcanist-key (kbd "@"))
-        :bind (:map jjin-vc-map
-               ("a" . magit-arcanist-popup))
+        :bind (:map jjin-vc-map ("a" . magit-arcanist-popup))
         :config
         (magit-arcanist-enable))
     #+END_SRC
