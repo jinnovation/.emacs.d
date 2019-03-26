@@ -1274,12 +1274,12 @@
             :prompt "Message"
             :reader magit-read-string))
 
-        ;; (magit-define-popup-action 'magit-diff-popup ?U
-        ;;   "Diff upstream"
-        ;;   (lambda (&optional args files)
-        ;;     (interactive (magit-diff-arguments))
-        ;;     (magit-diff  "@{u}..HEAD" args)))
+        (defun jjin/magit-diff-upstream (&optional args files)
+          (interactive (magit-diff-arguments))
+          (magit-diff-range "@{u}..HEAD" args))
 
+        (transient-insert-suffix 'magit-diff 'magit-show-commit
+          '("U" "Diff upstream" jjin/magit-diff-upstream))
 
         (defun jjin/magit-find-file-from-upstream (file)
           "Same behavior as `magit-find-file', but specifically for the
