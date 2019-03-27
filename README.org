@@ -1292,6 +1292,8 @@
            (list (magit-read-file-from-rev (magit-get-upstream-branch) "Find file")))
           (magit-find-file (magit-get-upstream-branch) file))
 
+        (transient-append-suffix 'magit-fetch 'magit-fetch-all
+          '("U" "origin/master" jjin/magit-fetch-from-origin-master))
         )
 
         ;; (plist-put magit-merge-popup :actions (cons "Actions" (plist-get magit-merge-popup :actions)))
@@ -1311,9 +1313,6 @@
         ;;             (propertize (or (magit-get-current-branch) "HEAD") 'face 'magit-branch-local)
         ;;             (propertize " from" 'face 'magit-popup-heading)))
         ;;   (plist-get magit-merge-popup :actions)))
-
-        ;; (magit-define-popup-action 'magit-fetch-popup
-        ;;   ?U "from origin/master" 'jjin/magit-fetch-from-origin-master)
 
         ;; (magit-define-popup-action 'magit-branch-popup
         ;;   ?P
