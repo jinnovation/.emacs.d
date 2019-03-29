@@ -447,6 +447,7 @@
      (unbind-key "M-`")
      (unbind-key "C-c C-w")
      (unbind-key "C-x C-n")      ; set-goal-column
+     (unbind-key "s-t")          ;ns-popup-font-panel
 
      (unbind-key "<f10>")
      (unbind-key "<f11>")
