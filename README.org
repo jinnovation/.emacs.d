@@ -1294,6 +1294,12 @@
 
         (transient-append-suffix 'magit-fetch 'magit-fetch-all
           '("U" "origin/master" jjin/magit-fetch-from-origin-master))
+
+        ;; TODO: The below advice causes odd conflicts when used w/ `arc diff' and
+        ;; emacsclient. Resolve before re-introducing.
+
+        ;; Suppress diff display when the commit in question is a merge
+        ;; (advice-add 'magit-commit-diff :before-until 'magit-merge-in-progress-p)
         )
 
         ;; (plist-put magit-merge-popup :actions (cons "Actions" (plist-get magit-merge-popup :actions)))
@@ -1321,10 +1327,6 @@
         ;;         "Checkout previous branch"
         ;;       "No previous branch"))
         ;;   'jjin/magit-checkout-previous-branch))
-
-        ;; (advice-add 'magit-commit-diff
-        ;;             :before-until
-        ;;             'magit-merge-in-progress-p))
 
       (use-package magit-arcanist
         :after magit
