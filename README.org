@@ -1450,6 +1450,60 @@
    #+END_SRC
 
 ** =mu4e=
+   
+   =mu4e= has a notion of [[https://www.djcbsoftware.nl/code/mu/mu4e/Marking.html#Marking]["marks"]] that it uses to represent actions on messages
+   -- refiling to specific directories, trashing, etc. These marks can
+   furthermore be performed at the thread level to, for instance, archive an
+   entire thread in one go.
+
+   Oftentimes, I find myself -- for a variety of reasons -- wanting to archive
+   only the very first email in a given thread, and trashing the rest. With
+   vanilla =mu4e=, my best bet to do so is to mark an entire thread first with
+   "delete," then to manually mark the thread head for archiving. Obviously,
+   I'd like to perform this workflow with a single "meta-mark."
+
+   The following predicate function will be useful.
+
+   #+begin_src emacs-lisp
+     (defun jjin/mu4e-msg-thread-head-p (&optional msg)
+       "Given an mu4e message s-expression `msg', return t if the
+     message is the absolute head of a thread, and nil otherwise. If
+     `msg' is not provided, use the current message at point."
+       (let* ((_msg (or msg (mu4e-message-at-point)))
+              (thread (plist-get _msg :thread))
+              (level (plist-get thread :level)))
+         (zerop level)))
+   #+end_src
+
+   Now, we define a new mark to eventually add to the =mu4e-mark= list.
+
+   #+begin_src emacs-lisp
+     ;; FIXME: This mark doesn't co-operate well when trying to apply to subthread.
+     (defvar jjin/mu4e-mark-refile-first-delete-rest
+           '(refile-first
+             :char ("R" . " ")
+             :prompt "Refile head, delete rest"
+             :dyn-target
+             (lambda (target msg)
+               (let ((f-folder-get
+                      (if (jjin/mu4e-msg-thread-head-p msg)
+                          'mu4e-get-refile-folder
+                        'mu4e-get-trash-folder)))
+                 (funcall f-folder-get msg)))
+             :action
+             (lambda (docid msg target)
+               (let* ((key-mark
+                       (if (jjin/mu4e-msg-thread-head-p msg)
+                           'refile
+                         'trash))
+                      (mark (alist-get key-mark mu4e-marks))
+                      (f-action (plist-get mark :action)))
+                 (funcall f-action docid msg target))))
+           "An mu4e mark action that, when applied to messages in a
+     thread, will archive the head of the thread and trash the rest.")
+   #+end_src
+
+   Now for the rest of the config:
 
    #+BEGIN_SRC emacs-lisp
      (use-package mu4e
@@ -1623,7 +1677,9 @@
                       "Unread INBOXes"
                       ?U)
                     t)
-
+                    
+       (add-to-list 'mu4e-marks jjin/mu4e-mark-refile-first-delete-rest)
+       
        (add-hook 'mu4e-view-mode-hook 'mu4e-view-fill-long-lines))
    #+END_SRC
 
