@@ -1940,12 +1940,9 @@
        :straight t
        :diminish projectile-mode
        :init
-       (setq projectile-globally-ignored-files '("TAGS"
-                                                 "GPATH"
-                                                 "GRTAGS"
-                                                 "GSYMS"
-                                                 "GTAGS")
-             projectile-globally-ignored-file-suffixes '("~"))
+       (setq projectile-globally-ignored-files
+             '("TAGS" "GPATH" "GRTAGS" "GSYMS" "GTAGS"))
+       (setq projectile-globally-ignored-file-suffixes '("~"))
 
        ;; We'd like projects contained within other projects, e.g. packages pulled
        ;; into the .emacs.d/.straight dir via straight.el, to be recognized as
