@@ -767,15 +767,11 @@
 ** Twitter
 
    #+begin_src emacs-lisp
-     (with-eval-after-load 'projectile
-       (projectile-register-project-type 'twitter-source-sub '(".pants.d")
-                                         :compilation-dir "~/workspace/source/"
-                                         :compile "./pants "
-                                         :test "./pants test "
-                                         :run "./pants "))
      (use-package twitter-source
        :after transient
-       :straight (:local-repo "~/workspace/twitter-source.el"))
+       :straight (:local-repo "~/workspace/twitter-source.el")
+       :config
+       (twitter-source-enable))
    #+end_src
    
 ** Scala
