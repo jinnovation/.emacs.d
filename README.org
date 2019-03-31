@@ -55,7 +55,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (defun jjin/use-package-if-prehook (name _keyword pred rest state)
-        (if (not pred) (error "predicate failed; skipping package")))
+        (unless pred (error "predicated failed; skipping package")))
 
       (advice-add 'use-package-handler/:if :before 'jjin/use-package-if-prehook)
     #+END_SRC
@@ -80,6 +80,19 @@
 
    #+BEGIN_SRC emacs-lisp
      (define-namespace jjin-
+
+     (defvar ext-file-handlers
+       `((,(intern "darwin") . (:image
+                                ("open")
+                                :video
+                                ("open" "vlc")))
+         (,(intern "gnu/linux") . (:image
+                                   ("feh")
+                                   :video
+                                   ("vlc"))))
+       "An alist mapping `system-type' values to priority lists of
+       file handlers, e.g. image viewers or video players.")
+
      (defun load-if-exists (file)
        "Loads file, conditional on its existence; no effect if non-existent."
        (when (file-exists-p file)
@@ -262,12 +275,11 @@
 
     (fset 'yes-or-no-p 'y-or-n-p)
 
-    (if window-system
-        (progn
-          (tool-bar-mode     0)
-          (scroll-bar-mode   0)
-          (menu-bar-mode     0)
-          (line-number-mode  0)))
+    (when window-system
+      (tool-bar-mode     0)
+      (scroll-bar-mode   0)
+      (menu-bar-mode     0)
+      (line-number-mode  0))
 
     (blink-cursor-mode 0)
 
@@ -294,7 +306,12 @@
 
     (setq echo-keystrokes 0)
 
-    (setq image-dired-external-viewer "feh")
+    (use-package image-dired
+      :after dash
+      :init
+      (if-let* ((handlers (alist-get system-type jjin-ext-file-handlers))
+                (handler (-first 'executable-find (plist-get handlers :image))))
+          (setq image-dired-external-viewer (executable-find handler))))
 
     (setq term-ansi-default-program (getenv "SHELL"))
 
@@ -878,9 +895,15 @@
 
      (use-package dired-open
        :straight t
+       :after dash
        :init
-       (setq dired-open-extensions '(("mp4" . "vlc")
-                                     ("avi" . "vlc"))))
+       (if-let* ((handler-vid (-first 'executable-find
+                                      (plist-get
+                                       (alist-get system-type jjin-ext-file-handlers)
+                                       :video)))
+                 (path (executable-find handler-vid)))
+           (setq dired-open-extensions `(("mp4" . ,(executable-find handler-vid))
+                                         ("avi" . ,(executable-find handler-vid))))))
    #+END_SRC
 
 ** =doc-view-mode=
