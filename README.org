@@ -1755,7 +1755,9 @@
               ("RET" . org-return-indent)
               ("M-p" . outline-previous-visible-heading)
               ("M-n" . outline-next-visible-heading)
-              ("s-t" . org-todo))
+              ("s-t" . org-todo)
+              ("M-[" . org-metaleft)
+              ("M-]" . org-metaright))
        :straight org-plus-contrib
        :mode ("\\.org$" . org-mode)
        :init
