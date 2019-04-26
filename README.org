@@ -479,9 +479,6 @@
 
      (bind-keys :map global-map
                 ("s-s" . save-buffer))
-
-     (use-package org-src
-       :bind (("s-s" . org-edit-src-save)))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
@@ -1757,7 +1754,9 @@
               ("M-n" . outline-next-visible-heading)
               ("s-t" . org-todo)
               ("M-[" . org-metaleft)
-              ("M-]" . org-metaright))
+              ("M-]" . org-metaright)
+              :map org-src-mode-map
+              ("s-s" . org-edit-src-save))
        :straight org-plus-contrib
        :mode ("\\.org$" . org-mode)
        :init
