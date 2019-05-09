@@ -984,6 +984,13 @@
 
        :config
        (elfeed-protocol-enable))
+
+     (use-package elfeed-org
+       :straight t
+       :after elfeed
+       :config
+       (setq rmh-elfeed-org-files '("~/.emacs.d/feeds.org"))
+       (elfeed-org))
    #+END_SRC
    
 ** Eshell
