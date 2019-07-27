@@ -64,7 +64,7 @@
  ("pdf-tools" . "fea0cad844e34d2265f7d6dc0370988bbaf5b996")
  ("pkg-info.el" . "76ba7415480687d05a4353b27fea2ae02b8d9d61")
  ("popup-el" . "80829dd46381754639fb764da11c67235fe63282")
- ("projectile" . "a6ecae5e8b57874d418f70cc620b97e8157a710b")
+ ("projectile" . "71a01f409a319d57eb3832e93e8a412fbc9d7a65")
  ("pythonic" . "16c16202b76d33edd6a95814b2a9c298437f9832")
  ("pyvenv" . "fa6a028349733b0ecb407c4cfb3a715b71931eec")
  ("rich-minority" . "a50d9b2fd059f6a0e5b22063a5375851a087f61a")

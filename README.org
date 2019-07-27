@@ -335,7 +335,6 @@
 *** Themes
 
     #+BEGIN_SRC emacs-lisp
-
       (use-package gotham-theme
         :if window-system
         :disabled t
