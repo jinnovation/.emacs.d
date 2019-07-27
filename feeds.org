@@ -96,19 +96,19 @@
 ** http://www.saveur.com/rss.xml
 ** https://salty.medium.com/feed
 ** http://feeds.feedburner.com/seriouseatsfeaturesvideos
-** http://www.theinfatuation.com/feed/atom
-** http://www.theinfatuation.com/new-york/feed/atom
+** [[http://www.theinfatuation.com/feed/atom][The Infatuation]]
+** [[http://www.theinfatuation.com/new-york/feed/atom][The Infatuation NY]]
 ** http://feeds.feedburner.com/apartmenttherapy/thekitchn
-** http://feeds.feedburner.com/WineFolly
+** [[http://feeds.feedburner.com/WineFolly][Wine Folly]]
 ** http://feeds.feedburner.com/nymag/Food
-** http://maggiesensei.com/feed/
-** https://www.tofugu.com/feed.xml
+** [[http://maggiesensei.com/feed/][Maggie Sensei]]                                                            :jp:
+** [[https://www.tofugu.com/feed.xml][Tofugu]]                                                                   :jp:
 ** http://feeds.apartmenttherapy.com/apartmenttherapy/main
 ** http://feeds.apartmenttherapy.com/apartmenttherapy/ny
-** http://ny.curbed.com/atom.xml
+** [[http://ny.curbed.com/atom.xml][Curbed NY]]
 ** https://lithub.com/feed/
 ** http://thelittlelibrarycafe.com/blog?format=RSS
-** http://www.newyorker.com/services/rss/feeds/everything.xml
+** [[http://www.newyorker.com/services/rss/feeds/everything.xml][New Yorker]]
 ** http://www.theguardian.com/books/rss
 ** http://clarkesworldmagazine.com/feed/rss/
 ** https://medium.com/feed/electric-literature
@@ -116,7 +116,7 @@
 ** http://www.publicbooks.org/rss
 ** http://feeds.feedburner.com/themillionsblog/fedw
 ** http://feeds.feedburner.com/nybooks
-** http://www.newyorker.com/feed/books
+** [[http://www.newyorker.com/feed/books][New Yorker: Books]]
 ** http://www.tor.com/feed/
 ** http://www.neilgaiman.com/extras/whats_new.php
 ** http://metrograph.com/edition/article/rss
@@ -151,15 +151,16 @@
 ** http://blog.golang.org/feeds/posts/default
 ** http://feeds.feedburner.com/thisdeveloperslife
 ** http://blog.acolyer.org/feed/
-** http://feeds.feedburner.com/AndroidPolice
-** http://www.engadget.com/tag/@gaming/rss.xml
 ** http://www.technologyreview.com/rss/rss.aspx
 ** http://pandodaily.com.feedsportal.com/c/35141/f/650422/index.rss
 ** http://recode.net/category/reviews/feed/
-** http://stratechery.com/feed/
-** http://www.theinformation.com//feed
+   
+** Tech                                                                   :tech:
+*** http://stratechery.com/feed/
+*** http://www.theinformation.com//feed
+*** [[http://www.engadget.com/tag/@gaming/rss.xml][Engadget]]                                                              :tech:
+*** [[http://feeds.feedburner.com/AndroidPolice][Android Police]]                                                :android:tech:
 ** https://blog.google/rss/
-** http://www.nytimes.com/services/xml/rss/nyt/Travel.xml
 ** http://feeds.feedburner.com/thepointsguy
 ** http://welcometobusinesstown.tumblr.com/rss
 ** http://www.catanacomics.com/rss
@@ -172,3 +173,7 @@
 ** http://feeds.feedburner.com/smbc-comics/PvLb
 ** http://feeds.feedburner.com/wondermark
 ** http://xkcd.com/rss.xml
+
+** Travel                                                               :travel:
+*** [[https://www.cntraveller.com/rss/article][Conde Nast Traveler]]  
+*** http://www.nytimes.com/services/xml/rss/nyt/Travel.xml
