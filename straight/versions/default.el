@@ -59,7 +59,6 @@
  ("nested-dir-locals.el" . "f6e477e2d85006d10f1771f812bf8824b8a9d144")
  ("nord-emacs" . "c4e0b5548e2f3a149658617b33813cb115bdecfe")
  ("org" . "3a2ef56195c8f05179ae8f68ade65c725b352c89")
- ("org-page" . "50430ababf73a2d090881a952e9770badaf7478b")
  ("pants-build-mode" . "62c89013fe7cda620e274a7e7237a185faf2c64c")
  ("pdf-tools" . "fea0cad844e34d2265f7d6dc0370988bbaf5b996")
  ("pkg-info.el" . "76ba7415480687d05a4353b27fea2ae02b8d9d61")

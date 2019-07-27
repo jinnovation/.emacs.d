@@ -1947,14 +1947,6 @@
        :after org)
    #+END_SRC
 
-** Org-page
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package org-page
-     :after org
-     :straight t)
-   #+END_SRC
-
 ** =pdf-tools=
 
    #+BEGIN_SRC emacs-lisp
