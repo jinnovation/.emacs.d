@@ -507,13 +507,6 @@
 
 * Development Environments
 
-** General Style
-
-   #+BEGIN_SRC emacs-lisp
-     (c-set-offset 'arglist-intro '+)
-     (c-set-offset 'arglist-close 0)
-   #+END_SRC
-
 ** Aurora
 
    #+begin_src emacs-lisp
@@ -527,6 +520,9 @@
      (setq c-block-comment-prefix "* ")
 
      (defvaralias 'c-basic-offset 'tab-width)
+
+     (c-set-offset 'arglist-intro '+)
+     (c-set-offset 'arglist-close 0)
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
@@ -717,7 +713,26 @@
      (use-package pyvenv
        :straight t)
 
+     (use-package virtualenvwrapper
+       :straight t
+       :config
+       (venv-initialize-eshell))
+
+     (add-to-list 'python-shell-extra-pythonpaths "/Users/jonathanj/workspace/source/src/python/")
+
+     (use-package anaconda-mode
+       :straight t
+       :config
+       (add-hook 'python-mode-hook 'anaconda-mode))
+
+     (use-package company-anaconda
+       :after (anaconda-mode company)
+       :straight t
+       :config
+       (add-to-list 'company-backends 'company-anaconda))
+
      (use-package elpy
+       :disabled t
        :straight t
        :init
        (setq elpy-modules '(elpy-module-company
@@ -725,8 +740,7 @@
                             elpy-module-flymake
                             elpy-module-pyvenv
                             elpy-module-yasnippet
-                            elpy-module-sane-defaults))
-       (elpy-enable))
+                            elpy-module-sane-defaults)))
    #+END_SRC
 
 ** Emacs Lisp
@@ -752,6 +766,17 @@
        :straight t
        :after markdown-mode)
    #+END_SRC
+
+** reStructuredText
+
+   #+begin_src emacs-lisp
+     (use-package rst
+       :config
+       (set-face-attribute 'rst-reference
+                           nil
+                           :foreground
+                           (face-attribute 'font-lock-type-face :foreground)))
+   #+end_src
 
 ** YAML
 
@@ -915,6 +940,14 @@
        (setq ediff-window-setup-function 'ediff-setup-windows-plain))
    #+END_SRC
 
+** Eglot
+
+   #+begin_src emacs-lisp
+     (use-package eglot
+       :disabled t
+       :straight t)
+   #+end_src
+
 ** =exec-path-from-shell=
 
    #+BEGIN_SRC emacs-lisp
@@ -941,7 +974,7 @@
          (helm-exec-register-executable 'elfeed 'elfeed))
 
        (setq elfeed-use-curl t)
-       (setq elfeed-log-level 'debug)
+       (setq elfeed-log-level 'info)
 
        :config
        (with-eval-after-load 'evil
@@ -1173,7 +1206,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package flycheck
-       :disabled t
+       :straight t
        :defines flycheck-mode-hook
        :config
        (add-hook 'after-init-hook #'global-flycheck-mode))
@@ -1370,6 +1403,7 @@
        :demand t
        :diminish helm-mode
        :bind (("C-x m"    . helm-M-x)
+              ("M-x"      . helm-M-x)
               ("C-x C-f" . helm-find-files)
               ("C-x b"   . helm-buffers-list))
        :init
@@ -1393,8 +1427,7 @@
 
        ;; (bind-key "C-c C-j" 'helm-org-in-buffer-headings org-mode-map)
 
-       (setq helm-ff-candidate-number-limit 500)
-       )
+       (setq helm-ff-candidate-number-limit 500))
 
      (use-package helm-make
        :straight t
@@ -1406,6 +1439,7 @@
      (use-package helm-projectile
        :after projectile
        :bind (:map projectile-command-map
+                   ("TAB" . helm-projectile-switch-project)
                    ("p"   . helm-projectile)
                    ("a"   . helm-projectile-find-other-file)
                    ("f"   . helm-projectile-find-file)
@@ -1416,6 +1450,16 @@
        :config
        (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
    #+END_SRC
+
+** Helpful
+
+   #+begin_src emacs-lisp
+     (use-package helpful
+       :straight t
+       :bind (("C-h f" . #'helpful-callable)
+              ("C-h v" . #'helpful-variable)
+              ("C-h k" . #'helpful-key)))
+   #+end_src
 
 ** =linum=
 
@@ -1767,6 +1811,7 @@
        :straight org-plus-contrib
        :mode ("\\.org$" . org-mode)
        :init
+       (setq org-catch-invisible-edits 'show-and-error)
        (setq org-special-ctrl-a/e t)
        (setq org-return-follows-link t)
 
@@ -1963,6 +2008,8 @@
        ;;         projectile-root-top-down
        ;;         projectile-root-top-down-recurring
        ;;         projectile-root-bottom-up))
+
+       (setq projectile-sort-order 'recently-active)
 
        :config
        (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
