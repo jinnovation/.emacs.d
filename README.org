@@ -676,6 +676,12 @@
                    (setq comment-end ""))))
    #+END_SRC
 
+** Protobuf
+
+   #+begin_src emacs-lisp
+     (use-package protobuf-mode
+       :straight t)
+   #+end_src
 ** Octave
 
    #+BEGIN_SRC emacs-lisp
@@ -1699,7 +1705,7 @@
                          (mu4e-compose-signature
                           . ,(concat "Jonathan Jin\n"
                                      "Machine Learning Software Engineer, Twitter Cortex\n"
-                                     "jjin.info"))
+                                     "jonathanj.in"))
                          (smtpmail-smtp-user . "jjin082693@gmail.com")
                          (user-full-name . "Jonathan Jin")
                          (mu4e-trash-folder . "/personal/trash")
