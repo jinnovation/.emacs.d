@@ -1595,6 +1595,7 @@
         (w3m . w3m))
        :commands (mu4e mu4e-update-mail-and-index)
        :init
+       (setq mu4e-compose-format-flowed t)
        (defhydra jjin-hydra-mu4e (:exit t)
          "Auxiliary commands for mu4e"
          ("m" mu4e-update-mail-and-index "update"))
@@ -1642,10 +1643,7 @@
                ("/work/drafts" . ?D)
                ("/work/archive" . ?A)))
 
-       (setq mu4e-get-mail-command
-             (if (not (executable-find "offlineimap"))
-                 "true" 
-               "offlineimap"))
+       (setq mu4e-get-mail-command (if (not (executable-find "mbsync")) "true" "mbsync -Va"))
 
        ;; don't keep message buffers around
        (setq message-kill-buffer-on-exit t)
@@ -1759,9 +1757,9 @@
                       "Unread INBOXes"
                       ?U)
                     t)
-                    
+
        (add-to-list 'mu4e-marks jjin/mu4e-mark-refile-first-delete-rest)
-       
+
        (add-hook 'mu4e-view-mode-hook 'mu4e-view-fill-long-lines))
    #+END_SRC
 
