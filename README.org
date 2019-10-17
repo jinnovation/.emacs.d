@@ -1606,6 +1606,7 @@
 
        (setq mu4e-context-policy 'pick-first)
        (setq mu4e-headers-include-related nil)
+       (setq mu4e-view-use-gnus nil)
 
        :config
        (when (eq system-type 'darwin)
@@ -1980,6 +1981,13 @@
              (add-to-list 'evil-emacs-state-modes 'pdf-view-mode))))
    #+END_SRC
 
+** posframe
+
+   #+begin_src emacs-lisp
+     (use-package posframe
+       :straight t)
+   #+end_src
+
 ** =projectile=
 
    #+begin_src emacs-lisp
@@ -2151,6 +2159,13 @@
      (use-package w3m-session
        :after w3m)
    #+END_SRC
+
+** Ripgrep
+
+   #+begin_src emacs-lisp
+     (use-package ripgrep
+       :straight t)
+   #+end_src
 
 ** Environment
 
