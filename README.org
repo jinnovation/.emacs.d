@@ -1503,7 +1503,9 @@
 
      (use-package counsel
        :straight t
-       :bind (("C-x m" . counsel-M-x)))
+       :after ivy
+       :config
+       (counsel-mode t))
 
      (use-package counsel-projectile
        :straight t
@@ -1523,10 +1525,25 @@
        (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
        (ivy-posframe-mode -1))
 
+     (defun jjin/ivy-rich-package-stars (candidate)
+       (unless (not (require 'paradox nil t))
+         ;; FIXME: This needs to incorporate w/ paradox--refresh-remote-data
+         (paradox--package-star-count (intern candidate))))
+
+     (jjin/ivy-rich-package-stars 'elfeed)
+
      (use-package ivy-rich
        :straight t
        :init
        :config
+
+       (plist-put ivy-rich-display-transformers-list
+                  'describe-package
+                  '(:columns
+                   ((ivy-rich-candidate (:width 30))
+                    (jjin/ivy-rich-package-stars (:width 4 :face warning))
+                    (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+
        (with-eval-after-load 'helpful
          (mapc
           (lambda (fns)
