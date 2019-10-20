@@ -1416,6 +1416,7 @@
      (use-package helm
        :straight t
        :demand t
+       :disabled t
        :diminish helm-mode
        :bind (("C-x m"    . helm-M-x)
               ("M-x"      . helm-M-x)
@@ -1452,6 +1453,7 @@
        (setq helm-make-list-target-method 'qp))
 
      (use-package helm-projectile
+       :disabled t
        :after projectile
        :bind (:map projectile-command-map
                    ("TAB" . helm-projectile-switch-project)
@@ -1473,7 +1475,67 @@
        :straight t
        :bind (("C-h f" . #'helpful-callable)
               ("C-h v" . #'helpful-variable)
-              ("C-h k" . #'helpful-key)))
+              ("C-h k" . #'helpful-key))
+       :init
+       (with-eval-after-load 'evil
+         (add-to-list 'evil-motion-state-modes 'helpful-mode)))
+   #+end_src
+
+** ivy
+
+   #+begin_src emacs-lisp
+     (use-package ivy
+       :straight t
+       :bind (("C-s" . swiper))
+       :init
+       (setq ivy-use-virtual-buffers t)
+       (setq ivy-count-format "(%d/%d) ")
+       (setq ivy-extra-directories '())
+       :config
+       (ivy-mode 1))
+
+     (use-package ivy-prescient
+       :after ivy
+       :straight t
+       :config
+       (ivy-prescient-mode t)
+       (prescient-persist-mode))
+
+     (use-package counsel
+       :straight t
+       :bind (("C-x m" . counsel-M-x)))
+
+     (use-package counsel-projectile
+       :straight t
+       :after (projectile counsel)
+       :init
+       (setq counsel-projectile-sort-files t)
+       (setq counsel-projectile-sort-projects t)
+       (setq counsel-projectile-sort-buffers t)
+       :config
+       (counsel-projectile-mode t))
+
+     (use-package ivy-posframe
+       :straight t
+       :disabled t
+       :after ivy
+       :config
+       (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
+       (ivy-posframe-mode -1))
+
+     (use-package ivy-rich
+       :straight t
+       :init
+       :config
+       (with-eval-after-load 'helpful
+         (mapc
+          (lambda (fns)
+            (let* ((transformer-source (nth 1 fns))
+                   (transformer-dest (nth 0 fns))
+                   (transformer (plist-get ivy-rich-display-transformers-list transformer-source)))
+              (plist-put ivy-rich-display-transformers-list transformer-dest transformer)))
+          '((helpful-variable counsel-describe-variable) (helpful-callable counsel-describe-function))))
+       (ivy-rich-mode t))
    #+end_src
 
 ** =linum=
@@ -1609,6 +1671,10 @@
        (setq mu4e-view-use-gnus nil)
 
        :config
+
+       (with-eval-after-load 'ivy
+         (setq mu4e-completing-read-function 'ivy-completing-read))
+
        (when (eq system-type 'darwin)
          (setq mu4e-mu-binary "/usr/local/bin/mu"))
 
@@ -1985,6 +2051,7 @@
 
    #+begin_src emacs-lisp
      (use-package posframe
+       :disabled t
        :straight t)
    #+end_src
 
@@ -2062,7 +2129,7 @@
 
        (setq projectile-enable-caching t)
 
-       (with-eval-after-load 'helm
+       (with-eval-after-load 'helm-projectile
            (setq projectile-completion-system 'helm
                  projectile-switch-project-action 'helm-projectile))
 
