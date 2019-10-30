@@ -362,11 +362,13 @@
 
       (setq custom-safe-themes t)
 
-      (set-frame-font
-       (cond 
-        ((string= "gnu/linux" system-type) "-xos4-terminus-medium-r-normal--28-*-72-72-c-140-iso10646-1")
-        ((string= "darwin" system-type) "Terminus (TTF) 16")
-         (t "Terminus 16")))
+      ;; (set-frame-font
+      ;;  (cond 
+      ;;   ((string= "gnu/linux" system-type) "-xos4-terminus-medium-r-normal--28-*-72-72-c-140-iso10646-1")
+      ;;   ((string= "darwin" system-type) "Terminus (TTF) 16")
+      ;;    (t "Terminus 16")))
+
+      (set-frame-font "IBM Plex Mono 14")
 
       (when (functionp 'set-fontset-font)
         (set-fontset-font "fontset-default"
@@ -510,7 +512,7 @@
    #+END_SRC
 
 * Development Environments
-
+  
 ** Aurora
 
    #+begin_src emacs-lisp
