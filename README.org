@@ -2065,31 +2065,20 @@
        :after org)
    #+END_SRC
 
-** =telephone-line=
+** Modeline
 
    #+begin_src emacs-lisp
-     (use-package telephone-line
+     (use-package doom-modeline
        :straight t
-       :init
-       (setq telephone-line-lhs
-             '((evil   . (telephone-line-evil-tag-segment))
-               (accent . (telephone-line-vc-segment
-                          telephone-line-erc-modified-channels-segment
-                          telephone-line-process-segment))
-               (nil    . (telephone-line-minor-mode-segment
-                          telephone-line-buffer-segment))))
-       (setq telephone-line-rhs
-             '((nil    . (telephone-line-misc-info-segment))
-               (accent . (telephone-line-major-mode-segment))
-               (evil   . (telephone-line-airline-position-segment))))
-       (setq telephone-line-primary-right-separator 'telephone-line-flat
-             telephone-line-primary-left-separator 'telephone-line-flat)
-       (setq telephone-line-secondary-right-separator 'telephone-line-flat
-             telephone-line-secondary-left-separator 'telephone-line-flat)
-       (setq telephone-line-height 24)
-       (setq telephone-line-evil-use-short-tag t)
        :config
-       (telephone-line-mode 1))
+       (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
+       (doom-modeline-mode 1))
+
+     (use-package mu4e-alert
+       :straight t
+       :after mu4e
+       :config
+       (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
    #+end_src
 
 ** =pdf-tools=
@@ -2110,14 +2099,6 @@
              (add-to-list 'evil-emacs-state-modes 'pdf-outline-buffer-mode)
              (add-to-list 'evil-emacs-state-modes 'pdf-view-mode))))
    #+END_SRC
-
-** posframe
-
-   #+begin_src emacs-lisp
-     (use-package posframe
-       :disabled t
-       :straight t)
-   #+end_src
 
 ** =projectile=
 
