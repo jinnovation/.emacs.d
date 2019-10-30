@@ -2279,36 +2279,6 @@
        :straight t)
    #+end_src
 
-** Environment
-
-   #+begin_src emacs-lisp
-     (use-package symon
-       :straight t
-       :init
-       (setq symon-monitors
-             (cond ((memq system-type '(gnu/linux))
-                    '(symon-current-time-monitor
-                      symon-linux-memory-monitor
-                      symon-linux-cpu-monitor
-                      ;; symon-linux-network-rx-monitor
-                      ;; symon-linux-network-tx-monitor
-                      symon-linux-battery-monitor))
-                   ((memq system-type '(darwin))
-                    '(symon-current-time-monitor
-                      symon-darwin-memory-monitor
-                      symon-darwin-cpu-monitor
-                      ;; TODO: network monitors run into errors when network is
-                      ;; offline due to nil retval. Until replace w/ alternative
-                      ;; that's more resilient, disable.
-                      ;; symon-darwin-network-rx-monitor
-                      ;; symon-darwin-network-tx-monitor
-                      symon-darwin-battery-monitor))))
-       (setq symon-delay 5)
-       (setq symon-sparkline-width 120)
-       :config
-       (symon-mode))
-   #+end_src
-
 * (Un)license
 
   #+BEGIN_SRC text :eval never
