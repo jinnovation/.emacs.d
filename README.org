@@ -2070,7 +2070,25 @@
    #+begin_src emacs-lisp
      (use-package doom-modeline
        :straight t
+       :init
+       (display-battery-mode 1)
        :config
+
+       (doom-modeline-def-segment datetime
+         (when (doom-modeline--active)
+           (concat
+            (doom-modeline-spc)
+            (doom-modeline-icon 'faicon "clock-o" "" "" 'mode-line :v-adjust -0.0575)
+            (doom-modeline-vspc)
+            (propertize (format-time-string "%h %d %T") 'face 'mode-line)
+            (doom-modeline-spc))))
+
+       (doom-modeline-def-modeline 'jjin
+         '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position selection-info)
+         '(objed-state misc-info persp-name datetime battery irc mu4e github debug lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs checker))
+
+       (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin)))
+
        (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
        (doom-modeline-mode 1))
 
