@@ -2054,6 +2054,33 @@
        :after org)
    #+END_SRC
 
+** =telephone-line=
+
+   #+begin_src emacs-lisp
+     (use-package telephone-line
+       :straight t
+       :init
+       (setq telephone-line-lhs
+             '((evil   . (telephone-line-evil-tag-segment))
+               (accent . (telephone-line-vc-segment
+                          telephone-line-erc-modified-channels-segment
+                          telephone-line-process-segment))
+               (nil    . (telephone-line-minor-mode-segment
+                          telephone-line-buffer-segment))))
+       (setq telephone-line-rhs
+             '((nil    . (telephone-line-misc-info-segment))
+               (accent . (telephone-line-major-mode-segment))
+               (evil   . (telephone-line-airline-position-segment))))
+       (setq telephone-line-primary-right-separator 'telephone-line-flat
+             telephone-line-primary-left-separator 'telephone-line-flat)
+       (setq telephone-line-secondary-right-separator 'telephone-line-flat
+             telephone-line-secondary-left-separator 'telephone-line-flat)
+       (setq telephone-line-height 24)
+       (setq telephone-line-evil-use-short-tag t)
+       :config
+       (telephone-line-mode 1))
+   #+end_src
+
 ** =pdf-tools=
 
    #+BEGIN_SRC emacs-lisp
