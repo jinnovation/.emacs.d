@@ -2084,11 +2084,12 @@
             (doom-modeline-spc))))
 
        (doom-modeline-def-modeline 'jjin
-         '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position selection-info)
-         '(objed-state misc-info persp-name datetime battery irc mu4e github debug lsp minor-modes input-method indent-info buffer-encoding major-mode process vcs checker))
+         '(bar workspace-name window-number modals matches buffer-info remote-host selection-info)
+         '(misc-info persp-name datetime battery irc mu4e github debug lsp minor-modes input-method indent-info buffer-encoding process vcs checker))
 
        (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin)))
 
+       (setq doom-modeline-buffer-encoding nil)
        (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
        (doom-modeline-mode 1))
 
