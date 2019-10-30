@@ -1092,11 +1092,13 @@
                  (concat
                   (propertize "┌─[" 'face 'font-lock-string-face)
                   (propertize (user-login-name) 'face 'font-lock-function-name-face)
-                  (propertize "@" 'face 'font-lock-string-face)
-                  (when-let ((b (magit-get-current-branch)))
-                    (propertize b 'face `(:foreground "yellow")))
-                  (when (magit-anything-modified-p)
-                    (propertize "*" 'face `(:foreground "yellow")))
+                  (when (magit-git-repo-p default-directory)
+                    (concat
+                     (propertize "@" 'face 'font-lock-string-face)
+                     (when-let ((b (magit-get-current-branch)))
+                       (propertize b 'face `(:foreground "yellow")))
+                     (when (magit-anything-modified-p)
+                       (propertize "*" 'face `(:foreground "yellow")))))
                   (propertize "]──[" 'face 'font-lock-string-face)
                   (propertize (format-time-string "%H:%M:%S" (current-time)) 'face 'font-lock-keyword-face)
                   (propertize "]──[" 'face 'font-lock-string-face)
