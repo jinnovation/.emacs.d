@@ -348,6 +348,11 @@
         (setq nord-comment-brightness 10)
         :config
         (load-theme 'nord t))
+
+      (use-package kaolin-themes
+        :straight t
+        :config
+        (load-theme 'kaolin-ocean t))
     #+END_SRC
 
 *** General
