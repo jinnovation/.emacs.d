@@ -74,6 +74,8 @@
        (setq system-packages-use-sudo nil)
        (when (eq system-type 'darwin)
          (setq system-packages-package-manager 'brew)))
+
+     (use-package dash :straight t)
    #+END_SRC
     
 ** Functions
@@ -368,7 +370,16 @@
       ;;   ((string= "darwin" system-type) "Terminus (TTF) 16")
       ;;    (t "Terminus 16")))
 
-      (set-frame-font "IBM Plex Mono 14")
+      (defun jjin/font-installed-p (font-name)
+        "Returns t if FONT-NAME is found to be installed; nil otherwise."
+        (not (null (x-list-fonts font-name))))
+
+      (defvar jjin/font-priority-list
+        '("IBM Plex Mono 14" "Terminus (TTF) 16")
+        "Priority-sorted list of fonts to attempt to set frame to.")
+
+      (-when-let (font-name (-first 'jjin/font-installed-p jjin/font-priority-list))
+        (set-frame-font font-name))
 
       (when (functionp 'set-fontset-font)
         (set-fontset-font "fontset-default"
