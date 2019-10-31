@@ -1623,39 +1623,6 @@
            ad-do-it)))
    #+END_SRC
 
-** =multi-term=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package multi-term
-       :straight t
-       :config
-       (bind-keys :map jjin-term-map
-                  ("t" . multi-term)
-                  ("n" . multi-term-next)
-                  ("p" . multi-term-prev)
-                  ("d" . multi-term-dedicated-toggle))
-
-       (setq term-bind-key-alist
-             '(("C-c C-k" . term-line-mode)
-               ("M-]" . multi-term-next)
-               ("M-[" . multi-term-prev)
-               ("C-c C-c" . term-interrupt-subjob)
-               ("C-c C-e" . term-send-esc)
-               ("C-m" . term-send-return)
-               ("C-y" . term-paste)
-               ("M-f" . term-send-forward-word)
-               ("M-b" . term-send-backward-word)
-               ("M-o" . term-send-backspace)
-               ("M-p" . term-send-up)
-               ("M-n" . term-send-down)
-               ("M-M" . term-send-forward-kill-word)
-               ("M-N" . term-send-backward-kill-word)
-               ("<M-backspace>" . term-send-backward-kill-word)
-               ("M-r" . term-send-reverse-search-history)
-               ("M-," . term-send-raw)
-               ("M-." . comint-dynamic-complete))))
-   #+END_SRC
-
 ** =mu4e=
    
    =mu4e= has a notion of [[https://www.djcbsoftware.nl/code/mu/mu4e/Marking.html#Marking]["marks"]] that it uses to represent actions on messages
