@@ -426,23 +426,6 @@
        (unless (server-running-p) (server-start)))
    #+END_SRC
    
-** "Launcher"
-
-   I like to keep several functions within Emacs within a short key press away;
-   these tend to correspond to "applications" such as email, RSS, Slack,
-   etc.
-
-   The following allows me to emulate [[https://en.wikipedia.org/wiki/Spotlight_(software)][macOS's Spotlight functionality]] in a
-   lightweight manner, to put these regularly used "applications" within easy
-   reach.
-
-   #+begin_src emacs-lisp
-     (use-package helm-exec
-       :after helm
-       :straight (:repo "https://github.com/jinnovation/helm-exec.git")
-       :bind (("C-c e" . helm-exec-execute)))
-   #+end_src
-  
 ** Nested .dir-locals.el
 
    #+begin_src emacs-lisp
