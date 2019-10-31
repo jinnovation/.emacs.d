@@ -10,6 +10,8 @@
 *** http://www.eater.com/rss/index.xml
 *** http://www.fuchsiadunlop.com/feed/
 
+*** [[https://happydonabelife.com/feed][Happy Donabe Life by Toiro]]
+
 ** Software                                                       :software:eng:
 *** http://norvig.com/rss-feed.xml
 *** http://engineering.riotgames.com/news/feed

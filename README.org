@@ -432,6 +432,16 @@
      (use-package nested-dir-local
        :straight (:repo "git@github.com:jinnovation/nested-dir-locals.el.git"))
    #+end_src
+
+** Window Configurations
+
+   #+begin_src emacs-lisp
+     (use-package eyebrowse
+       :straight t
+       :config
+       (eyebrowse-mode 1))
+   #+end_src
+   
 * Keys
 
 ** Personal maps
@@ -464,7 +474,8 @@
      (unbind-key "M-`")
      (unbind-key "C-c C-w")
      (unbind-key "C-x C-n")      ; set-goal-column
-     (unbind-key "s-t")          ;ns-popup-font-panel
+     (unbind-key "s-t")          ; ns-popup-font-panel
+     (unbind-key "s-w")          ; delete-frame
 
      (unbind-key "<f10>")
      (unbind-key "<f11>")
@@ -475,10 +486,9 @@
                 ("r" . rename-buffer))
 
      (bind-keys :map global-map
-                ("<s-backspace>" . backward-kill-word))
-
-     (bind-keys :map global-map
-                ("s-s" . save-buffer))
+                ("<s-backspace>" . backward-kill-word)
+                ("s-s" . save-buffer)
+                ("s-b" . switch-to-buffer))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
@@ -992,6 +1002,20 @@
        (setq elfeed-use-curl t)
        (setq elfeed-log-level 'info)
 
+       (defun jjin/elfeed-read-feed ()
+         (interactive)
+         (completing-read
+          "Feed: "
+          (delete-dups (-map 'elfeed-feed-title (hash-table-values elfeed-db-feeds)))))
+
+       ;; (with-eval-after-load 'ivy-rich
+       ;;   (plist-put ivy-rich-display-transformers-list
+       ;;              'jjin/elfeed-read-feed
+       ;;              '(:columns
+       ;;                ((ivy-rich-candidate (:width 40))
+       ;;                 (elfeed-feed-autotags (:face font-lock-doc-face))))))
+
+
        :config
        (with-eval-after-load 'evil
          (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
@@ -1080,7 +1104,14 @@
        (defun eshell/la (&rest args)
          (eshell/ls "--almost-all" "-l" args))
 
+       (defun jjin/interpreter-match-git-show (cmd args)
+           (and (string= cmd "git") (string= (car args) "diff")))
+
        (with-eval-after-load 'magit
+         (add-to-list 'eshell-interpreter-alist
+                      '(jjin/interpreter-match-git-show
+                        .
+                        (lambda (&rest args) (magit-show-commit (car (last args))))))
          (setq eshell-prompt-function
                (lambda ()
                  (concat
@@ -1236,7 +1267,7 @@
      (bind-keys :map jjin-vc-map
                 ("g" . vc-git-grep))
 
-     (setq vc-handled-backends nil)
+     (setq vc-handled-backends '(git))
    #+END_SRC
 
 *** =git-commit-mode=
@@ -1487,9 +1518,15 @@
 ** ivy
 
    #+begin_src emacs-lisp
+     (setq jjin/ivy-extended-command-forwards
+           `((mu4e . ,(defhydra jjin/mu4e-extended-cmds ()
+                        "mu4e extended"
+                        ("u" mu4e-update-mail-and-index "update" :exit t)))))
+
      (use-package ivy
        :straight t
-       :bind (("C-s" . swiper))
+       :bind (("C-s"   . swiper))
+       :diminish ivy-mode
        :init
        (setq ivy-use-virtual-buffers t)
        (setq ivy-count-format "(%d/%d) ")
@@ -1507,7 +1544,15 @@
      (use-package counsel
        :straight t
        :after ivy
+       :diminish counsel-mode
+       :bind (:map counsel-mode-map
+              ("C-x m" . counsel-M-x))
        :config
+       (ivy-add-actions
+        'counsel-M-x
+        '(("x"
+           (lambda (cmd) (funcall (alist-get (intern cmd) jjin/ivy-extended-command-forwards)))
+           "extended")))
        (counsel-mode t))
 
      (use-package counsel-projectile
@@ -1533,8 +1578,6 @@
          ;; FIXME: This needs to incorporate w/ paradox--refresh-remote-data
          (paradox--package-star-count (intern candidate))))
 
-     (jjin/ivy-rich-package-stars 'elfeed)
-
      (use-package ivy-rich
        :straight t
        :init
@@ -1544,7 +1587,7 @@
                   'describe-package
                   '(:columns
                    ((ivy-rich-candidate (:width 30))
-                    (jjin/ivy-rich-package-stars (:width 4 :face warning))
+                    ;; (jjin/ivy-rich-package-stars (:width 4 :face warning))
                     (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
 
        (with-eval-after-load 'helpful
@@ -2039,6 +2082,7 @@
      (use-package evil-org
        :straight t
        :after (evil org)
+       :diminish evil-org-mode
        :config
        (add-hook 'org-mode-hook 'evil-org-mode)
        (evil-org-set-key-theme)
@@ -2053,28 +2097,31 @@
    #+begin_src emacs-lisp
      (use-package doom-modeline
        :straight t
-       :init
-       (display-battery-mode 1)
        :config
+       (setq doom-modeline-vcs-max-length 24)
 
-       (doom-modeline-def-segment datetime
+       (setq doom-modeline-buffer-file-name-style 'truncate-except-project)
+
+       (doom-modeline-def-segment jjin/datetime
          (when (doom-modeline--active)
            (concat
             (doom-modeline-spc)
-            (doom-modeline-icon 'faicon "clock-o" "" "" 'mode-line :v-adjust -0.0575)
-            (doom-modeline-vspc)
+            ;; (doom-modeline-icon 'faicon "clock-o" "" "" 'mode-line :v-adjust -0.0575)
+            ;; (doom-modeline-vspc)
             (propertize (format-time-string "%h %d %T") 'face 'mode-line)
             (doom-modeline-spc))))
 
        (doom-modeline-def-modeline 'jjin
          '(bar workspace-name window-number modals matches buffer-info remote-host selection-info)
-         '(misc-info persp-name datetime battery irc mu4e github debug lsp minor-modes input-method indent-info buffer-encoding process vcs checker))
+         '(misc-info persp-name jjin/datetime battery irc mu4e github debug lsp minor-modes input-method indent-info buffer-encoding process vcs checker))
 
        (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin)))
 
        (setq doom-modeline-buffer-encoding nil)
        (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
        (doom-modeline-mode 1))
+
+     (display-battery-mode 1)
 
      (use-package mu4e-alert
        :straight t
