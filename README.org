@@ -13,6 +13,7 @@
 * Preamble
 
   #+BEGIN_SRC emacs-lisp
+    (require 'cl-lib)
     (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
 
     (setq package-archives '(("gnu"           . "http://elpa.gnu.org/packages/")
