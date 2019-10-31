@@ -61,7 +61,6 @@
  ("markdown-mode-plus" . "411d079f4430a33c34ec0bbcb1535fe1145a2509")
  ("melpa" . "67942b34975015dd6f2b5f6b43829cc13b1832c6")
  ("mu4e-alert" . "91f0657c5b245a9de57aa38391221fb5d141d9bd")
- ("multi-term" . "f954e4e18b0a035151d34852387e724d87a3316f")
  ("names" . "d8baba5360e5253938a25d3e005455b6d2d86971")
  ("nested-dir-locals.el" . "f6e477e2d85006d10f1771f812bf8824b8a9d144")
  ("nord-emacs" . "c4e0b5548e2f3a149658617b33813cb115bdecfe")
