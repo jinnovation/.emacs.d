@@ -13,7 +13,7 @@
 * Preamble
 
   #+BEGIN_SRC emacs-lisp
-    (require 'cl-lib)
+    (require 'cl)
     (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
 
     (setq package-archives '(("gnu"           . "http://elpa.gnu.org/packages/")
@@ -376,7 +376,7 @@
         (not (null (x-list-fonts font-name))))
 
       (defvar jjin/font-priority-list
-        '("IBM Plex Mono 14" "Terminus (TTF) 16")
+        '("IBM Plex Mono 14" "Source Code Pro 14" "Terminus (TTF) 16")
         "Priority-sorted list of fonts to attempt to set frame to.")
 
       (-when-let (font-name (-first 'jjin/font-installed-p jjin/font-priority-list))
@@ -971,7 +971,6 @@
 
    #+begin_src emacs-lisp
      (use-package eglot
-       :disabled t
        :straight t)
    #+end_src
 
@@ -1554,6 +1553,9 @@
         '(("x"
            (lambda (cmd) (funcall (alist-get (intern cmd) jjin/ivy-extended-command-forwards)))
            "extended")))
+
+       (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
+
        (counsel-mode t))
 
      (use-package counsel-projectile
