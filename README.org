@@ -1328,6 +1328,12 @@
         :straight t
         :init
 
+        ;; On status buffer init, jump to either unstaged changes or staged changes,
+        ;; if present
+        (setq magit-status-initial-section
+              '(((unstaged) (status))
+                ((staged) (status))))
+
         (add-to-list
          'safe-local-variable-values
          '(magit-status-headers-hook . (list
@@ -1509,7 +1515,9 @@
        :straight t
        :bind (("C-h f" . #'helpful-callable)
               ("C-h v" . #'helpful-variable)
-              ("C-h k" . #'helpful-key))
+              ("C-h k" . #'helpful-key)
+              :map helpful-mode-map
+              ("g"     . #'helpful-update))
        :init
        (with-eval-after-load 'evil
          (add-to-list 'evil-motion-state-modes 'helpful-mode)))
