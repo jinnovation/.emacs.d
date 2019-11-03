@@ -441,6 +441,40 @@
        :straight t
        :config
        (eyebrowse-mode 1))
+
+     (defvar jjin/help-modes '(helpful-mode
+                               help-mode
+                               Man-mode
+                               woman-mode
+                               Info-mode
+                               godoc-mode))
+
+     (defun jjin/help-buffer-p (buf &optional act)
+       "Check if BUF is a 'help' buffer.
+
+     ACT is a buffer action that enables use in
+     `display-buffer-alist'."
+       (member (with-current-buffer buf major-mode) jjin/help-modes))
+
+     (add-to-list 'display-buffer-alist
+                  `(jjin/help-buffer-p
+                    (display-buffer--maybe-same-window
+                     display-buffer-reuse-window
+                     display-buffer-reuse-mode-window)
+                    (mode . ,jjin/help-modes)
+                    (inhibit-same-window . nil)))
+
+     ;; FIXME: This doesn't play nicely w/ M-x mu4e
+     (add-to-list 'display-buffer-alist
+                  '((lambda (buf act) (equal (with-current-buffer buf major-mode) 'mu4e-headers-mode))
+                    (display-buffer--maybe-same-window
+                     display-buffer-reuse-window
+                     display-buffer-reuse-mode-window)
+
+                    (mode . mu4e-headers-mode)
+                    (inhibit-same-window . nil)
+                    )
+                  )
    #+end_src
    
 * Keys
@@ -1698,6 +1732,7 @@
         (w3m . w3m))
        :commands (mu4e mu4e-update-mail-and-index)
        :init
+       (setq mu4e-split-view 'single-window)
        (setq mu4e-compose-format-flowed t)
        (defhydra jjin-hydra-mu4e (:exit t)
          "Auxiliary commands for mu4e"
@@ -1868,7 +1903,21 @@
 
        (add-to-list 'mu4e-marks jjin/mu4e-mark-refile-first-delete-rest)
 
-       (add-hook 'mu4e-view-mode-hook 'mu4e-view-fill-long-lines))
+       (add-hook 'mu4e-view-mode-hook 'mu4e-view-fill-long-lines)
+
+       ;; (setq projectile-globally-ignored-modes (remove-if 'symbolp projectile-globally-ignored-modes ))
+       (with-eval-after-load 'projectile
+         (mapc
+          (lambda (mode)
+            (add-to-list 'projectile-globally-ignored-modes (symbol-name mode)))
+          '(mu4e-headers-mode
+            mu4e~update-mail-mode
+            mu4e~main-toggle-mail-sending-mode
+            mu4e-main-mode
+            mu4e-view-mode
+            mu4e~view-define-mode
+            mu4e-compose-mode
+            mu4e-org-mode))))
    #+END_SRC
 
 ** =org-mode=
@@ -2100,12 +2149,6 @@
        (doom-modeline-mode 1))
 
      (display-battery-mode 1)
-
-     (use-package mu4e-alert
-       :straight t
-       :after mu4e
-       :config
-       (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display))
    #+end_src
 
 ** =pdf-tools=
