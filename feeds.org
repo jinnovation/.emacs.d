@@ -6,7 +6,8 @@
 *** http://endlessparentheses.com/atom.xml
 ** New York                                                                 :ny:
 *** http://ny.eater.com/rss/index.xml
-** Food
+*** http://evgrieve.com/feeds/posts/default
+** Food                                                                   :food:
 *** http://www.eater.com/rss/index.xml
 *** http://www.fuchsiadunlop.com/feed/
 
@@ -39,11 +40,14 @@
 
 *** China                                                                :china:
 **** https://chublicopinion.com/feed/
-**** http://www.sixthtone.com/rss
+**** [[http://www.sixthtone.com/rss][Sixth Tone]]
 **** https://chinadigitaltimes.net/chinese/feed/
 **** http://en.boxun.com/feed/
 **** http://www.chinafile.com/feeds.xml
     
+** Japanese                                                            :jp:lang:
+*** [[http://maggiesensei.com/feed/][Maggie Sensei]]                                                           :jp:
+*** [[https://www.tofugu.com/feed.xml][Tofugu]]                                                                  :jp:
 ** http://rss.nytimes.com/services/xml/rss/nyt/Arts.xml
 ** http://nateswinehartportfolio.tumblr.com/rss
 ** http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Fapp.lifeweek.com.cn%2F%3Fapp%3Drss%26controller%3Dindex%26action%3Dfeed%26catid%3D1&amp;max=3
@@ -69,7 +73,7 @@
 ** http://sinosphere.blogs.nytimes.com/feed/
 ** http://www.guardian.co.uk/rssfeed/0,,1,00.xml
 ** https://thenib.com/feeds/rss
-** http://www.washingtonpost.com/rss/homepage
+** [[http://www.washingtonpost.com/rss/homepage][Washington Post]]
 ** http://www.whatsonweibo.com/feed/
 ** http://chinadigitaltimes.net/chinese/feed/
 ** http://cn.nytimes.com/rss.html
@@ -103,8 +107,6 @@
 ** http://feeds.feedburner.com/apartmenttherapy/thekitchn
 ** [[http://feeds.feedburner.com/WineFolly][Wine Folly]]
 ** http://feeds.feedburner.com/nymag/Food
-** [[http://maggiesensei.com/feed/][Maggie Sensei]]                                                            :jp:
-** [[https://www.tofugu.com/feed.xml][Tofugu]]                                                                   :jp:
 ** http://feeds.apartmenttherapy.com/apartmenttherapy/main
 ** http://feeds.apartmenttherapy.com/apartmenttherapy/ny
 ** [[http://ny.curbed.com/atom.xml][Curbed NY]]
@@ -132,7 +134,6 @@
 ** http://www.thefader.com/feed.rss
 ** http://feeds.feedburner.com/BedfordBowery
 ** http://www.boweryboogie.com/feed/
-** http://evgrieve.com/feeds/posts/default
 ** http://freewilliamsburg.com/feed
 ** https://greenpointers.com/feed/
 ** http://vanishingnewyork.blogspot.com/feeds/posts/default
@@ -160,8 +161,8 @@
 ** Tech                                                                   :tech:
 *** http://stratechery.com/feed/
 *** http://www.theinformation.com//feed
-*** [[http://www.engadget.com/tag/@gaming/rss.xml][Engadget]]                                                              :tech:
-*** [[http://feeds.feedburner.com/AndroidPolice][Android Police]]                                                :android:tech:
+*** [[http://www.engadget.com/tag/@gaming/rss.xml][Engadget]]             :tech:
+*** [[http://feeds.feedburner.com/AndroidPolice][Android Police]] :android:tech:
 ** https://blog.google/rss/
 ** http://feeds.feedburner.com/thepointsguy
 ** http://welcometobusinesstown.tumblr.com/rss
