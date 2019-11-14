@@ -532,7 +532,7 @@
        :straight t
        :config
        (defhydra jjin-hydra-window (global-map "C-c w")
-         "Commands relating to window manipulation"
+         "Window manipulation"
          ("h" windmove-left "move left")
          ("l" windmove-right "move right")
          ("j" windmove-down "move down")
@@ -543,8 +543,8 @@
          ("L" jjin-move-splitter-right "move splitter right")
          ("J" jjin-move-splitter-down "move splitter down")
          ("K" jjin-move-splitter-up "move splitter up")
-         ("b" balance-windows)
-         ("|" jjin-window-toggle-split-direction)
+         ("b" balance-windows "balance")
+         ("|" jjin-window-toggle-split-direction "toggle split")
          ("s" split-window-below "split window (below)")
          ("v" split-window-right "split window (right)")
          (";" ace-window "select window" :exit t)))
@@ -841,6 +841,7 @@
 
    #+begin_src emacs-lisp
      (use-package twitter-source
+       :if (file-exists-p "~/workspace/twitter-source.el")
        :after transient
        :straight (:local-repo "~/workspace/twitter-source.el")
        :config
@@ -1137,6 +1138,11 @@
 
        (defun eshell/la (&rest args)
          (eshell/ls "--almost-all" "-l" args))
+
+       (defun eshell/ff (&rest args)
+         ;; (let ((f-open  (completing-read "File: " (eshell/ls))))
+         ;;   (print f-open))
+         (apply #'find-file args))
 
        (defun jjin/interpreter-match-git-show (cmd args)
            (and (string= cmd "git") (string= (car args) "diff")))
@@ -1791,12 +1797,9 @@
        ;; don't keep message buffers around
        (setq message-kill-buffer-on-exit t)
 
-       (setq
-        ;; FIXME: if w3m not installed:
-        ;; - log it
-        ;; - leave as default
-        mu4e-html-renderer 'w3m
-        mu4e-html2text-command "w3m -dump -T text/html")
+       (setq mu4e-html2text-command 'mu4e-shr2text)
+       (setq shr-use-colors nil)
+       (setq shr-use-fonts nil)
 
        (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
@@ -2115,8 +2118,12 @@
        (evil-org-set-key-theme)
        (setq evil-org-special-o/O '(table-row)))
 
-     (use-package org-tempo
-       :after org)
+     (use-package org-sticky-header
+       :straight t
+       :hook (org-mode . org-sticky-header-mode)
+       :init
+       (setq org-sticky-header-outline-path-separator " > ")
+       (setq org-sticky-header-full-path 'full))
    #+END_SRC
 
 ** Modeline
