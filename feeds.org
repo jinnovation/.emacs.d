@@ -160,9 +160,9 @@
    
 ** Tech                                                                   :tech:
 *** http://stratechery.com/feed/
-*** http://www.theinformation.com//feed
-*** [[http://www.engadget.com/tag/@gaming/rss.xml][Engadget]]             :tech:
-*** [[http://feeds.feedburner.com/AndroidPolice][Android Police]] :android:tech:
+*** [[http://www.theinformation.com/feed][The Information]]
+*** [[http://www.engadget.com/tag/@gaming/rss.xml][Engadget]]                                                              :tech:
+*** [[http://feeds.feedburner.com/AndroidPolice][Android Police]]                                                :android:tech:
 ** https://blog.google/rss/
 ** http://feeds.feedburner.com/thepointsguy
 ** http://welcometobusinesstown.tumblr.com/rss
