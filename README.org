@@ -559,6 +559,13 @@
        :straight t)
    #+end_src
 
+** Bazel
+
+   #+begin_src emacs-lisp
+     (use-package bazel-mode
+       :straight (:host github :repo "bazelbuild/emacs-bazel-mode"))
+   #+end_src
+
 ** C/C++
 
    #+BEGIN_SRC emacs-lisp
@@ -601,9 +608,8 @@
        :straight t
 
        :init
-       (if (executable-find "goimports")
-           (setq gofmt-command "goimports")
-         (message "Goimports not found; using default `gofmt-command'"))
+       (when (executable-find "goimports")
+         (setq gofmt-command "goimports"))
 
        :config
        (add-hook 'before-save-hook 'gofmt-before-save))
@@ -996,6 +1002,8 @@
    #+BEGIN_SRC emacs-lisp
      (use-package exec-path-from-shell
        :straight t
+       :custom
+       (exec-path-from-shell-variables '("PATH" "MANPATH" "GOPATH" "GOROOT"))
        :config
        (exec-path-from-shell-initialize))
     #+END_SRC
@@ -1160,7 +1168,7 @@
 *** Initialization file
 
     #+BEGIN_SRC emacs-lisp :tangle eshell/profile
-    (setenv "EDITOR" "emacsclient")
+      (setenv "EDITOR" "emacsclient")
     #+END_SRC
 
 ** =ess=
