@@ -2141,6 +2141,12 @@
 ** Modeline
 
    #+begin_src emacs-lisp
+     (use-package all-the-icons
+       :straight t)
+
+     ;; FIXME: Make this conditional on fonts not being present
+     ;; (all-the-icons-install-fonts)
+
      (use-package doom-modeline
        :straight t
        :config
