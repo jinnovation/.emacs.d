@@ -439,6 +439,8 @@
    #+begin_src emacs-lisp
      (use-package eyebrowse
        :straight t
+       :init
+       (setq eyebrowse-new-workspace t)
        :config
        (eyebrowse-mode 1))
 
