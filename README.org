@@ -605,13 +605,11 @@
    #+BEGIN_SRC emacs-lisp
      (use-package go-mode
        :mode "\\.go$"
+       :after exec-path-from-shell
        :straight t
-
-       :init
+       :config
        (when (executable-find "goimports")
          (setq gofmt-command "goimports"))
-
-       :config
        (add-hook 'before-save-hook 'gofmt-before-save))
 
      (use-package company-go
