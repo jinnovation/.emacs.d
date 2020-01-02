@@ -1003,7 +1003,12 @@
      (use-package exec-path-from-shell
        :straight t
        :custom
-       (exec-path-from-shell-variables '("PATH" "MANPATH" "GOPATH" "GOROOT"))
+       (exec-path-from-shell-variables '("PATH"
+                                         "MANPATH"
+                                         "GOPATH"
+                                         "GOROOT"
+                                         "GO111MODULE"
+                                         "JENKINS_API_TOKEN"))
        :config
        (exec-path-from-shell-initialize))
     #+END_SRC
