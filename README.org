@@ -566,6 +566,10 @@
    #+begin_src emacs-lisp
      (use-package bazel-mode
        :straight (:host github :repo "bazelbuild/emacs-bazel-mode"))
+
+     (use-package bazel-transient
+       :after (bazel-mode transient)
+       :straight (:local-repo "~/workspace/bazel-transient"))
    #+end_src
 
 ** C/C++
@@ -634,6 +638,8 @@
        (setq lsp-before-save-edits t)
        (setq lsp-signature-render-documentation t)
        :config
+       ;; FIXME: Oncen gopackagesdriver is available, set up here to cooperate w/
+       ;; Bazel projects.
        (defun lsp-go-install-save-hooks ()
          (add-hook 'before-save-hook #'lsp-format-buffer t t)
          (add-hook 'before-save-hook #'lsp-organize-imports t t))
@@ -1136,6 +1142,7 @@
 
      (use-package eshell
        :init
+       (add-hook 'eshell-mode-hook 'goto-address-mode)
        (setq eshell-rc-script (concat user-emacs-directory "eshell/profile"))
        (setq eshell-modify-global-environment t)
        (setq eshell-banner-message "")
