@@ -5,15 +5,23 @@
 *** http://emacsninja.com/feed.atom
 *** http://endlessparentheses.com/atom.xml
 ** New York                                                                 :ny:
-*** http://ny.eater.com/rss/index.xml
-*** http://evgrieve.com/feeds/posts/default
+*** http://ny.eater.com/rss/index.xml                                     :food:
+*** http://evgrieve.com/feeds/posts/default             :neighborhood:manhattan:
+*** https://greenpointers.com/feed/                      :neighborhood:brooklyn:
+*** http://washingtonsquareparkblog.com/feed/           :neighborhood:manhattan:
+*** http://www.westsiderag.com/feed                     :neighborhood:manhattan:
+*** [[https://bklyner.com/rss][Bklyner.]]                                             :neighborhood:brooklyn:
 ** Food                                                                   :food:
+
+*** [[https://sprudge.com/rss][Sprudge]]                                                             :coffee:
 *** http://www.eater.com/rss/index.xml
 *** http://www.fuchsiadunlop.com/feed/
 
 *** [[https://happydonabelife.com/feed][Happy Donabe Life by Toiro]]
 
 ** Software                                                       :software:eng:
+
+*** [[https://staffeng.com/rss][StaffEng]]                                                            :career:
 *** http://norvig.com/rss-feed.xml
 *** http://engineering.riotgames.com/news/feed
 *** http://classicprogrammerpaintings.tumblr.com/rss
@@ -35,7 +43,7 @@
 *** http://stackoverflow.com/jobs/feed?location=New+York&amp;range=20&amp;distanceUnits=Miles%20&amp;type=Permanent
 *** http://hnrss.org/submitted?id=whoishiring
 *** https://weworkremotely.com/categories/remote-programming-jobs.rss
-    
+
 ** Asia-Pacific                                                   :asia:pacific:
 
 *** China                                                                :china:
@@ -44,10 +52,13 @@
 **** https://chinadigitaltimes.net/chinese/feed/
 **** http://en.boxun.com/feed/
 **** http://www.chinafile.com/feeds.xml
-    
+**** http://www.whatsonweibo.com/feed/
+
 ** Japanese                                                            :jp:lang:
 *** [[http://maggiesensei.com/feed/][Maggie Sensei]]                                                           :jp:
 *** [[https://www.tofugu.com/feed.xml][Tofugu]]                                                                  :jp:
+
+*** [[https://goiryoku.club/feed/][Goiryoku Club 語彙力倶楽部]]                                              :jp:
 ** http://rss.nytimes.com/services/xml/rss/nyt/Arts.xml
 ** http://nateswinehartportfolio.tumblr.com/rss
 ** http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Fapp.lifeweek.com.cn%2F%3Fapp%3Drss%26controller%3Dindex%26action%3Dfeed%26catid%3D1&amp;max=3
@@ -64,17 +75,18 @@
 ** http://www.aljazeera.com/xml/rss/all.xml
 ** http://newsrss.bbc.co.uk/rss/newsonline_world_edition/front_page/rss.xml
 ** http://feeds.bbci.co.uk/news/world/rss.xml
-** http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
-** http://rss.nytimes.com/services/xml/rss/nyt/AsiaPacific.xml
-** http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml
-** http://rss.nytimes.com/services/xml/rss/nyt/US.xml
-** http://rss.nytimes.com/services/xml/rss/nyt/World.xml
+
+** News                                                                   :news:
+*** http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml
+*** http://rss.nytimes.com/services/xml/rss/nyt/AsiaPacific.xml           :asia:
+*** http://rss.nytimes.com/services/xml/rss/nyt/Politics.xml          :politics:
+*** http://rss.nytimes.com/services/xml/rss/nyt/US.xml                      :us:
+*** http://rss.nytimes.com/services/xml/rss/nyt/World.xml
+*** http://sinosphere.blogs.nytimes.com/feed/
+*** [[http://www.washingtonpost.com/rss/homepage][Washington Post]]
 ** http://feeds.propublica.org/propublica/main
-** http://sinosphere.blogs.nytimes.com/feed/
 ** http://www.guardian.co.uk/rssfeed/0,,1,00.xml
 ** https://thenib.com/feeds/rss
-** [[http://www.washingtonpost.com/rss/homepage][Washington Post]]
-** http://www.whatsonweibo.com/feed/
 ** http://chinadigitaltimes.net/chinese/feed/
 ** http://cn.nytimes.com/rss.html
 ** http://feeds.99percentinvisible.org/99percentinvisible
@@ -135,11 +147,8 @@
 ** http://feeds.feedburner.com/BedfordBowery
 ** http://www.boweryboogie.com/feed/
 ** http://freewilliamsburg.com/feed
-** https://greenpointers.com/feed/
 ** http://vanishingnewyork.blogspot.com/feeds/posts/default
 ** http://www.thelodownny.com/feed
-** http://washingtonsquareparkblog.com/feed/
-** http://www.westsiderag.com/feed
 ** https://extranewsfeed.com/feed
 ** http://distill.pub/rss.xml
 ** http://dustintran.com/blog/rss/
@@ -157,12 +166,12 @@
 ** http://www.technologyreview.com/rss/rss.aspx
 ** http://pandodaily.com.feedsportal.com/c/35141/f/650422/index.rss
 ** http://recode.net/category/reviews/feed/
-   
+
 ** Tech                                                                   :tech:
 *** http://stratechery.com/feed/
-*** [[http://www.theinformation.com/feed][The Information]]
-*** [[http://www.engadget.com/tag/@gaming/rss.xml][Engadget]]                                                              :tech:
-*** [[http://feeds.feedburner.com/AndroidPolice][Android Police]]                                                :android:tech:
+*** [[http://www.theinformation.com/feed][The Information]]                                                       :news:
+*** [[http://www.engadget.com/tag/@gaming/rss.xml][Engadget]]             :tech:
+*** [[http://feeds.feedburner.com/AndroidPolice][Android Police]] :android:tech:
 ** https://blog.google/rss/
 ** http://feeds.feedburner.com/thepointsguy
 ** http://welcometobusinesstown.tumblr.com/rss
@@ -178,5 +187,5 @@
 ** http://xkcd.com/rss.xml
 
 ** Travel                                                               :travel:
-*** [[https://www.cntraveller.com/rss/article][Conde Nast Traveler]]  
+*** [[https://www.cntraveller.com/rss/article][Conde Nast Traveler]]
 *** http://www.nytimes.com/services/xml/rss/nyt/Travel.xml
