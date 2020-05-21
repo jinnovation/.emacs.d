@@ -2277,6 +2277,9 @@
        (setq projectile-sort-order 'recently-active)
 
        :config
+       (with-eval-after-load 'ivy
+         (setq projectile-completion-system 'ivy))
+
        (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
        (advice-add 'projectile-compilation-dir
                    :before-until
