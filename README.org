@@ -532,25 +532,34 @@
    #+BEGIN_SRC emacs-lisp
      (use-package hydra
        :commands defhydra
+       :straight t)
+
+     (use-package pretty-hydra
        :straight t
        :config
-       (defhydra jjin-hydra-window (global-map "C-c w")
-         "Window manipulation"
-         ("h" windmove-left "move left")
-         ("l" windmove-right "move right")
-         ("j" windmove-down "move down")
-         ("k" windmove-up "move up")
-         ("q" delete-window "delete window")
-         ("Q" kill-buffer-and-window "kill buffer, delete window")
-         ("H" jjin-move-splitter-left "move splitter left")
-         ("L" jjin-move-splitter-right "move splitter right")
-         ("J" jjin-move-splitter-down "move splitter down")
-         ("K" jjin-move-splitter-up "move splitter up")
-         ("b" balance-windows "balance")
-         ("|" jjin-window-toggle-split-direction "toggle split")
-         ("s" split-window-below "split window (below)")
-         ("v" split-window-right "split window (right)")
-         (";" ace-window "select window" :exit t)))
+       (pretty-hydra-define jjin-hydra-window
+         (:title (with-faicon "windows" "Windows" 1 -0.05))
+
+         ("Move"
+          (("h" windmove-left "move left")
+           ("l" windmove-right "move right")
+           ("j" windmove-down "move down")
+           ("k" windmove-up "move up"))
+          "Split"
+          (("H" jjin-move-splitter-left "move splitter left")
+           ("L" jjin-move-splitter-right "move splitter right")
+           ("J" jjin-move-splitter-down "move splitter down")
+           ("K" jjin-move-splitter-up "move splitter up")
+           ("|" jjin-window-toggle-split-direction "toggle split")
+           ("s" split-window-below "split window (below)")
+           ("v" split-window-right "split window (right)"))
+          "Other"
+          (("q" delete-window "delete window")
+           ("Q" kill-buffer-and-window "kill buffer, delete window")
+           ("b" balance-windows "balance")
+           (";" ace-window "select window" :exit t))))
+
+       (bind-key "C-c w" 'jjin-hydra-window/body))
    #+END_SRC
 
 * Development Environments
