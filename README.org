@@ -809,6 +809,9 @@
    #+BEGIN_SRC emacs-lisp
      (setq python-fill-docstring-style 'pep-257)
 
+     ;; TODO: make this conditional on ipython presence
+     (setq python-shell-interpreter "python3")
+
      (use-package pyvenv
        :straight t)
 
@@ -984,6 +987,8 @@
        :defines company-backends
        :diminish company-mode
        :straight t
+       :custom
+       (company-dabbrev-downcase nil)
        :config
        (add-hook 'after-init-hook 'global-company-mode)
        (setq company-idle-delay 0.1))
@@ -1043,6 +1048,7 @@
                                          "GO111MODULE"
                                          "JENKINS_USER"
                                          "JENKINS_API_TOKEN"))
+       (exec-path-from-shell-shell-name "zsh")
        :config
        (exec-path-from-shell-initialize))
     #+END_SRC
@@ -1891,7 +1897,7 @@
                          (smtpmail-smtp-user . "me@jonathanj.in")
                          (smtpmail-smtp-server . "smtp.fastmail.com")
                          (smtpmail-smtp-service . 465)
-                         (smtpmail-stream-type . starttls)
+                         (smtpmail-stream-type . ssl)
 
                          (user-full-name . "Jonathan Jin")
                          (mu4e-sent-folder . "/personal/sent")
