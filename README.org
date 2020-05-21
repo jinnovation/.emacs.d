@@ -956,15 +956,6 @@
        (setq shr-external-browser 'browse-url-generic))
    #+END_SRC
 
-** =calc=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package calc
-       :init
-       (with-eval-after-load 'helm-exec
-         (helm-exec-register-executable 'calc)))
-   #+END_SRC
-
 ** =conf-mode=
 
    #+BEGIN_SRC emacs-lisp
@@ -1069,9 +1060,6 @@
               ("S-<SPC>" . scroll-down-command))
 
        :init
-       (with-eval-after-load 'helm-exec
-         (helm-exec-register-executable 'elfeed 'elfeed))
-
        (setq elfeed-use-curl t)
        (setq elfeed-log-level 'info)
 
@@ -1795,10 +1783,6 @@
          "Auxiliary commands for mu4e"
          ("m" mu4e-update-mail-and-index "update"))
 
-       (with-eval-after-load 'helm-exec
-         (helm-exec-register-executable 'mu4e
-                                        :alt 'jjin-hydra-mu4e/body))
-
        (setq mu4e-context-policy 'pick-first)
        (setq mu4e-headers-include-related nil)
        (setq mu4e-view-use-gnus nil)
@@ -2398,8 +2382,6 @@
               ("w" . w3m-delete-buffer))
        :commands w3m
        :init
-       (with-eval-after-load 'helm-exec
-         (helm-exec-register-executable 'w3m))
        (setq w3m-fill-column 80)
 
        :config
