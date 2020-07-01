@@ -189,3 +189,5 @@
 ** Travel                                                               :travel:
 *** [[https://www.cntraveller.com/rss/article][Conde Nast Traveler]]
 *** http://www.nytimes.com/services/xml/rss/nyt/Travel.xml
+
+** [[heated.world/feed][Heated]]                                                            :env:

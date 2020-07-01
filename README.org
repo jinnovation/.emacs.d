@@ -444,6 +444,7 @@
        (setq eyebrowse-new-workspace t)
        :config
        (eyebrowse-mode 1))
+     ;; FIXME: Add eyebrowse switch window config bindings to the window hydra
 
      (defvar jjin/help-modes '(helpful-mode
                                help-mode
@@ -538,7 +539,7 @@
        :straight t
        :config
        (pretty-hydra-define jjin-hydra-window
-         (:title (with-faicon "windows" "Windows" 1 -0.05))
+         (:title (with-octicon "browser" "Windows" 1 -0.05))
 
          ("Move"
           (("h" windmove-left "move left")
@@ -1169,10 +1170,16 @@
        (setq eshell-modify-global-environment t)
        (setq eshell-banner-message "")
 
+       :custom
+       (eshell-visual-options '(("bazel" "--curses=yes")))
+
        :config
        (with-eval-after-load 'evil
          (delete 'eshell-mode evil-insert-state-modes)
          (add-to-list 'evil-emacs-state-modes 'eshell-mode))
+
+       (with-eval-after-load 'counsel
+         (bind-key "M-r" 'counsel-esh-history eshell-mode-map))
 
        (bind-keys :map jjin-term-map
                   ("e" . eshell))
@@ -1221,6 +1228,14 @@
     #+BEGIN_SRC emacs-lisp :tangle eshell/profile
       (setenv "EDITOR" "emacsclient")
     #+END_SRC
+
+** vterm
+
+   #+begin_src emacs-lisp
+     (use-package vterm
+       :ensure-system-package cmake
+       :straight t)
+   #+end_src
 
 ** =ess=
 
@@ -1625,6 +1640,12 @@
        (setq ivy-extra-directories '())
        :config
        (ivy-mode 1))
+
+     (use-package ivy-hydra
+       :after ivy
+       :straight t
+       :custom
+       (ivy-read-action-function 'ivy-hydra-read-action))
 
      (use-package ivy-prescient
        :after ivy
