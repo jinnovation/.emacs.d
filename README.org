@@ -729,6 +729,7 @@
 
    #+begin_src emacs-lisp
      (use-package pants-build-mode
+       :disabled t
        :mode ("BUILD$")
        :straight (:repo "git@github.com:jinnovation/pants-build-mode.git"))
    #+end_src
@@ -2183,6 +2184,7 @@
        (setq evil-org-special-o/O '(table-row)))
 
      (use-package org-sticky-header
+       :disabled t
        :straight t
        :hook (org-mode . org-sticky-header-mode)
        :init
