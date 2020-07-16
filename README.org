@@ -255,10 +255,6 @@
     (setq large-file-warning-threshold nil)
 
     (setq
-      user-mail-address "jjin082693@gmail.com"
-      user-full-name  "Jonathan Jin")
-
-    (setq
       inhibit-startup-screen t
       inhibit-startup-message t
       initial-scratch-message nil
@@ -565,13 +561,6 @@
 
 * Development Environments
   
-** Aurora
-
-   #+begin_src emacs-lisp
-     (use-package aurora-config-mode
-       :straight t)
-   #+end_src
-
 ** Bazel
 
    #+begin_src emacs-lisp
@@ -639,18 +628,35 @@
        :after go
        :straight t)
 
-
+     ;; FIXME: Move lsp-mode setup outside of golang section
      (use-package lsp-mode
        :straight t
-       :disabled t
-       :commands (lsp lsp-deferred)
-       :hook (go-mode . lsp-deferred)
+       :hook ((python-mode . lsp-deferred))
+       ;; :hook (go-mode . lsp-deferred)
        :init
        (setq lsp-log-io t)
        (setq lsp-document-sync-method 'lsp--sync-full)
        (setq lsp-before-save-edits t)
        (setq lsp-signature-render-documentation t)
+       (setq lsp-pyls-plugins-pydocstyle-enabled t)
+       (setq lsp-pyls-plugins-flake8-enabled t)
+       (setq lsp-pyls-plugins-pydocstyle-convention "pep257")
        :config
+
+       ;; Sets up server configuration for use over TRAMP.
+       ;; 
+       ;; FIXME: This is copied wholesale from the default lsp-mode configuration for
+       ;; pyls. Find a way to source these params directly from that client itself.
+       (lsp-register-client
+        (make-lsp-client :new-connection (lsp-tramp-connection "pyls")
+                         :major-modes '(python-mode)
+                         :remote? t
+                         :library-folders-fn (lambda (_workspace) lsp-clients-python-library-directories)
+                         :initialized-fn (lambda (workspace)
+                                           (with-lsp-workspace workspace
+                                             (lsp--set-configuration (lsp-configuration-section "pyls"))))
+                         :server-id 'pyls-remote))
+
        ;; FIXME: Oncen gopackagesdriver is available, set up here to cooperate w/
        ;; Bazel projects.
        (defun lsp-go-install-save-hooks ()
@@ -658,6 +664,17 @@
          (add-hook 'before-save-hook #'lsp-organize-imports t t))
        (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
 
+
+     (use-package lsp-ivy
+       :straight t
+       :after (ivy lsp-mode))
+
+     (use-package lsp-ui
+       :straight t
+       :after lsp-mode
+       :custom
+       (lsp-ui-doc-enable nil "doc display on hover uses posframes (don't work well w/ macos fullscreen)")
+       (lsp-ui-sideline-show-hover t))
 
      (use-package company-lsp
        :straight t
@@ -822,10 +839,11 @@
        :config
        (venv-initialize-eshell))
 
-     (add-to-list 'python-shell-extra-pythonpaths "/Users/jonathanj/workspace/source/src/python/")
+     ;; (add-to-list 'python-shell-extra-pythonpaths "/Users/jonathanj/workspace/source/src/python/")
 
      (use-package anaconda-mode
        :straight t
+       :disabled t
        :config
        (add-hook 'python-mode-hook 'anaconda-mode))
 
@@ -1026,6 +1044,9 @@
 
    #+begin_src emacs-lisp
      (use-package docker
+       :straight t)
+
+     (use-package dockerfile-mode
        :straight t)
    #+end_src
 
@@ -1235,7 +1256,9 @@
    #+begin_src emacs-lisp
      (use-package vterm
        :ensure-system-package cmake
-       :straight t)
+       :straight t
+       :custom
+       (vterm-shell "/bin/zsh"))
    #+end_src
 
 ** =ess=
@@ -1489,6 +1512,9 @@
 
         (defun jjin/magit-diff-upstream (&optional args files)
           (interactive (magit-diff-arguments))
+          ;; FIXME: Use of HEAD here causes the diff buffer to reload when switching
+          ;; branches. Fetch the explicit branch ref to keep the original diff
+          ;; resilient.
           (magit-diff-range "@{u}..HEAD" args))
 
         (transient-insert-suffix 'magit-diff 'magit-show-commit
@@ -1537,7 +1563,13 @@
         ;;       "No previous branch"))
         ;;   'jjin/magit-checkout-previous-branch))
 
+      (use-package forge
+        :disabled t
+        :straight t
+        :after (magit transient))
+
       (use-package magit-arcanist
+        :disabled t
         :after magit
         :straight (:repo "git@github.com:jinnovation/magit-arcanist.git")
         :init
@@ -1635,6 +1667,8 @@
               :map eshell-mode-map
               ("M-r" . counsel-esh-history))
        :diminish ivy-mode
+       :custom
+       (ivy-use-selectable-prompt t)
        :init
        (setq ivy-use-virtual-buffers t)
        (setq ivy-count-format "(%d/%d) ")
@@ -2280,12 +2314,19 @@
        (let* ((type (projectile-project-type))
               (comp-dir (projectile-default-compilation-dir type)))
          (if (and comp-dir (file-name-absolute-p comp-dir)) comp-dir nil)))
+
+
+     (defun jjin/projectile-find-test-file-cwd-first (&optional invalidate-cache)
+       "TODO"
+       )
    #+end_src
 
    #+BEGIN_SRC emacs-lisp
      (use-package projectile
        :straight t
        :diminish projectile-mode
+       :custom
+       (projectile-ignored-projects '("/Users/jonathanj/"))
        :init
        (setq projectile-globally-ignored-files
              '("TAGS" "GPATH" "GRTAGS" "GSYMS" "GTAGS"))
