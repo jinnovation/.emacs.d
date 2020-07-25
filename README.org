@@ -569,7 +569,10 @@
 
      (use-package bazel-transient
        :after (bazel-mode transient)
-       :straight (:local-repo "~/workspace/bazel-transient"))
+       :straight (:local-repo "~/workspace/bazel-transient")
+       :custom
+       (bazel-transient-enable-caching t)
+       (bazel-transient-completion-system 'ivy))
    #+end_src
 
 ** C/C++
@@ -1200,8 +1203,8 @@
          (delete 'eshell-mode evil-insert-state-modes)
          (add-to-list 'evil-emacs-state-modes 'eshell-mode))
 
-       (with-eval-after-load 'counsel
-         (bind-key "M-r" 'counsel-esh-history eshell-mode-map))
+       ;; (with-eval-after-load 'counsel
+         ;; (bind-key "M-r" 'counsel-esh-history eshell-mode-map))
 
        (bind-keys :map jjin-term-map
                   ("e" . eshell))
@@ -1258,7 +1261,8 @@
        :ensure-system-package cmake
        :straight t
        :custom
-       (vterm-shell "/bin/zsh"))
+       (vterm-shell "/bin/zsh")
+       (vterm-kill-buffer-on-exit t))
    #+end_src
 
 ** =ess=
@@ -1662,10 +1666,10 @@
 
      (use-package ivy
        :straight t
-       :bind (("C-s"   . swiper)
+       :bind (("C-s"   . swiper))
               ;; FIXME: this doesn't work
-              :map eshell-mode-map
-              ("M-r" . counsel-esh-history))
+              ;; :map eshell-mode-map
+              ;; ("M-r" . counsel-esh-history))
        :diminish ivy-mode
        :custom
        (ivy-use-selectable-prompt t)
@@ -2302,6 +2306,13 @@
              (add-to-list 'evil-emacs-state-modes 'pdf-outline-buffer-mode)
              (add-to-list 'evil-emacs-state-modes 'pdf-view-mode))))
    #+END_SRC
+
+** Polymode
+
+   #+begin_src emacs-lisp
+     (use-package polymode
+       :straight t)
+   #+end_src
 
 ** =projectile=
 
