@@ -71,6 +71,7 @@
  ("org-download" . "3c4810279334d487c76fb5e23e6e6cd098ccd6ac")
  ("pdf-tools" . "1116b3342cf6d50c2bec5710bbe5be7aec2db24b")
  ("pkg-info" . "76ba7415480687d05a4353b27fea2ae02b8d9d61")
+ ("polymode" . "3284ff10017d280ba82f27dc20fe5223b0df709c")
  ("prescient.el" . "b64cdb6e06f78708c391f7901b58374879031a71")
  ("projectile" . "40df970f662deb48106757611906c837273dc510")
  ("protobuf" . "04a11fc91668884d1793bff2a0f72ee6ce4f5edd")
@@ -94,5 +95,5 @@
  ("virtualenvwrapper.el" . "107e7e0bf923f44d217712772cd58b414d0065cb")
  ("with-editor" . "ba4ca8ab34c17fbc4c7af5b9b42c6d3836b48e1a")
  ("yaml-mode" . "cecf4b106b0c4236931b14919fdf87ff3546e2c9")
- ("~/workspace/bazel-transient" . "1eb41d4253f6a56be10e783fb261937adf41b583"))
+ ("~/workspace/bazel-transient" . "dcb79ec9935319d951e40ebcd75648fe76c82626"))
 :alpha
