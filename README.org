@@ -1260,6 +1260,8 @@
      (use-package vterm
        :ensure-system-package cmake
        :straight t
+       :hook
+       (vterm-mode . goto-address-mode)
        :custom
        (vterm-shell "/bin/zsh")
        (vterm-kill-buffer-on-exit t))
@@ -2074,6 +2076,13 @@
    The following is the *actual* configuration.
 
    #+BEGIN_SRC emacs-lisp
+     (defun jjin/save-last-clock-buffer()
+       "Save the buffer containing the last clock-in."
+       (interactive)
+       (let ((buffer (marker-buffer (car org-clock-history))))
+         (when (not (s-equals-p "*scratch*" (buffer-name buffer)))
+           (with-current-buffer buffer (save-buffer)))))
+
      (use-package org
        :bind (:map org-mode-map
               ("RET" . org-return-indent)
@@ -2086,12 +2095,17 @@
               ([remap evil-write] . org-edit-src-save))
        :straight org-plus-contrib
        :mode ("\\.org$" . org-mode)
+
+       :hook
+       ((org-clock-out org-clock-in) . jjin/save-last-clock-buffer)
+
        :init
        (setq org-catch-invisible-edits 'show-and-error)
        (setq org-special-ctrl-a/e t)
        (setq org-return-follows-link t)
 
        (setq org-export-dispatch-use-expert-ui t)
+       (setq org-clock-out-remove-zero-time-clocks t)
 
        (setq org-latex-create-formula-image-program 'imagemagick)
        (setq org-latex-listings 'minted)
