@@ -1264,7 +1264,10 @@
        (vterm-mode . goto-address-mode)
        :custom
        (vterm-shell "/bin/zsh")
-       (vterm-kill-buffer-on-exit t))
+       (vterm-kill-buffer-on-exit t)
+       :config
+       (with-eval-after-load 'evil
+         (add-to-list 'evil-emacs-state-modes 'vterm-mode)))
    #+end_src
 
 ** =ess=
