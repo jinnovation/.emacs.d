@@ -134,25 +134,10 @@
                      (set-window-buffer (windmove-find-other-window neighbour-dir)
                                         other-buf))))))))
 
-     (defun insert-newline-after ()
-       (interactive)
-       (let ((oldpos (point)))
-         (end-of-line)
-         (newline-and-indent)
-         (goto-char oldpos)))
-
      (defun set-opacity (value)
        "Sets the opacity of the frame window. 0=transparent/100=opaque"
        (interactive "nOpacity Value (0 - 100 opaque): ")
        (set-frame-parameter (selected-frame) 'alpha value))
-
-     (defun dired-at-current ()
-       (interactive)
-       (dired default-directory))
-
-     (defun prev-window ()
-       (interactive)
-       (other-window -1))
 
      ;; credit: https://gist.github.com/mads379/3402786
      ;; TODO: modeline indication
@@ -1771,16 +1756,16 @@
        (setq linum-format 'dynamic)
        (global-linum-mode 1)
 
-       (defconst linum-mode-whitelist
-         '(prog-mode protobuf-mode))
+       (defconst linum-mode-allowlist
+         '(prog-mode protobuf-mode yaml-mode))
 
        (require 'mode-local)
 
        (defadvice linum-mode (around linum-mode-selective activate)
          "Avoids enabling of linum-mode in the buffer having major mode set to one
      of listed in `linum-mode-excludes'."
-         (if (or (member major-mode linum-mode-whitelist)
-                 (member (get-mode-local-parent major-mode) linum-mode-whitelist))
+         (if (or (member major-mode linum-mode-allowlist)
+                 (member (get-mode-local-parent major-mode) linum-mode-allowlist))
            ad-do-it)))
    #+END_SRC
 
