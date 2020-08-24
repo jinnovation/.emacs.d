@@ -623,7 +623,6 @@
        ;; :hook (go-mode . lsp-deferred)
        :init
        (setq lsp-log-io t)
-       (setq lsp-document-sync-method 'lsp--sync-full)
        (setq lsp-before-save-edits t)
        (setq lsp-signature-render-documentation t)
        (setq lsp-pyls-plugins-pydocstyle-enabled t)
