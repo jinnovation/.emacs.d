@@ -22,7 +22,7 @@
  ("emacs-async" . "036b475a29bbbee52f88c7d0332341c2643155fb")
  ("emacs-bazel-mode" . "26c72235f5f52a1652d566d1399063706275ec84")
  ("emacs-kaolin-themes" . "69464524566f2dfa2f7587036544466dbe0a107e")
- ("emacs-libvterm" . "fbd0f097198ee110a895dcff30c0d1be39e8284e")
+ ("emacs-libvterm" . "4f01d260d83bcced0644bee724fcc0c4e1748245")
  ("emacs-memoize" . "c70773e0eb799a17f1f44334d14389c518ec14d4")
  ("emacs-w3m" . "20976387f5f43db537b05561a359e9f43bbfed27")
  ("emacsmirror-mirror" . "e7c33c587f4f0e60af77db7b67d44b6f6fbad5b0")
