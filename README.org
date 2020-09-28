@@ -622,6 +622,7 @@
        :hook ((python-mode . lsp-deferred))
        ;; :hook (go-mode . lsp-deferred)
        :init
+       (setq lsp-enable-snippet nil)
        (setq lsp-log-io t)
        (setq lsp-before-save-edits t)
        (setq lsp-signature-render-documentation t)
@@ -808,6 +809,8 @@
 
    #+BEGIN_SRC emacs-lisp
      (setq python-fill-docstring-style 'pep-257)
+
+     (setq python-indent-def-block-scale 1)
 
      ;; TODO: make this conditional on ipython presence
      (setq python-shell-interpreter "python3")
