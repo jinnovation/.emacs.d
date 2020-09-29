@@ -208,7 +208,6 @@
                            buffer)))
      (defun get-current-displays ()
        "Get alist of attributes of displays w/ Emacs buffers."
-       (require 'cl)
        (interactive)
        (remove-if
         (lambda (disp)
@@ -949,18 +948,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package browse-url
-       :config
-       (setq browse-url-browser-function
-             (if (browse-url-can-use-xdg-open) 'browse-url-xdg-open
-               'browse-url-default-browser))
-
-       ;; FIXME: regex search for chromium (some distros package the name differently)
-       (setq browse-url-generic-program
-             (if (eq system-type 'darwin)
-                 "open"
-               (executable-find "chromium-browser")))
-
-       (setq shr-external-browser 'browse-url-generic))
+       :config)
    #+END_SRC
 
 ** =conf-mode=
@@ -2244,13 +2232,13 @@
        :config
        (defun with-faicon (icon str &optional height v-adjust)
          (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
-  
+
        (defun with-fileicon (icon str &optional height v-adjust)
          (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
-  
+
        (defun with-octicon (icon str &optional height v-adjust)
          (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
-  
+
        (defun with-material (icon str &optional height v-adjust)
          (s-concat (all-the-icons-material icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)))
 
