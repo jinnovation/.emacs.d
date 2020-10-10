@@ -84,7 +84,7 @@
  ("shrink-path.el" . "c14882c8599aec79a6e8ef2d06454254bb3e1e41")
  ("smart-mode-line" . "999be065b195f2eddb4e1b629f99038d832d44b7")
  ("spinner" . "2daa167bec1c7566d662d48613a94453536b524a")
- ("straight.el" . "64e34d5bb1a410ff356a7fccc360b447fbe3ed14")
+ ("straight.el" . "5d046ad09413f3aba6198229e392cdd3f07e77ee")
  ("swiper" . "d951004c7f3ebf98d55fc5a80a3471ec95b6db05")
  ("system-packages" . "3ad6d52072f0bd043dced40ba7bd422fd9c00a7b")
  ("tablist" . "41a9612f51bad36d6689667c11f42f8143103bb2")
