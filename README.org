@@ -507,7 +507,8 @@
      (bind-keys :map global-map
                 ("<s-backspace>" . backward-kill-word)
                 ("s-s" . save-buffer)
-                ("s-b" . switch-to-buffer))
+                ("s-b" . switch-to-buffer)
+                ("s-`" . recompile))
    #+END_SRC
 
    #+BEGIN_SRC emacs-lisp
