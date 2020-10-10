@@ -888,7 +888,11 @@
    #+BEGIN_SRC emacs-lisp
      (use-package yaml-mode
        :straight t
-       :mode "\\.yaml$")
+       :mode "\\.yaml$"
+       :hook
+       (yaml-mode . (lambda ()
+                      (unless (not (require 'highlight-indent-guides nil 'noerror))
+                        (highlight-indent-guides-mode)))))
    #+END_SRC
 
 ** Rust
@@ -1628,6 +1632,15 @@
        :init
        (with-eval-after-load 'evil
          (add-to-list 'evil-motion-state-modes 'helpful-mode)))
+   #+end_src
+
+** =highlight-indent-guides=
+
+   #+begin_src emacs-lisp
+     (use-package highlight-indent-guides
+       :straight t
+       :custom
+       (highlight-indent-guides-method 'character))
    #+end_src
 
 ** ivy
