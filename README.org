@@ -232,6 +232,7 @@
 * General Configurations
 
   #+BEGIN_SRC emacs-lisp
+    (setq tramp-verbose 4)
     (jjin-load-if-exists "~/.secrets.el")
 
     (setq ring-bell-function 'ignore)
@@ -303,6 +304,13 @@
     (defconst custom-file-path "~/.emacs-custom.el")
     (if (file-exists-p custom-file-path)
         (load (setq custom-file custom-file-path)))
+
+    (use-package midnight
+      :init
+      (setq clean-buffer-list-delay-general 0.006) ; 10 minutes
+      :config
+      (add-to-list 'clean-buffer-list-kill-never-buffer-names
+                   "timesheet.org"))
   #+END_SRC
 
 ** Scratch Org-mode
@@ -594,6 +602,13 @@
        (add-to-list 'auto-mode-alist '("\\.clang-format$" . yaml-mode)))
    #+END_SRC
 
+*** CUDA
+
+    #+begin_src emacs-lisp
+      (use-package cuda-mode
+        :straight t)
+    #+end_src
+
 ** Go
 
    #+BEGIN_SRC emacs-lisp
@@ -618,17 +633,25 @@
 
      ;; FIXME: Move lsp-mode setup outside of golang section
      (use-package lsp-mode
+       :disabled t
        :straight t
        :hook ((python-mode . lsp-deferred))
        ;; :hook (go-mode . lsp-deferred)
        :init
+       (setq lsp-pyls-server-command '("pyls"))
        (setq lsp-enable-snippet nil)
        (setq lsp-log-io t)
-       (setq lsp-before-save-edits t)
+       ;; (setq lsp-document-sync-method 'lsp--sync-incremental)
+       (setq lsp-document-sync-method nil)
+       (setq lsp-print-performance t)
+       (setq lsp-before-save-edits nil)
        (setq lsp-signature-render-documentation t)
        (setq lsp-pyls-plugins-pydocstyle-enabled t)
        (setq lsp-pyls-plugins-flake8-enabled t)
        (setq lsp-pyls-plugins-pydocstyle-convention "pep257")
+       (setq lsp-pyls-plugins-mccabe-enabled nil) 
+       (add-hook 'hack-local-variables-hook
+                 (lambda () (when (derived-mode-p 'python-mode) (lsp))))
        :config
 
        ;; Sets up server configuration for use over TRAMP.
@@ -637,7 +660,7 @@
        ;; pyls. Find a way to source these params directly from that client itself.
        (lsp-register-client
         (make-lsp-client :new-connection (lsp-tramp-connection "pyls")
-                         :major-modes '(python-mode)
+                         :major-modes '(python-mode cython-mode)
                          :remote? t
                          :library-folders-fn (lambda (_workspace) lsp-clients-python-library-directories)
                          :initialized-fn (lambda (workspace)
@@ -838,7 +861,6 @@
        (add-to-list 'company-backends 'company-anaconda))
 
      (use-package elpy
-       :disabled t
        :straight t
        :init
        (setq elpy-modules '(elpy-module-company
@@ -2277,7 +2299,7 @@
 
        (doom-modeline-def-modeline 'jjin
          '(bar workspace-name window-number modals matches buffer-info remote-host selection-info)
-         '(misc-info persp-name jjin/datetime battery irc mu4e github debug lsp minor-modes input-method indent-info buffer-encoding process vcs checker))
+         '(misc-info persp-name jjin/datetime battery irc mu4e debug lsp minor-modes input-method indent-info process vcs checker))
 
        (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin)))
 
@@ -2293,6 +2315,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package pdf-tools
        :straight t
+       :disabled t
        :mode ("\\.pdf$" . pdf-view-mode)
        :config
        (pdf-tools-install)
