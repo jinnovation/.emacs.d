@@ -139,18 +139,6 @@
        (interactive "nOpacity Value (0 - 100 opaque): ")
        (set-frame-parameter (selected-frame) 'alpha value))
 
-     ;; credit: https://gist.github.com/mads379/3402786
-     ;; TODO: modeline indication
-     ;; TODO: if maximized, prevent other window splitting (use minor mode?)
-     (defun toggle-maximize-window ()
-       "Maximize window"
-       (interactive)
-       (if (= 1 (length (window-list)))
-           (jump-to-register '_)
-         (progn
-           (window-configuration-to-register '_)
-           (delete-other-windows))))
-
      ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
      (defun move-splitter-left (arg)
        "Move window splitter left."
@@ -186,12 +174,6 @@
              (windmove-find-other-window 'up))
            (shrink-window arg)
          (enlarge-window arg)))
-
-     ;; TODO: set modeline
-     (defun toggle-dedicated ()
-       (interactive)
-       (set-window-dedicated-p (selected-window)
-                               (not (window-dedicated-p (selected-window)))))
 
      (defun bury-compile-buffer-if-successful (buffer string)
        "Bury a compilation buffer if succeeded without warnings "
