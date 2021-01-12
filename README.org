@@ -1692,14 +1692,6 @@
        :bind (:map counsel-mode-map
               ("C-x m" . counsel-M-x))
        :config
-       (ivy-add-actions
-        'counsel-M-x
-        '(("x"
-           (lambda (cmd) (funcall (alist-get (intern cmd) jjin/ivy-extended-command-forwards)))
-           "extended")))
-
-       (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
-
        (counsel-mode t))
 
      (use-package counsel-projectile
