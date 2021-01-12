@@ -31,7 +31,7 @@
     #+BEGIN_SRC emacs-lisp
       (let ((bootstrap-file
              (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-            (bootstrap-version 4))
+            (bootstrap-version 5))
         (unless (file-exists-p bootstrap-file)
           (with-current-buffer
               (url-retrieve-synchronously
@@ -540,7 +540,7 @@
 
    #+begin_src emacs-lisp
      (use-package bazel-mode
-       :straight (:host github :repo "bazelbuild/emacs-bazel-mode"))
+       :straight (emacs-bazel-mode :type git :host github :repo "bazelbuild/emacs-bazel-mode"))
 
      (use-package bazel-transient
        :after (bazel-mode transient)
