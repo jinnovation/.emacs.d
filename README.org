@@ -729,15 +729,6 @@
        (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
    #+END_SRC
 
-** Pants
-
-   #+begin_src emacs-lisp
-     (use-package pants-build-mode
-       :disabled t
-       :mode ("BUILD$")
-       :straight (:repo "git@github.com:jinnovation/pants-build-mode.git"))
-   #+end_src
-
 ** Ruby
 
    #+BEGIN_SRC emacs-lisp
