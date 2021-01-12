@@ -1692,6 +1692,8 @@
        :bind (:map counsel-mode-map
               ("C-x m" . counsel-M-x))
        :config
+       (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) "")
+
        (counsel-mode t))
 
      (use-package counsel-projectile
