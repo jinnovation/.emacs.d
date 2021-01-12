@@ -47,7 +47,7 @@
       (use-package use-package-ensure-system-package
         :straight t)
     #+END_SRC
-    
+
 *** =use-package=
 
     The =:if= clause lets us suppress configuration/loading of a given package
@@ -60,8 +60,8 @@
 
       (advice-add 'use-package-handler/:if :before 'jjin/use-package-if-prehook)
     #+END_SRC
-    
-*** Baseline 
+
+*** Baseline
 
    #+BEGIN_SRC emacs-lisp
      (use-package diminish :straight t)
@@ -78,7 +78,7 @@
 
      (use-package dash :straight t)
    #+END_SRC
-    
+
 ** Functions
 
    #+BEGIN_SRC emacs-lisp
@@ -312,7 +312,7 @@
         :if window-system
         :disabled t
         :config
-        (load-theme 'gotham t)) 
+        (load-theme 'gotham t))
 
       (use-package nord-theme
         :disabled t
@@ -337,7 +337,7 @@
       (setq custom-safe-themes t)
 
       ;; (set-frame-font
-      ;;  (cond 
+      ;;  (cond
       ;;   ((string= "gnu/linux" system-type) "-xos4-terminus-medium-r-normal--28-*-72-72-c-140-iso10646-1")
       ;;   ((string= "darwin" system-type) "Terminus (TTF) 16")
       ;;    (t "Terminus 16")))
@@ -386,7 +386,7 @@
     #+begin_src emacs-lisp
       (when (eq system-type 'darwin) (setenv "BASH_ENV" "$HOME/.bashrc"))
     #+end_src
-    
+
 
 ** Server
 
@@ -397,7 +397,7 @@
        :config
        (unless (server-running-p) (server-start)))
    #+END_SRC
-   
+
 ** Nested .dir-locals.el
 
    #+begin_src emacs-lisp
@@ -450,7 +450,7 @@
                     )
                   )
    #+end_src
-   
+
 * Keys
 
 ** Personal maps
@@ -535,7 +535,7 @@
    #+END_SRC
 
 * Development Environments
-  
+
 ** Bazel
 
    #+begin_src emacs-lisp
@@ -631,13 +631,13 @@
        (setq lsp-pyls-plugins-pydocstyle-enabled t)
        (setq lsp-pyls-plugins-flake8-enabled t)
        (setq lsp-pyls-plugins-pydocstyle-convention "pep257")
-       (setq lsp-pyls-plugins-mccabe-enabled nil) 
+       (setq lsp-pyls-plugins-mccabe-enabled nil)
        (add-hook 'hack-local-variables-hook
                  (lambda () (when (derived-mode-p 'python-mode) (lsp))))
        :config
 
        ;; Sets up server configuration for use over TRAMP.
-       ;; 
+       ;;
        ;; FIXME: This is copied wholesale from the default lsp-mode configuration for
        ;; pyls. Find a way to source these params directly from that client itself.
        (lsp-register-client
@@ -737,7 +737,7 @@
        :mode ("BUILD$")
        :straight (:repo "git@github.com:jinnovation/pants-build-mode.git"))
    #+end_src
-   
+
 ** Ruby
 
    #+BEGIN_SRC emacs-lisp
@@ -909,7 +909,7 @@
        (add-to-list 'exec-path "~/.cargo/bin/")
        (setq rust-format-on-save t))
    #+end_src
-   
+
 * General Packages
 
 ** =ace-link=
@@ -1144,7 +1144,7 @@
        (setq elfeed-search-print-entry-function #'elfeed-score-print-entry)
        (define-key elfeed-search-mode-map "=" elfeed-score-map))
    #+END_SRC
-   
+
 ** Eshell
 
    #+BEGIN_SRC emacs-lisp
@@ -1225,7 +1225,7 @@
                   " "
                   )))))
    #+END_SRC
-   
+
 *** Initialization file
 
     #+BEGIN_SRC emacs-lisp :tangle eshell/profile
@@ -1565,7 +1565,7 @@
         :config
         (magit-arcanist-enable))
     #+END_SRC
-    
+
 ** =helm=
 
    #+BEGIN_SRC emacs-lisp
@@ -1764,7 +1764,7 @@
    #+END_SRC
 
 ** =mu4e=
-   
+
    =mu4e= has a notion of [[https://www.djcbsoftware.nl/code/mu/mu4e/Marking.html#Marking]["marks"]] that it uses to represent actions on messages
    -- refiling to specific directories, trashing, etc. These marks can
    furthermore be performed at the thread level to, for instance, archive an
@@ -2014,10 +2014,10 @@
 
    The following is a temporary hack until straight.el supports building Org,
    see:
-  
+
    - https://github.com/raxod502/straight.el/issues/211
    - https://github.com/raxod502/radian/issues/410
-  
+
    There are three things missing from our version of Org: the functions
    =org-git-version= and =org-release=, and the feature =org-version=. We
    provide all three of those ourself, therefore.
@@ -2081,27 +2081,23 @@
        :hook
        ((org-clock-out org-clock-in) . jjin/save-last-clock-buffer)
 
+       :custom
+       (org-catch-invisible-edits 'show-and-error)
+       (org-return-follows-link t)
+       (org-export-dispatch-use-expert-ui t)
+       (org-clock-out-remove-zero-time-clocks t)
+       (org-latex-create-formula-image-program 'imagemagick)
+       (org-latex-listings 'minted)
+       (org-tags-column -80)
+       (org-enforce-todo-dependencies t)
+       (org-enforce-todo-checkbox-dependencies  t)
+       (org-pretty-entities t)
+       (org-src-fontify-natively t)
+       (org-list-allow-alphabetical t)
+       (org-special-ctrl-a/e t)
+       (org-deadline-warning-days 7)
+
        :init
-       (setq org-catch-invisible-edits 'show-and-error)
-       (setq org-special-ctrl-a/e t)
-       (setq org-return-follows-link t)
-
-       (setq org-export-dispatch-use-expert-ui t)
-       (setq org-clock-out-remove-zero-time-clocks t)
-
-       (setq org-latex-create-formula-image-program 'imagemagick)
-       (setq org-latex-listings 'minted)
-       (setq org-tags-column -80)
-
-       (setq org-enforce-todo-dependencies t)
-       (setq org-enforce-todo-checkbox-dependencies  t)
-
-       (setq org-pretty-entities t)
-       (setq org-src-fontify-natively t)
-       (setq org-list-allow-alphabetical t)
-
-       (setq org-deadline-warning-days 7)
-
        (setq org-agenda-custom-commands
              '(("s" "Schoolwork"
                 ((agenda "" ((org-agenda-ndays 14)
@@ -2117,7 +2113,7 @@
                 ((tags-todo "CATEGORY=\"Movies\""
                             ((org-agenda-prefix-format "%:T ")))))))
          (setq
-          org-latex-pdf-process (list "latexmk -shell-escape -pdf %f")
+         ;;  org-latex-pdf-process (list "latexmk -shell-escape -pdf %f")
 
          org-entities-user
          '(("supsetneqq" "\\supsetneqq" t "" "[superset of above not equal to]"
@@ -2128,7 +2124,7 @@
 
        :config
        (setq org-agenda-files '("~/agenda/"))
-       (plist-put org-format-latex-options :scale 1.5)
+       ;; (plist-put org-format-latex-options :scale 1.5)
 
        (setq org-latex-packages-alist
          '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
