@@ -2243,8 +2243,16 @@
                      "%?"
                      :file-name "reading/%<%Y%m%d%H%M%S>-${slug}"
                      :head "#+title: ${title}\n\n* 作者\n  "
-                     :unnarrowed t)))
+                     :unnarrowed t))
+       (with-eval-after-load 'pretty-hydra
 
+         (pretty-hydra-define jjin-hydra-roam
+           (:title (with-octicon "pencil" "Notes (Roam)" 1 -0.05))
+           ("Find"
+            (("f" org-roam-find-file "file"))))
+         (bind-key "s-r" 'jjin-hydra-roam/body)))
+
+     ;; TODO: Add to jjin-hydra-roam a key to open the graph in browser
      (use-package org-roam-server
        :after org-roam
        :straight t
