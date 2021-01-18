@@ -350,8 +350,9 @@
         '("Iosevka 12" "IBM Plex Mono 12" "Source Code Pro 14" "Terminus (TTF) 16")
         "Priority-sorted list of fonts to attempt to set frame to.")
 
+      (if window-system
       (-when-let (font-name (-first 'jjin/font-installed-p jjin/font-priority-list))
-        (set-frame-font font-name))
+        (set-frame-font font-name)))
 
       (when (functionp 'set-fontset-font)
         (set-fontset-font "fontset-default"
@@ -541,13 +542,13 @@
    #+begin_src emacs-lisp
      (use-package bazel-mode
        :straight (emacs-bazel-mode :type git :host github :repo "bazelbuild/emacs-bazel-mode"))
-
+     (if (file-exists-p "~/workspace/bazel-transient")
      (use-package bazel-transient
        :after (bazel-mode transient)
        :straight (:local-repo "~/workspace/bazel-transient")
        :custom
        (bazel-transient-enable-caching t)
-       (bazel-transient-completion-system 'ivy))
+       (bazel-transient-completion-system 'ivy)))
    #+end_src
 
 ** C/C++
@@ -1043,7 +1044,8 @@
                                          "GO111MODULE"
                                          "JENKINS_USER"
                                          "JENKINS_API_TOKEN"))
-       (exec-path-from-shell-shell-name "zsh")
+       ;; (exec-path-from-shell-shell-name "zsh")
+       (exec-path-from-shell-shell-name shell-file-name)
        :config
        (exec-path-from-shell-initialize))
     #+END_SRC
@@ -1128,6 +1130,7 @@
        (elfeed-org))
 
      (use-package elfeed-score
+       :disabled t
        :straight t
        :after elfeed
        :config
@@ -1168,6 +1171,8 @@
        (eshell-visual-options '(("bazel" "--curses=yes")))
 
        :config
+       (unless (file-exists-p (concat user-emacs-directory "eshell"))
+         (make-directory (concat user-emacs-directory "eshell")))
        (with-eval-after-load 'evil
          (delete 'eshell-mode evil-insert-state-modes)
          (add-to-list 'evil-emacs-state-modes 'eshell-mode))
