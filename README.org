@@ -1852,8 +1852,8 @@
        (setq
         mu4e-maildir "~/mail"
 
-        mu4e-drafts-folder "/personal/drafts"
-        mu4e-sent-folder   "/personal/sent")
+        mu4e-drafts-folder "/personal/Drafts"
+        mu4e-sent-folder   "/personal/Sent")
 
        ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
        ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
@@ -1863,13 +1863,13 @@
 
        (setq mu4e-maildir-shortcuts
              '(("/personal/INBOX"   . ?i)
-               ("/personal/sent"    . ?s)
-               ("/personal/drafts"  . ?d)
-               ("/personal/archive" . ?a)
-               ("/nvidia/INBOX" . ?I)
-               ("/nvidia/sent" . ?S)
-               ("/nvidia/drafts" . ?D)
-               ("/nvidia/Archive" . ?A)))
+               ("/personal/Sent"    . ?s)
+               ("/personal/Drafts"  . ?d)
+               ("/personal/Archive" . ?a)
+               ("/work/INBOX" . ?I)
+               ("/work/sent" . ?S)
+               ("/work/drafts" . ?D)
+               ("/work/archive" . ?A)))
 
        (setq mu4e-get-mail-command (if (not (executable-find "mbsync")) "true" "mbsync -Va"))
 
@@ -1946,10 +1946,10 @@
                          (smtpmail-stream-type . ssl)
 
                          (user-full-name . "Jonathan Jin")
-                         (mu4e-sent-folder . "/personal/sent")
-                         (mu4e-trash-folder . "/personal/trash")
-                         (mu4e-drafts-folder . "/personal/drafts")
-                         (mu4e-refile-folder . "/personal/archive")))
+                         (mu4e-sent-folder . "/personal/Sent")
+                         (mu4e-trash-folder . "/personal/Trash")
+                         (mu4e-drafts-folder . "/personal/Drafts")
+                         (mu4e-refile-folder . "/personal/Archive")))
 
                   ,(make-mu4e-context
                     :name "work"
@@ -1957,21 +1957,21 @@
                     (lambda (msg)
                       (when msg
                         (or
-                         (mu4e-message-maildir-matches msg "^/nvidia")
-                         (mu4e-message-contact-field-matches msg :to "jonathanj@nvidia.com"))))
-                    :vars `((user-mail-address . "jonathanj@nvidia.com")
+                         (mu4e-message-maildir-matches msg "^/work")
+                         (mu4e-message-contact-field-matches msg :to "jjin@spotify.com"))))
+                    :vars `((user-mail-address . "jjin@spotify.com")
                             (mu4e-compose-signature . ,(concat "Jonathan Jin"))
 
-                            (smtpmail-smtp-user . "jonathanj@nvidia.com")
-                            (smtpmail-smtp-server . "mail.nvidia.com")
+                            (smtpmail-smtp-user . "jjin@spotify.com")
+                            (smtpmail-smtp-server . "smtp.gmail.com")
                             (smtpmail-smtp-service . 587)
                             (smtpmail-stream-type . nil)
 
                             (user-full-name . "Jonathan Jin")
-                            (mu4e-sent-folder . "/nvidia/sent")
-                            (mu4e-trash-folder . "/nvidia/trash")
-                            (mu4e-drafts-folder . "/nvidia/drafts")
-                            (mu4e-refile-folder . "/nvidia/Archive")))))
+                            (mu4e-sent-folder . "/work/sent")
+                            (mu4e-trash-folder . "/work/trash")
+                            (mu4e-drafts-folder . "/work/drafts")
+                            (mu4e-refile-folder . "/work/Archive")))))
 
        (setq mu4e-compose-context-policy 'ask)
 
