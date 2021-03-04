@@ -1826,7 +1826,7 @@
      (use-package mu4e
        :ensure-system-package
        ((mu . mu)
-        (offlineimap . offlineimap)
+        (mbsync . isync)
         (w3m . w3m))
        :commands (mu4e mu4e-update-mail-and-index)
        :init
