@@ -368,12 +368,14 @@
 *** Mac
 
     #+BEGIN_SRC emacs-lisp
-      (when (eq system-type 'darwin)
-        (setq mac-command-modifier 'meta)
-        (setq mac-right-command-modifier 'meta)
-        (setq mac-option-modifier 'super)
-        (setq mac-right-option-modifier 'super)
-        (setq system-uses-terminfo nil))
+       (when (eq system-type 'darwin)
+         (add-to-list 'auth-sources 'macos-keychain-internet)
+
+         (setq mac-command-modifier 'meta)
+         (setq mac-right-command-modifier 'meta)
+         (setq mac-option-modifier 'super)
+         (setq mac-right-option-modifier 'super)
+         (setq system-uses-terminfo nil))
     #+END_SRC
 
     =compilation-mode= invokes shell in a non-interactive shell, which means
