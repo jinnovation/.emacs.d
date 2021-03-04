@@ -619,7 +619,6 @@
 
      ;; FIXME: Move lsp-mode setup outside of golang section
      (use-package lsp-mode
-       :disabled t
        :straight t
        :hook ((python-mode . lsp-deferred))
        ;; :hook (go-mode . lsp-deferred)
