@@ -2300,6 +2300,8 @@
          (s-concat (all-the-icons-material icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)))
 
      ;; FIXME: Make this conditional on fonts not being present
+     ;; Maybe check ~/Library/Fonts/octicons.ttf etc for presence?
+
      ;; (all-the-icons-install-fonts)
 
      (use-package doom-modeline
