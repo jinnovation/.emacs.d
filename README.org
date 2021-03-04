@@ -1697,6 +1697,8 @@
      (use-package counsel-projectile
        :straight t
        :after (projectile counsel)
+       :ensure-system-package
+       (rg . ripgrep)
        :init
        (setq counsel-projectile-sort-files t)
        (setq counsel-projectile-sort-projects t)
