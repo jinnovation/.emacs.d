@@ -1734,6 +1734,8 @@
      (use-package ivy-posframe
        :straight t
        :after ivy
+       :custom
+       (ivy-height 30)
        :config
        (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
        (ivy-posframe-mode t))
