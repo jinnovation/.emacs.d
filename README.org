@@ -2236,6 +2236,22 @@
        :straight t)
    #+END_SRC
 
+** =org-msg=
+
+   For sending HTML emails from mu4e etc
+
+   #+begin_src emacs-lisp
+     (use-package org-msg
+       :straight t
+       ;; load after mu4e to pick up mail-user-agent setting
+       :after (mu4e org)
+       :custom
+       (org-msg-default-alternatives '(text html))
+       (org-msg-options "html-postamble:nil num:nil toc:nil author:nil email:nil")
+       :config
+       (org-msg-mode))
+   #+end_src
+
 ** Org-roam
 
    #+begin_src emacs-lisp
