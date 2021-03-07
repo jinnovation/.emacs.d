@@ -911,6 +911,16 @@
        (setq rust-format-on-save t))
    #+end_src
 
+** Scala
+
+   #+begin_src emacs-lisp
+     (use-package scala-mode
+       :ensure-system-package
+       ((scala . scala)
+        (sbt . sbt))
+       :straight t)
+   #+end_src
+
 * General Packages
 
 ** =ace-link=
