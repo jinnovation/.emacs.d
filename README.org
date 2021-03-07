@@ -1727,13 +1727,16 @@
        :config
        (counsel-projectile-mode t))
 
+     ;; TODO: Consider only enabling this if emacs has been compiled w/ no-titlebar
+     ;; support; posframes don't work well w/ macOS fullscreen, meaning that the only
+     ;; other viable use scenario is when no-titlebar is used in conjunction w/
+     ;; 3rd-party tiling fullscreen via e.g. Rectangles.app
      (use-package ivy-posframe
        :straight t
-       :disabled t
        :after ivy
        :config
        (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display)))
-       (ivy-posframe-mode -1))
+       (ivy-posframe-mode t))
 
      (defun jjin/ivy-rich-package-stars (candidate)
        (unless (not (require 'paradox nil t))
