@@ -72,8 +72,9 @@
 
      (use-package system-packages
        :straight t
+       :custom
+       (system-packages-use-sudo nil)
        :init
-       (setq system-packages-use-sudo nil)
        (when (eq system-type 'darwin)
          (setq system-packages-package-manager 'brew)))
 
@@ -198,11 +199,11 @@
         (display-monitor-attributes-list)))
 
      (defun fontify-frame ()
-       (interactive)
        "Adjusts frame's text size according to current display's
      resolution. Prevents illegibly small text on high-resolution
      displays and, similarly, impractically large text on
      low-resolution displays."
+       (interactive)
        ;; FIXME: assumes only one emacs frame on one disp
        (let* ((curr-disp (car (jjin-get-current-displays)))
               (disp-width (nth 3 (assoc 'geometry curr-disp)))
@@ -347,13 +348,19 @@
         "Returns t if FONT-NAME is found to be installed; nil otherwise."
         (not (null (x-list-fonts font-name))))
 
+      ;; FIXME: This needs to tap homebrew/cask-fonts first
+      ;; FIXME: This currently does not work, since
+      ;; `system-packages-package-installed-p' isn't anything more than an alias to
+      ;; `executable-find', making this useless.
+      ;; (system-packages-ensure "font-iosevka")
+
       (defvar jjin/font-priority-list
         '("Iosevka 12" "IBM Plex Mono 12" "Source Code Pro 14" "Terminus (TTF) 16")
         "Priority-sorted list of fonts to attempt to set frame to.")
 
       (if window-system
-      (-when-let (font-name (-first 'jjin/font-installed-p jjin/font-priority-list))
-        (set-frame-font font-name)))
+          (-when-let (font-name (-first 'jjin/font-installed-p jjin/font-priority-list))
+            (set-frame-font font-name)))
 
       (when (functionp 'set-fontset-font)
         (set-fontset-font "fontset-default"
@@ -1550,9 +1557,12 @@
         ;;   'jjin/magit-checkout-previous-branch))
 
       (use-package forge
-        :disabled t
         :straight t
-        :after (magit transient))
+        :after (magit transient)
+        :custom
+        (forge-owned-accounts "jjin")
+        :config
+        (add-to-list 'forge-alist '("ghe.spotify.net" "ghe.spotify.net/api/v3" "spotify-ghe" forge-github-repository)))
 
       (use-package magit-arcanist
         :disabled t
@@ -1828,27 +1838,36 @@
        ((mu . mu)
         (mbsync . isync)
         (w3m . w3m))
+       :custom
+       (mail-user-agent 'mu4e-user-agent)
+       (mu4e-view-show-addresses t)
+       (mu4e-compose-context-policy 'ask)
+       (mu4e-update-interval nil)
+       (mu4e-headers-skip-duplicates t)
+       (mu4e-view-show-images t)
+       (mu4e-compose-signature-auto-include nil)
+       (mu4e-html2text-command 'mu4e-shr2text)
+       ;; don't keep message buffers around
+       (message-kill-buffer-on-exit t)
+       (mu4e-context-policy 'pick-first)
+       (mu4e-headers-include-related nil)
+       (mu4e-view-use-gnus nil)
+       (mu4e-change-filenames-when-moving t)
+       (mu4e-split-view 'single-window)
+       (mu4e-compose-format-flowed t)
+       (message-send-mail-function 'smtpmail-send-it)
        :commands (mu4e mu4e-update-mail-and-index)
        :init
-       (setq mu4e-split-view 'single-window)
-       (setq mu4e-compose-format-flowed t)
        (defhydra jjin-hydra-mu4e (:exit t)
          "Auxiliary commands for mu4e"
          ("m" mu4e-update-mail-and-index "update"))
 
-       (setq mu4e-context-policy 'pick-first)
-       (setq mu4e-headers-include-related nil)
-       (setq mu4e-view-use-gnus nil)
-
        :config
-       (setq mu4e-change-filenames-when-moving t)
        (with-eval-after-load 'ivy
          (setq mu4e-completing-read-function 'ivy-completing-read))
 
        (when (eq system-type 'darwin)
          (setq mu4e-mu-binary "/usr/local/bin/mu"))
-
-       (setq message-send-mail-function 'smtpmail-send-it)
 
        (setq
         mu4e-maildir "~/mail"
@@ -1860,6 +1879,9 @@
        ;; (See the documentation for `mu4e-sent-messages-behavior' if you have
        ;; additional non-Gmail addresses and want assign them different
        ;; behavior.)
+       ;;
+       ;; FIXME: This needs to detect if message in question is being sent via GMail
+       ;; or otherwise, e.g. Fastmail, and adjust accordingly.
        (setq mu4e-sent-messages-behavior 'delete)
 
        (setq mu4e-maildir-shortcuts
@@ -1874,10 +1896,6 @@
 
        (setq mu4e-get-mail-command (if (not (executable-find "mbsync")) "true" "mbsync -Va"))
 
-       ;; don't keep message buffers around
-       (setq message-kill-buffer-on-exit t)
-
-       (setq mu4e-html2text-command 'mu4e-shr2text)
        (setq shr-use-colors nil)
        (setq shr-use-fonts nil)
 
@@ -1902,20 +1920,12 @@
 
        (set-face-attribute 'mu4e-header-highlight-face nil :underline nil)
 
-       (setq mu4e-compose-signature-auto-include nil)
-
-       (setq mail-user-agent 'mu4e-user-agent)
-
        (add-to-list 'mu4e-view-actions
                     '("View in browser" . mu4e-action-view-in-browser)
                     t)
        (add-to-list 'mu4e-view-actions
                     '("Capture message" . mu4e-action-capture-message)
                     t)
-
-       (setq mu4e-update-interval nil)
-       (setq mu4e-headers-skip-duplicates t)
-       (setq mu4e-view-show-images t)
 
        (defun mu4e-message-maildir-matches (msg rx)
          (when rx
@@ -1934,12 +1944,10 @@
                    (when msg
                      (or
                       (mu4e-message-maildir-matches msg "^/personal")
+                      (mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com")
                       (mu4e-message-contact-field-matches msg :to "me@jonathanj.in"))))
                  :vars `((user-mail-address . "me@jonathanj.in")
-                         (mu4e-compose-signature
-                          . ,(concat "Jonathan Jin\n"
-                                     "Senior Systems Software Engineer, NVIDIA\n"
-                                     "jonathanj.in"))
+                         (mu4e-compose-signature . ,(concat "Jonathan Jin"))
 
                          (smtpmail-smtp-user . "me@jonathanj.in")
                          (smtpmail-smtp-server . "smtp.fastmail.com")
@@ -1974,8 +1982,6 @@
                             (mu4e-drafts-folder . "/work/drafts")
                             (mu4e-refile-folder . "/work/Archive")))))
 
-       (setq mu4e-compose-context-policy 'ask)
-
        ;; Sets `mu4e-user-mail-address-list' to the concatenation of all
        ;; `user-mail-address' values for all contexts. If you have other mail
        ;; addresses as well, you'll need to add those manually.
@@ -1985,8 +1991,6 @@
                              (when (mu4e-context-vars context)
                                (cdr (assq 'user-mail-address (mu4e-context-vars context)))))
                            mu4e-contexts)))
-
-       (setq mu4e-view-show-addresses t)
 
        (add-to-list 'mu4e-bookmarks
                     '("(maildir:\"/personal/INBOX\" OR maildir:\"/work/INBOX\") flag:unread"
@@ -2255,7 +2259,6 @@
                      :head "#+title: ${title}\n\n* 作者\n  "
                      :unnarrowed t))
        (with-eval-after-load 'pretty-hydra
-
          (pretty-hydra-define jjin-hydra-roam
            (:title (with-octicon "pencil" "Notes (Roam)" 1 -0.05))
            ("Find"
