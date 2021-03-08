@@ -1732,6 +1732,9 @@
      ;; other viable use scenario is when no-titlebar is used in conjunction w/
      ;; 3rd-party tiling fullscreen via e.g. Rectangles.app
      (use-package ivy-posframe
+       ;; Weird reliablity issues where the posframe persists after switching away
+       ;; from Emacs's macOS desktop to another and then back.
+       :disabled t
        :straight t
        :after ivy
        :custom
