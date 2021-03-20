@@ -79,6 +79,9 @@
          (setq system-packages-package-manager 'brew)))
 
      (use-package dash :straight t)
+
+     (setq default-directory "~")
+     (setq command-line-default-directory "~")
    #+END_SRC
 
 ** Functions
@@ -354,6 +357,8 @@
       ;; `executable-find', making this useless.
       ;; (system-packages-ensure "font-iosevka")
 
+      ;; TODO: Font size needs to scale w.r.t. `display-pixels-per-inch' or the
+      ;; ID of the display it's currently displayed on.
       (defvar jjin/font-priority-list
         '("Iosevka 12" "IBM Plex Mono 12" "Source Code Pro 14" "Terminus (TTF) 16")
         "Priority-sorted list of fonts to attempt to set frame to.")
@@ -762,8 +767,6 @@
 ** SQL
 
    #+BEGIN_SRC emacs-lisp
-     (setq sql-mysql-options '("--local-infile"))
-
      (add-hook 'sql-interactive-mode-hook
                (lambda ()
                  (toggle-truncate-lines t)))
@@ -1045,7 +1048,6 @@
        :straight t)
 
      (use-package dockerfile-mode
-       :disabled t
        :straight t)
    #+end_src
 
@@ -1691,10 +1693,9 @@
        :diminish ivy-mode
        :custom
        (ivy-use-selectable-prompt t)
-       :init
-       (setq ivy-use-virtual-buffers t)
-       (setq ivy-count-format "(%d/%d) ")
-       (setq ivy-extra-directories '())
+       (ivy-use-virtual-buffers t)
+       (ivy-count-format "(%d/%d) ")
+       (ivy-extra-directories '())
        :config
        (ivy-mode 1))
 
@@ -2394,13 +2395,6 @@
              (add-to-list 'evil-emacs-state-modes 'pdf-view-mode))))
    #+END_SRC
 
-** Polymode
-
-   #+begin_src emacs-lisp
-     (use-package polymode
-       :straight t)
-   #+end_src
-
 ** =projectile=
 
    #+begin_src emacs-lisp
@@ -2424,7 +2418,9 @@
        :straight t
        :diminish projectile-mode
        :custom
-       (projectile-ignored-projects '("/Users/jonathanj/"))
+       (projectile-ignored-projects '("/Users/jjin/"))
+       (projectile-enable-caching t)
+       (projectile-sort-order 'recently-active)
        :init
        (setq projectile-globally-ignored-files
              '("TAGS" "GPATH" "GRTAGS" "GSYMS" "GTAGS"))
@@ -2441,8 +2437,6 @@
        ;;         projectile-root-top-down
        ;;         projectile-root-top-down-recurring
        ;;         projectile-root-bottom-up))
-
-       (setq projectile-sort-order 'recently-active)
 
        :config
        (with-eval-after-load 'ivy
@@ -2482,8 +2476,6 @@
                        (helm-make-projectile (prefix-numeric-value arg))
                      (projectile-compile-project arg)))
                  projectile-command-map)
-
-       (setq projectile-enable-caching t)
 
        (with-eval-after-load 'helm-projectile
            (setq projectile-completion-system 'helm
