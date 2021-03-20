@@ -1,4 +1,4 @@
-# -*- after-save-hook: (org-babel-tangle); -*-
+# -*- after-save-hook: (org-babel-tangle); before-save-hook: (delete-trailing-whitespace)-*-
 
 #+TITLE: Jonathan Jin's Emacs Configuration
 #+AUTHOR: Jonathan Jin
@@ -426,8 +426,8 @@
    #+begin_src emacs-lisp
      (use-package eyebrowse
        :straight t
-       :init
-       (setq eyebrowse-new-workspace t)
+       :custom
+       (eyebrowse-new-workspace t)
        :config
        (eyebrowse-mode 1))
      ;; FIXME: Add eyebrowse switch window config bindings to the window hydra
@@ -638,18 +638,18 @@
        (lsp-pyls-configuration-sources ["flake8"])
        (lsp-pyls-plugins-pycodestyle-enabled nil)
        (lsp-pyls-server-command '("pyls"))
+       (lsp-enable-snippet nil)
+       (lsp-log-io t)
+       (lsp-document-sync-method nil)
+       (lsp-print-performance t)
+       (lsp-before-save-edits nil)
+       (lsp-signature-render-documentation t)
+       (lsp-pyls-plugins-pydocstyle-enabled t)
+       (lsp-pyls-plugins-flake8-enabled t)
+       (lsp-pyls-plugins-pydocstyle-convention "pep257")
+       (lsp-pyls-plugins-mccabe-enabled nil)
        :init
-       (setq lsp-enable-snippet nil)
-       (setq lsp-log-io t)
        ;; (setq lsp-document-sync-method 'lsp--sync-incremental)
-       (setq lsp-document-sync-method nil)
-       (setq lsp-print-performance t)
-       (setq lsp-before-save-edits nil)
-       (setq lsp-signature-render-documentation t)
-       (setq lsp-pyls-plugins-pydocstyle-enabled t)
-       (setq lsp-pyls-plugins-flake8-enabled t)
-       (setq lsp-pyls-plugins-pydocstyle-convention "pep257")
-       (setq lsp-pyls-plugins-mccabe-enabled nil)
        (add-hook 'hack-local-variables-hook
                  (lambda () (when (derived-mode-p 'python-mode) (lsp))))
        :config
@@ -827,9 +827,6 @@
 
      (setq python-indent-def-block-scale 1)
 
-     ;; TODO: make this conditional on ipython presence
-     (setq python-shell-interpreter "python3")
-
      (use-package pyvenv
        :straight t)
 
@@ -837,8 +834,6 @@
        :straight t
        :config
        (venv-initialize-eshell))
-
-     ;; (add-to-list 'python-shell-extra-pythonpaths "/Users/jonathanj/workspace/source/src/python/")
 
      (use-package anaconda-mode
        :straight t
@@ -853,6 +848,7 @@
        (add-to-list 'company-backends 'company-anaconda))
 
      (use-package elpy
+       :disabled t
        :straight t
        :init
        (setq elpy-modules '(elpy-module-company
@@ -2519,8 +2515,8 @@
    #+BEGIN_SRC emacs-lisp
      (use-package smart-mode-line
        :straight t
-       :init
-       (setq sml/theme 'respectful)
+       :custom
+       (sml/theme 'respectful)
        :config
        (sml/setup)
        (smart-mode-line-enable))
@@ -2530,11 +2526,10 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package tramp
-       :init
-       (setq tramp-default-method "ssh")
-       (setq password-cache-expiry nil)
+       :custom
+       (tramp-default-method "ssh")
+       (password-cache-expiry nil)
        :config
-
        (add-to-list 'tramp-remote-path "~/bin"))
    #+END_SRC
 
@@ -2542,8 +2537,13 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package undo-tree
+       :straight t
        :diminish undo-tree-mode
-       :bind ("C-<backspace>" . undo-tree-undo))
+       :bind ("C-<backspace>" . undo-tree-undo)
+       :config
+       (global-undo-tree-mode)
+       (with-eval-after-load 'evil
+         (evil-set-undo-system 'undo-tree)))
    #+END_SRC
 
 ** =w3m=
@@ -2578,4 +2578,59 @@
    #+begin_src emacs-lisp
      (use-package ripgrep
        :straight t)
+   #+end_src
+
+** Shackle
+
+   #+begin_quote
+   =shackle= gives you the means to put an end to popped up buffers not behaving
+   they way you'd like them to. By setting up simple rules you can for instance
+   make Emacs always select help buffers for you or make everything reuse your
+   currently selected window.
+   #+end_quote
+
+   #+begin_src emacs-lisp
+     (use-package shackle
+       :straight t
+       :custom
+       (shackle-rules '(
+                        (git-commit-mode :align bottom :size 0.3 :select t)
+                        ('(help-mode helpful-mode) :select t :other t :size 0.2)
+                        (vterm-mode :align right :size 0.4 :select t)
+                        (magit-log-mode :align left :size 0.3 :select t)
+                        (magit-status-mode :align right :size 0.4 :select t)
+                        (compilation-mode :align right :size 0.3)))
+       :config
+       (shackle-mode t))
+   #+end_src
+
+** Popper
+
+   #+begin_quote
+   Popper is a minor-mode to tame the flood of ephemeral windows Emacs produces,
+   while still keeping them within arm’s reach. Designate any buffer to “popup”
+   status, and it will stay out of your way. Disimss or summon it easily with
+   one key. Cycle through all your “popups” or just the ones relevant to your
+   current buffer. Useful for many things, including toggling display of REPLs,
+   documentation, compilation or shell output, etc.
+   #+end_quote
+
+   #+begin_src emacs-lisp
+     (use-package popper
+       :straight t
+       :custom
+       (popper-group-function #'popper-group-by-projectile)
+       :bind (("C-`"   . popper-toggle-latest)
+              ("M-`"   . popper-cycle)
+              ("C-M-`" . popper-toggle-type))
+       :init
+       (setq popper-reference-buffers
+             '("\\*Messages\\*"
+               "Output\\*$"
+               "vterm .+\\*$"
+               help-mode
+               helpful-mode
+               magit-status-mode
+               compilation-mode))
+       (popper-mode +1))
    #+end_src
