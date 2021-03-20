@@ -629,8 +629,11 @@
        :straight t
        :hook ((python-mode . lsp-deferred))
        ;; :hook (go-mode . lsp-deferred)
+       :custom
+       (lsp-pyls-configuration-sources ["flake8"])
+       (lsp-pyls-plugins-pycodestyle-enabled nil)
+       (lsp-pyls-server-command '("pyls"))
        :init
-       (setq lsp-pyls-server-command '("pyls"))
        (setq lsp-enable-snippet nil)
        (setq lsp-log-io t)
        ;; (setq lsp-document-sync-method 'lsp--sync-incremental)
@@ -645,6 +648,8 @@
        (add-hook 'hack-local-variables-hook
                  (lambda () (when (derived-mode-p 'python-mode) (lsp))))
        :config
+       (lsp-register-custom-settings '(("pyls.plugins.pyls_mypy.enabled" t t)
+                                     ("pyls.plugins.pyls_mypy.live_mode" t t)))
 
        ;; Sets up server configuration for use over TRAMP.
        ;;
