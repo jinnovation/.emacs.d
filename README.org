@@ -792,6 +792,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package octave
+       :disabled t
        :mode ("\\.m$" . octave-mode)
        :interpreter ("octave" . octave-mode)
        :config
@@ -910,6 +911,7 @@
 
    #+begin_src emacs-lisp
      (use-package rust-mode
+       :disabled t
        :straight t
        :config
        (add-to-list 'exec-path "~/.cargo/bin/")
@@ -993,8 +995,7 @@
 
          ;; general
          ("conf\\(ig\\)?$"   . conf-mode)
-         ("rc$"              . conf-mode)))
-
+         ("rc\\(_local\\)?$" . conf-mode)))
    #+END_SRC
 
 ** =company=
@@ -1079,6 +1080,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
+       :disabled t
        :straight t
        :commands elfeed
        :bind (:map elfeed-search-mode-map
