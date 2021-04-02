@@ -288,16 +288,12 @@
 
     (setq enable-remote-dir-locals t)
 
-    (defconst custom-file-path "~/.emacs-custom.el")
-    (if (file-exists-p custom-file-path)
-        (load (setq custom-file custom-file-path)))
+    (setq custom-file "~/.emacs-custom.el")
+    (load custom-file)
 
     (use-package midnight
       :init
-      (setq clean-buffer-list-delay-general 0.006) ; 10 minutes
-      :config
-      (add-to-list 'clean-buffer-list-kill-never-buffer-names
-                   "timesheet.org"))
+      (setq clean-buffer-list-delay-general 0.006)) ; 10 minutes
   #+END_SRC
 
 ** Scratch Org-mode
