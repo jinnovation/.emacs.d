@@ -2505,6 +2505,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package smart-mode-line
+       :disabled t
        :straight t
        :custom
        (sml/theme 'respectful)
