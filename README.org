@@ -1671,13 +1671,9 @@
 ** ivy
 
    #+begin_src emacs-lisp
-     (setq jjin/ivy-extended-command-forwards
-           `((mu4e . ,(defhydra jjin/mu4e-extended-cmds ()
-                        "mu4e extended"
-                        ("u" mu4e-update-mail-and-index "update" :exit t)))))
-
      (use-package ivy
        :straight t
+       :demand t
        :bind (("C-s"   . swiper))
               ;; FIXME: this doesn't work
               ;; :map eshell-mode-map
@@ -1705,8 +1701,8 @@
        (prescient-persist-mode))
 
      (use-package counsel
-       :straight t
        :after ivy
+       :straight t
        :diminish counsel-mode
        :bind (:map counsel-mode-map
               ("C-x m" . counsel-M-x))
@@ -1715,9 +1711,9 @@
 
      (use-package counsel-projectile
        :straight t
-       :after (projectile counsel)
-       :ensure-system-package
-       (rg . ripgrep)
+       :after (projectile counsel ivy)
+       ;; :ensure-system-package
+       ;; (rg . ripgrep)
        :init
        (setq counsel-projectile-sort-files t)
        (setq counsel-projectile-sort-projects t)
@@ -1747,10 +1743,9 @@
          (paradox--package-star-count (intern candidate))))
 
      (use-package ivy-rich
+       :after ivy
        :straight t
-       :init
        :config
-
        (plist-put ivy-rich-display-transformers-list
                   'describe-package
                   '(:columns
