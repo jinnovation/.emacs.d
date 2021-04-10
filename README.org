@@ -2258,6 +2258,12 @@
        :custom
        (org-msg-default-alternatives '(text html))
        (org-msg-options "html-postamble:nil num:nil toc:nil author:nil email:nil")
+       (org-msg-signature "
+
+     ,#+begin_signature
+     -- \\\\
+     Jonathan Jin
+     ,#+end_signature")
        :config
        (org-msg-mode))
    #+end_src
