@@ -917,9 +917,9 @@
 
    #+begin_src emacs-lisp
      (use-package scala-mode
-       :ensure-system-package
-       ((scala . scala)
-        (sbt . sbt))
+       ;; :ensure-system-package
+       ;; ((scala . scala)
+       ;;  (sbt . sbt))
        :straight t)
    #+end_src
 
@@ -1253,7 +1253,7 @@
 
    #+begin_src emacs-lisp
      (use-package vterm
-       :ensure-system-package cmake
+       ;; :ensure-system-package cmake
        :straight t
        :hook
        (vterm-mode . goto-address-mode)
@@ -1845,10 +1845,10 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package mu4e
-       :ensure-system-package
-       ((mu . mu)
-        (mbsync . isync)
-        (w3m . w3m))
+       ;; :ensure-system-package
+       ;; ((mu . mu)
+       ;;  (mbsync . isync)
+       ;;  (w3m . w3m))
        :custom
        (mail-user-agent 'mu4e-user-agent)
        (mu4e-view-show-addresses t)
