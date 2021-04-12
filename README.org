@@ -1586,64 +1586,6 @@
         (magit-arcanist-enable))
     #+END_SRC
 
-** =helm=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package helm
-       :straight t
-       :demand t
-       :disabled t
-       :diminish helm-mode
-       :bind (("C-x m"    . helm-M-x)
-              ("M-x"      . helm-M-x)
-              ("C-x C-f" . helm-find-files)
-              ("C-x b"   . helm-buffers-list))
-       :init
-       (setq helm-external-programs-associations `(("pdf" . ,(if (eq system-type 'darwin) "open" "zathura"))))
-       (setq helm-split-window-inside-p t)
-
-       (setq helm-mode-fuzzy-match t)
-
-       :config
-       (helm-mode 1)
-       (helm-autoresize-mode t)
-
-       (defvar helm-source-file-not-found
-         (helm-build-dummy-source
-             "Create file"
-           :action
-           (lambda (c) (find-file c))))
-
-       (bind-keys :map jjin-vc-map
-                  ("g" . helm-grep-do-git-grep))
-
-       ;; (bind-key "C-c C-j" 'helm-org-in-buffer-headings org-mode-map)
-
-       (setq helm-ff-candidate-number-limit 500))
-
-     (use-package helm-make
-       :straight t
-       :commands helm-make-projectile
-       :init
-       (setq helm-make-cache-targets t)
-       (setq helm-make-list-target-method 'qp))
-
-     (use-package helm-projectile
-       :disabled t
-       :after projectile
-       :bind (:map projectile-command-map
-                   ("TAB" . helm-projectile-switch-project)
-                   ("p"   . helm-projectile)
-                   ("a"   . helm-projectile-find-other-file)
-                   ("f"   . helm-projectile-find-file)
-                   ("F"   . helm-projectile-find-file-in-known-projects)
-                   ("s s" . helm-projectile-ag)
-                   ("s g" . helm-projectile-grep))
-       :straight t
-       :config
-       (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
-   #+END_SRC
-
 ** Helpful
 
    #+begin_src emacs-lisp
@@ -2628,7 +2570,97 @@
                "vterm .+\\*$"
                help-mode
                helpful-mode
-               magit-status-mode
                compilation-mode))
        (popper-mode +1))
+   #+end_src
+
+* Cloud computing
+
+** Terraform
+
+   #+begin_src emacs-lisp
+     (use-package terraform-mode
+       :straight t)
+
+     (use-package company-terraform
+       :after terraform-mode
+       :straight t)
+   #+end_src
+** =helm=
+
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm
+       :straight t
+       :demand t
+       :disabled t
+       :diminish helm-mode
+       :bind (("C-x m"    . helm-M-x)
+              ("M-x"      . helm-M-x)
+              ("C-x C-f" . helm-find-files)
+              ("C-x b"   . helm-buffers-list))
+       :init
+       (setq helm-external-programs-associations `(("pdf" . ,(if (eq system-type 'darwin) "open" "zathura"))))
+       (setq helm-split-window-inside-p t)
+
+       (setq helm-mode-fuzzy-match t)
+
+       :config
+       (helm-mode 1)
+       (helm-autoresize-mode t)
+
+       (defvar helm-source-file-not-found
+         (helm-build-dummy-source
+             "Create file"
+           :action
+           (lambda (c) (find-file c))))
+
+       (bind-keys :map jjin-vc-map
+                  ("g" . helm-grep-do-git-grep))
+
+       ;; (bind-key "C-c C-j" 'helm-org-in-buffer-headings org-mode-map)
+
+       (setq helm-ff-candidate-number-limit 500))
+
+     (use-package helm-make
+       :straight t
+       :commands helm-make-projectile
+       :init
+       (setq helm-make-cache-targets t)
+       (setq helm-make-list-target-method 'qp))
+
+     (use-package helm-projectile
+       :disabled t
+       :after projectile
+       :bind (:map projectile-command-map
+                   ("TAB" . helm-projectile-switch-project)
+                   ("p"   . helm-projectile)
+                   ("a"   . helm-projectile-find-other-file)
+                   ("f"   . helm-projectile-find-file)
+                   ("F"   . helm-projectile-find-file-in-known-projects)
+                   ("s s" . helm-projectile-ag)
+                   ("s g" . helm-projectile-grep))
+       :straight t
+       :config
+       (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
+   #+END_SRC
+** Kubernetes
+
+   #+begin_src emacs-lisp
+     ;; unmaintained
+     (use-package kubernetes
+       :straight t
+       :commands (kubernetes-overview)
+       :config
+       (with-eval-after-load 'evil
+         (add-to-list 'evil-visual-state-modes 'kubernetes-display-thing-mode)))
+
+
+     (use-package kubel
+       :straight t
+       :custom
+       (kubel-use-namespace-list 'on)
+       :commands (kubel)
+       :config
+       (with-eval-after-load 'evil
+         (add-to-list 'evil-emacs-state-modes 'kubel-mode)))
    #+end_src
