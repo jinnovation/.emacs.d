@@ -2292,16 +2292,16 @@
          (when (doom-modeline--active)
            (concat
             (doom-modeline-spc)
-            ;; (doom-modeline-icon 'faicon "clock-o" "" "" 'mode-line :v-adjust -0.0575)
-            ;; (doom-modeline-vspc)
+            (doom-modeline-icon 'faicon "clock-o" "" "" :height 1.0 :v-adjust 0.04)
+            (doom-modeline-vspc)
             (propertize (format-time-string "%h %d %T") 'face 'mode-line)
             (doom-modeline-spc))))
 
        (doom-modeline-def-modeline 'jjin
-         '(bar workspace-name window-number modals matches buffer-info remote-host selection-info)
+         '(bar workspace-name window-number modals matches buffer-info remote-host selection-info )
          '(misc-info persp-name jjin/datetime battery irc mu4e debug lsp minor-modes input-method indent-info process vcs checker))
 
-       (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin)))
+       (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t)))
 
        (setq doom-modeline-buffer-encoding nil)
        (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
