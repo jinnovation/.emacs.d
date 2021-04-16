@@ -2580,7 +2580,8 @@
 
    #+begin_src emacs-lisp
      (use-package terraform-mode
-       :straight t)
+       :straight t
+       :hook (terraform-mode . terraform-format-on-save-mode))
 
      (use-package company-terraform
        :after terraform-mode
