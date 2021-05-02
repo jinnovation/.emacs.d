@@ -670,6 +670,7 @@
        :mode "\\.go$"
        :after exec-path-from-shell
        :straight t
+       :disabled t                           ; using LSP
        :bind (:map go-mode-map
                    ("C-c J" . (lambda (point) (interactive "d") (godef-jump point t))))
        :config
