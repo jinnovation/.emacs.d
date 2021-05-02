@@ -839,6 +839,7 @@
 
      (use-package virtualenvwrapper
        :straight t
+       :disabled t
        :config
        (venv-initialize-eshell))
 
@@ -932,6 +933,13 @@
        ;; :ensure-system-package
        ;; ((scala . scala)
        ;;  (sbt . sbt))
+       :straight t)
+   #+end_src
+
+** Jinja2
+
+   #+begin_src emacs-lisp
+     (use-package jinja2-mode
        :straight t)
    #+end_src
 
@@ -1459,6 +1467,9 @@
         :straight t
         :init
         (setq transient-show-common-commands nil))
+
+      (use-package git-modes
+        :straight t)
 
       (use-package magit
         :straight t
@@ -2543,10 +2554,10 @@
        :custom
        (shackle-rules '(
                         (git-commit-mode :align bottom :size 0.3 :select t)
-                        ('(help-mode helpful-mode) :select t :other t :size 0.2)
+                        ('(help-mode helpful-mode) :select t :other t :size 0.4)
                         (vterm-mode :align right :size 0.4 :select t)
                         (magit-log-mode :align left :size 0.3 :select t)
-                        (magit-status-mode :align right :size 0.4 :select t)
+                        (magit-status-mode :select t :other t :size 0.4)
                         (compilation-mode :align right :size 0.3)))
        :config
        (shackle-mode t))
@@ -2565,6 +2576,7 @@
 
    #+begin_src emacs-lisp
      (use-package popper
+       :disabled t
        :straight t
        :custom
        (popper-group-function #'popper-group-by-projectile)
