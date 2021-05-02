@@ -548,6 +548,66 @@
 
 * Development Environments
 
+** LSP
+
+   The [[https://microsoft.github.io/language-server-protocol/][Language Server Protocol (LSP)]] provides an interchange protocol to allow
+   editor-agnostic language functionality.
+
+   #+begin_src emacs-lisp
+     (use-package lsp-mode
+        :straight t
+        :hook ((python-mode . lsp-deferred)
+               (go-mode . lsp-deferred)
+               (yaml-mode . lsp-deferred))
+        :custom
+        (lsp-pyls-configuration-sources ["flake8"])
+        (lsp-pyls-plugins-pycodestyle-enabled nil)
+        (lsp-pyls-server-command '("pyls"))
+        (lsp-enable-snippet nil)
+        (lsp-log-io t)
+        (lsp-document-sync-method nil)
+        (lsp-print-performance t)
+        (lsp-before-save-edits nil)
+        (lsp-signature-render-documentation t)
+        (lsp-pyls-plugins-pydocstyle-enabled t)
+        (lsp-pyls-plugins-pyflakes-enabled nil)
+        (lsp-pyls-plugins-flake8-enabled t)
+        (lsp-pyls-plugins-pydocstyle-convention "pep257")
+        (lsp-pyls-plugins-mccabe-enabled nil)
+        (lsp-go-codelenses nil)
+        :init
+        ;; (setq lsp-document-sync-method 'lsp--sync-incremental)
+        (add-hook 'hack-local-variables-hook
+                  (lambda () (when (derived-mode-p 'python-mode) (lsp))))
+        :config
+        (lsp-register-custom-settings '(("gopls.completeUnimported" t t)
+                                        ("gopls.staticcheck" t t)
+                                        ("gopls.gofumpt" t t)
+                                        ("pyls.plugins.pyls_mypy.enabled" t t)
+                                        ("pyls.plugins.pyls_mypy.live_mode" nil t)))
+
+        ;; Sets up server configuration for use over TRAMP.
+        ;;
+        ;; FIXME: This is copied wholesale from the default lsp-mode configuration for
+        ;; pyls. Find a way to source these params directly from that client itself.
+        (lsp-register-client
+         (make-lsp-client :new-connection (lsp-tramp-connection "pyls")
+                          :major-modes '(python-mode cython-mode)
+                          :remote? t
+                          :library-folders-fn (lambda (_workspace) lsp-clients-python-library-directories)
+                          :initialized-fn (lambda (workspace)
+                                            (with-lsp-workspace workspace
+                                                                (lsp--set-configuration (lsp-configuration-section "pyls"))))
+                          :server-id 'pyls-remote))
+
+        ;; FIXME: Oncen gopackagesdriver is available, set up here to cooperate w/
+        ;; Bazel projects.
+        (defun lsp-go-install-save-hooks ()
+          (add-hook 'before-save-hook #'lsp-format-buffer t t)
+          (add-hook 'before-save-hook #'lsp-organize-imports t t))
+        (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
+   #+end_src
+
 ** Bazel
 
    #+begin_src emacs-lisp
@@ -624,55 +684,6 @@
      (use-package go-guru
        :after go
        :straight t)
-
-     ;; FIXME: Move lsp-mode setup outside of golang section
-     (use-package lsp-mode
-       :straight t
-       :hook ((python-mode . lsp-deferred))
-       ;; :hook (go-mode . lsp-deferred)
-       :custom
-       (lsp-pyls-configuration-sources ["flake8"])
-       (lsp-pyls-plugins-pycodestyle-enabled nil)
-       (lsp-pyls-server-command '("pyls"))
-       (lsp-enable-snippet nil)
-       (lsp-log-io t)
-       (lsp-document-sync-method nil)
-       (lsp-print-performance t)
-       (lsp-before-save-edits nil)
-       (lsp-signature-render-documentation t)
-       (lsp-pyls-plugins-pydocstyle-enabled t)
-       (lsp-pyls-plugins-flake8-enabled t)
-       (lsp-pyls-plugins-pydocstyle-convention "pep257")
-       (lsp-pyls-plugins-mccabe-enabled nil)
-       :init
-       ;; (setq lsp-document-sync-method 'lsp--sync-incremental)
-       (add-hook 'hack-local-variables-hook
-                 (lambda () (when (derived-mode-p 'python-mode) (lsp))))
-       :config
-       (lsp-register-custom-settings '(("pyls.plugins.pyls_mypy.enabled" t t)
-                                     ("pyls.plugins.pyls_mypy.live_mode" t t)))
-
-       ;; Sets up server configuration for use over TRAMP.
-       ;;
-       ;; FIXME: This is copied wholesale from the default lsp-mode configuration for
-       ;; pyls. Find a way to source these params directly from that client itself.
-       (lsp-register-client
-        (make-lsp-client :new-connection (lsp-tramp-connection "pyls")
-                         :major-modes '(python-mode cython-mode)
-                         :remote? t
-                         :library-folders-fn (lambda (_workspace) lsp-clients-python-library-directories)
-                         :initialized-fn (lambda (workspace)
-                                           (with-lsp-workspace workspace
-                                             (lsp--set-configuration (lsp-configuration-section "pyls"))))
-                         :server-id 'pyls-remote))
-
-       ;; FIXME: Oncen gopackagesdriver is available, set up here to cooperate w/
-       ;; Bazel projects.
-       (defun lsp-go-install-save-hooks ()
-         (add-hook 'before-save-hook #'lsp-format-buffer t t)
-         (add-hook 'before-save-hook #'lsp-organize-imports t t))
-       (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
-
 
      (use-package lsp-ivy
        :straight t
@@ -844,7 +855,7 @@
        (add-to-list 'company-backends 'company-anaconda))
 
      (use-package elpy
-       :disabled t
+       :disabled t                           ; using LSP
        :straight t
        :init
        (setq elpy-modules '(elpy-module-company
@@ -894,7 +905,8 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package yaml-mode
-       :straight t
+       ;; :straight t
+       :disabled t                           ; using LSP
        :mode "\\.yaml$"
        :hook
        (yaml-mode . (lambda ()
