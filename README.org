@@ -2674,8 +2674,10 @@
        :commands (kubernetes-overview)
        :custom
        (kubernetes-overview-buffer-name "*k8s*" "More concise name than default *kubernetes-overview* (I know it's a damn overview)")
-       (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover.")
-       :config
-       (with-eval-after-load 'evil
-         (add-to-list 'evil-visual-state-modes 'kubernetes-display-thing-mode)))
+       (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover."))
+
+     (use-package kubernetes-evil
+       :ensure t
+       :straight t
+       :after kubernetes)
    #+end_src
