@@ -2675,14 +2675,4 @@
        :config
        (with-eval-after-load 'evil
          (add-to-list 'evil-visual-state-modes 'kubernetes-display-thing-mode)))
-
-
-     (use-package kubel
-       :straight t
-       :custom
-       (kubel-use-namespace-list 'on)
-       :commands (kubel)
-       :config
-       (with-eval-after-load 'evil
-         (add-to-list 'evil-emacs-state-modes 'kubel-mode)))
    #+end_src
