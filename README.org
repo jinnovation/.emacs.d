@@ -1814,8 +1814,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package mu4e
-       ;; :ensure-system-package
-       ;; ((mu . mu)
+       :ensure-system-package (mu)
        ;;  (mbsync . isync)
        ;;  (w3m . w3m))
        :custom
