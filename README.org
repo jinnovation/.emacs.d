@@ -558,6 +558,7 @@
         :straight t
         :hook ((python-mode . lsp-deferred)
                (go-mode . lsp-deferred)
+               ;; (terraform-mode . lsp-deferred)
                (yaml-mode . lsp-deferred))
         :custom
         (lsp-pyls-configuration-sources ["flake8"])
@@ -585,6 +586,12 @@
                                         ("gopls.gofumpt" t t)
                                         ("pyls.plugins.pyls_mypy.enabled" t t)
                                         ("pyls.plugins.pyls_mypy.live_mode" nil t)))
+
+        (lsp-register-client
+         (make-lsp-client :new-connection (lsp-stdio-connection '("terraform-ls"
+                                                                  "serve"))
+                          :major-modes '(terraform-mode)
+                          :server-id 'terraform-ls))
 
         ;; Sets up server configuration for use over TRAMP.
         ;;
