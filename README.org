@@ -1728,7 +1728,23 @@
               (plist-put ivy-rich-display-transformers-list transformer-dest transformer)))
           '((helpful-variable counsel-describe-variable) (helpful-callable counsel-describe-function))))
        (ivy-rich-mode t))
+   #+end_src
 
+** Selectrum
+
+   Playing around with Selectrum for some commands. In particular it has better
+   handling for multiple selection than Ivy.
+
+   #+begin_src emacs-lisp
+     (use-package selectrum
+       :disabled t
+       :straight t
+       :config
+       (selectrum-mode))
+
+     (use-package selectrum-prescient
+       :after selectrum
+       :straight t)
    #+end_src
 
 ** =linum=
