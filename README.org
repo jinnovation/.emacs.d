@@ -2647,7 +2647,9 @@
        (setq helm-ff-candidate-number-limit 500))
 
      (use-package helm-make
+       :disabled t
        :straight t
+       :after helm
        :commands helm-make-projectile
        :init
        (setq helm-make-cache-targets t)
@@ -2655,7 +2657,7 @@
 
      (use-package helm-projectile
        :disabled t
-       :after projectile
+       :after (helm projectile)
        :bind (:map projectile-command-map
                    ("TAB" . helm-projectile-switch-project)
                    ("p"   . helm-projectile)
