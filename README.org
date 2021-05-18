@@ -2717,3 +2717,13 @@
        ;;                       cleanup-cb))
        )
    #+end_src
+
+* Org-drill
+
+  I've been using Anki for a while but I'm starting to get annoyed at constantly
+  having to reinstall random crap every single time...
+
+  #+begin_src emacs-lisp
+    (use-package org-drill
+      :straight t)
+  #+end_src
