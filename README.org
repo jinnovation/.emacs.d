@@ -1832,6 +1832,12 @@
        (mu4e-split-view 'single-window)
        (mu4e-compose-format-flowed t)
        (message-send-mail-function 'smtpmail-send-it)
+       (mu4e-bookmarks '((:query "(maildir:\"/personal/INBOX\" OR maildir:\"/work/INBOX\") flag:unread"
+                          :name "Unread INBOXes"
+                          :key ?U)
+                         (:query "from:\"notification@fbworkmail.com\""
+                          :name "Workface"
+                          :key ?w)))
        :commands (mu4e mu4e-update-mail-and-index)
        :init
        (defhydra jjin-hydra-mu4e (:exit t)
@@ -1966,12 +1972,6 @@
                              (when (mu4e-context-vars context)
                                (cdr (assq 'user-mail-address (mu4e-context-vars context)))))
                            mu4e-contexts)))
-
-       (add-to-list 'mu4e-bookmarks
-                    '("(maildir:\"/personal/INBOX\" OR maildir:\"/work/INBOX\") flag:unread"
-                      "Unread INBOXes"
-                      ?U)
-                    t)
 
        (add-to-list 'mu4e-marks jjin/mu4e-mark-refile-first-delete-rest)
 
