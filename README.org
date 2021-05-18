@@ -2673,19 +2673,31 @@
 ** Kubernetes
 
    #+begin_src emacs-lisp
-     ;; unmaintained
      (use-package kubernetes
        :straight t
-       :commands (kubernetes-overview)
        :custom
-       (kubernetes-overview-buffer-name "*k8s*" "More concise name than default *kubernetes-overview* (I know it's a damn overview)")
+       (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover.")
        :config
        (with-eval-after-load 'evil
-         (add-to-list 'evil-visual-state-modes 'kubernetes-display-thing-mode)))
-       (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover."))
+         (evil-set-initial-state 'kubernetes-mode 'emacs)
+         (evil-set-initial-state 'kubernetes-display-thing-mode 'visual)
+         (evil-set-initial-state 'kubernetes-log-line-mode 'emacs)
+         (evil-set-initial-state 'kubernetes-logs-mode 'emacs)
+         (evil-set-initial-state 'kubernetes-overview-mode 'emacs))
 
-     (use-package kubernetes-evil
-       :ensure t
-       :straight t
-       :after kubernetes)
+       ;; (kubernetes-state--define-accessors profiles (profiles)
+       ;;   (cl-assert (listp profiles)))
+
+       ;; (setq kubernetes-overview-custom-views-alist '((profiles profiles)))
+
+       ;; ;; TODO: Define kubernetes-state-update-profile
+       ;; (defun kubernetes-kubectl-get-profile (props state cb &optional cleanup-db)
+       ;;   (kubernetes-kubectl props state '("get" "profiles" "-o" "json")
+       ;;                       (lambda (buf)
+       ;;                         (let ((json (with-current-buffer buf
+       ;;                                       (json-read-from-string (buffer-string)))))
+       ;;                           (funcall cb json)))
+       ;;                       nil
+       ;;                       cleanup-cb))
+       )
    #+end_src
