@@ -234,7 +234,6 @@
       use-dialog-box nil)
 
     (setq-default
-      fill-column 80
       indent-tabs-mode nil
       tab-width 4)
 
@@ -748,11 +747,12 @@
                                                  TeX-run-TeX nil t))))
    #+END_SRC
 
-** zsh
+** Shell
 
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("zshrc$" . sh-mode))
      (add-to-list 'auto-mode-alist '("\\.zsh$" . sh-mode))
+     (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
    #+END_SRC
 
 ** Haskell
@@ -914,8 +914,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package yaml-mode
-       ;; :straight t
-       :disabled t                           ; using LSP
+       :straight t
        :mode "\\.yaml$"
        :hook
        (yaml-mode . (lambda ()
@@ -1481,8 +1480,9 @@
 
       (use-package magit
         :straight t
+        :hook
+        (magit-revision-mode . goto-address-mode)
         :init
-
         ;; On status buffer init, jump to either unstaged changes or staged changes,
         ;; if present
         (setq magit-status-initial-section
@@ -1504,26 +1504,25 @@
 
         (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
 
-        :config
-        (bind-keys :map jjin-vc-map
-                   ("!" . magit-git-command-topdir)
-                   ("C" . magit-branch-and-checkout)
-                   ("F" . magit-pull)
-                   ("P" . magit-push)
-                   ("b" . magit-blame)
-                   ("c" . magit-checkout)
-                   ("d" . magit-diff)
-                   ("f" . magit-fetch)
-                   ("l" . magit-log)
-                   ("m" . magit-merge)
-                   ("v" . magit-status)
-                   ("z" . magit-stash))
+        :bind (:map jjin-vc-map
+                    ("!" . magit-git-command-topdir)
+                    ("C" . magit-branch-and-checkout)
+                    ("F" . magit-pull)
+                    ("P" . magit-push)
+                    ("b" . magit-blame)
+                    ("c" . magit-checkout)
+                    ("d" . magit-diff)
+                    ("f" . magit-fetch)
+                    ("l" . magit-log)
+                    ("m" . magit-merge)
+                    ("v" . magit-status)
+                    ("z" . magit-stash)
+                    :map magit-mode-map
+                    ("X" . magit-reset-hard))
 
+        :config
         (with-eval-after-load 'git-rebase
           (bind-keys :map git-rebase-mode-map ("u" . git-rebase-undo)))
-
-        (bind-keys :map magit-mode-map
-                   ("X" . magit-reset-hard))
 
         ;; removes 1.4.0 warning in arguably cleaner way
         (remove-hook 'after-init-hook 'magit-maybe-show-setup-instructions)
@@ -1535,8 +1534,6 @@
 
         (with-eval-after-load 'evil
           (add-to-list 'evil-emacs-state-modes 'magit-popup-mode))
-
-        (add-hook 'magit-revision-mode-hook 'goto-address-mode)
 
         (transient-append-suffix 'magit-commit 'magit-commit:--reuse-message
           '("-m"
