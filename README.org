@@ -2574,11 +2574,12 @@
        :custom
        (shackle-rules '(
                         (git-commit-mode :align bottom :size 0.3 :select t)
-                        ('(help-mode helpful-mode) :select t :other t :size 0.4)
+                        ('(help-mode helpful-mode) :select t :other t :inhibit-window-quit t :size 0.4)
                         (vterm-mode :align right :size 0.4 :select t)
-                        (magit-log-mode :align left :size 0.3 :select t)
+                        (magit-log-mode :other t :size 0.4 :select t)
+                        (kubernetes-overview-mode :same t :inhibit-window-quit t)
                         (magit-status-mode :select t :other t :size 0.4)
-                        (compilation-mode :align right :size 0.3)))
+                        (compilation-mode :align right :size 0.3 :other t :inhibit-window-quit t)))
        :config
        (shackle-mode t))
    #+end_src
@@ -2694,6 +2695,7 @@
        :custom
        (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover.")
        :config
+       (fset 'k8s 'kubernetes-overview)
        (with-eval-after-load 'evil
          (evil-set-initial-state 'kubernetes-mode 'emacs)
          (evil-set-initial-state 'kubernetes-display-thing-mode 'visual)
