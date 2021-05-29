@@ -2404,14 +2404,11 @@
        ;; We'd like projects contained within other projects, e.g. packages pulled
        ;; into the .emacs.d/.straight dir via straight.el, to be recognized as
        ;; Projectile packages.
-
-       ;; TODO: This doesn't play well with monorepo structures that might have
-       ;; multiple "project root" files scattered throughout the codebase.
-       ;; (setq projectile-project-root-files-functions
-       ;;       '(projectile-root-local
-       ;;         projectile-root-top-down
-       ;;         projectile-root-top-down-recurring
-       ;;         projectile-root-bottom-up))
+       (setq projectile-project-root-functions
+             '(projectile-root-local
+               projectile-root-bottom-up
+               projectile-root-top-down
+               projectile-root-top-down-recurring))
 
        :config
        (with-eval-after-load 'ivy
