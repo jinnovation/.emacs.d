@@ -1619,6 +1619,7 @@
               ("C-h v" . #'helpful-variable)
               ("C-h k" . #'helpful-key)
               :map helpful-mode-map
+              ("Q"     . #'helpful-kill-buffers)
               ("g"     . #'helpful-update))
        :init
        (with-eval-after-load 'evil
