@@ -180,19 +180,6 @@
            (shrink-window arg)
          (enlarge-window arg)))
 
-     (defun bury-compile-buffer-if-successful (buffer string)
-       "Bury a compilation buffer if succeeded without warnings "
-       (if (and
-            (string-match "compilation" (buffer-name buffer))
-            (string-match "finished" string)
-            (not
-             (with-current-buffer buffer
-               (search-forward "warning" nil t))))
-           (run-with-timer 1 nil
-                           (lambda (buf)
-                             (bury-buffer buf)
-                             (delete-window (get-buffer-window buf)))
-                           buffer)))
      (defun get-current-displays ()
        "Get alist of attributes of displays w/ Emacs buffers."
        (interactive)
