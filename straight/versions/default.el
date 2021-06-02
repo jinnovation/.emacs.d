@@ -86,7 +86,7 @@
  ("persist" . "bbd57894134e06ec71251c1318055c0f8fd6e05b")
  ("pkg-info" . "76ba7415480687d05a4353b27fea2ae02b8d9d61")
  ("prescient.el" . "8573df977eaceffc6607b7242ff8c0dab02aad65")
- ("projectile" . "f3f8a6505d50ca0f03f7deef99a1c8aa3bcd9e58")
+ ("projectile" . "5e6fdabd59ec5507c1d54f3b11ee16ddc05821d3")
  ("protobuf" . "e9091e6d8c0adaa83bcb260aa47c316024f1c97a")
  ("pythonic" . "e0e5cc882f2f1316268ec461a34d4be8abc313b7")
  ("pyvenv" . "9b3678bc29192d2dba64df90fbdb17393ef8d877")
