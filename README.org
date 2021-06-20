@@ -547,6 +547,7 @@
                ;; (terraform-mode . lsp-deferred)
                (yaml-mode . lsp-deferred))
         :custom
+        (lsp-signature-render-documentation nil)
         (lsp-pyls-configuration-sources ["flake8"])
         (lsp-pyls-plugins-pycodestyle-enabled nil)
         (lsp-pyls-server-command '("pyls"))
