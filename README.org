@@ -2677,9 +2677,10 @@
 
    #+begin_src emacs-lisp
      (use-package kubernetes
-       :straight t
+       :straight (:local-repo "~/dev/kubernetes-el")
        :custom
        (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover.")
+       (kubernetes-overview-custom-views-alist '((jjin-overview . (context deployments pods))))
        :config
        (fset 'k8s 'kubernetes-overview)
        (with-eval-after-load 'evil
