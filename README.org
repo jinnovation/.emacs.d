@@ -2243,32 +2243,38 @@
    #+begin_src emacs-lisp
      (use-package org-roam
        :straight t
-       :hook
-       (after-init . org-roam-mode)
+       ;; :hook
+       ;; (after-init . org-roam-mode)
        :init
        (setq org-roam-directory "~/roam")
-       :custom
-       (org-roam-tag-sources '(prop all-directories))
        :config
-       (setq org-roam-graph-viewer (if (eq system-type 'darwin) "open" nil))
-       (add-to-list 'org-roam-capture-templates
-                    '("r"
-                     "reading"
-                     plain
-                     (function org-roam--capture-get-point)
-                     "%?"
-                     :file-name "reading/%<%Y%m%d%H%M%S>-${slug}"
-                     :head "#+title: ${title}\n\n* 作者\n  "
-                     :unnarrowed t))
-       (with-eval-after-load 'pretty-hydra
-         (pretty-hydra-define jjin-hydra-roam
-           (:title (with-octicon "pencil" "Notes (Roam)" 1 -0.05))
-           ("Find"
-            (("f" org-roam-find-file "file"))))
-         (bind-key "s-r" 'jjin-hydra-roam/body)))
+       (org-roam-setup))
+
+     ;; All stuff from org-roam v1 that needs to get audited and
+     ;; reimpemented for v2 if necessary
+       ;; :custom
+       ;; (org-roam-tag-sources '(prop all-directories))
+       ;; :config
+       ;; (setq org-roam-graph-viewer (if (eq system-type 'darwin) "open" nil))
+       ;; (add-to-list 'org-roam-capture-templates
+       ;;              '("r"
+       ;;               "reading"
+       ;;               plain
+       ;;               (function org-roam--capture-get-point)
+       ;;               "%?"
+       ;;               :file-name "reading/%<%Y%m%d%H%M%S>-${slug}"
+       ;;               :head "#+title: ${title}\n\n* 作者\n  "
+       ;;               :unnarrowed t))
+       ;; (with-eval-after-load 'pretty-hydra
+       ;;   (pretty-hydra-define jjin-hydra-roam
+       ;;     (:title (with-octicon "pencil" "Notes (Roam)" 1 -0.05))
+       ;;     ("Find"
+       ;;      (("f" org-roam-find-file "file"))))
+       ;;   (bind-key "s-r" 'jjin-hydra-roam/body)))
 
      ;; TODO: Add to jjin-hydra-roam a key to open the graph in browser
      (use-package org-roam-server
+       :disabled t
        :after org-roam
        :straight t
        :config
