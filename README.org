@@ -563,6 +563,7 @@
         (lsp-pyls-plugins-pydocstyle-convention "pep257")
         (lsp-pyls-plugins-mccabe-enabled nil)
         (lsp-go-codelenses nil)
+        (lsp-go-use-gofumpt t)
         :init
         ;; (setq lsp-document-sync-method 'lsp--sync-incremental)
         (add-hook 'hack-local-variables-hook
@@ -570,7 +571,6 @@
         :config
         (lsp-register-custom-settings '(("gopls.completeUnimported" t t)
                                         ("gopls.staticcheck" t t)
-                                        ("gopls.gofumpt" t t)
                                         ("pyls.plugins.pyls_mypy.enabled" t t)
                                         ("pyls.plugins.pyls_mypy.live_mode" nil t)))
 
