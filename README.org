@@ -278,6 +278,8 @@
     (use-package midnight
       :init
       (setq clean-buffer-list-delay-general 0.006)) ; 10 minutes
+
+    (setq-default fill-column 80)
   #+END_SRC
 
 ** Scratch Org-mode
