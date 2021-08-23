@@ -339,8 +339,6 @@
       ;; `executable-find', making this useless.
       ;; (system-packages-ensure "font-iosevka")
 
-      ;; TODO: Font size needs to scale w.r.t. `display-pixels-per-inch' or the
-      ;; ID of the display it's currently displayed on.
       (defvar jjin/font-priority-list
         '("Iosevka 12" "IBM Plex Mono 12" "Source Code Pro 14" "Terminus (TTF) 16")
         "Priority-sorted list of fonts to attempt to set frame to.")
