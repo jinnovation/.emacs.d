@@ -188,19 +188,17 @@
           (eq nil (cdr (assoc 'frames disp))))
         (display-monitor-attributes-list)))
 
-     (defun fontify-frame ()
-       "Adjusts frame's text size according to current display's
-     resolution. Prevents illegibly small text on high-resolution
-     displays and, similarly, impractically large text on
-     low-resolution displays."
-       (interactive)
-       ;; FIXME: assumes only one emacs frame on one disp
-       (let* ((curr-disp (car (jjin-get-current-displays)))
-              (disp-width (nth 3 (assoc 'geometry curr-disp)))
-              (font-name (if (eq system-type 'darwin) "Terminus (TTF)" "Terminus"))
-              (font-size (if (> disp-width 2000) "12" "04")))
-         (if (display-graphic-p)
-             (set-frame-parameter nil 'font (string-join `(,font-name ,font-size) " "))))))
+     (defun fontify-frame (&optional _)
+       "Set font and font size dynamically for the given frame."
+       (let* ((attrs (frame-monitor-attributes))
+              (width (fourth (first attrs)))
+              (size 12))
+         (when (= width 3840)                 ; external monitor 4k
+           (setq size 16))
+         ;; FIXME: Integrate w/ jjin/font-priority-list
+         ;; FIXME: Need a jjin/get-font-for-frame function that returns the frame's
+         ;; currently active font if none in jjin/font-priority-list are found
+         (set-frame-font (format "Iosevka %s" size)))))
    #+END_SRC
 
 * General Configurations
@@ -355,6 +353,8 @@
                           (font-spec :family "DejaVu Sans Mono")))
 
       (jjin-set-opacity 90)
+
+      (add-hook 'window-size-change-functions #'jjin-fontify-frame)
     #+END_SRC
 
 ** Environment-specific
