@@ -784,19 +784,6 @@
                  (toggle-truncate-lines t)))
    #+END_SRC
 
-** Thrift
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package thrift
-       :straight t
-       :if (eq system-type 'darwin) ;; only need this on work computer
-       :config
-       (add-hook 'thrift-mode-hook
-                 (lambda ()
-                   (setq comment-start "//")
-                   (setq comment-end ""))))
-   #+END_SRC
-
 ** Protobuf
 
    #+begin_src emacs-lisp
