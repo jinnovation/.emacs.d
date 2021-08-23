@@ -532,6 +532,11 @@
            (";" ace-window "select window" :exit t))))
 
        (bind-key "C-c w" 'jjin-hydra-window/body))
+
+     (use-package major-mode-hydra
+       :straight t
+       :bind
+       ("s-SPC" . major-mode-hydra))
    #+END_SRC
 
 * Development Environments
