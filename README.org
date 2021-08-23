@@ -333,6 +333,14 @@
       ;; `executable-find', making this useless.
       ;; (system-packages-ensure "font-iosevka")
 
+      ;; FIXME:
+      ;;
+      ;; Elements in font-priority-list should consist of:
+      ;;   - Font name;
+      ;;   - Sizes for: large screens; small screens; etc.
+      ;;
+      ;; This can allow consuming functions e.g. jjin-fontify-frame to select both the
+      ;; name and size based on the display the current frame resides on.
       (defvar jjin/font-priority-list
         '("Iosevka 12" "IBM Plex Mono 12" "Source Code Pro 14" "Terminus (TTF) 16")
         "Priority-sorted list of fonts to attempt to set frame to.")
