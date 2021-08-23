@@ -1837,12 +1837,6 @@
        (when (eq system-type 'darwin)
          (setq mu4e-mu-binary "/usr/local/bin/mu"))
 
-       (setq
-        mu4e-maildir "~/mail"
-
-        mu4e-drafts-folder "/personal/Drafts"
-        mu4e-sent-folder   "/personal/Sent")
-
        ;; don't save message to Sent Messages for GMail accounts; Gmail/IMAP takes
        ;; care of this
        (setq mu4e-sent-messages-behavior
@@ -1927,27 +1921,27 @@
                          (mu4e-drafts-folder . "/personal/Drafts")
                          (mu4e-refile-folder . "/personal/Archive")))
 
-                  ,(make-mu4e-context
-                    :name "work"
-                    :match-func
-                    (lambda (msg)
-                      (when msg
-                        (or
-                         (mu4e-message-maildir-matches msg "^/work")
-                         (mu4e-message-contact-field-matches msg :to "jjin@spotify.com"))))
-                    :vars `((user-mail-address . "jjin@spotify.com")
-                            (mu4e-compose-signature . ,(concat "Jonathan Jin"))
+               ,(make-mu4e-context
+                 :name "work"
+                 :match-func
+                 (lambda (msg)
+                   (when msg
+                     (or
+                      (mu4e-message-maildir-matches msg "^/work")
+                      (mu4e-message-contact-field-matches msg :to "jjin@spotify.com"))))
+                 :vars `((user-mail-address . "jjin@spotify.com")
+                         (mu4e-compose-signature . ,(concat "Jonathan Jin"))
 
-                            (smtpmail-smtp-user . "jjin@spotify.com")
-                            (smtpmail-smtp-server . "smtp.gmail.com")
-                            (smtpmail-smtp-service . 587)
-                            (smtpmail-stream-type . nil)
+                         (smtpmail-smtp-user . "jjin@spotify.com")
+                         (smtpmail-smtp-server . "smtp.gmail.com")
+                         (smtpmail-smtp-service . 587)
+                         (smtpmail-stream-type . nil)
 
-                            (user-full-name . "Jonathan Jin")
-                            (mu4e-sent-folder . "/work/sent")
-                            (mu4e-trash-folder . "/work/trash")
-                            (mu4e-drafts-folder . "/work/drafts")
-                            (mu4e-refile-folder . "/work/Archive")))))
+                         (user-full-name . "Jonathan Jin")
+                         (mu4e-sent-folder . "/work/sent")
+                         (mu4e-trash-folder . "/work/trash")
+                         (mu4e-drafts-folder . "/work/drafts")
+                         (mu4e-refile-folder . "/work/Archive")))))
 
        ;; Sets `mu4e-user-mail-address-list' to the concatenation of all
        ;; `user-mail-address' values for all contexts. If you have other mail
