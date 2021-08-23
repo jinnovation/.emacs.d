@@ -549,6 +549,8 @@
                ;; (terraform-mode . lsp-deferred)
                (yaml-mode . lsp-deferred))
         :custom
+        (lsp-ui-sideline-enable nil)         ; Disable until the weird text
+                                             ; overflow issue is fixed
         (lsp-signature-render-documentation nil)
         (lsp-pyls-configuration-sources ["flake8"])
         (lsp-pyls-plugins-pycodestyle-enabled nil)
