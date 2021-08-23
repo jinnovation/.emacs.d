@@ -323,12 +323,6 @@
 
       (setq custom-safe-themes t)
 
-      ;; (set-frame-font
-      ;;  (cond
-      ;;   ((string= "gnu/linux" system-type) "-xos4-terminus-medium-r-normal--28-*-72-72-c-140-iso10646-1")
-      ;;   ((string= "darwin" system-type) "Terminus (TTF) 16")
-      ;;    (t "Terminus 16")))
-
       (defun jjin/font-installed-p (font-name)
         "Returns t if FONT-NAME is found to be installed; nil otherwise."
         (not (null (x-list-fonts font-name))))
