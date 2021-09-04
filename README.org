@@ -2222,6 +2222,21 @@
        ;; (after-init . org-roam-mode)
        :custom
        (org-roam-v2-ack t)
+       (org-roam-capture-templates
+        '(
+          ("d" "default" plain "%?" :if-new
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("R"
+           "Reading"
+           entry
+           "* ${title}%?
+       %l"
+           :if-new (file "~/roam/20210108105150-reading_list.org")
+           :empty-lines-before 1
+           :unnarrowed t
+           )
+          ))
        :init
        (setq org-roam-directory "~/roam")
        :config
