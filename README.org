@@ -864,6 +864,9 @@
      (use-package markdown-mode
        :straight t
        :mode "\\.md$"
+       :bind (:map markdown-mode-map
+                   ("M-]" . markdown-demote)
+                   ("M-[" . markdown-promote))
        :init
        (setq markdown-asymmetric-header t)
        :config
