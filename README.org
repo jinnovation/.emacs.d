@@ -553,13 +553,19 @@
                (go-mode . lsp-deferred)
                ;; (terraform-mode . lsp-deferred)
                (yaml-mode . lsp-deferred))
+        ;; TODO:
+        ;; For Python, would like the following installed:
+        ;;   - python-lsp-server
+        ;;   - python-lsp-black
+        ;;   - pylsp-mypy
+        ;;   - pyls-isort
         :custom
         (lsp-ui-sideline-enable nil)         ; Disable until the weird text
                                              ; overflow issue is fixed
         (lsp-signature-render-documentation nil)
         (lsp-pyls-configuration-sources ["flake8"])
         (lsp-pyls-plugins-pycodestyle-enabled nil)
-        (lsp-pyls-server-command '("pyls"))
+        (lsp-pyls-server-command '("pylsp"))
         (lsp-enable-snippet nil)
         (lsp-log-io t)
         (lsp-document-sync-method nil)
