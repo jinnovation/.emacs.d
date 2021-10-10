@@ -459,9 +459,6 @@
      (define-prefix-command 'jjin-vc-map)
      (bind-key "C-c v" 'jjin-vc-map)
 
-     (define-prefix-command 'jjin-chat-map)
-     (bind-key "C-c i" 'jjin-chat-map)
-
      (define-prefix-command 'jjin-comment-map)
      (bind-key "C-c c" 'jjin-comment-map)
 
