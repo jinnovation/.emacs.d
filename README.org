@@ -345,6 +345,8 @@
         '("Iosevka 12" "IBM Plex Mono 12" "Source Code Pro 14" "Terminus (TTF) 16")
         "Priority-sorted list of fonts to attempt to set frame to.")
 
+      ;; TODO: Install font-iosevka
+
       (if window-system
           (-when-let (font-name (-first 'jjin/font-installed-p jjin/font-priority-list))
             (set-frame-font font-name)))
@@ -2387,6 +2389,7 @@
      (use-package projectile
        :straight t
        :diminish projectile-mode
+       :ensure-system-package the_silver_searcher
        :custom
        (projectile-ignored-projects '("/Users/jjin/"))
        (projectile-enable-caching t)
