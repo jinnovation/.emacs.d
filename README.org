@@ -19,6 +19,7 @@
     (setq package-archives '(("gnu"           . "http://elpa.gnu.org/packages/")
                               ("melpa-stable" . "http://stable.melpa.org/packages/")
                               ("melpa"        . "http://melpa.org/packages/")
+                              ("non-gnu-elpa" . "https://elpa.nongnu.org/nongnu/")
                               ("org"          . "http://orgmode.org/elpa/")))
 
     (package-initialize)
@@ -2198,6 +2199,9 @@
        :straight t)
 
      (use-package org-download
+       :straight t)
+
+     (use-package org-contrib
        :straight t)
    #+END_SRC
 
