@@ -550,9 +550,9 @@
      (use-package lsp-mode
         :straight t
         :hook ((python-mode . lsp-deferred)
-               (go-mode . lsp-deferred)
+               (go-mode . lsp-deferred))
                ;; (terraform-mode . lsp-deferred)
-               (yaml-mode . lsp-deferred))
+               ;; (yaml-mode . lsp-deferred))
         ;; TODO:
         ;; For Python, would like the following installed:
         ;;   - python-lsp-server
