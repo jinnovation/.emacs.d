@@ -477,6 +477,7 @@
    #+BEGIN_SRC emacs-lisp
      (bind-keys :map global-map
                 ("C-x k"              . jjin-kill-current-buffer)
+                ("C-x m"              . execute-extended-command)
                 ("RET"                . newline-and-indent))
 
      (unbind-key "<menu>")
@@ -1619,8 +1620,8 @@
 
    #+begin_src emacs-lisp
      (use-package ivy
+       :disabled t
        :straight t
-       :demand t
        :bind (("C-s"   . swiper))
               ;; FIXME: this doesn't work
               ;; :map eshell-mode-map
@@ -1718,14 +1719,51 @@
 
    #+begin_src emacs-lisp
      (use-package selectrum
-       :disabled t
        :straight t
        :config
        (selectrum-mode))
 
+     (use-package orderless
+       :straight t
+       :custom (completion-styles '(orderless)))
+
+     (use-package marginalia
+       :straight t
+       :init
+       (marginalia-mode))
+
+     (use-package prescient
+       :straight t
+       :config
+       (prescient-persist-mode))
+
      (use-package selectrum-prescient
-       :after selectrum
-       :straight t)
+       :after (selectrum prescient)
+       :straight t
+       :config
+       (selectrum-prescient-mode))
+
+     (use-package consult
+       :straight t
+       :bind
+       (([remap isearch-forward] . consult-line)
+        ([remap switch-to-buffer] . consult-buffer)))
+
+     ;; TODO: Incorporate embark to replace ivy command dispatching
+
+
+     (use-package consult-projectile
+       :after (consult projectile)
+       :straight (consult-projectile
+                  :type git
+                  :host gitlab
+                  :repo "OlMon/consult-projectile"
+                  :branch "master")
+       :config
+       (bind-key "<SPC>" 'consult-projectile projectile-command-map)
+
+       (with-eval-after-load 'projectile
+         (setq consult-project-root-function #'projectile-project-root)))
    #+end_src
 
 ** =linum=
