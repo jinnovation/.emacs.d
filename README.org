@@ -1260,6 +1260,8 @@
      (use-package vterm
        ;; :ensure-system-package cmake
        :straight t
+       :bind (:map global-map
+                   ("s-v" . vterm))
        :hook
        (vterm-mode . goto-address-mode)
        :custom
