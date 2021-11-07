@@ -2204,7 +2204,13 @@
        :straight t)
 
      (use-package org-contrib
-       :straight t)
+       :straight t
+       :after org)
+
+     (use-package ox-extra
+       :after org-contrib
+       :config
+       (ox-extras-activate '(latex-header-blocks ignore-headlines)))
    #+END_SRC
 
 ** =org-msg=
@@ -2358,7 +2364,6 @@
    #+BEGIN_SRC emacs-lisp
      (use-package pdf-tools
        :straight t
-       :disabled t
        :mode ("\\.pdf$" . pdf-view-mode)
        :config
        (pdf-tools-install)
@@ -2395,7 +2400,7 @@
      (use-package projectile
        :straight t
        :diminish projectile-mode
-       :ensure-system-package the_silver_searcher
+       :ensure-system-package (ripgrep)
        :custom
        (projectile-ignored-projects '("/Users/jjin/"))
        (projectile-enable-caching t)
