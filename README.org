@@ -1786,6 +1786,8 @@
          "Avoids enabling of linum-mode in the buffer having major mode set to one
      of listed in `linum-mode-excludes'."
          (if (or (member major-mode linum-mode-allowlist)
+                 ;; FIXME: This should really go all the way up the major-mode
+                 ;; "inheritance" chain
                  (member (get-mode-local-parent major-mode) linum-mode-allowlist))
            ad-do-it)))
    #+END_SRC
