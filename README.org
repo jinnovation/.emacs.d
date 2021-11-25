@@ -1749,8 +1749,10 @@
        (([remap isearch-forward] . consult-line)
         ([remap switch-to-buffer] . consult-buffer)))
 
-     ;; TODO: Incorporate embark to replace ivy command dispatching
-
+     (use-package embark
+       :straight t
+       :bind
+       (("C-;" . embark-act)))
 
      (use-package consult-projectile
        :after (consult projectile)
