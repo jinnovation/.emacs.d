@@ -859,6 +859,13 @@
               ("C-c C-v" . find-variable)))
    #+END_SRC
 
+*** Testing
+
+    #+begin_src emacs-lisp
+      (use-package buttercup
+        :straight t)
+    #+end_src
+
 ** Markdown
 
    #+BEGIN_SRC emacs-lisp
@@ -1412,6 +1419,7 @@
 *** =gitconfig-mode=
     #+BEGIN_SRC emacs-lisp
       (use-package gitconfig-mode
+        :disabled t
         :straight t
         :mode "gitconfig")
     #+END_SRC
@@ -1420,6 +1428,7 @@
 
     #+BEGIN_SRC emacs-lisp
       (use-package gitignore-mode
+        :disabled t
         :straight t
         :mode "gitignore")
     #+END_SRC
@@ -1747,7 +1756,10 @@
        :straight t
        :bind
        (([remap isearch-forward] . consult-line)
-        ([remap switch-to-buffer] . consult-buffer)))
+        ([remap switch-to-buffer] . consult-buffer))
+       :config
+       (with-eval-after-load 'projectile
+         (bind-key [remap projectile-ripgrep] 'consult-ripgrep)))
 
      (use-package embark
        :straight t
@@ -1761,9 +1773,9 @@
                   :host gitlab
                   :repo "OlMon/consult-projectile"
                   :branch "master")
+       :bind (:map projectile-command-map
+              ("<SPC>" . consult-projectile))
        :config
-       (bind-key "<SPC>" 'consult-projectile projectile-command-map)
-
        (with-eval-after-load 'projectile
          (setq consult-project-root-function #'projectile-project-root)))
    #+end_src
@@ -2346,6 +2358,10 @@
              org-roam-server-network-label-truncate t
              org-roam-server-network-label-truncate-length 60
              org-roam-server-network-label-wrap-length 20))
+
+     (use-package org-roam-ui
+       :straight t
+       :after org-roam)
    #+end_src
 
 ** Modeline
