@@ -1494,6 +1494,9 @@
 
         (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
 
+        (defun jjin/magit-status-at (dir)
+          "Open Magit status buffer for project at root DIR."
+          (magit-status dir))
         :bind (:map jjin-vc-map
                     ("!" . magit-git-command-topdir)
                     ("C" . magit-branch-and-checkout)
@@ -1509,6 +1512,8 @@
                     ("z" . magit-stash)
                     :map magit-mode-map
                     ("X" . magit-reset-hard))
+
+        :commands (magit-status)
 
         :config
         (with-eval-after-load 'git-rebase
@@ -1739,7 +1744,9 @@
      (use-package marginalia
        :straight t
        :init
-       (marginalia-mode))
+       (marginalia-mode)
+       :config
+       (add-to-list 'marginalia-prompt-categories '("\\<[Pp]roject\\>" . jjin/project)))
 
      (use-package prescient
        :straight t
@@ -1764,7 +1771,12 @@
      (use-package embark
        :straight t
        :bind
-       (("C-;" . embark-act)))
+       (("C-;" . embark-act))
+       :config
+       (embark-define-keymap jjin/project-actions
+         "Keymap for actions on projects."
+         ("g" jjin/magit-status-at))
+       (add-to-list 'embark-keymap-alist '(jjin/project . jjin/project-actions)))
 
      (use-package consult-projectile
        :after (consult projectile)
