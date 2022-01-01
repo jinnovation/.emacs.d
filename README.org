@@ -343,7 +343,7 @@
       ;; This can allow consuming functions e.g. jjin-fontify-frame to select both the
       ;; name and size based on the display the current frame resides on.
       (defvar jjin/font-priority-list
-        '("Iosevka 12" "IBM Plex Mono 12" "Source Code Pro 14" "Terminus (TTF) 16")
+        '("Iosevka Nerd Font 12" "Iosevka 12" "IBM Plex Mono 12" "Source Code Pro 14" "Terminus (TTF) 16")
         "Priority-sorted list of fonts to attempt to set frame to.")
 
       ;; TODO: Install font-iosevka
@@ -352,10 +352,10 @@
           (-when-let (font-name (-first 'jjin/font-installed-p jjin/font-priority-list))
             (set-frame-font font-name)))
 
-      (when (functionp 'set-fontset-font)
-        (set-fontset-font "fontset-default"
-                          'unicode
-                          (font-spec :family "DejaVu Sans Mono")))
+      ;; (when (functionp 'set-fontset-font)
+      ;;   (set-fontset-font "fontset-default"
+      ;;                     'unicode
+      ;;                     (font-spec :family "DejaVu Sans Mono")))
 
       (jjin-set-opacity 90)
 
