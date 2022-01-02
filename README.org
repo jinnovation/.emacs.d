@@ -2304,12 +2304,29 @@
 ** Org-roam
 
    #+begin_src emacs-lisp
+     (define-derived-mode jjin/org-roam-mode org-mode "Org-Roam"
+       "Major mode for working with Org-Roam node buffers.
+
+     This is distinct from `org-roam-mode', which is used for
+     Org-Roam's sidebar buffer displaying reflinks and the like.")
+
+     (defun jjin/enable-org-roam-mode-maybe ()
+       "Enable `jjin/org-roam-mode' for buffer conditionally."
+       (require 'projectile)
+       (require 'f)
+       (when (and (boundp 'org-roam-directory)
+                  (not (eq 'jjin/org-roam-mode major-mode))
+                  (f-equal? (projectile-project-root) org-roam-directory))
+         (jjin/org-roam-mode)))
+
      (use-package org-roam
        :straight t
+       :hook (org-mode . jjin/enable-org-roam-mode-maybe)
        ;; :hook
        ;; (after-init . org-roam-mode)
        :init
        (setq org-roam-v2-ack t)
+       (setq org-roam-directory "~/roam")
        :custom
        (org-roam-capture-templates
         '(
@@ -2326,8 +2343,6 @@
            :unnarrowed t
            )
           ))
-       :init
-       (setq org-roam-directory "~/roam")
        :config
        (org-roam-setup))
 
