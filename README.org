@@ -2338,6 +2338,12 @@
                   (f-equal? (projectile-project-root) org-roam-directory))
          (jjin/org-roam-mode)))
 
+     (major-mode-hydra-define jjin/org-roam-mode nil
+         ("Find"
+          (("f" org-roam-node-find "Node"))
+         "Database"
+          (("d" org-roam-db-sync "Sync"))))
+
      (use-package org-roam
        :straight t
        :hook (org-mode . jjin/enable-org-roam-mode-maybe)
