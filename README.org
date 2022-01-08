@@ -2812,7 +2812,7 @@
 
    #+begin_src emacs-lisp
      (use-package kubernetes
-       :straight (:local-repo "~/dev/kubernetes-el" :type git :host github :repo "jinnovation/kubernetes-el")
+       :straight (:local-repo "~/dev/kubernetes-el" :type git :host github :repo "kubernetes-el/kubernetes-el")
        :custom
        (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover.")
        (kubernetes-overview-custom-views-alist '((jjin-overview . (context deployments pods))))
