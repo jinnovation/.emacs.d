@@ -830,6 +830,13 @@
        (setq matlab-shell-command-switches '("-nodesktop")))
    #+END_SRC
 
+** Nix
+
+#+begin_src emacs-lisp
+  (use-package nix-mode
+    :straight t)
+#+end_src
+
 ** Python
 
    #+BEGIN_SRC emacs-lisp
