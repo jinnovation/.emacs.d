@@ -2333,8 +2333,8 @@
      (define-derived-mode jjin/org-roam-mode org-mode "Org-Roam"
        "Major mode for working with Org-Roam node buffers.
 
-     This is distinct from `org-roam-mode', which is used for
-     Org-Roam's sidebar buffer displaying reflinks and the like.")
+          This is distinct from `org-roam-mode', which is used for
+          Org-Roam's sidebar buffer displaying reflinks and the like.")
 
      (defun jjin/enable-org-roam-mode-maybe ()
        "Enable `jjin/org-roam-mode' for buffer conditionally."
@@ -2346,10 +2346,17 @@
          (jjin/org-roam-mode)))
 
      (major-mode-hydra-define jjin/org-roam-mode nil
-         ("Find"
-          (("f" org-roam-node-find "Node"))
-         "Database"
-          (("d" org-roam-db-sync "Sync"))))
+       ("Node"
+        (("f" org-roam-node-find "Find")
+         ("i" org-roam-node-insert "Insert"))
+        "Database"
+        (("d" org-roam-db-sync "Sync"))
+        "Edit"
+        (("t" org-id-get-create "Tag w/ ID")
+         ("a" org-roam-alias-add "Add alias"))
+        "View"
+        (("B" org-roam-ui-open "Graph in browser")
+         ("b" org-roam-buffer-toggle "Sidebar"))))
 
      (use-package org-roam
        :straight t
@@ -2360,6 +2367,11 @@
        (setq org-roam-v2-ack t)
        (setq org-roam-directory "~/roam")
        :custom
+       (org-roam-mode-section-functions
+        (list #'org-roam-backlinks-section
+              #'org-roam-reflinks-section
+              #'org-roam-unlinked-references-section
+              ))
        (org-roam-capture-templates
         '(
           ("d" "default" plain "%?" :if-new
@@ -2369,7 +2381,7 @@
            "Reading"
            entry
            "* ${title}%?
-       %l"
+            %l"
            :if-new (file "~/roam/20210108105150-reading_list.org")
            :empty-lines-before 1
            :unnarrowed t
@@ -2380,25 +2392,25 @@
 
      ;; All stuff from org-roam v1 that needs to get audited and
      ;; reimpemented for v2 if necessary
-       ;; :custom
-       ;; (org-roam-tag-sources '(prop all-directories))
-       ;; :config
-       ;; (setq org-roam-graph-viewer (if (eq system-type 'darwin) "open" nil))
-       ;; (add-to-list 'org-roam-capture-templates
-       ;;              '("r"
-       ;;               "reading"
-       ;;               plain
-       ;;               (function org-roam--capture-get-point)
-       ;;               "%?"
-       ;;               :file-name "reading/%<%Y%m%d%H%M%S>-${slug}"
-       ;;               :head "#+title: ${title}\n\n* 作者\n  "
-       ;;               :unnarrowed t))
-       ;; (with-eval-after-load 'pretty-hydra
-       ;;   (pretty-hydra-define jjin-hydra-roam
-       ;;     (:title (with-octicon "pencil" "Notes (Roam)" 1 -0.05))
-       ;;     ("Find"
-       ;;      (("f" org-roam-find-file "file"))))
-       ;;   (bind-key "s-r" 'jjin-hydra-roam/body)))
+     ;; :custom
+     ;; (org-roam-tag-sources '(prop all-directories))
+     ;; :config
+     ;; (setq org-roam-graph-viewer (if (eq system-type 'darwin) "open" nil))
+     ;; (add-to-list 'org-roam-capture-templates
+     ;;              '("r"
+     ;;               "reading"
+     ;;               plain
+     ;;               (function org-roam--capture-get-point)
+     ;;               "%?"
+     ;;               :file-name "reading/%<%Y%m%d%H%M%S>-${slug}"
+     ;;               :head "#+title: ${title}\n\n* 作者\n  "
+     ;;               :unnarrowed t))
+     ;; (with-eval-after-load 'pretty-hydra
+     ;;   (pretty-hydra-define jjin-hydra-roam
+     ;;     (:title (with-octicon "pencil" "Notes (Roam)" 1 -0.05))
+     ;;     ("Find"
+     ;;      (("f" org-roam-find-file "file"))))
+     ;;   (bind-key "s-r" 'jjin-hydra-roam/body)))
 
      ;; TODO: Add to jjin-hydra-roam a key to open the graph in browser
      (use-package org-roam-server
@@ -2418,9 +2430,43 @@
              org-roam-server-network-label-truncate-length 60
              org-roam-server-network-label-wrap-length 20))
 
+     (setq jjin/default-bibliography `(,(expand-file-name "biblio.bib" org-roam-directory)))
+
      (use-package org-roam-ui
        :straight t
        :after org-roam)
+
+     ;; (use-package org-ref
+     ;;   :straight t)
+
+     (use-package citar
+       :straight t
+       :custom
+       (citar-bibliography jjin/default-bibliography)
+       (org-cite-insert-processor 'citar)
+       (org-cite-follow-processor 'citar)
+       (org-cite-activate-processor 'citar)
+       (org-cite-global-bibliography jjin/default-bibliography)
+       :config
+       (let ((entry (cons '(jjin/org-roam-mode) (cdr (seq-find
+                             (lambda (modefns)
+                               (let ((modes (car modefns)))
+                                 (-contains? modes 'org-mode)))
+                             citar-major-mode-functions))
+                       )))
+         (add-to-list 'citar-major-mode-functions entry
+         )))
+
+     (use-package bibtex-completion
+       :straight t
+       :custom
+       (bibtex-completion-bibliography jjin/default-bibliography))
+
+     (use-package org-roam-bibtex
+       :straight t
+       :after org-roam
+       :custom
+       (orb-citekey-format 'org-cite))
    #+end_src
 
 ** Modeline
