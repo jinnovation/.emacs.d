@@ -2148,6 +2148,7 @@
        ((org-clock-out org-clock-in) . jjin/save-last-clock-buffer)
 
        :custom
+       (org-adapt-indentation t)
        (org-catch-invisible-edits 'show-and-error)
        (org-return-follows-link t)
        (org-export-dispatch-use-expert-ui t)
