@@ -2152,7 +2152,8 @@
               :map org-src-mode-map
               ([remap evil-write] . org-edit-src-save))
        ;; :straight org-plus-contrib
-       :straight t
+       ;; :straight t
+       :straight (:type built-in)
        :mode ("\\.org$" . org-mode)
 
        :hook
