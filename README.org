@@ -2071,8 +2071,6 @@
 
        (add-to-list 'mu4e-marks jjin/mu4e-mark-refile-first-delete-rest)
 
-       (add-hook 'mu4e-view-mode-hook 'mu4e-view-fill-long-lines)
-
        ;; (setq projectile-globally-ignored-modes (remove-if 'symbolp projectile-globally-ignored-modes ))
        (with-eval-after-load 'projectile
          (mapc
