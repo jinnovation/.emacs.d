@@ -307,7 +307,7 @@
    I spend more time in Org-mode than I do writing Elisp.
 
    #+BEGIN_SRC emacs-lisp
-     (setq initial-major-mode 'org-mode)
+     ;; (setq initial-major-mode 'org-mode)
    #+END_SRC
 
 ** Appearance
@@ -778,6 +778,18 @@
      (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
    #+END_SRC
 
+** Graphing
+
+   #+begin_src emacs-lisp
+     (use-package graphviz-dot-mode
+       :straight t)
+   #+end_src
+
+   #+begin_src emacs-lisp
+     (use-package mermaid-mode
+       :straight t)
+   #+end_src
+
 ** Haskell
 
    #+BEGIN_SRC emacs-lisp
@@ -1184,6 +1196,7 @@
 
      (use-package elfeed-org
        :straight t
+       :disabled t
        :after elfeed
        :config
        (setq rmh-elfeed-org-files '("~/.emacs.d/feeds.org"))
@@ -2291,9 +2304,11 @@
        (setq org-sticky-header-full-path 'full))
 
      (use-package org-chef
+       :disabled t
        :straight t)
 
      (use-package org-download
+       :after org
        :straight t)
 
      (use-package org-contrib
@@ -2301,7 +2316,7 @@
        :after org)
 
      (use-package ox-extra
-       :after org-contrib
+       :after (org-contrib org)
        :config
        (ox-extras-activate '(latex-header-blocks ignore-headlines)))
    #+END_SRC
@@ -2361,6 +2376,7 @@
 
      (use-package org-roam
        :straight t
+       :after org
        :hook (org-mode . jjin/enable-org-roam-mode-maybe)
        ;; :hook
        ;; (after-init . org-roam-mode)
@@ -2389,6 +2405,7 @@
            )
           ))
        :config
+       (setq jjin/default-bibliography `(,(expand-file-name "biblio.bib" org-roam-directory)))
        (org-roam-setup))
 
      ;; All stuff from org-roam v1 that needs to get audited and
@@ -2431,8 +2448,6 @@
              org-roam-server-network-label-truncate-length 60
              org-roam-server-network-label-wrap-length 20))
 
-     (setq jjin/default-bibliography `(,(expand-file-name "biblio.bib" org-roam-directory)))
-
      (use-package org-roam-ui
        :straight t
        :after org-roam)
@@ -2442,6 +2457,7 @@
 
      (use-package citar
        :straight t
+       :after org-roam
        :custom
        (citar-bibliography jjin/default-bibliography)
        (org-cite-insert-processor 'citar)
@@ -2460,6 +2476,7 @@
 
      (use-package bibtex-completion
        :straight t
+       :after org-roam
        :custom
        (bibtex-completion-bibliography jjin/default-bibliography))
 
@@ -2903,5 +2920,12 @@
 
   #+begin_src emacs-lisp
     (use-package org-drill
-      :straight t)
+      :straight t
+      :disabled t
+      ;; TODO:
+      ;;
+      ;; Custom card type that can take a sentence like the following:
+      ;; 壁の向こう側にいる相手と声の[やり取り]だけで相性を[見極めて]いくのです
+      ;; And create cards that ask for the meaning of the clozed term.
+      )
   #+end_src
