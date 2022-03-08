@@ -6,10 +6,6 @@
 
 #+STARTUP: showall
 
-#+EXPORT_FILE_NAME: index
-
-#+SETUPFILE: theme.setup
-
 * Overview
 
   These are my Emacs configurations. I have been using Emacs since roughly 2012;
