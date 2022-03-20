@@ -2257,7 +2257,6 @@
        :after org)
 
      (use-package ox-md
-       :disabled t
        :after org)
 
      (use-package ob-python
@@ -2273,7 +2272,6 @@
 
      (use-package evil-org
        :straight t
-       :disabled t
        :after (evil org)
        :diminish evil-org-mode
        :config
@@ -2301,7 +2299,6 @@
 
      (use-package org-contrib
        :straight t
-       :disabled t
        :after org)
 
      (use-package ox-extra
