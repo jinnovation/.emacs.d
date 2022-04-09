@@ -1818,6 +1818,7 @@
        :config
        (embark-define-keymap jjin/project-actions
          "Keymap for actions on projects."
+         ("v" jjin/projectile-vterm-at)
          ("g" jjin/magit-status-at))
        (add-to-list 'embark-keymap-alist '(jjin/project . jjin/project-actions)))
 
@@ -2590,6 +2591,23 @@
        :config
        (with-eval-after-load 'ivy
          (setq projectile-completion-system 'ivy))
+
+       (defun jjin/projectile-vterm-at (dir)
+         "Invoke `vterm' in the given project dir.
+
+     Switch to the project specific term buffer if it already exists.
+
+     This is a 'fork' of `projectile-run-vterm' to enable directory injection, for
+     use as an Embark action."
+
+         (let* ((project (projectile-acquire-root dir))
+                (buffer (projectile-generate-process-name "vterm" nil project)))
+           (unless (buffer-live-p (get-buffer buffer))
+             (unless (require 'vterm nil 'noerror)
+               (error "package 'vterm' is not available"))
+             (projectile-with-default-dir project
+               (vterm buffer)))
+           (switch-to-buffer buffer)))
 
        (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
        (advice-add 'projectile-compilation-dir
