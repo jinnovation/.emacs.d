@@ -1028,6 +1028,13 @@
        :config)
    #+END_SRC
 
+** [[https://github.com/wandersoncferreira/code-review][code-review]]
+
+   #+begin_src emacs-lisp
+     (use-package code-review
+       :straight t)
+   #+end_src
+
 ** =conf-mode=
 
    #+BEGIN_SRC emacs-lisp
