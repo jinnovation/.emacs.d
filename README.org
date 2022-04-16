@@ -2367,6 +2367,7 @@
                     (f-equal? (projectile-project-root) org-roam-directory))
            (jjin/org-roam-mode)))
 
+       ;; TODO: Nest hydras, e.g. for tag actions, to rm risk of key collisions
        (major-mode-hydra-define jjin/org-roam-mode nil
          ("Node"
           (("f" org-roam-node-find "Find")
@@ -2379,7 +2380,9 @@
            ("r" org-roam-ref-add "Add reference"))
           "View"
           (("B" org-roam-ui-open "Graph in browser")
-           ("b" org-roam-buffer-toggle "Sidebar")))))
+           ("b" org-roam-buffer-toggle "Sidebar"))
+          "Tags"
+          (("T" org-roam-tag-add "Add")))))
 
        (use-package org-roam
          :straight t
