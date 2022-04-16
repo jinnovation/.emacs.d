@@ -2392,6 +2392,7 @@
          (setq org-roam-directory "~/roam")
          (setq jjin/default-bibliography `(,(expand-file-name "biblio.bib" org-roam-directory)))
          :custom
+         (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
          (org-roam-mode-section-functions
           (list #'org-roam-backlinks-section
                 #'org-roam-reflinks-section
