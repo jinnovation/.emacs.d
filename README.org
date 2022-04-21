@@ -2171,7 +2171,8 @@
        (org-export-dispatch-use-expert-ui t)
        (org-clock-out-remove-zero-time-clocks t)
        (org-latex-create-formula-image-program 'imagemagick)
-       (org-latex-listings 'minted)
+       (org-latex-listings nil)
+       ;; (org-latex-listings 'minted)
        (org-tags-column -80)
        (org-enforce-todo-dependencies t)
        (org-enforce-todo-checkbox-dependencies  t)
@@ -2210,8 +2211,9 @@
        (setq org-agenda-files '("~/agenda/"))
        ;; (plist-put org-format-latex-options :scale 1.5)
 
-       (setq org-latex-packages-alist
-         '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
+       ;; NB(jjin): Uncomment if you want syntax highlighting for code snippets
+       ;; (setq org-latex-packages-alist
+       ;;   '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
 
        (defun my-org-autodone (n-done n-not-done)
          "Switch entry to DONE when all subentries are done, to TODO otherwise."
