@@ -2354,6 +2354,25 @@
 ** Org-roam
 
    #+begin_src emacs-lisp
+     (defun jjin/org-roam-node-from-cite (keys-entries)
+       "Create an Org-Roam node from a citation.
+
+     Shamelessly stolen from Jethro Kuan:
+     https://jethrokuan.github.io/org-roam-guide."
+       (interactive (list (citar-select-ref :multiple nil :rebuild-cache t)))
+       (let ((title (citar--format-entry-no-widths (cdr keys-entries) "${author editor} :: ${title}")))
+         (org-roam-capture- :templates
+                            '(("r" "reference" plain "%?"
+                               :if-new (file+head "reference/${citekey}.org"
+                                                  ":PROPERTIES:
+     :ROAM_REFS: [cite:@${citekey}]
+     :END:
+     ,#+TITLE: ${title}\n")
+                               :immediate-finish t
+                               :unnarrowed t))
+                            :info (list :citekey (car keys-entries))
+                            :node (org-roam-node-create :title title)
+                            :props '(:finalize find-file))))
      (with-eval-after-load 'org
        (define-derived-mode jjin/org-roam-mode org-mode "Org-Roam"
          "Major mode for working with Org-Roam node buffers.
