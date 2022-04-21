@@ -1871,11 +1871,12 @@
 
    #+begin_src emacs-lisp
      (use-package mini-frame
+       :disabled t
        :straight t
        :custom
        (mini-frame-show-parameters '((top . 0.2) (width . 0.5) (left . 0.5)))
        :config
-       (mini-frame-mode))
+       (mini-frame-mode -1))
    #+end_src
 
 ** =mu4e=
