@@ -2377,6 +2377,7 @@
                             :info (list :citekey (car keys-entries))
                             :node (org-roam-node-create :title title)
                             :props '(:finalize find-file))))
+
      (with-eval-after-load 'org
        (define-derived-mode jjin/org-roam-mode org-mode "Org-Roam"
          "Major mode for working with Org-Roam node buffers.
@@ -2995,7 +2996,6 @@
   #+begin_src emacs-lisp
     (use-package org-drill
       :straight t
-      :disabled t
       ;; TODO:
       ;;
       ;; Custom card type that can take a sentence like the following:
