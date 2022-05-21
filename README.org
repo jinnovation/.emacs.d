@@ -2393,22 +2393,10 @@
                     (f-equal? (projectile-project-root) org-roam-directory))
            (jjin/org-roam-mode)))
 
-       ;; TODO: Nest hydras, e.g. for tag actions, to rm risk of key collisions
-       (major-mode-hydra-define jjin/org-roam-mode nil
-         ("Node"
-          (("f" org-roam-node-find "Find")
-           ("i" org-roam-node-insert "Insert"))
-          "Database"
-          (("d" org-roam-db-sync "Sync"))
-          "Edit"
-          (("t" org-id-get-create "Tag w/ ID")
-           ("a" org-roam-alias-add "Add alias")
-           ("r" org-roam-ref-add "Add reference"))
-          "View"
-          (("B" org-roam-ui-open "Graph in browser")
-           ("b" org-roam-buffer-toggle "Sidebar"))
-          "Tags"
-          (("T" org-roam-tag-add "Add")))))
+       (defun jjin/org-roam-ref-add-citation (cite-key)
+         "Add CITE-KEY to the node at point as a reference."
+         (interactive (list (car (citar-select-ref :multiple nil :rebuild-cache t))))
+         (org-roam-ref-add (format "[cite:@%s]" cite-key)))
 
        (use-package org-roam
          :straight t
@@ -2443,7 +2431,36 @@
              )
             ))
          :config
-         (org-roam-setup))
+         (pretty-hydra-define jjin/org-roam-actions-nodes
+           (:foreign-keys warn :title "Org-Roam: Node Actions" :quit-key "C-g")
+           ("Find"
+            (("f" org-roam-node-find "and open")
+             ("i" org-roam-node-insert "and insert"))
+            "Create"
+            (("c" jjin/org-roam-node-from-cite "from citation"))))
+
+         ;; TODO: Nest hydras, e.g. for tag actions, to rm risk of key collisions
+         (major-mode-hydra-define jjin/org-roam-mode
+           (:title "Org-Roam: Commands")
+           ("Node"
+            (("f" org-roam-node-find "Find")
+             ("i" org-roam-node-insert "Insert"))
+            "Database"
+            (("d" org-roam-db-sync "Sync"))
+            "Edit"
+            (("t" org-id-get-create "Tag w/ ID")
+             ("a" org-roam-alias-add "Add alias")
+             ("r" org-roam-ref-add "Add reference")
+             ("c" jjin/org-roam-ref-add-citation "Add citation"))
+            "View"
+            (("B" org-roam-ui-open "Graph in browser")
+             ("b" org-roam-buffer-toggle "Sidebar"))
+            "Actions"
+            (("n" jjin/org-roam-actions-nodes/body "Nodes"))
+            "Tags"
+            (("T" org-roam-tag-add "Add")))))
+
+         (org-roam-db-autosync-enable))
 
        ;; All stuff from org-roam v1 that needs to get audited and
        ;; reimpemented for v2 if necessary
