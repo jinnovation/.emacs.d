@@ -588,6 +588,7 @@
         (lsp-signature-render-documentation nil)
         (lsp-pyls-configuration-sources ["flake8"])
         (lsp-pyls-plugins-pycodestyle-enabled nil)
+        (lsp-pylsp-server-command '("pylsp"))
         (lsp-pyls-server-command '("pylsp"))
         (lsp-enable-snippet nil)
         (lsp-log-io t)
@@ -607,6 +608,9 @@
         (add-hook 'hack-local-variables-hook
                   (lambda () (when (derived-mode-p 'python-mode) (lsp))))
         :config
+        (when (-contains? (lsp-session-folders (lsp-session)) (f-expand "~"))
+          (warn "LSP workspace folders list contains home dir; this can be problematic, consider removing."))
+
         (lsp-register-custom-settings '(("gopls.completeUnimported" t t)
                                         ("gopls.staticcheck" t t)
                                         ("pyls.plugins.pyls_mypy.enabled" t t)
