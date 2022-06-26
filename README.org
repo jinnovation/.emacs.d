@@ -1935,8 +1935,6 @@
    #+BEGIN_SRC emacs-lisp
      (use-package mu4e
        :ensure-system-package (mu)
-       ;;  (mbsync . isync)
-       ;;  (w3m . w3m))
        :custom
        (mail-user-agent 'mu4e-user-agent)
        (mu4e-view-show-addresses t)
