@@ -476,6 +476,12 @@
                   )
    #+end_src
 
+** Compilation mode
+
+   #+begin_src emacs-lisp
+     (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+   #+end_src
+
 * Keys
 
 ** Personal maps
@@ -1006,23 +1012,6 @@
        ;; technically should be able to use mu4e~update-name but for whatever reason
        ;; the mu4e update index function uses the hardcoded string w/ space padding.
        (add-to-list 'aw-ignored-buffers " *mu4e-update*"))
-   #+END_SRC
-
-** =ansi-color=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package ansi-color
-       :init
-       (setq ansi-color-faces-vector
-         [default bold shadow italic underline bold bold-italic bold])
-       (setq compilation-scroll-output t)
-       :config
-       (defun colorize-compilation-buffer ()
-         (toggle-read-only)
-         (ansi-color-apply-on-region (point-min) (point-max))
-         (toggle-read-only))
-
-       (add-hook 'compilation-filter-hook 'colorize-compilation-buffer))
    #+END_SRC
 
 ** =browse-url=
