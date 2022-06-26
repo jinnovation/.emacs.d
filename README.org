@@ -251,7 +251,7 @@
       scroll-conservatively 10000
       scroll-margin 3)
 
-    (fset 'yes-or-no-p 'y-or-n-p)
+    (setq use-short-answers t)
 
     (when window-system
       (tool-bar-mode     0)
