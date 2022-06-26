@@ -476,6 +476,13 @@
                   )
    #+end_src
 
+** Tab Bar
+
+   #+begin_src emacs-lisp
+     (add-to-list 'tab-bar-format 'tab-bar-format-align-right t)
+     (add-to-list 'tab-bar-format 'tab-bar-format-global t)
+   #+end_src
+
 ** Compilation mode
 
    #+begin_src emacs-lisp
