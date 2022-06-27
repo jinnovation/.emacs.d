@@ -2268,12 +2268,6 @@
        :init
        (setq org-babel-python-command "python3"))
 
-     (use-package toc-org
-       :disabled t
-       :after org
-       :config
-       (add-hook 'org-mode-hook 'toc-org-enable))
-
      (use-package evil-org
        :straight t
        :after (evil org)
@@ -2291,10 +2285,6 @@
        (setq org-sticky-header-always-show-header nil)
        (setq org-sticky-header-outline-path-separator " > ")
        (setq org-sticky-header-full-path 'full))
-
-     (use-package org-chef
-       :disabled t
-       :straight t)
 
      (use-package org-download
        :after org
@@ -2873,6 +2863,7 @@
        :after terraform-mode
        :straight t)
    #+end_src
+
 ** =helm=
 
    #+BEGIN_SRC emacs-lisp
