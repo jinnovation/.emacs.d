@@ -545,6 +545,10 @@
      (use-package pretty-hydra
        :straight t
        :config
+       (pretty-hydra-define jjin-hydra-exec
+         (:title (with-material "apps" "Apps" 1 -0.05))
+         ("General" ()))
+
        (pretty-hydra-define jjin-hydra-window
          (:title (with-octicon "browser" "Windows" 1 -0.05))
 
@@ -567,7 +571,8 @@
            ("b" balance-windows "balance")
            (";" ace-window "select window" :exit t))))
 
-       (bind-key "C-c w" 'jjin-hydra-window/body))
+       (bind-key "C-c w" 'jjin-hydra-window/body)
+       (bind-key "s-<escape>" 'jjin-hydra-exec/body))
 
      (use-package major-mode-hydra
        :straight t
@@ -1090,6 +1095,17 @@
            (setq dired-open-extensions `(("mp4" . ,(executable-find handler-vid))
                                          ("avi" . ,(executable-find handler-vid))))))
    #+END_SRC
+
+   #+begin_src emacs-lisp
+     (use-package dirvish
+       :straight t
+       :init
+       (pretty-hydra-define+ jjin-hydra-exec nil
+         ("General" (("d" dirvish "dirvish" :exit t))))
+
+       :config
+       (dirvish-override-dired-mode))
+   #+end_src
 
 ** =doc-view-mode=
 
@@ -1951,6 +1967,9 @@
        (defhydra jjin-hydra-mu4e (:exit t)
          "Auxiliary commands for mu4e"
          ("m" mu4e-update-mail-and-index "update"))
+
+       (pretty-hydra-define+ jjin-hydra-exec nil
+         ("General" (("m" mu4e "mu4e" :exit t))))
 
        :config
        (with-eval-after-load 'ivy
