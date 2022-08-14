@@ -346,6 +346,11 @@
 
       (setq custom-safe-themes t)
 
+      (defun jjin/switch-to-scratch-or-create ()
+        "Switches to scratch buffer if it exists, creating it if not."
+        (interactive)
+        (switch-to-buffer "*scratch*"))
+
       (defun jjin/font-installed-p (font-name)
         "Returns t if FONT-NAME is found to be installed; nil otherwise."
         (not (null (x-list-fonts font-name))))
