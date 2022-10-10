@@ -817,7 +817,8 @@
 
    #+begin_src emacs-lisp
      (use-package mermaid-mode
-       :straight t)
+       :straight t
+       :mode (("\\.mmd$" . mermaid-mode)))
    #+end_src
 
 ** Haskell
@@ -887,7 +888,9 @@
      (setq python-indent-def-block-scale 1)
 
      (use-package pyvenv
-       :straight t)
+       :straight t
+       :init
+       (setenv "WORKON_HOME" "~/.pyenv/versions"))
 
      (use-package virtualenvwrapper
        :straight t
@@ -1654,6 +1657,9 @@
         (add-to-list 'forge-alist '("ghe.spotify.net" "ghe.spotify.net/api/v3"
                                     "spotify-ghe" forge-github-repository))
 
+
+        ;; (transient-append-suffix forge-dispatch 'forge-visit-pullreq )
+
         (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-pullreqs 'forge-insert-pullreqs nil)
         (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-requested-reviews 'forge-insert-pullreqs nil)
         (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-assigned-issues 'forge-insert-issues nil)
@@ -2413,6 +2419,14 @@
             ("d" "default" plain "%?" :if-new
              (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
              :unnarrowed t)
+            ("r"
+             "Recipe"
+             entry
+             "* ${title}%?
+             %l"
+             :if-new (file "~/roam/recipes.org")
+             :empty-lines-before 1
+             :unnarrowed t)
             ("R"
              "Reading"
              entry
@@ -2694,22 +2708,6 @@
                      (projectile-compile-project nil)))
                  projectile-mode-map)
 
-       (bind-key "c"
-                 (lambda (arg)
-                   "Run `helm-make-projectile' if the package is
-     installed and the project contains a Makefile. Otherwise,
-     fallback to default, i.e. `projectile-compile-project'."
-                   (interactive "P")
-                   (if (and (package-installed-p 'helm-make)
-                            (file-exists-p (concat (projectile-project-root) "Makefile")))
-                       (helm-make-projectile (prefix-numeric-value arg))
-                     (projectile-compile-project arg)))
-                 projectile-command-map)
-
-       (with-eval-after-load 'helm-projectile
-           (setq projectile-completion-system 'helm
-                 projectile-switch-project-action 'helm-projectile))
-
        (projectile-global-mode)
 
        ;; "disables "mode-line setting by project; extreme hang-up over SSH/Tramp
@@ -2871,6 +2869,12 @@
                helpful-mode
                compilation-mode))
        (popper-mode +1))
+   #+end_src
+
+** which-key
+
+   #+begin_src emacs-lisp
+     (use-package which-key :straight t)
    #+end_src
 
 * Cloud computing
