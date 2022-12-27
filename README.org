@@ -2523,7 +2523,10 @@
             "Actions"
             (("n" jjin/org-roam-actions-nodes/body "Nodes"))
             "Tags"
-            (("T" org-roam-tag-add "Add")))))
+            (("T" org-roam-tag-add "Add"))))
+
+         (bind-key "s-r" 'major-mode-hydras/jjin/org-roam-mode/body))
+
 
          (org-roam-db-autosync-enable))
 
