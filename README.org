@@ -1845,16 +1845,22 @@
        (ivy-rich-mode t))
    #+end_src
 
-** Selectrum
+** Completion + Filtering
 
-   Playing around with Selectrum for some commands. In particular it has better
-   handling for multiple selection than Ivy.
+   Constructs for completion and filtering, e.g. in the minibuffer.
 
    #+begin_src emacs-lisp
-     (use-package selectrum
-       :straight t
-       :config
-       (selectrum-mode))
+     (use-package vertico
+       :straight (:files (:defaults "extensions/*"))
+       :init
+       (vertico-mode))
+
+     (use-package vertico-prescient
+      :straight t
+      :after vertico
+      :config
+      (prescient-persist-mode 1)
+      (vertico-prescient-mode 1))
 
      (use-package orderless
        :straight t
@@ -1866,17 +1872,6 @@
        (marginalia-mode)
        :config
        (add-to-list 'marginalia-prompt-categories '("\\<[Pp]roject\\>" . jjin/project)))
-
-     (use-package prescient
-       :straight t
-       :config
-       (prescient-persist-mode))
-
-     (use-package selectrum-prescient
-       :after (selectrum prescient)
-       :straight t
-       :config
-       (selectrum-prescient-mode))
 
      (use-package consult
        :straight t
