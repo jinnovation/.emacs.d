@@ -1,3 +1,5 @@
 index.html linguist-documentation
 README.org linguist-documentation=false
 README.org linguist-language=Emacs Lisp
+
+lsp/** linguist-generated=true
