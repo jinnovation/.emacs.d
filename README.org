@@ -717,11 +717,11 @@
 
         (lsp-docker-init-clients
          :path-mappings '(("/Users/jjin/workspace/" . "/projects/"))
-         :client-packages '(lsp-pyls)
+         :client-packages '(lsp-pylsp)
          :client-configs `((:server-id pylsp
-                                       :docker-server-id pyls-docker
+                                       :docker-server-id pylsp-docker
                                        :server-command "pylsp"
-                                       :docker-container-name ,jjin/pylsp-img-name
+                                       :docker-container-name ,(s-replace "/" "-" jjin/pylsp-img-name)
                                        :docker-image-id "jjin/pylsp:latest"))))
     #+end_src
 
@@ -1852,8 +1852,10 @@
    #+begin_src emacs-lisp
      (use-package vertico
        :straight (:files (:defaults "extensions/*"))
-       :init
-       (vertico-mode))
+       :custom (vertico-multiform-commands '((org-roam-node-find grid)))
+       :config
+       (vertico-mode 1)
+       (vertico-multiform-mode 1))
 
      (use-package vertico-prescient
       :straight t
