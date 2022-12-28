@@ -2870,19 +2870,3 @@
        ;;                       cleanup-cb))
        )
    #+end_src
-
-* Org-drill
-
-  I've been using Anki for a while but I'm starting to get annoyed at constantly
-  having to reinstall random crap every single time...
-
-  #+begin_src emacs-lisp
-    (use-package org-drill
-      :straight t
-      ;; TODO:
-      ;;
-      ;; Custom card type that can take a sentence like the following:
-      ;; 壁の向こう側にいる相手と声の[やり取り]だけで相性を[見極めて]いくのです
-      ;; And create cards that ask for the meaning of the clozed term.
-      )
-  #+end_src
