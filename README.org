@@ -1738,8 +1738,9 @@
    #+begin_src emacs-lisp
      (use-package vertico
        :straight (:files (:defaults "extensions/*"))
-       :custom (vertico-grid-min-columns 4
-                vertico-multiform-commands '((org-roam-node-find grid)))
+       :custom
+       (vertico-grid-min-columns 4)
+       (vertico-multiform-commands '((org-roam-node-find grid)))
        :config
        (vertico-mode 1)
        (vertico-multiform-mode 1))
