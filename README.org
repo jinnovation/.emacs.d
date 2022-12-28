@@ -223,7 +223,7 @@
 
   #+BEGIN_SRC emacs-lisp
     (setq tramp-verbose 4)
-    (defconst jjin/secrets-file (f-expand "~/.secrets.el"))
+    (defconst jjin/secrets-file "~/.secrets.el")
     (when (file-exists-p jjin/secrets-file) (load-file jjin/secrets-file))
 
     (setq ring-bell-function 'ignore)
