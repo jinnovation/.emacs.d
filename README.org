@@ -2524,6 +2524,7 @@
 
      (use-package doom-modeline
        :straight t
+       :disabled t
        :config
        (setq doom-modeline-vcs-max-length 24)
 
@@ -2549,6 +2550,23 @@
        (doom-modeline-mode 1))
 
      (display-battery-mode 1)
+
+     (defun jjin/k8s-status () (concat "k8s:" jjin/k8s-context (if jjin/k8s-namespace (concat "(" jjin/k8s-namespace ")") "")))
+
+     (use-package awesome-tray
+       :straight (awesome-tray :type git :host github :repo "manateelazycat/awesome-tray")
+       :custom
+       (awesome-tray-info-padding-right 2)
+       :config
+       (add-to-list 'awesome-tray-module-alist '("k8s" . (jjin/k8s-status nil)))
+       (setq awesome-tray-active-modules '("location"
+                                      "evil"
+                                      "belong"
+                                      "file-path"
+                                      "git"
+                                      "mode-name"
+                                      "k8s"))
+       (awesome-tray-mode 1))
    #+end_src
 
 ** =pdf-tools=
