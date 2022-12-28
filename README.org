@@ -124,11 +124,6 @@
        "An alist mapping `system-type' values to priority lists of
        file handlers, e.g. image viewers or video players.")
 
-     (defun load-if-exists (file)
-       "Loads file, conditional on its existence; no effect if non-existent."
-       (when (file-exists-p file)
-         (load-file file)))
-
      (defun kill-current-buffer ()
        (interactive)
        (kill-buffer (current-buffer)))
@@ -228,7 +223,8 @@
 
   #+BEGIN_SRC emacs-lisp
     (setq tramp-verbose 4)
-    (jjin-load-if-exists "~/.secrets.el")
+    (defconst jjin/secrets-file (f-expand "~/.secrets.el"))
+    (when (file-exists-p jjin/secrets-file) (load-file jjin/secrets-file))
 
     (setq ring-bell-function 'ignore)
 
@@ -327,8 +323,7 @@
       (use-package nord-theme
         :if window-system
         :straight t
-        :init
-        (setq nord-comment-brightness 10)
+        :custom (nord-comment-brightness 10)
         :config
         (load-theme 'nord t))
 
@@ -1092,13 +1087,6 @@
        (add-to-list 'aw-ignored-buffers " *mu4e-update*"))
    #+END_SRC
 
-** =browse-url=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package browse-url
-       :config)
-   #+END_SRC
-
 ** [[https://github.com/wandersoncferreira/code-review][code-review]]
 
    #+begin_src emacs-lisp
@@ -1313,13 +1301,8 @@
      (use-package eshell
        :init
        (add-hook 'eshell-mode-hook 'goto-address-mode)
-       (setq eshell-rc-script (concat user-emacs-directory "eshell/profile"))
-       (setq eshell-modify-global-environment t)
-       (setq eshell-banner-message "")
-
        :custom
        (eshell-visual-options '(("bazel" "--curses=yes")))
-
        :config
        (unless (file-exists-p (concat user-emacs-directory "eshell"))
          (make-directory (concat user-emacs-directory "eshell")))
@@ -1420,9 +1403,8 @@
      (use-package evil
        :straight t
        :defines evil-normal-state-map
-       :init
-       (setq evil-esc-delay 0)
-
+       :custom
+       (evil-esc-delay 0)
        :config
        (mapc (lambda (m) (add-to-list 'evil-emacs-state-modes m t))
          '(eshell-mode
