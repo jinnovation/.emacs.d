@@ -1768,6 +1768,7 @@
 
      (use-package consult
        :straight t
+       :demand t
        :bind
        (([remap isearch-forward] . consult-line)
         ([remap switch-to-buffer] . consult-buffer))
