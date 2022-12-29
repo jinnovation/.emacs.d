@@ -2554,21 +2554,25 @@
 
      (display-battery-mode 1)
 
-     (defun jjin/k8s-status () (concat "k8s:" jjin/k8s-context (if jjin/k8s-namespace (concat "(" jjin/k8s-namespace ")") "")))
-
      (use-package awesome-tray
        :straight (awesome-tray :type git :host github :repo "manateelazycat/awesome-tray")
        :custom
        (awesome-tray-info-padding-right 2)
        :config
+       (defun jjin/k8s-status ()
+         (concat "k8s:"
+                 kele-current-context
+                 (if kele-current-namespace
+                     (concat "(" kele-current-namespace ")")
+                   "")))
        (add-to-list 'awesome-tray-module-alist '("k8s" . (jjin/k8s-status nil)))
        (setq awesome-tray-active-modules '("location"
-                                      "evil"
-                                      "belong"
-                                      "file-path"
-                                      "git"
-                                      "mode-name"
-                                      "k8s"))
+                                           "evil"
+                                           "belong"
+                                           "file-path"
+                                           "git"
+                                           "mode-name"
+                                           "k8s"))
        (awesome-tray-mode 1))
    #+end_src
 
@@ -2863,30 +2867,11 @@
 ** Kubernetes
 
    #+begin_src emacs-lisp
-     (defvar jjin/k8s-config (f-expand (or (getenv "KUBECONFIG") "~/.kube/config"))
-       "The kubectl config file in use.")
-
-     (defvar jjin/k8s-context nil
-       "The current kubectl context.")
-
-     (defvar jjin/k8s-namespace nil
-       "The current kubectl namespace.")
-
-     (defun jjin/k8s-status-update (_)
-       "Update `jjin/k8s-context' and `jjin/k8s-namespace'.
-
-     Values parsed from `jjin/k8s-config' contents."
-       (when-let* ((config (yaml-parse-string (f-read jjin/k8s-config)))
-                   (current-context (ht-get config 'current-context))
-                   (contexts (-concat (ht-get config 'contexts) '()))
-                   (context (-first (lambda (elem) (string= (ht-get elem 'name) current-context)) contexts)))
-         (let ((namespace (ht-get* context 'context 'namespace)))
-           (setq jjin/k8s-context current-context
-                 jjin/k8s-namespace namespace))))
-
-     (file-notify-add-watch jjin/k8s-config '(change) 'jjin/k8s-status-update)
-     (jjin/k8s-status-update nil)
-
+     (use-package kele
+       :defines (kele-current-context kele-current-namespace)
+       :straight (:local-repo "~/dev/kele.el" :type git :host github :repo "jinnovation/kele.el")
+       :config
+       (kele-mode 1))
    #+end_src
 
    #+begin_src emacs-lisp
