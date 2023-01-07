@@ -1563,7 +1563,7 @@
       ;; eventually need to be updated or removed.
 
       (use-package transient
-        :straight t
+        :straight (:source melpa)
         :init
         (setq transient-show-common-commands nil))
 
