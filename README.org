@@ -2864,6 +2864,11 @@
        :defines (kele-current-context kele-current-namespace)
        :straight (:local-repo "~/dev/kele.el" :type git :host github :repo "jinnovation/kele.el")
        :config
+       (pretty-hydra-define jjin-kubernetes-hydra
+         (:title "Kubernetes")
+         ("Context"
+          (("s" kele-context-switch "Switch"))))
+       (bind-key "s-k" 'jjin-kubernetes-hydra/body)
        (kele-mode 1))
    #+end_src
 
