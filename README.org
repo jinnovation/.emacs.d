@@ -1823,19 +1823,7 @@
        (setq linum-format 'dynamic)
        (global-linum-mode 1)
 
-       (defconst linum-mode-allowlist
-         '(prog-mode protobuf-mode yaml-mode))
-
-       (require 'mode-local)
-
-       (defadvice linum-mode (around linum-mode-selective activate)
-         "Avoids enabling of linum-mode in the buffer having major mode set to one
-     of listed in `linum-mode-excludes'."
-         (if (or (member major-mode linum-mode-allowlist)
-                 ;; FIXME: This should really go all the way up the major-mode
-                 ;; "inheritance" chain
-                 (member (get-mode-local-parent major-mode) linum-mode-allowlist))
-           ad-do-it)))
+       (require 'mode-local))
    #+END_SRC
 
 ** [[https://github.com/muffinmad/emacs-mini-frame][mini-frame]]
