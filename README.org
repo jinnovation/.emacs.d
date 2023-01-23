@@ -1795,6 +1795,7 @@
 
      (use-package embark
        :straight t
+       :demand t
        :bind
        (("C-;" . embark-act))
        :config
