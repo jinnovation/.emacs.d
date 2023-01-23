@@ -2861,15 +2861,11 @@
 
    #+begin_src emacs-lisp
      (use-package kele
-       :defines (kele-current-context kele-current-namespace)
+       :demand t
        :straight (:local-repo "~/dev/kele.el" :type git :host github :repo "jinnovation/kele.el")
        :config
-       (pretty-hydra-define jjin-kubernetes-hydra
-         (:title "Kubernetes")
-         ("Context"
-          (("s" kele-context-switch "Switch"))))
-       (bind-key "s-k" 'jjin-kubernetes-hydra/body)
-       (kele-mode 1))
+       (kele-mode 1)
+       (bind-key (kbd "s-k") kele-command-map kele-mode-map))
    #+end_src
 
    #+begin_src emacs-lisp
