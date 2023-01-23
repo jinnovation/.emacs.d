@@ -1502,6 +1502,19 @@
        (add-hook 'after-init-hook #'global-flycheck-mode))
    #+END_SRC
 
+** Screencasting
+
+   #+begin_src emacs-lisp
+     (use-package gif-screencast
+       :straight t
+       :custom
+       (gif-screencast-args '("-x"))
+       ;; I have no idea why this value works but it does so whatever
+       (gif-screencast-scale-factor 2.0)
+       (gif-screencast-cropping-program "mogrify")
+       (gif-screencast-capture-format "ppm"))
+   #+end_src
+
 ** Git
 
    #+BEGIN_SRC emacs-lisp
