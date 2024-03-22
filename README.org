@@ -593,6 +593,7 @@
      (use-package lsp-mode
         :straight t
         :hook ((python-mode . lsp-deferred)
+               (tsx-ts-mode . lsp-deferred)
                (go-mode . lsp-deferred))
                ;; (terraform-mode . lsp-deferred)
                ;; (yaml-mode . lsp-deferred))
@@ -1026,6 +1027,20 @@
                            (face-attribute 'font-lock-type-face :foreground)))
    #+end_src
 
+** Treesitter
+
+   #+begin_src emacs-lisp
+     (use-package treesit
+       :custom
+       (treesit-language-source-alist
+        '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "tsx/src")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript"
+       "v0.20.6" "typescript/src"))))
+
+     ;; TODO: Install grammars contingent on files not already being present
+       ;; (treesit-install-language-grammar 'tsx)
+       ;; (treesit-install-language-grammar 'typescript))
+   #+end_src
 ** YAML
 
    #+BEGIN_SRC emacs-lisp
