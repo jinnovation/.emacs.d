@@ -1870,13 +1870,6 @@
             "/"))))
 
 
-     (defun jjin/save-last-clock-buffer()
-       "Save the buffer containing the last clock-in."
-       (interactive)
-       (let ((buffer (marker-buffer (car org-clock-history))))
-         (when (not (s-equals-p "*scratch*" (buffer-name buffer)))
-           (with-current-buffer buffer (save-buffer)))))
-
      (use-package org
        :bind (:map org-mode-map
               ("RET" . org-return-indent)
@@ -1889,9 +1882,6 @@
               ([remap evil-write] . org-edit-src-save))
        :straight t
        :mode ("\\.org$" . org-mode)
-
-       :hook
-       ((org-clock-out org-clock-in) . jjin/save-last-clock-buffer)
 
        :custom
        (org-adapt-indentation t)
