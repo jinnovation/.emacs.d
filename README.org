@@ -11,13 +11,10 @@
 * Overview
 
   These are my Emacs configurations. I have been using Emacs since roughly 2012;
-  these configurations have been growing since then. They are entirely hand-spun
-  -- no reliance on [[https://www.spacemacs.org/][Spacemacs]], [[https://github.com/hlissner/doom-emacs][Doom Emacs]], [[https://prelude.emacsredux.com/][Prelude]], or any other such Emacs
-  "framework." This is by no means a knock on those or other frameworks. They
-  simply didn't exist (or I was too inexperienced to know about them) when I
-  first started using Emacs; and by the time I learned about them, I had already
-  become so entrenched and opinionated in my own configurations that it no
-  longer made sense to look into any of them.
+  these configurations have been growing since then. Notably, they are entirely
+  hand-spun -- no reliance on [[https://www.spacemacs.org/][Spacemacs]], [[https://github.com/hlissner/doom-emacs][Doom Emacs]], [[https://prelude.emacsredux.com/][Prelude]], or any other
+  community-developed Emacs "framework." This is not a dig on them but rather a
+  matter of timing.
 
   In general, I use Emacs very heavily both professionally and personally. In
   particular, I use Emacs for all of my software development. Some notable
