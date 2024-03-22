@@ -736,13 +736,6 @@
    #+begin_src emacs-lisp
      (use-package bazel-mode
        :straight (emacs-bazel-mode :type git :host github :repo "bazelbuild/emacs-bazel-mode"))
-     (if (file-exists-p "~/workspace/bazel-transient")
-     (use-package bazel-transient
-       :after (bazel-mode transient)
-       :straight (:local-repo "~/workspace/bazel-transient")
-       :custom
-       (bazel-transient-enable-caching t)
-       (bazel-transient-completion-system 'ivy)))
    #+end_src
 
 ** C/C++
