@@ -735,6 +735,7 @@
 
    #+begin_src emacs-lisp
      (use-package bazel-mode
+       :disabled t
        :straight (emacs-bazel-mode :type git :host github :repo "bazelbuild/emacs-bazel-mode"))
    #+end_src
 
