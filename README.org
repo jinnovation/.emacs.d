@@ -773,13 +773,6 @@
        (add-to-list 'auto-mode-alist '("\\.clang-format$" . yaml-mode)))
    #+END_SRC
 
-*** CUDA
-
-    #+begin_src emacs-lisp
-      (use-package cuda-mode
-        :straight t)
-    #+end_src
-
 ** Go
 
    #+BEGIN_SRC emacs-lisp
