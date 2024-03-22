@@ -11,5 +11,6 @@ url/
 /.ecukes-failing-scenarios
 
 /init.el
+/early-init.el
 /straight/
 /transient/

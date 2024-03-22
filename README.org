@@ -46,6 +46,13 @@
 
 *** Straight
 
+    The following effectively disables the built-in =packages.el= to prevent any
+    potential conflicts, clobbers, or otherwise weird behavior.
+
+    #+begin_src emacs-lisp :tangle early-init.el
+      (setq package-enable-at-startup nil)
+    #+end_src
+
     #+BEGIN_SRC emacs-lisp
       (defvar bootstrap-version)
       (let ((bootstrap-file
