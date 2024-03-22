@@ -973,6 +973,18 @@
        ;; (treesit-install-language-grammar 'tsx)
        ;; (treesit-install-language-grammar 'typescript))
    #+end_src
+
+** Typst
+
+   #+begin_src emacs-lisp
+     (use-package typst-ts-mode
+       :after treesitter
+       :straight (typst-ts-mode :type git :host sourcehut :repo "meow_king/typst-ts-mode" :files (:defaults "*.el"))
+       :config
+       (add-to-list 'treesit-language-source-alist
+                    '(typst "https://github.com/uben0/tree-sitter-typst"))
+       (treesit-install-language-grammar 'typst))
+   #+end_src
 ** YAML
 
    #+BEGIN_SRC emacs-lisp
