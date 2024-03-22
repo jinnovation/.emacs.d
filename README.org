@@ -338,6 +338,7 @@
         (load-theme 'nord t))
 
       (use-package kaolin-themes
+        :if window-system
         :straight t
         :config
         (load-theme 'kaolin-ocean t))
@@ -930,15 +931,12 @@
 
      (use-package elisp-autofmt
        :straight t
+       :disabled t
        :commands (elisp-autofmt-mode elisp-autofmt-buffer))
+
+     (use-package buttercup
+       :straight t)
    #+END_SRC
-
-*** Testing
-
-    #+begin_src emacs-lisp
-      (use-package buttercup
-        :straight t)
-    #+end_src
 
 ** Markdown
 
@@ -1140,8 +1138,8 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package ediff
-       :init
-       (setq ediff-window-setup-function 'ediff-setup-windows-plain))
+       :custom
+       (ediff-window-setup-function 'ediff-setup-windows-plain))
    #+END_SRC
 
 ** =exec-path-from-shell=
@@ -1451,9 +1449,6 @@
 
         (transient-append-suffix 'magit-fetch 'magit-fetch-all
           '("U" "origin/master" jjin/magit-fetch-from-origin-master))
-
-        ;; TODO: The below advice causes odd conflicts when used w/ `arc diff' and
-        ;; emacsclient. Resolve before re-introducing.
 
         ;; Suppress diff display when the commit in question is a merge
         ;; (advice-add 'magit-commit-diff :before-until 'magit-merge-in-progress-p)
@@ -2129,14 +2124,15 @@
        :straight (awesome-tray :type git :host github :repo "manateelazycat/awesome-tray")
        :custom
        (awesome-tray-info-padding-right 2)
-       :config
-       (setq awesome-tray-active-modules '("location"
-                                           "evil"
-                                           "belong"
-                                           "file-path"
-                                           "git"
-                                           "mode-name"
-                                           "kele"))
+       (awesome-tray-file-path-truncated-name-length 6)
+       (awesome-tray-file-path-show-filename t)
+       (awesome-tray-active-modules '("location"
+                                      "evil"
+                                      "belong"
+                                      "file-path"
+                                      "git"
+                                      ;; "kele"
+                                      "mode-name"))
        (awesome-tray-mode 1))
    #+end_src
 
