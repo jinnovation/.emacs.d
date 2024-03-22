@@ -908,12 +908,6 @@
        :init
        (setenv "WORKON_HOME" "~/.pyenv/versions"))
 
-     (use-package virtualenvwrapper
-       :straight t
-       :disabled t
-       :config
-       (venv-initialize-eshell))
-
      (use-package anaconda-mode
        :straight t
        :disabled t
