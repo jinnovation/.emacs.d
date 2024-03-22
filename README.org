@@ -294,7 +294,7 @@
     (setq enable-remote-dir-locals t)
 
     (setq custom-file "~/.emacs-custom.el")
-    (load custom-file)
+    (when (file-exists-p custom-file) (load custom-file))
 
     (use-package midnight
       :init
