@@ -959,17 +959,6 @@
        :after markdown-mode)
    #+END_SRC
 
-** reStructuredText
-
-   #+begin_src emacs-lisp
-     (use-package rst
-       :config
-       (set-face-attribute 'rst-reference
-                           nil
-                           :foreground
-                           (face-attribute 'font-lock-type-face :foreground)))
-   #+end_src
-
 ** Treesitter
 
    #+begin_src emacs-lisp
