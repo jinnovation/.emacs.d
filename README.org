@@ -1169,24 +1169,6 @@
          (add-to-list 'evil-emacs-state-modes 'vterm-mode)))
    #+end_src
 
-** =ess=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package ess-site
-       :disabled t
-       :ensure ess
-       :commands (inferior-ess-mode ess-help-mode)
-       :init
-       (setq inferior-R-args "--quiet")
-
-       :config
-       (with-eval-after-load 'evil
-           (progn
-             (add-to-list 'evil-emacs-state-modes 'inferior-ess-mode)
-             (add-to-list 'evil-emacs-state-modes 'ess-help-mode)))
-       (bind-key "C-c C-w" nil inferior-ess-mode-map))
-   #+END_SRC
-
 ** Evil (base + extras)
 
    #+BEGIN_SRC emacs-lisp
