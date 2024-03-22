@@ -919,17 +919,6 @@
        :straight t
        :config
        (add-to-list 'company-backends 'company-anaconda))
-
-     (use-package elpy
-       :disabled t                           ; using LSP
-       :straight t
-       :init
-       (setq elpy-modules '(elpy-module-company
-                            elpy-module-eldoc
-                            elpy-module-flymake
-                            elpy-module-pyvenv
-                            elpy-module-yasnippet
-                            elpy-module-sane-defaults)))
    #+END_SRC
 
 ** Emacs Lisp
