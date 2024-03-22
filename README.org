@@ -1379,12 +1379,6 @@
                   )))))
    #+END_SRC
 
-*** Initialization file
-
-    #+BEGIN_SRC emacs-lisp :tangle eshell/profile
-      (setenv "EDITOR" "emacsclient")
-    #+END_SRC
-
 ** vterm
 
    #+begin_src emacs-lisp
