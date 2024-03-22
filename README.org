@@ -895,41 +895,6 @@
      (use-package protobuf-mode
        :straight t)
    #+end_src
-** Octave
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package octave
-       :disabled t
-       :mode ("\\.m$" . octave-mode)
-       :interpreter ("octave" . octave-mode)
-       :config
-       (with-eval-after-load 'evil
-           (progn
-             (add-to-list 'evil-emacs-state-modes 'octave-help-mode)
-             (add-to-list 'evil-emacs-state-modes 'inferior-octave-mode)))
-
-       (setq inferior-octave-program "octave-cli")
-       (setq inferior-octave-prompt ">> ")
-       (setq inferior-octave-dynamic-complete-functions '(comint-filename-completion))
-
-       (setq inferior-octave-startup-args '("-i" "--line-editing" "-q" "--traditional")))
-   #+END_SRC
-
-** Matlab
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package matlab
-       :disabled t
-       :init
-       (setq matlab-shell-command-switches '("-nodesktop")))
-   #+END_SRC
-
-** Nix
-
-#+begin_src emacs-lisp
-  (use-package nix-mode
-    :straight t)
-#+end_src
 
 ** Python
 
