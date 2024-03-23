@@ -67,8 +67,6 @@
 
     #+BEGIN_SRC emacs-lisp
       (straight-use-package 'use-package)
-      (use-package use-package-ensure-system-package
-        :straight t)
 
       ;; For whatever godawful reason something in here is loading Org prior to the
       ;; (use-package org) block, which causes esoteric load failures, e.g. functions

@@ -101,7 +101,7 @@
  ("treepy.el" . "3ac940e97f3d03e48ca9d7fcd74916a9b01c72f3")
  ("typst-ts-mode" . "a5f094dd1d1ce992e9ad290e4838779b2dd5809a")
  ("undo-tree" . "e326c6135e62f5fe8536528d3acd5e798f847407")
- ("use-package" . "a7422fb8ab1baee19adb2717b5b47b9c3812a84c")
+ ("use-package" . "a6e856418d2ebd053b34e0ab2fda328abeba731c")
  ("vertico" . "68e51fda552a2f91caab69e83564bc91275b09b1")
  ("with-editor" . "5db5f0eb2202f52d44f529fe00654c866bb64eb1")
  ("yaml-mode" . "fc5e1c58f94472944c4aa838f00f6adcac6fa992")
