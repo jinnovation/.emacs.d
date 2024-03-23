@@ -973,12 +973,33 @@
 
    #+begin_src emacs-lisp
      (use-package typst-ts-mode
-       :after treesitter
+       :after (treesit major-mode-hydra)
        :straight (typst-ts-mode :type git :host sourcehut :repo "meow_king/typst-ts-mode" :files (:defaults "*.el"))
+       :ensure-system-package (typstfmt)
        :config
        (add-to-list 'treesit-language-source-alist
                     '(typst "https://github.com/uben0/tree-sitter-typst"))
-       (treesit-install-language-grammar 'typst))
+       (treesit-install-language-grammar 'typst)
+
+       (defun jjin/run-typstfmt-maybe ()
+         "Runs typstfmt on the current buffer if it is installed."
+         (interactive)
+         (when (and (executable-find "typstfmt") (buffer-file-name))
+           (shell-command (format "typstfmt %s" (buffer-file-name)))))
+
+       ;; FIXME: For some reason doesn't work?
+       ;; (defun jjin/typst-install-save-hooks ()
+       ;;   (add-hook 'before-save-hook #'jjin/run-typstfmt-maybe t t))
+
+       ;; (add-hook 'typst-ts-mode-hook #'jjin/typst-install-save-hooks)
+
+       (major-mode-hydra-define typst-ts-mode
+         (:title "Typst: Commands")
+         ("Compilation"
+          (("C" typst-ts-mode-compile "Compile")
+           ("c" typst-ts-mode-compile-and-preview "Compile and preview"))
+          "Format"
+          (("f" jjin/run-typstfmt-maybe "Auto-format")))))
    #+end_src
 ** YAML
 
