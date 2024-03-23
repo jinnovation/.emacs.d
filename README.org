@@ -973,7 +973,6 @@
      (use-package typst-ts-mode
        :after (treesit major-mode-hydra)
        :straight (typst-ts-mode :type git :host sourcehut :repo "meow_king/typst-ts-mode" :files (:defaults "*.el"))
-       :ensure-system-package (typstfmt)
        :config
        (add-to-list 'treesit-language-source-alist
                     '(typst "https://github.com/uben0/tree-sitter-typst"))
@@ -1688,7 +1687,7 @@
 
    #+BEGIN_SRC emacs-lisp
      (use-package mu4e
-       :ensure-system-package (mu)
+       :ensure-system-package mu
        :custom
        (mail-user-agent 'mu4e-user-agent)
        (mu4e-view-show-addresses t)
@@ -2193,7 +2192,7 @@
      (use-package projectile
        :straight t
        :diminish projectile-mode
-       :ensure-system-package (ripgrep)
+       :ensure-system-package (rg . ripgrep)
        :custom
        (projectile-ignored-projects '("/Users/jjin/"))
        (projectile-enable-caching t)
@@ -2431,7 +2430,6 @@
 
    #+begin_src emacs-lisp
      (use-package terraform-mode
-       :ensure-system-package (tfenv terraform)
        :straight t)
        ;; :hook (terraform-mode . terraform-format-on-save-mode))
 
