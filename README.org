@@ -668,64 +668,6 @@
         (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
    #+end_src
 
-*** LSP-Docker
-
-    Some language servers, e.g. pyls for Python, assume that they're installed
-    in the same environment as the user's project. This can become annoying when
-    it comes to "environment-centric" languages like Python, requiring me to
-    install the language server **and all associated plugins** ([[https://github.com/python-lsp/pylsp-mypy][pylsp-mypy]],
-    [[https://github.com/python-lsp/python-lsp-black][python-lsp-black]], etc.) every time I start a new project.
-
-    =lsp-docker= facilitates running a containerized language server, allwoing
-    me to create a standard Python language server with all the trimmings and
-    reuse it across all projects.
-
-    There are downsides, obviously; I'm generally okay with them. They include:
-
-    - External dependency on Docker;
-    - Go-to-definition functionality does not pick up on external dependencies
-      that might be installed in the current project's virtualenv. Configuration
-      via =.lsp-docker.yaml= would likely address this, but I was trying to get
-      *away* from per-project configurations. Will likely look into this next.
-
-
-    First let's define the language server image:
-
-    #+begin_src dockerfile :tangle lsp/Dockerfile
-      FROM ubuntu:18.04
-      RUN apt-get update \
-          && apt-get upgrade -y \
-          && apt-get install -y python3 python3-pip python3-dev
-
-      RUN python3 -m pip install --upgrade "pip~=21.0" "setuptools~=59.2"
-
-      RUN pip3 install \
-          "python-lsp-server[all]" \
-          "python-lsp-black" \
-          "pylsp-mypy" \
-          "pyls-isort"
-    #+end_src
-
-    #+begin_src emacs-lisp
-      (defconst jjin/pylsp-img-name "jjin/pylsp"
-        "Name of the image to use for Python language server.")
-
-      (use-package lsp-docker
-        :after lsp-mode
-        :straight (lsp-docker :type git :host github :repo "emacs-lsp/lsp-docker")
-        :config
-        (lsp-docker--build-image-if-necessary jjin/pylsp-img-name (f-expand "./lsp/Dockerfile"))
-
-        (lsp-docker-init-clients
-         :path-mappings '(("/Users/jjin/workspace/" . "/projects/"))
-         :client-packages '(lsp-pylsp)
-         :client-configs `((:server-id pylsp
-                                       :docker-server-id pylsp-docker
-                                       :server-command "pylsp"
-                                       :docker-container-name ,(s-replace "/" "-" jjin/pylsp-img-name)
-                                       :docker-image-id "jjin/pylsp:latest"))))
-    #+end_src
-
 ** Bazel
 
    #+begin_src emacs-lisp
