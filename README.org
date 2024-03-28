@@ -646,12 +646,6 @@
                                         ("pyls.plugins.pyls_mypy.enabled" t t)
                                         ("pyls.plugins.pyls_mypy.live_mode" nil t)))
 
-        (lsp-register-client
-         (make-lsp-client :new-connection (lsp-stdio-connection '("terraform-ls"
-                                                                  "serve"))
-                          :major-modes '(terraform-mode)
-                          :server-id 'terraform-ls))
-
         ;; Sets up server configuration for use over TRAMP.
         ;;
         ;; FIXME: This is copied wholesale from the default lsp-mode configuration for
