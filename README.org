@@ -916,18 +916,6 @@
        :straight t
        :init
        (setenv "WORKON_HOME" "~/.pyenv/versions"))
-
-     (use-package anaconda-mode
-       :straight t
-       :disabled t
-       :config
-       (add-hook 'python-mode-hook 'anaconda-mode))
-
-     (use-package company-anaconda
-       :after (anaconda-mode company)
-       :straight t
-       :config
-       (add-to-list 'company-backends 'company-anaconda))
    #+END_SRC
 
 ** Emacs Lisp
