@@ -769,6 +769,14 @@
        (add-to-list 'auto-mode-alist '("\\.clang-format$" . yaml-mode)))
    #+END_SRC
 
+** Editorconfig
+
+   #+begin_src emacs-lisp
+     (use-package editorconfig
+       :straight t
+       :config
+       (editorconfig-mode 1))
+   #+end_src
 ** Go
 
    #+BEGIN_SRC emacs-lisp
