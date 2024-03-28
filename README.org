@@ -1746,9 +1746,6 @@
        (with-eval-after-load 'ivy
          (setq mu4e-completing-read-function 'ivy-completing-read))
 
-       (when (eq system-type 'darwin)
-         (setq mu4e-mu-binary "/usr/local/bin/mu"))
-
        ;; don't save message to Sent Messages for GMail accounts; Gmail/IMAP takes
        ;; care of this
        (setq mu4e-sent-messages-behavior
