@@ -908,6 +908,9 @@
 ** Python
 
    #+BEGIN_SRC emacs-lisp
+     (add-to-list 'major-mode-remap-alist
+                  '(python-mode . python-ts-mode))
+
      (setq python-fill-docstring-style 'pep-257)
 
      (setq python-indent-def-block-scale 1)
