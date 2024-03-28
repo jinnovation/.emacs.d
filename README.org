@@ -646,20 +646,6 @@
                                         ("pyls.plugins.pyls_mypy.enabled" t t)
                                         ("pyls.plugins.pyls_mypy.live_mode" nil t)))
 
-        ;; Sets up server configuration for use over TRAMP.
-        ;;
-        ;; FIXME: This is copied wholesale from the default lsp-mode configuration for
-        ;; pyls. Find a way to source these params directly from that client itself.
-        (lsp-register-client
-         (make-lsp-client :new-connection (lsp-tramp-connection "pyls")
-                          :major-modes '(python-mode cython-mode)
-                          :remote? t
-                          :library-folders-fn (lambda (_workspace) lsp-clients-python-library-directories)
-                          :initialized-fn (lambda (workspace)
-                                            (with-lsp-workspace workspace
-                                                                (lsp--set-configuration (lsp-configuration-section "pyls"))))
-                          :server-id 'pyls-remote))
-
         ;; FIXME: Oncen gopackagesdriver is available, set up here to cooperate w/
         ;; Bazel projects.
         (defun lsp-go-install-save-hooks ()
