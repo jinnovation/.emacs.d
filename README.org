@@ -594,6 +594,11 @@
    editor-agnostic language functionality.
 
    #+begin_src emacs-lisp
+     (use-package eglot
+      :ensure-system-package (typescript-language-server gopls))
+   #+end_src
+
+   #+begin_src emacs-lisp
      (use-package lsp-mode
         :straight t
         :hook ((python-mode . lsp-deferred)
