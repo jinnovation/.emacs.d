@@ -955,17 +955,22 @@
 ** Treesitter
 
    #+begin_src emacs-lisp
+     (defun jjin/treesit-install-grammar-maybe (lang)
+       "Installs Tree-sitter grammar for LANG if and only if it is not already
+       installed and available."
+       (unless (treesit-language-available-p lang)
+         (treesit-install-language-grammar lang)))
+
      (use-package treesit
        :custom
        (treesit-language-source-alist
         '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "tsx/src")
-          (typescript "https://github.com/tree-sitter/tree-sitter-typescript"
-       "v0.20.6" "typescript/src")))
+          (go "https://github.com/tree-sitter/tree-sitter-go" "v0.20.0" "src")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "typescript/src")))
        :config
-       (unless (treesit-language-available-p 'typescript)
-         (treesit-install-language-grammar 'typescript))
-       (unless (treesit-language-available-p 'tsx)
-         (treesit-install-language-grammar 'tsx)))
+       (jjin/treesit-install-grammar-maybe 'go)
+       (jjin/treesit-install-grammar-maybe 'typescript)
+       (jjin/treesit-install-grammar-maybe 'tsx))
    #+end_src
 
 ** Typst
