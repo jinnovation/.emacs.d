@@ -1013,7 +1013,9 @@
          (:title "Typst: Commands")
          ("Compilation"
           (("C" typst-ts-mode-compile "Compile")
-           ("c" typst-ts-mode-compile-and-preview "Compile and preview"))
+           ("c" typst-ts-mode-compile-and-preview "Compile and preview")
+           ;; FIXME: Display whether currently on or off
+           ("w" typst-ts-mode-watch-toggle "Watch toggle"))
           "Format"
           (("f" jjin/run-typstfmt-maybe "Auto-format")))))
    #+end_src
