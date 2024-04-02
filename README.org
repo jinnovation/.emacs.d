@@ -997,10 +997,7 @@
    #+begin_src emacs-lisp
      (use-package code-review
        :straight t
-       :custom
-       (code-review-github-host "ghe.spotify.net/api/v3")
-       (code-review-github-graphql-host "ghe.spotify.net/api")
-       (code-review-github-base-url "ghe.spotify.net"))
+       :disabled t)
    #+end_src
 
 ** =conf-mode=
