@@ -540,6 +540,7 @@
 
      (use-package pretty-hydra
        :straight t
+       :after all-the-icons
        :config
        (pretty-hydra-define jjin-hydra-exec
          (:title (with-material "apps" "Apps" 1 -0.05))
@@ -568,7 +569,7 @@
            (";" ace-window "select window" :exit t))))
 
        (pretty-hydra-define jjin-buffer-hydra
-         (:title (with-material "code" "Buffers" 1 -0.005))
+         (:title (with-material "code" "Buffers" 1 -0.005) :color teal)
          ("Name"
           (("r" rename-buffer "Rename"))))
 
