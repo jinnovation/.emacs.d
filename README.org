@@ -505,9 +505,6 @@
      (define-prefix-command 'jjin-vc-map)
      (bind-key "C-c v" 'jjin-vc-map)
 
-     (define-prefix-command 'jjin-term-map)
-     (bind-key "C-c t" 'jjin-term-map)
-
      (define-prefix-command 'jjin-buffer-map)
      (bind-key "C-c b" 'jjin-buffer-map)
    #+END_SRC
