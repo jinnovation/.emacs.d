@@ -504,9 +504,6 @@
    #+BEGIN_SRC emacs-lisp
      (define-prefix-command 'jjin-vc-map)
      (bind-key "C-c v" 'jjin-vc-map)
-
-     (define-prefix-command 'jjin-buffer-map)
-     (bind-key "C-c b" 'jjin-buffer-map)
    #+END_SRC
 
 ** Keybindings
@@ -528,9 +525,6 @@
      (unbind-key "<f11>")
      (unbind-key "M-<f10>")
      (unbind-key "<escape> <f10>")
-
-     (bind-keys :map jjin-buffer-map
-                ("r" . rename-buffer))
 
      (bind-keys :map global-map
                 ("<s-backspace>" . backward-kill-word)
@@ -572,6 +566,13 @@
            ("Q" kill-buffer-and-window "kill buffer, delete window")
            ("b" balance-windows "balance")
            (";" ace-window "select window" :exit t))))
+
+       (pretty-hydra-define jjin-buffer-hydra
+         (:title "Buffers")
+         ("Name"
+          (("r" rename-buffer "Rename"))))
+
+       (bind-key "C-c b" 'jjin-buffer-hydra/body)
 
        (bind-key "C-c w" 'jjin-hydra-window/body)
        (bind-key "s-<escape>" 'jjin-hydra-exec/body))
