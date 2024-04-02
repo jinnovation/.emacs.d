@@ -505,9 +505,6 @@
      (define-prefix-command 'jjin-vc-map)
      (bind-key "C-c v" 'jjin-vc-map)
 
-     (define-prefix-command 'jjin-comment-map)
-     (bind-key "C-c c" 'jjin-comment-map)
-
      (define-prefix-command 'jjin-term-map)
      (bind-key "C-c t" 'jjin-term-map)
 
@@ -1201,13 +1198,12 @@
      (use-package evil-nerd-commenter
        :after evil
        :straight t
-       :config
-       (bind-keys :map jjin-comment-map
-                  ("i" . evilnc-comment-or-uncomment-lines)
-                  ("l" . evilnc-quick-comment-or-uncomment-to-the-line)
-                  ("c" . evilnc-copy-and-comment-lines)
-                  ("p" . evilnc-comment-or-uncomment-paragraphs)
-                  ("v" . evilnc-toggle-invert-comment-line-by-line)))
+       :pretty-hydra
+       ((:color teal)
+        ("Commenting"
+          (("i" evilnc-comment-or-uncomment-lines "Comment/Uncomment Lines")
+           ("c" evilnc-copy-and-comment-lines "Copy and comment"))))
+       :bind ("C-c c" . evil-nerd-commenter-hydra/body))
 
    #+END_SRC
 
