@@ -892,9 +892,11 @@
        (treesit-language-source-alist
         '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "tsx/src")
           (go "https://github.com/tree-sitter/tree-sitter-go" "v0.20.0" "src")
+          (python "https://github.com/tree-sitter/tree-sitter-python" "v0.21.0" "src")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "typescript/src")))
        :config
        (jjin/treesit-install-grammar-maybe 'go)
+       (jjin/treesit-install-grammar-maybe 'python)
        (jjin/treesit-install-grammar-maybe 'typescript)
        (jjin/treesit-install-grammar-maybe 'tsx))
    #+end_src
