@@ -603,6 +603,7 @@
         :straight t
         :hook ((python-mode . lsp-deferred)
                (tsx-ts-mode . lsp-deferred)
+               (typescript-ts-mode . lsp-deferred)
                (go-mode . lsp-deferred))
                ;; (terraform-mode . lsp-deferred)
                ;; (yaml-mode . lsp-deferred))
