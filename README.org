@@ -947,17 +947,6 @@
                         (highlight-indent-guides-mode)))))
    #+END_SRC
 
-** Rust
-
-   #+begin_src emacs-lisp
-     (use-package rust-mode
-       :disabled t
-       :straight t
-       :config
-       (add-to-list 'exec-path "~/.cargo/bin/")
-       (setq rust-format-on-save t))
-   #+end_src
-
 ** Jinja2
 
    #+begin_src emacs-lisp
