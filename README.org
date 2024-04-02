@@ -1138,6 +1138,9 @@
        :custom
        (evil-esc-delay 0)
        :config
+       (evil-set-leader '(normal motion) (kbd "SPC"))
+       (evil-define-key 'normal 'global (kbd "<leader>s") 'save-buffer)
+
        (mapc (lambda (m) (add-to-list 'evil-emacs-state-modes m t))
          '(eshell-mode
             calendar-mode
@@ -1202,7 +1205,9 @@
         ("Commenting"
           (("i" evilnc-comment-or-uncomment-lines "Comment/Uncomment Lines")
            ("c" evilnc-copy-and-comment-lines "Copy and comment"))))
-       :bind ("C-c c" . evil-nerd-commenter-hydra/body))
+       :bind ("C-c c" . evil-nerd-commenter-hydra/body)
+       :config
+       (evil-define-key '(normal motion) 'global (kbd "<leader>c") 'evil-nerd-commenter-hydra/body))
 
    #+END_SRC
 
