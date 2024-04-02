@@ -568,7 +568,7 @@
            (";" ace-window "select window" :exit t))))
 
        (pretty-hydra-define jjin-buffer-hydra
-         (:title "Buffers")
+         (:title (with-material "code" "Buffers" 1 -0.005))
          ("Name"
           (("r" rename-buffer "Rename"))))
 
