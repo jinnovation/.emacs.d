@@ -602,7 +602,8 @@
         :hook ((python-mode . lsp-deferred)
                (tsx-ts-mode . lsp-deferred)
                (typescript-ts-mode . lsp-deferred)
-               (go-mode . lsp-deferred))
+               (go-mod-ts-mode . lsp-deferred)
+               (go-ts-mode . lsp-deferred))
                ;; (terraform-mode . lsp-deferred)
                ;; (yaml-mode . lsp-deferred))
         ;; TODO:
@@ -706,25 +707,7 @@
 ** Go
 
    #+BEGIN_SRC emacs-lisp
-     (use-package go-mode
-       :mode "\\.go$"
-       :after exec-path-from-shell
-       :straight t
-       :disabled t                           ; using LSP
-       :bind (:map go-mode-map
-                   ("C-c J" . (lambda (point) (interactive "d") (godef-jump point t))))
-       :config
-       (when (executable-find "goimports")
-         (setq gofmt-command "goimports"))
-       (add-hook 'before-save-hook 'gofmt-before-save))
-
-     (use-package company-go
-       :after go
-       :disabled t)
-
-     (use-package go-guru
-       :after go
-       :straight t)
+     (require 'go-ts-mode)
 
      (use-package lsp-ivy
        :straight t
@@ -891,6 +874,8 @@
        (treesit-language-source-alist
         '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "tsx/src")
           (go "https://github.com/tree-sitter/tree-sitter-go" "v0.20.0" "src")
+
+          (gomod "https://github.com/camdencheek/tree-sitter-go-mod" "v1.0.2" "src")
           (python "https://github.com/tree-sitter/tree-sitter-python" "v0.21.0" "src")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "typescript/src")))
        :config
