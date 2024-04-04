@@ -1513,18 +1513,6 @@
          (setq consult-project-root-function #'projectile-project-root)))
    #+end_src
 
-** =linum=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package linum
-       :straight t
-       :config
-       (setq linum-format 'dynamic)
-       (global-linum-mode 1)
-
-       (require 'mode-local))
-   #+END_SRC
-
 ** [[https://github.com/muffinmad/emacs-mini-frame][mini-frame]]
 
    #+begin_src emacs-lisp
