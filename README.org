@@ -74,6 +74,8 @@
       ;;
       ;; Remove this whenever you find the root cause.
       (straight-use-package 'org)
+
+      (bind-key [remap describe-package] 'straight-visit-package-website)
     #+END_SRC
 
 *** =use-package=
