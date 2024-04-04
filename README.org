@@ -1710,7 +1710,6 @@
 
 ** =org-mode=
 
-
    #+BEGIN_SRC emacs-lisp
      ;; NB(@jinnovation): Copied wholesale from org-compat.el. This *should* be
      ;; accessible, but for some reason is not, resulting in (void-function
