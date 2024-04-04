@@ -818,14 +818,10 @@
        :bind (:map markdown-mode-map
                    ("M-]" . markdown-demote)
                    ("M-[" . markdown-promote))
-       :init
-       (setq markdown-asymmetric-header t)
+       :custom
+       (markdown-asymmetric-header t)
        :config
        (add-hook 'markdown-mode-hook 'auto-fill-mode))
-
-     (use-package markdown-mode+
-       :straight t
-       :after markdown-mode)
    #+END_SRC
 
 ** Treesitter
