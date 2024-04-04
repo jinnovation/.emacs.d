@@ -1453,11 +1453,17 @@
        :bind
        (("C-;" . embark-act))
        :config
-       (embark-define-keymap jjin/project-actions
-         "Keymap for actions on projects."
-         ("v" jjin/projectile-vterm-at)
-         ("g" jjin/magit-status-at))
+       (defvar-keymap jjin/project-actions
+         :parent embark-general-map
+         :doc "Keymap for actions on projects."
+         "v" #'jjin/projectile-vterm-at
+         "g" #'jjin/magit-status-at)
+
        (add-to-list 'embark-keymap-alist '(jjin/project . jjin/project-actions)))
+
+     (use-package embark-consult
+       :straight t
+       :after (consult embark))
 
      (use-package consult-projectile
        :after (consult projectile)
