@@ -2329,6 +2329,7 @@
 
    #+begin_src emacs-lisp
      (use-package kele
+       :disabled t
        :demand t
        :straight (:local-repo "~/dev/kele.el" :type git :host github :repo "jinnovation/kele.el")
        :config
