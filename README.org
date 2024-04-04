@@ -1231,14 +1231,16 @@
 
       (use-package magit
         :straight t
+        :custom
+        (magit-log-arguments '("--graph" "--decorate" "--color"))
+        (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
+        (magit-status-initial-section '(((unstaged) (status))
+                                        ((staged) (status))))
         :hook
         (magit-revision-mode . goto-address-mode)
         :init
         ;; On status buffer init, jump to either unstaged changes or staged changes,
         ;; if present
-        (setq magit-status-initial-section
-              '(((unstaged) (status))
-                ((staged) (status))))
 
         (add-to-list
          'safe-local-variable-values
@@ -1248,12 +1250,6 @@
                                         magit-insert-head-branch-header
                                         magit-insert-upstream-branch-header
                                         magit-insert-push-branch-header)))
-
-        (setq magit-log-arguments '("--graph"
-                                    "--decorate"
-                                    "--color"))
-
-        (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
 
         (defun jjin/magit-status-at (dir)
           "Open Magit status buffer for project at root DIR."
