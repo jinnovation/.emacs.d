@@ -71,7 +71,6 @@
  ("markdown-mode-plus" . "411d079f4430a33c34ec0bbcb1535fe1145a2509")
  ("melpa" . "cecc45dc249d291b820c6caf7ffe4467d0ea7263")
  ("mermaid-mode" . "562ffe86cad91627e2b94b8684818562c3ad2b5d")
- ("names" . "d8baba5360e5253938a25d3e005455b6d2d86971")
  ("nested-dir-locals.el" . "f6e477e2d85006d10f1771f812bf8824b8a9d144")
  ("nongnu-elpa" . "f06fc1286a20c827cbbd53a8c3ed53b2ac41c9d9")
  ("orderless" . "62f71c34baca0b7d0adeab4a1c07d85ffcee80d9")

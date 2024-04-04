@@ -94,9 +94,6 @@
    #+BEGIN_SRC emacs-lisp
      (use-package diminish :straight t)
 
-     (use-package names
-       :straight t)
-
      (use-package system-packages
        :straight t
        :custom
@@ -114,9 +111,7 @@
 ** Functions
 
    #+BEGIN_SRC emacs-lisp
-     (define-namespace jjin-
-
-     (defvar ext-file-handlers
+     (defvar jjin-ext-file-handlers
        `((,(intern "darwin") . (:image
                                 ("open")
                                 :video
@@ -128,11 +123,11 @@
        "An alist mapping `system-type' values to priority lists of
        file handlers, e.g. image viewers or video players.")
 
-     (defun kill-current-buffer ()
+     (defun jjin-kill-current-buffer ()
        (interactive)
        (kill-buffer (current-buffer)))
 
-     (defun window-toggle-split-direction ()
+     (defun jjin-window-toggle-split-direction ()
        "Switch window split from horizontally to vertically, or vice versa.
 
      i.e. change right window to bottom, or change bottom window to right."
@@ -161,13 +156,13 @@
                      (set-window-buffer (windmove-find-other-window neighbour-dir)
                                         other-buf))))))))
 
-     (defun set-opacity (value)
+     (defun jjin-set-opacity (value)
        "Sets the opacity of the frame window. 0=transparent/100=opaque"
        (interactive "nOpacity Value (0 - 100 opaque): ")
        (set-frame-parameter (selected-frame) 'alpha value))
 
      ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
-     (defun move-splitter-left (arg)
+     (defun jjin-move-splitter-left (arg)
        "Move window splitter left."
        (interactive "p")
        (if (let ((windmove-wrap-around))
@@ -176,7 +171,7 @@
          (enlarge-window-horizontally arg)))
 
      ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
-     (defun move-splitter-right (arg)
+     (defun jjin-move-splitter-right (arg)
        "Move window splitter right."
        (interactive "p")
        (if (let ((windmove-wrap-around))
@@ -185,7 +180,7 @@
          (shrink-window-horizontally arg)))
 
      ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
-     (defun move-splitter-up (arg)
+     (defun jjin-move-splitter-up (arg)
        "Move window splitter up."
        (interactive "p")
        (if (let ((windmove-wrap-around))
@@ -194,7 +189,7 @@
          (shrink-window arg)))
 
      ;; credit: https://github.com/abo-abo/hydra/blob/master/hydra-examples.el
-     (defun move-splitter-down (arg)
+     (defun jjin-move-splitter-down (arg)
        "Move window splitter down."
        (interactive "p")
        (if (let ((windmove-wrap-around))
@@ -202,7 +197,7 @@
            (shrink-window arg)
          (enlarge-window arg)))
 
-     (defun get-current-displays ()
+     (defun jjin-get-current-displays ()
        "Get alist of attributes of displays w/ Emacs buffers."
        (interactive)
        (remove-if
@@ -210,7 +205,7 @@
           (eq nil (cdr (assoc 'frames disp))))
         (display-monitor-attributes-list)))
 
-     (defun fontify-frame (&optional _)
+     (defun jjin-fontify-frame (&optional _)
        "Set font and font size dynamically for the given frame."
        (let* ((attrs (frame-monitor-attributes))
               (width (fourth (first attrs)))
@@ -220,7 +215,7 @@
          ;; FIXME: Integrate w/ jjin/font-priority-list
          ;; FIXME: Need a jjin/get-font-for-frame function that returns the frame's
          ;; currently active font if none in jjin/font-priority-list are found
-         (set-frame-font (format "Iosevka %s" size)))))
+         (set-frame-font (format "Iosevka %s" size))))
    #+END_SRC
 
 * General Configurations
