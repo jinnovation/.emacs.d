@@ -304,14 +304,6 @@
     (setq-default fill-column 80)
   #+END_SRC
 
-** Scratch Org-mode
-
-   I spend more time in Org-mode than I do writing Elisp.
-
-   #+BEGIN_SRC emacs-lisp
-     ;; (setq initial-major-mode 'org-mode)
-   #+END_SRC
-
 ** Appearance
 
 *** Themes
