@@ -662,29 +662,6 @@
      (c-set-offset 'arglist-close 0)
    #+END_SRC
 
-   #+BEGIN_SRC emacs-lisp
-     (use-package irony
-       :disabled t
-       :commands irony-mode
-       :init
-       (add-hook 'c-mode-hook 'irony-mode)
-       (add-hook 'c++-mode-hook 'irony-mode)
-       :config
-       (use-package flycheck-irony
-         :config
-         (add-hook 'flycheck-mode-hook 'flycheck-irony-setup)))
-
-     (use-package company-irony
-       :disabled t
-       :config
-       (add-to-list 'company-backends 'company-irony))
-
-     (use-package clang-format
-       :disabled t
-       :config
-       (add-to-list 'auto-mode-alist '("\\.clang-format$" . yaml-mode)))
-   #+END_SRC
-
 ** Editorconfig
 
    #+begin_src emacs-lisp
