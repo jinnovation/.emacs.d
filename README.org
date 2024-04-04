@@ -2028,20 +2028,16 @@
        (projectile-ignored-projects '("/Users/jjin/"))
        (projectile-enable-caching t)
        (projectile-sort-order 'recently-active)
-       :init
-       (setq projectile-globally-ignored-files
+       (projectile-globally-ignored-directory-names '("~"))
+       (projectile-globally-ignored-files
              '("TAGS" "GPATH" "GRTAGS" "GSYMS" "GTAGS"))
-       (setq projectile-globally-ignored-file-suffixes '("~"))
-
        ;; We'd like projects contained within other projects, e.g. packages pulled
        ;; into the .emacs.d/.straight dir via straight.el, to be recognized as
        ;; Projectile packages.
-       (setq projectile-project-root-functions
-             '(projectile-root-local
-               projectile-root-bottom-up
-               projectile-root-top-down
-               projectile-root-top-down-recurring))
-
+       (projectile-project-root-functions '(projectile-root-local
+                                            projectile-root-bottom-up
+                                            projectile-root-top-down
+                                            projectile-root-top-down-recurring))
        :config
        (with-eval-after-load 'ivy
          (setq projectile-completion-system 'ivy))
@@ -2088,19 +2084,7 @@
 
        (projectile-global-mode)
 
-       ;; "disables "mode-line setting by project; extreme hang-up over SSH/Tramp
-       (setq projectile-mode-line "Projectile")
-       (add-to-list 'projectile-globally-ignored-modes "term-mode")
-
-       (use-package ggtags
-         :disabled t
-         :config
-         (with-eval-after-load 'evil
-             (add-to-list 'evil-emacs-state-modes 'ggtags-view-search-history-mode))
-
-         (add-hook 'c-mode-hook 'ggtags-mode)
-         (add-hook 'c++-mode-hook 'ggtags-mode)
-         (add-hook 'java-mode-hook 'ggtags-mode)))
+       (add-to-list 'projectile-globally-ignored-modes "term-mode"))
    #+END_SRC
 
 ** =rich-minority-mode=
