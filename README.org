@@ -1479,18 +1479,6 @@
          (setq consult-project-root-function #'projectile-project-root)))
    #+end_src
 
-** [[https://github.com/muffinmad/emacs-mini-frame][mini-frame]]
-
-   #+begin_src emacs-lisp
-     (use-package mini-frame
-       :disabled t
-       :straight t
-       :custom
-       (mini-frame-show-parameters '((top . 0.2) (width . 0.5) (left . 0.5)))
-       :config
-       (mini-frame-mode -1))
-   #+end_src
-
 ** =mu4e=
 
    =mu4e= has a notion of [[https://www.djcbsoftware.nl/code/mu/mu4e/Marking.html#Marking]["marks"]] that it uses to represent actions on messages
