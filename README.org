@@ -883,6 +883,11 @@
          (jjin/treesit-install-grammar-maybe (car src))))
    #+end_src
 
+** Typescript
+
+   #+begin_src emacs-lisp
+     (use-package typescript-ts-mode)
+   #+end_src
 ** Typst
 
    #+begin_src emacs-lisp
