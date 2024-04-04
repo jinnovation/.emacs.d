@@ -302,6 +302,8 @@
       (setq clean-buffer-list-delay-general 0.006)) ; 10 minutes
 
     (setq-default fill-column 80)
+
+    (display-fill-column-indicator-mode 1)
   #+END_SRC
 
 ** Appearance
@@ -1138,19 +1140,6 @@
        :config
        (evil-define-key '(normal motion) 'global (kbd "<leader>c") 'evil-nerd-commenter-hydra/body))
 
-   #+END_SRC
-
-** =fill-column-indicator=
-
-   #+BEGIN_SRC emacs-lisp
-     (use-package fill-column-indicator
-       :commands turn-on-fci-mode
-       :straight t
-       :disabled t
-       :init
-       (add-hook 'prog-mode-hook 'turn-on-fci-mode)
-       (add-hook 'text-mode-hook 'turn-on-fci-mode)
-       (setq fci-rule-color (face-attribute 'highlight :background)))
    #+END_SRC
 
 ** =flycheck=
