@@ -844,8 +844,7 @@
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "typescript/src")
           (typst "https://github.com/uben0/tree-sitter-typst" "v0.10-2" "src")))
        :config
-       (dolist (src treesit-language-source-alist)
-         (jjin/treesit-install-grammar-maybe (car src))))
+       (mapc #'jjin/treesit-install-grammar-maybe (mapcar #'car treesit-language-source-alist)))
    #+end_src
 
 ** Typescript
