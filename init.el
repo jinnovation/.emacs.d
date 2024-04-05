@@ -1827,8 +1827,6 @@ use as an Embark action."
   :straight t)
 
 (use-package kele
-  :disabled t
-  :demand t
   :straight (:local-repo "~/dev/kele.el" :type git :host github :repo "jinnovation/kele.el")
   :config
   (kele-mode 1)
