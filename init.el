@@ -1583,7 +1583,8 @@ Jonathan Jin
 
 (use-package doom-modeline
   :straight t
-  :disabled t
+  :custom
+  (doom-modeline-icon nil)
   :config
   (setq doom-modeline-vcs-max-length 24)
 
@@ -1600,7 +1601,7 @@ Jonathan Jin
 
   (doom-modeline-def-modeline 'jjin
     '(bar workspace-name window-number modals matches buffer-info remote-host selection-info )
-    '(misc-info persp-name jjin/datetime battery irc mu4e debug lsp minor-modes input-method indent-info process vcs checker))
+    '(misc-info persp-name jjin/datetime battery irc mu4e debug lsp minor-modes input-method indent-info process vcs))
 
   (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t)))
 
@@ -1611,6 +1612,7 @@ Jonathan Jin
 (display-battery-mode 1)
 
 (use-package awesome-tray
+  :disabled t
   :straight (awesome-tray :type git :host github :repo "manateelazycat/awesome-tray")
   :custom
   (awesome-tray-info-padding-right 2)
