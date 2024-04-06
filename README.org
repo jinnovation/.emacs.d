@@ -1,4 +1,4 @@
-# -*- after-save-hook: (org-babel-tangle); before-save-hook: (delete-trailing-whitespace)-*-
+# -*- before-save-hook: (delete-trailing-whitespace)-*-
 
 #+TITLE: .emacs.d
 #+AUTHOR: Jonathan Jin
