@@ -1794,6 +1794,7 @@ use as an Embark action."
   (bind-key (kbd "s-k") kele-command-map kele-mode-map))
 
 (use-package kubernetes
+  :disabled t
   :straight (:local-repo "~/dev/kubernetes-el" :type git :host github :repo "kubernetes-el/kubernetes-el")
   :custom
   (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover.")
