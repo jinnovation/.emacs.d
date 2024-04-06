@@ -1407,22 +1407,11 @@ inserted before contatenating."
   (org-list-allow-alphabetical t)
   (org-special-ctrl-a/e t)
   (org-deadline-warning-days 7)
-
+  (org-confirm-babel-evaluate nil)
+  (org-export-use-babel t)
+  (org-src-window-setup 'current-window)
+  (org-agenda-window-setup 'current-window)
   :init
-  (setq org-agenda-custom-commands
-        '(("s" "Schoolwork"
-           ((agenda "" ((org-agenda-ndays 14)
-                        (org-agenda-start-on-weekday nil)
-                        (org-agenda-prefix-format " %-12:c%?-12t% s")))
-            (tags-todo "CATEGORY=\"Schoolwork\""
-                       ((org-agenda-prefix-format "%b")))))
-
-          ("r" "Reading"
-           ((tags-todo "CATEGORY=\"Reading\""
-                       ((org-agenda-prefix-format "%:T ")))))
-          ("m" "Movies"
-           ((tags-todo "CATEGORY=\"Movies\""
-                       ((org-agenda-prefix-format "%:T ")))))))
     (setq
     ;;  org-latex-pdf-process (list "latexmk -shell-escape -pdf %f")
 
@@ -1434,19 +1423,18 @@ inserted before contatenating."
          "[suberset of above not equal to]" "⫋")))
 
   :config
-  (setq org-agenda-files '("~/agenda/"))
   ;; (plist-put org-format-latex-options :scale 1.5)
 
   ;; NB(jjin): Uncomment if you want syntax highlighting for code snippets
   ;; (setq org-latex-packages-alist
   ;;   '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
 
-  (defun my-org-autodone (n-done n-not-done)
+  (defun jjin/org-autodone (n-done n-not-done)
     "Switch entry to DONE when all subentries are done, to TODO otherwise."
     (let (org-log-done org-log-states)   ; turn off logging
       (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-  (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
+  (add-hook 'org-after-todo-statistics-hook 'jjin/org-autodone)
 
   (org-babel-do-load-languages
     'org-babel-load-languages
@@ -1460,9 +1448,6 @@ inserted before contatenating."
        (matlab    . t)
        (shell     . t)))
 
-  (setq org-confirm-babel-evaluate nil)
-  (setq org-export-use-babel t)
-
   (setq org-latex-minted-options
     '(("linenos" "true")
        ("fontsize" "\\scriptsize")
@@ -1470,16 +1455,9 @@ inserted before contatenating."
 
   (setq org-export-latex-hyperref-format "\\ref{%s}")
 
-  (setq
-    org-src-window-setup 'current-window
-    org-agenda-window-setup 'current-window)
-
   (setq org-blank-before-new-entry
     '((heading . true)
        (plain-list-item . auto)))
-
-  ;; FIXME: parameter-ize dir `agenda'
-  (setq org-default-notes-file "~/agenda/notes.org")
 
   (setq org-capture-templates
         `(("r" "Reading" entry (file "~/proj/lists/read.org")
@@ -1520,20 +1498,6 @@ inserted before contatenating."
   (add-hook 'org-mode-hook 'evil-org-mode)
   (evil-org-set-key-theme)
   (setq evil-org-special-o/O '(table-row)))
-
-(use-package org-sticky-header
-  :disabled t
-  :straight t
-  :hook (org-mode . org-sticky-header-mode)
-  :init
-  (setq org-sticky-header-always-show-header nil)
-  (setq org-sticky-header-outline-path-separator " > ")
-  (setq org-sticky-header-full-path 'full))
-
-(use-package org-download
-  :after org
-  :disabled t
-  :straight t)
 
 (use-package org-contrib
   :straight t
