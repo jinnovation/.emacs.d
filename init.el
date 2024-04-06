@@ -1642,17 +1642,6 @@ Jonathan Jin
         (add-to-list 'evil-emacs-state-modes 'pdf-outline-buffer-mode)
         (add-to-list 'evil-emacs-state-modes 'pdf-view-mode))))
 
-(defun jjin/projectile-absolute-compilation-dir-maybe ()
-  "Returns the default compilation dir of the current Projectile project type if
-  it is an absolute path; otherwise, return nil."
-  (let* ((type (projectile-project-type))
-         (comp-dir (projectile-default-compilation-dir type)))
-    (if (and comp-dir (file-name-absolute-p comp-dir)) comp-dir nil)))
-
-
-(defun jjin/projectile-find-test-file-cwd-first (&optional invalidate-cache)
-  "TODO"
-  )
 
 (use-package projectile
   :straight t
@@ -1673,6 +1662,14 @@ Jonathan Jin
                                        projectile-root-top-down
                                        projectile-root-top-down-recurring))
   :config
+  (defun jjin/projectile-absolute-compilation-dir-maybe ()
+    "Return the default compilation dir of the current Projectile project type.
+
+Only returns non-nil if it is an absolute path; otherwise, return
+nil."
+    (let* ((type (projectile-project-type))
+           (comp-dir (projectile-default-compilation-dir type)))
+      (if (and comp-dir (file-name-absolute-p comp-dir)) comp-dir nil)))
   (with-eval-after-load 'ivy
     (setq projectile-completion-system 'ivy))
 
