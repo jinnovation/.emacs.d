@@ -460,13 +460,13 @@ ACT is a buffer action that enables use in
   ("s-SPC" . major-mode-hydra))
 
 (use-package eglot
+  :hook ((tsx-ts-mode . eglot-ensure)
+         (typescript-ts-mode . eglot-ensure))
  :ensure-system-package (typescript-language-server gopls))
 
 (use-package lsp-mode
    :straight t
    :hook ((python-mode . lsp-deferred)
-          (tsx-ts-mode . lsp-deferred)
-          (typescript-ts-mode . lsp-deferred)
           (go-mod-ts-mode . lsp-deferred)
           (go-ts-mode . lsp-deferred))
           ;; (terraform-mode . lsp-deferred)
