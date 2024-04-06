@@ -1549,11 +1549,11 @@ Jonathan Jin
   :straight t
   :custom
   (doom-modeline-icon nil)
+  (doom-modeline-vcs-max-length 24)
+  (doom-modeline-buffer-file-name-style 'truncate-except-project)
+  (doom-modeline-buffer-encoding nil)
+  (doom-modeline-height (min doom-modeline-height (default-font-height)))
   :config
-  (setq doom-modeline-vcs-max-length 24)
-
-  (setq doom-modeline-buffer-file-name-style 'truncate-except-project)
-
   (doom-modeline-def-segment jjin/datetime
     (when (doom-modeline--active)
       (concat
@@ -1569,8 +1569,6 @@ Jonathan Jin
 
   (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t)))
 
-  (setq doom-modeline-buffer-encoding nil)
-  (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
   (doom-modeline-mode 1))
 
 (display-battery-mode 1)
