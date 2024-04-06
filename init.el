@@ -625,12 +625,12 @@ ACT is a buffer action that enables use in
 (use-package treesit
   :custom
   (treesit-language-source-alist
-   '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "tsx/src")
+   '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src")
      (go "https://github.com/tree-sitter/tree-sitter-go" "v0.20.0" "src")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0" "src")
      (gomod "https://github.com/camdencheek/tree-sitter-go-mod" "v1.0.2" "src")
      (python "https://github.com/tree-sitter/tree-sitter-python" "v0.21.0" "src")
-     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.6" "typescript/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")
      (typst "https://github.com/uben0/tree-sitter-typst" "v0.10-2" "src")))
   :config
   (mapc #'jjin/treesit-install-grammar-maybe (mapcar #'car treesit-language-source-alist)))
