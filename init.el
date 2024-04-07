@@ -593,10 +593,6 @@ ACT is a buffer action that enables use in
   :init
   (setenv "WORKON_HOME" "~/.pyenv/versions"))
 
-(use-package elisp-mode
-  :bind (("C-c C-f" . find-function)
-         ("C-c C-v" . find-variable)))
-
 (use-package elisp-autofmt
   :straight t
   :disabled t
