@@ -1536,25 +1536,24 @@ Jonathan Jin
   (defun with-material (icon str &optional height v-adjust)
     (s-concat (all-the-icons-material icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)))
 
-;; FIXME: Make this conditional on fonts not being present
-;; Maybe check ~/Library/Fonts/octicons.ttf etc for presence?
-
-;; (all-the-icons-install-fonts)
+(use-package nerd-icons
+  :straight t)
+;; (nerd-icons-install-fonts)
 
 (use-package doom-modeline
   :straight t
   :custom
-  (doom-modeline-icon nil)
+  (doom-modeline-icon t)
   (doom-modeline-vcs-max-length 24)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-buffer-encoding nil)
-  (doom-modeline-height (min doom-modeline-height (default-font-height)))
   :config
+  (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
   (doom-modeline-def-segment jjin/datetime
     (when (doom-modeline--active)
       (concat
        (doom-modeline-spc)
-       (doom-modeline-icon 'faicon "clock-o" "" "" :height 1.0 :v-adjust 0.04)
+       (doom-modeline-icon 'faicon "nf-fa-clock_o" "" "" :height 1.0 :v-adjust 0.04)
        (doom-modeline-vspc)
        (propertize (format-time-string "%h %d %T") 'face 'mode-line)
        (doom-modeline-spc))))
