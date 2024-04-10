@@ -1560,7 +1560,7 @@ Jonathan Jin
 
   (doom-modeline-def-modeline 'jjin
     '(bar workspace-name window-number modals matches buffer-info remote-host selection-info )
-    '(misc-info persp-name jjin/datetime battery irc mu4e debug lsp minor-modes input-method indent-info process vcs))
+    '(misc-info jjin/kele jjin/datetime battery irc mu4e debug lsp minor-modes input-method indent-info process vcs))
 
   (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t)))
 
@@ -1787,6 +1787,17 @@ use as an Embark action."
   :config
   (kele-mode 1)
   (bind-key (kbd "s-k") kele-command-map kele-mode-map))
+
+(doom-modeline-def-segment jjin/kele
+  (when (and (bound-and-true-p kele-mode) (doom-modeline--active))
+    (propertize (concat
+                 (doom-modeline-display-icon (doom-modeline-icon 'mdicon "nf-md-kubernetes" "K8s:" "K8s:"))
+                 (doom-modeline-spc)
+                 (doom-modeline-display-text (kele-current-context-name))
+                 (doom-modeline-display-text (format "(%s)" (kele-current-namespace)))
+                 (doom-modeline-spc))
+                 'mouse-face 'doom-modeline-highlight
+                 'help-echo (kele--help-echo))))
 
 (use-package kubernetes
   :disabled t
