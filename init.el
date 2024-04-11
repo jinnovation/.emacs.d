@@ -1562,7 +1562,7 @@ Jonathan Jin
 
   (doom-modeline-def-modeline 'jjin
     '(bar workspace-name window-number modals matches buffer-info remote-host selection-info )
-    '(misc-info jjin/kele irc mu4e debug lsp minor-modes input-method indent-info process vcs))
+    '(misc-info jjin/kele mu4e debug lsp minor-modes input-method indent-info process vcs))
 
   (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t)))
 
