@@ -1549,24 +1549,16 @@ Jonathan Jin
   (doom-modeline-vcs-max-length 24)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-buffer-encoding nil)
+  :init
+  (doom-modeline-mode 1)
   :config
   (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
-  (doom-modeline-def-segment jjin/datetime
-    (when (doom-modeline--active)
-      (concat
-       (doom-modeline-spc)
-       (doom-modeline-icon 'faicon "nf-fa-clock_o" "" "" :height 1.0 :v-adjust 0.04)
-       (doom-modeline-vspc)
-       (propertize (format-time-string "%h %d %T") 'face 'mode-line)
-       (doom-modeline-spc))))
 
   (doom-modeline-def-modeline 'jjin
     '(bar workspace-name window-number modals matches buffer-info remote-host selection-info )
-    '(misc-info jjin/kele mu4e debug lsp minor-modes input-method indent-info process vcs))
+    '(misc-info k8s mu4e debug lsp minor-modes input-method indent-info process vcs check))
 
-  (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t)))
-
-  (doom-modeline-mode 1))
+  (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t))))
 
 (use-package pdf-tools
   :straight t
@@ -1774,17 +1766,6 @@ use as an Embark action."
   :config
   (kele-mode 1)
   (bind-key (kbd "s-k") kele-command-map kele-mode-map))
-
-(doom-modeline-def-segment jjin/kele
-  (when (and (bound-and-true-p kele-mode) (doom-modeline--active))
-    (propertize (concat
-                 (doom-modeline-display-icon (doom-modeline-icon 'mdicon "nf-md-kubernetes" "K8s:" "K8s:"))
-                 (doom-modeline-spc)
-                 (doom-modeline-display-text (kele-current-context-name))
-                 (doom-modeline-display-text (format "(%s)" (kele-current-namespace)))
-                 (doom-modeline-spc))
-                 'mouse-face 'doom-modeline-highlight
-                 'help-echo (kele--help-echo))))
 
 (use-package kubernetes
   :disabled t
