@@ -1568,22 +1568,6 @@ Jonathan Jin
 
 (display-battery-mode 1)
 
-(use-package awesome-tray
-  :disabled t
-  :straight (awesome-tray :type git :host github :repo "manateelazycat/awesome-tray")
-  :custom
-  (awesome-tray-info-padding-right 2)
-  (awesome-tray-file-path-truncated-name-length 6)
-  (awesome-tray-file-path-show-filename t)
-  (awesome-tray-active-modules '("location"
-                                 "evil"
-                                 "belong"
-                                 "file-path"
-                                 "git"
-                                 ;; "kele"
-                                 "mode-name"))
-  (awesome-tray-mode 1))
-
 (use-package pdf-tools
   :straight t
   :mode ("\\.pdf$" . pdf-view-mode)
