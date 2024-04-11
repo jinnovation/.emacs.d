@@ -1566,8 +1566,6 @@ Jonathan Jin
 
   (doom-modeline-mode 1))
 
-(display-battery-mode 1)
-
 (use-package pdf-tools
   :straight t
   :mode ("\\.pdf$" . pdf-view-mode)
