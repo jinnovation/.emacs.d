@@ -1762,7 +1762,7 @@ use as an Embark action."
   :straight t)
 
 (use-package kele
-  :straight (:local-repo "~/dev/kele.el" :type git :host github :repo "jinnovation/kele.el")
+  :straight (:local-repo "~/dev/jinnovation/kele.el" :type git :host github :repo "jinnovation/kele.el")
   :config
   (kele-mode 1)
   (bind-key (kbd "s-k") kele-command-map kele-mode-map))
