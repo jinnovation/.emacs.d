@@ -1057,6 +1057,8 @@ ACT is a buffer action that enables use in
          ("Q"     . #'helpful-kill-buffers)
          ("g"     . #'helpful-update))
   :init
+  (with-eval-after-load 'projectile
+    (add-to-list 'projectile-globally-ignored-modes "helpful-mode"))
   (with-eval-after-load 'evil
     (add-to-list 'evil-motion-state-modes 'helpful-mode)))
 
@@ -1630,6 +1632,9 @@ use as an Embark action."
       (switch-to-buffer buffer)))
 
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global (kbd "<leader>p") 'projectile-command-map))
+
   (advice-add 'projectile-compilation-dir
               :before-until
               'jjin/projectile-absolute-compilation-dir-maybe)
