@@ -336,6 +336,7 @@ i.e. change right window to bottom, or change bottom window to right."
   (unless (server-running-p) (server-start)))
 
 (use-package nested-dir-local
+  :disabled t
   :straight (:repo "git@github.com:jinnovation/nested-dir-locals.el.git"))
 (use-package eyebrowse
   :straight t
