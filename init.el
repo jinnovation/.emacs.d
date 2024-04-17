@@ -1547,8 +1547,6 @@ Jonathan Jin
   (doom-modeline-vcs-max-length 24)
   (doom-modeline-buffer-file-name-style 'truncate-except-project)
   (doom-modeline-buffer-encoding nil)
-  :init
-  (doom-modeline-mode 1)
   :config
   (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
 
@@ -1556,7 +1554,9 @@ Jonathan Jin
     '(bar workspace-name window-number modals matches buffer-info remote-host selection-info )
     '(misc-info k8s mu4e debug lsp minor-modes input-method indent-info process vcs check))
 
-  (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t))))
+  (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t)))
+
+  (doom-modeline-mode 1))
 
 (use-package pdf-tools
   :straight t
