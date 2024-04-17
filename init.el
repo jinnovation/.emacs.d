@@ -1034,14 +1034,12 @@ ACT is a buffer action that enables use in
  (use-package forge
    :straight t
    :after (magit transient)
-   :custom
-   (forge-owned-accounts "jjin")
    :config
-   (add-to-list 'forge-alist '("ghe.spotify.net" "ghe.spotify.net/api/v3"
-                               "spotify-ghe" forge-github-repository))
-
-
    ;; (transient-append-suffix forge-dispatch 'forge-visit-pullreq )
+
+   ;; To add tokens to keychain:
+   ;;
+   ;; security add-internet-password -a "username^forge" -r "htps" -s "api.github.com"
 
    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-pullreqs 'forge-insert-pullreqs nil)
    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-requested-reviews 'forge-insert-pullreqs nil)
