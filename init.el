@@ -443,6 +443,7 @@ ACT is a buffer action that enables use in
      (("q" delete-window "delete window")
       ("Q" kill-buffer-and-window "kill buffer, delete window")
       ("b" balance-windows "balance")
+      ("S" ace-swap-window "swap places with...")
       (";" ace-window "select window" :exit t))))
 
   (pretty-hydra-define jjin-buffer-hydra
