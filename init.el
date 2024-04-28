@@ -1199,15 +1199,20 @@ thread, will archive the head of the thread and trash the rest.")
   (message-send-mail-function 'smtpmail-send-it)
   (mu4e-bookmarks '((:query "(maildir:\"/personal/INBOX\" OR maildir:\"/work/INBOX\") flag:unread"
                      :name "Unread INBOXes"
-                     :key ?U)
-                    (:query "from:\"notification@fbworkmail.com\""
-                     :name "Workface"
-                     :key ?w)))
+                     :key ?U)))
   :commands (mu4e mu4e-update-mail-and-index)
   :init
   (defhydra jjin-hydra-mu4e (:exit t)
     "Auxiliary commands for mu4e"
     ("m" mu4e-update-mail-and-index "update"))
+
+  (setq mu4e-completing-read-function 'completing-read)
+
+  (major-mode-hydra-define mu4e-headers-mode
+    (:title "Mail")
+    ("Indexing"
+     (("U" mu4e-update-mail-and-index "Update mail and index")
+      ("u" mu4e-update-index "Update index"))))
 
   (pretty-hydra-define+ jjin-hydra-exec nil
     ("General" (("m" mu4e "mu4e" :exit t))))
