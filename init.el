@@ -463,8 +463,17 @@ ACT is a buffer action that enables use in
 
 (use-package eglot
   :hook ((tsx-ts-mode . eglot-ensure)
+         (python-ts-mode . eglot-ensure)
          (typescript-ts-mode . eglot-ensure))
- :ensure-system-package (typescript-language-server gopls))
+ :ensure-system-package (typescript-language-server gopls)
+ :config
+
+ (defun jjin/eglot-organize-buffer-imports ()
+   (apply #'eglot-code-action-organize-imports (eglot--region-bounds)))
+ (defun jjin/setup-eglot-hooks ()
+   (add-hook 'before-save-hook #'jjin/eglot-organize-buffer-imports nil t)
+   (add-hook 'before-save-hook #'eglot-format-buffer nil t))
+ (add-hook 'eglot-managed-mode-hook #'jjin/setup-eglot-hooks))
 
 (use-package lsp-mode
    :straight t
