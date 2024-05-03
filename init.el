@@ -1592,14 +1592,16 @@ Jonathan Jin
   (projectile-globally-ignored-directory-names '("~"))
   (projectile-globally-ignored-files
         '("TAGS" "GPATH" "GRTAGS" "GSYMS" "GTAGS"))
-  ;; We'd like projects contained within other projects, e.g. packages pulled
-  ;; into the .emacs.d/.straight dir via straight.el, to be recognized as
-  ;; Projectile packages.
+
   (projectile-project-root-functions '(projectile-root-local
                                        projectile-root-bottom-up
                                        projectile-root-top-down
                                        projectile-root-top-down-recurring))
   :config
+
+  ;; People at this company really like to use nested Makefiles
+  (delete "Makefile" projectile-project-root-files)
+
   (defun jjin/projectile-absolute-compilation-dir-maybe ()
     "Return the default compilation dir of the current Projectile project type.
 
