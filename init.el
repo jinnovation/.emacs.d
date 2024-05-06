@@ -1521,6 +1521,7 @@ inserted before contatenating."
   (ox-extras-activate '(latex-header-blocks ignore-headlines)))
 
 (use-package org-msg
+  :disabled t
   :straight t
   ;; load after mu4e to pick up mail-user-agent setting
   :after (mu4e org)
