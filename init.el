@@ -1234,7 +1234,7 @@ thread, will archive the head of the thread and trash the rest.")
   ;; care of this
   (setq mu4e-sent-messages-behavior
         (lambda ()
-          (if (string= (message-sendmail-envelope-from) "jjin@spotify.com")
+          (if (string= (message-sendmail-envelope-from) "jonathan.jin@hinge.co")
               'delete
             'sent)))
 
@@ -1321,11 +1321,11 @@ thread, will archive the head of the thread and trash the rest.")
               (when msg
                 (or
                  (mu4e-message-maildir-matches msg "^/work")
-                 (mu4e-message-contact-field-matches msg :to "jjin@spotify.com"))))
-            :vars `((user-mail-address . "jjin@spotify.com")
+                 (mu4e-message-contact-field-matches msg :to "jonathan.jin@hinge.co"))))
+            :vars `((user-mail-address . "jonathan.jin@hinge.co")
                     (mu4e-compose-signature . ,(concat "Jonathan Jin"))
 
-                    (smtpmail-smtp-user . "jjin@spotify.com")
+                    (smtpmail-smtp-user . "jonathan.jin@hinge.co")
                     (smtpmail-smtp-server . "smtp.gmail.com")
                     (smtpmail-smtp-service . 587)
                     (smtpmail-stream-type . nil)
