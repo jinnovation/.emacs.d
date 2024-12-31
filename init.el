@@ -1117,6 +1117,7 @@ ACT is a buffer action that enables use in
 (use-package consult
   :straight t
   :demand t
+  :after (embark-consult)
   :bind
   (([remap isearch-forward] . consult-line)
    ([remap switch-to-buffer] . consult-buffer))
@@ -1127,6 +1128,7 @@ ACT is a buffer action that enables use in
 (use-package embark
   :straight t
   :demand t
+  :after (embark-consult)
   :bind
   (("C-;" . embark-act))
   :config
@@ -1139,8 +1141,7 @@ ACT is a buffer action that enables use in
   (add-to-list 'embark-keymap-alist '(jjin/project . jjin/project-actions)))
 
 (use-package embark-consult
-  :straight t
-  :after (consult embark))
+  :straight t)
 
 (use-package consult-projectile
   :after (consult projectile)
