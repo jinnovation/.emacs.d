@@ -1,5 +1,6 @@
 (("ace-link" . "e1b1c91b280d85fce2194fea861a9ae29e8b03dd")
  ("ace-window" . "c7cb315c14e36fded5ac4096e158497ae974bec9")
+ ("aggressive-indent-mode" . "a437a45868f94b77362c6b913c5ee8e67b273c42")
  ("all-the-icons.el" . "51bf77da1ebc3c199dfc11f54c0dce67559f5f40")
  ("autothemer" . "cb4d4b69f8bb1f8158d2311692b7607794b75829")
  ("avy" . "e92cb37457b43336b765630dbfbea8ba4be601fa")
@@ -103,5 +104,5 @@
  ("vertico" . "7f36ecf5a550b7605da3433448970448deac4bb3")
  ("with-editor" . "1b4526453ef6bdee30635f469aa26085c02b1ac1")
  ("yaml.el" . "70c4fcead97e9bd6594e418c922ae769818f4245")
- ("~/dev/jinnovation/kele.el" . "09c465a5d34ecc5d97f958e05d8c352e6fdbd62d"))
+ ("~/dev/jinnovation/kele.el" . "2cadd041f85bbbc1a0d2028e74f233f03723aae2"))
 :gamma

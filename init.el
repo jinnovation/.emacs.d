@@ -1827,3 +1827,8 @@ use as an Embark action."
   ;;                       nil
   ;;                       cleanup-cb))
   )
+
+(use-package aggressive-indent
+  :straight t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
