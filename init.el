@@ -241,6 +241,17 @@ i.e. change right window to bottom, or change bottom window to right."
 
 (setq-default fill-column 80)
 
+;; This sets indentation such that plists aren't indented oddly.
+;;
+;; Specifically, instead of this:
+;; (:foo "bar"
+;;       :baz 1)
+;;
+;; You now get:
+;; (:foo "bar"
+;;  :baz 1)
+(setq lisp-indent-function #'common-lisp-indent-function)
+
 (display-fill-column-indicator-mode 1)
 
 (use-package gotham-theme
