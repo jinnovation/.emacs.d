@@ -474,18 +474,32 @@ ACT is a buffer action that enables use in
   ;; (add-hook 'python-base-mode-hook 'pet-mode -10))
 
 (use-package eglot
-  :hook ((tsx-ts-mode . eglot-ensure)
-         (python-ts-mode . eglot-ensure)
-         (typescript-ts-mode . eglot-ensure))
- :ensure-system-package (typescript-language-server gopls)
- :config
+    :hook ((tsx-ts-mode . eglot-ensure)
+           (python-ts-mode . eglot-ensure)
+           (typescript-ts-mode . eglot-ensure))
+    :ensure-system-package (typescript-language-server gopls)
+    :after (pet)
+    :config
+    ;; NB(@jinnovation): Using `pet-executable-find' here ensures that we use
+    ;; the version of ruff that is installed specifically in the venv for the
+    ;; given project
+    (add-to-list 'eglot-server-programs
+                 '((python-mode python-ts-mode)
+                   . (lambda (_)
+                       (list
+                        (pet-executable-find "ruff")
+                        "server"))))
 
- (defun jjin/eglot-organize-buffer-imports ()
-   (apply #'eglot-code-action-organize-imports (eglot--region-bounds)))
- (defun jjin/setup-eglot-hooks ()
-   (add-hook 'before-save-hook #'jjin/eglot-organize-buffer-imports nil t)
-   (add-hook 'before-save-hook #'eglot-format-buffer nil t))
- (add-hook 'eglot-managed-mode-hook #'jjin/setup-eglot-hooks))
+    ;; TODO: Add `eglot-rename' to embark for 'identifier
+
+    (defun jjin/eglot-organize-buffer-imports ()
+      (apply #'eglot-code-action-organize-imports (eglot--region-bounds)))
+
+    (defun jjin/setup-eglot-hooks ()
+      (add-hook 'before-save-hook #'jjin/eglot-organize-buffer-imports nil t)
+      (add-hook 'before-save-hook #'eglot-format-buffer nil t))
+
+    (add-hook 'eglot-managed-mode-hook #'jjin/setup-eglot-hooks))
 
 (use-package lsp-mode
    :straight t
@@ -648,7 +662,7 @@ ACT is a buffer action that enables use in
      (go "https://github.com/tree-sitter/tree-sitter-go" "v0.20.0" "src")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0" "src")
      (gomod "https://github.com/camdencheek/tree-sitter-go-mod" "v1.0.2" "src")
-     (python "https://github.com/tree-sitter/tree-sitter-python" "v0.21.0" "src")
+     (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6" "src")
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")
      (typst "https://github.com/uben0/tree-sitter-typst" "v0.10-2" "src")))
   :config
