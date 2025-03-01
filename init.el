@@ -1816,10 +1816,20 @@ use as an Embark action."
   :after terraform-mode
   :straight t)
 
+(defun jjin-hinge-auth-kubectl (context-name)
+  "Authenticate kubectl for the given CONTEXT-NAME."
+  (cond ((string-prefix-p "dev-ue1-eks" context-name)
+         (let ((shell-command-switch "-ic"))
+           (compile "aws-profile -o hinge-dev")))
+        ((string-prefix-p "prod-ue1-eks" context-name)
+         (let ((shell-command-switch "-ic"))
+           (compile "aws-profile -o hinge-prod")))))
+
 (use-package kele
   :straight (:local-repo "~/dev/jinnovation/kele.el" :type git :host github :repo "jinnovation/kele.el")
   :config
   (kele-mode 1)
+  (add-hook #'kele-context-after-switch-functions #'jjin-hinge-auth-kubectl)
   (bind-key (kbd "s-k") kele-command-map kele-mode-map))
 
 (use-package kubernetes
