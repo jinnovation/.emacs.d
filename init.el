@@ -2,10 +2,10 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
 
 (setq package-archives '(("gnu"           . "http://elpa.gnu.org/packages/")
-                          ("melpa-stable" . "http://stable.melpa.org/packages/")
-                          ("melpa"        . "http://melpa.org/packages/")
-                          ("non-gnu-elpa" . "https://elpa.nongnu.org/nongnu/")
-                          ("org"          . "https://orgmode.org/elpa/")))
+                         ("melpa-stable" . "http://stable.melpa.org/packages/")
+                         ("melpa"        . "http://melpa.org/packages/")
+                         ("non-gnu-elpa" . "https://elpa.nongnu.org/nongnu/")
+                         ("org"          . "https://orgmode.org/elpa/")))
 
 (package-initialize)
 
@@ -43,12 +43,12 @@
 (use-package diminish :straight t)
 
 (use-package system-packages
-  :straight t
-  :custom
-  (system-packages-use-sudo nil)
-  :init
-  (when (eq system-type 'darwin)
-    (setq system-packages-package-manager 'brew)))
+    :straight t
+    :custom
+    (system-packages-use-sudo nil)
+    :init
+    (when (eq system-type 'darwin)
+      (setq system-packages-package-manager 'brew)))
 
 (use-package dash :straight t)
 
@@ -170,21 +170,21 @@ i.e. change right window to bottom, or change bottom window to right."
 (setq large-file-warning-threshold nil)
 
 (setq
-  inhibit-startup-screen t
-  inhibit-startup-message t
-  initial-scratch-message nil
-  visible-bell nil
-  use-dialog-box nil)
+ inhibit-startup-screen t
+ inhibit-startup-message t
+ initial-scratch-message nil
+ visible-bell nil
+ use-dialog-box nil)
 
 (setq-default
-  indent-tabs-mode nil
-  tab-width 4)
+ indent-tabs-mode nil
+ tab-width 4)
 
 (setq next-line-add-newlines t)
 
 (setq scroll-step 1
-  scroll-conservatively 10000
-  scroll-margin 3)
+      scroll-conservatively 10000
+      scroll-margin 3)
 
 (setq use-short-answers t)
 
@@ -222,11 +222,11 @@ i.e. change right window to bottom, or change bottom window to right."
 (setq echo-keystrokes 0)
 
 (use-package image-dired
-  :after dash
-  :init
-  (if-let* ((handlers (alist-get system-type jjin-ext-file-handlers))
-            (handler (-first 'executable-find (plist-get handlers :image))))
-      (setq image-dired-external-viewer (executable-find handler))))
+    :after dash
+    :init
+    (if-let* ((handlers (alist-get system-type jjin-ext-file-handlers))
+              (handler (-first 'executable-find (plist-get handlers :image))))
+        (setq image-dired-external-viewer (executable-find handler))))
 
 (setq term-ansi-default-program (getenv "SHELL"))
 
@@ -236,7 +236,7 @@ i.e. change right window to bottom, or change bottom window to right."
 (when (file-exists-p custom-file) (load custom-file))
 
 (use-package midnight
-  :init
+    :init
   (setq clean-buffer-list-delay-general 0.006)) ; 10 minutes
 
 (setq-default fill-column 80)
@@ -255,24 +255,24 @@ i.e. change right window to bottom, or change bottom window to right."
 (display-fill-column-indicator-mode 1)
 
 (use-package gotham-theme
-  :if window-system
-  :disabled t
-  :config
-  (load-theme 'gotham t))
+    :if window-system
+    :disabled t
+    :config
+    (load-theme 'gotham t))
 
 (use-package nord-theme
-  :if window-system
-  :straight t
-  :disabled t
-  :custom (nord-comment-brightness 10)
-  :config
-  (load-theme 'nord t))
+    :if window-system
+    :straight t
+    :disabled t
+    :custom (nord-comment-brightness 10)
+    :config
+    (load-theme 'nord t))
 
 (use-package kaolin-themes
-  :if window-system
-  :straight t
-  :config
-  (load-theme 'kaolin-ocean t))
+    :if window-system
+    :straight t
+    :config
+    (load-theme 'kaolin-ocean t))
 
 (setq-default x-stretch-cursor t)
 
@@ -343,18 +343,18 @@ i.e. change right window to bottom, or change bottom window to right."
 
 ;; For this to work, make sure EDITOR and/or VISUAL are set to `emacsclient'.
 (use-package server
-  :config
+    :config
   (unless (server-running-p) (server-start)))
 
 (use-package nested-dir-local
-  :disabled t
-  :straight (:repo "git@github.com:jinnovation/nested-dir-locals.el.git"))
+    :disabled t
+    :straight (:repo "git@github.com:jinnovation/nested-dir-locals.el.git"))
 (use-package eyebrowse
-  :straight t
-  :custom
-  (eyebrowse-new-workspace t)
-  :config
-  (eyebrowse-mode 1))
+    :straight t
+    :custom
+    (eyebrowse-new-workspace t)
+    :config
+    (eyebrowse-mode 1))
 ;; FIXME: Add eyebrowse switch window config bindings to the window hydra
 
 (defvar jjin/help-modes '(helpful-mode
@@ -423,66 +423,66 @@ ACT is a buffer action that enables use in
            ("s-`" . recompile))
 
 (use-package hydra
-  :commands defhydra
-  :straight t)
+    :commands defhydra
+    :straight t)
 
 (use-package pretty-hydra
-  :straight t
-  :after all-the-icons
-  :config
-  (pretty-hydra-define jjin-hydra-exec
-    (:title (with-material "apps" "Apps" 1 -0.05))
-    ("General" ()))
+    :straight t
+    :after all-the-icons
+    :config
+    (pretty-hydra-define jjin-hydra-exec
+        (:title (with-material "apps" "Apps" 1 -0.05))
+      ("General" ()))
 
-  (pretty-hydra-define jjin-hydra-window
-    (:title (with-octicon "browser" "Windows" 1 -0.05))
+    (pretty-hydra-define jjin-hydra-window
+        (:title (with-octicon "browser" "Windows" 1 -0.05))
 
-    ("Move"
-     (("h" windmove-left "move left")
-      ("l" windmove-right "move right")
-      ("j" windmove-down "move down")
-      ("k" windmove-up "move up"))
-     "Split"
-     (("H" jjin-move-splitter-left "move splitter left")
-      ("L" jjin-move-splitter-right "move splitter right")
-      ("J" jjin-move-splitter-down "move splitter down")
-      ("K" jjin-move-splitter-up "move splitter up")
-      ("|" jjin-window-toggle-split-direction "toggle split")
-      ("s" split-window-below "split window (below)")
-      ("v" split-window-right "split window (right)"))
-     "Other"
-     (("q" delete-window "delete window")
-      ("Q" kill-buffer-and-window "kill buffer, delete window")
-      ("b" balance-windows "balance")
-      ("S" ace-swap-window "swap places with...")
-      (";" ace-window "select window" :exit t))))
+      ("Move"
+       (("h" windmove-left "move left")
+        ("l" windmove-right "move right")
+        ("j" windmove-down "move down")
+        ("k" windmove-up "move up"))
+       "Split"
+       (("H" jjin-move-splitter-left "move splitter left")
+        ("L" jjin-move-splitter-right "move splitter right")
+        ("J" jjin-move-splitter-down "move splitter down")
+        ("K" jjin-move-splitter-up "move splitter up")
+        ("|" jjin-window-toggle-split-direction "toggle split")
+        ("s" split-window-below "split window (below)")
+        ("v" split-window-right "split window (right)"))
+       "Other"
+       (("q" delete-window "delete window")
+        ("Q" kill-buffer-and-window "kill buffer, delete window")
+        ("b" balance-windows "balance")
+        ("S" ace-swap-window "swap places with...")
+        (";" ace-window "select window" :exit t))))
 
-  (pretty-hydra-define jjin-buffer-hydra
-    (:title (with-material "code" "Buffers" 1 -0.005) :color teal)
-    ("Name"
-     (("r" rename-buffer "Rename"))))
+    (pretty-hydra-define jjin-buffer-hydra
+        (:title (with-material "code" "Buffers" 1 -0.005) :color teal)
+      ("Name"
+       (("r" rename-buffer "Rename"))))
 
-  (bind-key "C-c b" 'jjin-buffer-hydra/body)
+    (bind-key "C-c b" 'jjin-buffer-hydra/body)
 
-  (bind-key "C-c w" 'jjin-hydra-window/body)
-  (bind-key "s-<escape>" 'jjin-hydra-exec/body))
+    (bind-key "C-c w" 'jjin-hydra-window/body)
+    (bind-key "s-<escape>" 'jjin-hydra-exec/body))
 
 (use-package major-mode-hydra
-  :straight t
-  :bind
-  ("s-SPC" . major-mode-hydra))
+    :straight t
+    :bind
+    ("s-SPC" . major-mode-hydra))
 
 ;; Virtualenv-aware shim for finding the right Python executables. Useful for
 ;; language server functionality etc.
 (use-package pet
-  :straight t
-  :after (exec-path-from-shell)
-  :config
-  (add-hook 'python-base-mode-hook (lambda ()
-                                     (setq-local python-shell-interpreter (pet-executable-find "python")
-                                                 python-shell-virtualenv-root (pet-virtualenv-root))
-                                     (pet-eglot-setup))))
-  ;; (add-hook 'python-base-mode-hook 'pet-mode -10))
+    :straight t
+    :after (exec-path-from-shell)
+    :config
+    (add-hook 'python-base-mode-hook (lambda ()
+                                       (setq-local python-shell-interpreter (pet-executable-find "python")
+                                                   python-shell-virtualenv-root (pet-virtualenv-root))
+                                       (pet-eglot-setup))))
+;; (add-hook 'python-base-mode-hook 'pet-mode -10))
 
 (use-package eglot
     :hook ((tsx-ts-mode . eglot-ensure)
@@ -513,62 +513,62 @@ ACT is a buffer action that enables use in
     (add-hook 'eglot-managed-mode-hook #'jjin/setup-eglot-hooks))
 
 (use-package lsp-mode
-   :straight t
-   :hook ((python-mode . lsp-deferred)
-          (go-mod-ts-mode . lsp-deferred)
-          (go-ts-mode . lsp-deferred))
-          ;; (terraform-mode . lsp-deferred)
-          ;; (yaml-mode . lsp-deferred))
-   ;; TODO:
-   ;; For Python, would like the following installed:
-   ;;   - python-lsp-server
-   ;;   - python-lsp-black
-   ;;   - pylsp-mypy
-   ;;   - pyls-isort
-   :custom
-   (lsp-ui-sideline-enable nil)         ; Disable until the weird text
+    :straight t
+    :hook ((python-mode . lsp-deferred)
+           (go-mod-ts-mode . lsp-deferred)
+           (go-ts-mode . lsp-deferred))
+    ;; (terraform-mode . lsp-deferred)
+    ;; (yaml-mode . lsp-deferred))
+    ;; TODO:
+    ;; For Python, would like the following installed:
+    ;;   - python-lsp-server
+    ;;   - python-lsp-black
+    ;;   - pylsp-mypy
+    ;;   - pyls-isort
+    :custom
+    (lsp-ui-sideline-enable nil)         ; Disable until the weird text
                                         ; overflow issue is fixed
-   (lsp-signature-render-documentation nil)
-   (lsp-pyls-configuration-sources ["flake8"])
-   (lsp-pyls-plugins-pycodestyle-enabled nil)
-   (lsp-pylsp-server-command '("pylsp"))
-   (lsp-pyls-server-command '("pylsp"))
-   (lsp-enable-snippet nil)
-   (lsp-log-io t)
-   (lsp-document-sync-method nil)
-   (lsp-print-performance t)
-   (lsp-before-save-edits nil)
-   (lsp-signature-render-documentation t)
-   (lsp-pyls-plugins-pydocstyle-enabled t)
-   (lsp-pyls-plugins-pyflakes-enabled nil)
-   (lsp-pyls-plugins-flake8-enabled t)
-   (lsp-pyls-plugins-pydocstyle-convention "pep257")
-   (lsp-pyls-plugins-mccabe-enabled nil)
-   (lsp-go-codelenses nil)
-   (lsp-go-use-gofumpt t)
-   :init
-   ;; (setq lsp-document-sync-method 'lsp--sync-incremental)
-   (add-hook 'hack-local-variables-hook
-             (lambda () (when (derived-mode-p 'python-mode) (lsp))))
-   :config
-   (when (-contains? (lsp-session-folders (lsp-session)) (f-expand "~"))
-     (warn "LSP workspace folders list contains home dir; this can be problematic, consider removing."))
+    (lsp-signature-render-documentation nil)
+    (lsp-pyls-configuration-sources ["flake8"])
+    (lsp-pyls-plugins-pycodestyle-enabled nil)
+    (lsp-pylsp-server-command '("pylsp"))
+    (lsp-pyls-server-command '("pylsp"))
+    (lsp-enable-snippet nil)
+    (lsp-log-io t)
+    (lsp-document-sync-method nil)
+    (lsp-print-performance t)
+    (lsp-before-save-edits nil)
+    (lsp-signature-render-documentation t)
+    (lsp-pyls-plugins-pydocstyle-enabled t)
+    (lsp-pyls-plugins-pyflakes-enabled nil)
+    (lsp-pyls-plugins-flake8-enabled t)
+    (lsp-pyls-plugins-pydocstyle-convention "pep257")
+    (lsp-pyls-plugins-mccabe-enabled nil)
+    (lsp-go-codelenses nil)
+    (lsp-go-use-gofumpt t)
+    :init
+    ;; (setq lsp-document-sync-method 'lsp--sync-incremental)
+    (add-hook 'hack-local-variables-hook
+              (lambda () (when (derived-mode-p 'python-mode) (lsp))))
+    :config
+    (when (-contains? (lsp-session-folders (lsp-session)) (f-expand "~"))
+      (warn "LSP workspace folders list contains home dir; this can be problematic, consider removing."))
 
-   (lsp-register-custom-settings '(("gopls.completeUnimported" t t)
-                                   ("gopls.staticcheck" t t)
-                                   ("pyls.plugins.pyls_mypy.enabled" t t)
-                                   ("pyls.plugins.pyls_mypy.live_mode" nil t)))
+    (lsp-register-custom-settings '(("gopls.completeUnimported" t t)
+                                    ("gopls.staticcheck" t t)
+                                    ("pyls.plugins.pyls_mypy.enabled" t t)
+                                    ("pyls.plugins.pyls_mypy.live_mode" nil t)))
 
-   ;; FIXME: Oncen gopackagesdriver is available, set up here to cooperate w/
-   ;; Bazel projects.
-   (defun lsp-go-install-save-hooks ()
-     (add-hook 'before-save-hook #'lsp-format-buffer t t)
-     (add-hook 'before-save-hook #'lsp-organize-imports t t))
-   (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
+    ;; FIXME: Oncen gopackagesdriver is available, set up here to cooperate w/
+    ;; Bazel projects.
+    (defun lsp-go-install-save-hooks ()
+      (add-hook 'before-save-hook #'lsp-format-buffer t t)
+      (add-hook 'before-save-hook #'lsp-organize-imports t t))
+    (add-hook 'go-mode-hook #'lsp-go-install-save-hooks))
 
 (use-package bazel-mode
-  :disabled t
-  :straight (emacs-bazel-mode :type git :host github :repo "bazelbuild/emacs-bazel-mode"))
+    :disabled t
+    :straight (emacs-bazel-mode :type git :host github :repo "bazelbuild/emacs-bazel-mode"))
 
 (setq c-block-comment-prefix "* ")
 
@@ -576,22 +576,22 @@ ACT is a buffer action that enables use in
 (c-set-offset 'arglist-close 0)
 
 (use-package editorconfig
-  :straight t
-  :config
-  (editorconfig-mode 1))
+    :straight t
+    :config
+    (editorconfig-mode 1))
 
 (require 'go-ts-mode)
 
 (use-package lsp-ivy
-  :straight t
-  :after (ivy lsp-mode))
+    :straight t
+    :after (ivy lsp-mode))
 
 (use-package lsp-ui
-  :straight t
-  :after lsp-mode
-  :custom
-  (lsp-ui-doc-enable nil "doc display on hover uses posframes (don't work well w/ macos fullscreen)")
-  (lsp-ui-sideline-show-hover t))
+    :straight t
+    :after lsp-mode
+    :custom
+    (lsp-ui-doc-enable nil "doc display on hover uses posframes (don't work well w/ macos fullscreen)")
+    (lsp-ui-sideline-show-hover t))
 
 (add-to-list 'auto-mode-alist '("emacs$" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("Cask" . emacs-lisp-mode))
@@ -599,35 +599,35 @@ ACT is a buffer action that enables use in
 (defvaralias 'js-indent-level 'tab-width)
 
 (use-package js2-mode
-  :mode (("\\.js$" . js2-mode)
-         ("\\.jsx$" . js2-jsx-mode))
-  :straight t)
+    :mode (("\\.js$" . js2-mode)
+           ("\\.jsx$" . js2-jsx-mode))
+    :straight t)
 
 (use-package json-mode
-  :straight t)
+    :straight t)
 
 (add-to-list 'auto-mode-alist '("zshrc$" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.zsh$" . sh-mode))
 (add-to-list 'auto-mode-alist '("\\.bats$" . sh-mode))
 
 (use-package graphviz-dot-mode
-  :straight t)
+    :straight t)
 
 (use-package mermaid-mode
-  :straight t
-  :mode (("\\.mmd$" . mermaid-mode)))
+    :straight t
+    :mode (("\\.mmd$" . mermaid-mode)))
 
 (use-package haskell-mode
-  :disabled t
-  :config
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
+    :disabled t
+    :config
+    (add-hook 'haskell-mode-hook 'turn-on-haskell-indent))
 
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
 
 (use-package protobuf-mode
-  :straight t)
+    :straight t)
 
 (add-to-list 'major-mode-remap-alist
              '(python-mode . python-ts-mode))
@@ -637,28 +637,28 @@ ACT is a buffer action that enables use in
 (setq python-indent-def-block-scale 1)
 
 (use-package pyvenv
-  :straight t
-  :init
-  (setenv "WORKON_HOME" "~/.pyenv/versions"))
+    :straight t
+    :init
+    (setenv "WORKON_HOME" "~/.pyenv/versions"))
 
 (use-package elisp-autofmt
-  :straight t
-  :disabled t
-  :commands (elisp-autofmt-mode elisp-autofmt-buffer))
+    :straight t
+    :disabled t
+    :commands (elisp-autofmt-mode elisp-autofmt-buffer))
 
 (use-package buttercup
-  :straight t)
+    :straight t)
 
 (use-package markdown-mode
-  :straight t
-  :mode "\\.md$"
-  :bind (:map markdown-mode-map
-              ("M-]" . markdown-demote)
-              ("M-[" . markdown-promote))
-  :custom
-  (markdown-asymmetric-header t)
-  :config
-  (add-hook 'markdown-mode-hook 'auto-fill-mode))
+    :straight t
+    :mode "\\.md$"
+    :bind (:map markdown-mode-map
+                ("M-]" . markdown-demote)
+                ("M-[" . markdown-promote))
+    :custom
+    (markdown-asymmetric-header t)
+    :config
+    (add-hook 'markdown-mode-hook 'auto-fill-mode))
 
 (defun jjin/treesit-install-grammar-maybe (lang)
   "Installs Tree-sitter grammar for LANG if and only if it is not already
@@ -667,7 +667,7 @@ ACT is a buffer action that enables use in
     (treesit-install-language-grammar lang)))
 
 (use-package treesit
-  :custom
+    :custom
   (treesit-language-source-alist
    '((tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src")
      (go "https://github.com/tree-sitter/tree-sitter-go" "v0.20.0" "src")
@@ -685,504 +685,505 @@ ACT is a buffer action that enables use in
 (use-package typescript-ts-mode)
 
 (use-package typst-ts-mode
-  :after (treesit major-mode-hydra)
-  :straight (typst-ts-mode :type git :host sourcehut :repo "meow_king/typst-ts-mode" :files (:defaults "*.el"))
-  :config
-  (defun jjin/run-typstfmt-maybe ()
-    "Runs typstfmt on the current buffer if it is installed."
-    (interactive)
-    (when (and (executable-find "typstfmt") (buffer-file-name))
-      (shell-command (format "typstfmt %s" (buffer-file-name)))))
+    :after (treesit major-mode-hydra)
+    :straight (typst-ts-mode :type git :host sourcehut :repo "meow_king/typst-ts-mode" :files (:defaults "*.el"))
+    :config
+    (defun jjin/run-typstfmt-maybe ()
+      "Runs typstfmt on the current buffer if it is installed."
+      (interactive)
+      (when (and (executable-find "typstfmt") (buffer-file-name))
+        (shell-command (format "typstfmt %s" (buffer-file-name)))))
 
-  ;; FIXME: For some reason doesn't work?
-  ;; (defun jjin/typst-install-save-hooks ()
-  ;;   (add-hook 'before-save-hook #'jjin/run-typstfmt-maybe t t))
+    ;; FIXME: For some reason doesn't work?
+    ;; (defun jjin/typst-install-save-hooks ()
+    ;;   (add-hook 'before-save-hook #'jjin/run-typstfmt-maybe t t))
 
-  ;; (add-hook 'typst-ts-mode-hook #'jjin/typst-install-save-hooks)
+    ;; (add-hook 'typst-ts-mode-hook #'jjin/typst-install-save-hooks)
 
-  (major-mode-hydra-define typst-ts-mode
-    (:title "Typst: Commands")
-    ("Compilation"
-     (("C" typst-ts-mode-compile "Compile")
-      ("c" typst-ts-mode-compile-and-preview "Compile and preview")
-      ;; FIXME: Display whether currently on or off
-      ("w" typst-ts-mode-watch-toggle "Watch toggle"))
-     "Format"
-     (("f" jjin/run-typstfmt-maybe "Auto-format")))))
+    (major-mode-hydra-define typst-ts-mode
+        (:title "Typst: Commands")
+      ("Compilation"
+       (("C" typst-ts-mode-compile "Compile")
+        ("c" typst-ts-mode-compile-and-preview "Compile and preview")
+        ;; FIXME: Display whether currently on or off
+        ("w" typst-ts-mode-watch-toggle "Watch toggle"))
+       "Format"
+       (("f" jjin/run-typstfmt-maybe "Auto-format")))))
 
 (use-package yaml-ts-mode)
 
 (use-package jinja2-mode
-  :straight t)
+    :straight t)
 
 (use-package ace-link
-  :straight t
-  :after org ;; fn ace-link-org loads org-mode
-  :commands (ace-link-eww ace-link-setup-default)
-  :init (ace-link-setup-default))
+    :straight t
+    :after org ;; fn ace-link-org loads org-mode
+    :commands (ace-link-eww ace-link-setup-default)
+    :init (ace-link-setup-default))
 
 (use-package ace-window
-  :commands ace-window
-  :straight t
-  :init
-  (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
+    :commands ace-window
+    :straight t
+    :init
+    (setq aw-keys '(?a ?r ?s ?t ?q ?w ?f ?p))
 
-  :config
-  ;; technically should be able to use mu4e~update-name but for whatever reason
-  ;; the mu4e update index function uses the hardcoded string w/ space padding.
-  (add-to-list 'aw-ignored-buffers " *mu4e-update*"))
+    :config
+    ;; technically should be able to use mu4e~update-name but for whatever reason
+    ;; the mu4e update index function uses the hardcoded string w/ space padding.
+    (add-to-list 'aw-ignored-buffers " *mu4e-update*"))
 
 (use-package code-review
-  :straight t
-  :disabled t)
+    :straight t
+    :disabled t)
 
 (use-package conf-mode
-  :mode
+    :mode
   (;; systemd
-    ("\\.service\\'"     . conf-unix-mode)
-    ("\\.timer\\'"      . conf-unix-mode)
-    ("\\.target\\'"     . conf-unix-mode)
-    ("\\.mount\\'"      . conf-unix-mode)
-    ("\\.automount\\'"  . conf-unix-mode)
-    ("\\.slice\\'"      . conf-unix-mode)
-    ("\\.socket\\'"     . conf-unix-mode)
-    ("\\.path\\'"       . conf-unix-mode)
+   ("\\.service\\'"     . conf-unix-mode)
+   ("\\.timer\\'"      . conf-unix-mode)
+   ("\\.target\\'"     . conf-unix-mode)
+   ("\\.mount\\'"      . conf-unix-mode)
+   ("\\.automount\\'"  . conf-unix-mode)
+   ("\\.slice\\'"      . conf-unix-mode)
+   ("\\.socket\\'"     . conf-unix-mode)
+   ("\\.path\\'"       . conf-unix-mode)
 
-    ;; general
-    ("conf\\(ig\\)?$"   . conf-mode)
-    ("rc\\(_local\\)?$" . conf-mode)))
+   ;; general
+   ("conf\\(ig\\)?$"   . conf-mode)
+   ("rc\\(_local\\)?$" . conf-mode)))
 
 (use-package company
-  :defines company-backends
-  :diminish company-mode
-  :straight t
-  :custom
-  (company-dabbrev-downcase nil)
-  :config
-  (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-idle-delay 0.1))
+    :defines company-backends
+    :diminish company-mode
+    :straight t
+    :custom
+    (company-dabbrev-downcase nil)
+    :config
+    (add-hook 'after-init-hook 'global-company-mode)
+    (setq company-idle-delay 0.1))
 
 (setq dired-listing-switches "-alh")
 
 (use-package dired-open
-  :straight t
-  :after dash
-  :init
-  (if-let* ((handler-vid (-first 'executable-find
-                                 (plist-get
-                                  (alist-get system-type jjin-ext-file-handlers)
-                                  :video)))
-            (path (executable-find handler-vid)))
-      (setq dired-open-extensions `(("mp4" . ,(executable-find handler-vid))
-                                    ("avi" . ,(executable-find handler-vid))))))
+    :straight t
+    :after dash
+    :init
+    (if-let* ((handler-vid (-first 'executable-find
+                                   (plist-get
+                                    (alist-get system-type jjin-ext-file-handlers)
+                                    :video)))
+              (path (executable-find handler-vid)))
+        (setq dired-open-extensions `(("mp4" . ,(executable-find handler-vid))
+                                      ("avi" . ,(executable-find handler-vid))))))
 
 (use-package dirvish
-  :straight t
-  :init
-  (pretty-hydra-define+ jjin-hydra-exec nil
-    ("General" (("d" dirvish "dirvish" :exit t))))
+    :straight t
+    :init
+    (pretty-hydra-define+ jjin-hydra-exec nil
+      ("General" (("d" dirvish "dirvish" :exit t))))
 
-  :config
-  (dirvish-override-dired-mode))
+    :config
+    (dirvish-override-dired-mode))
 
 (use-package doc-view
-  :init
+    :init
   (setq doc-view-resolution 200))
 
 (use-package docker
-  :straight t)
+    :straight t)
 
+;; TODO: Set up native dockerfile-ts-mode
 (use-package dockerfile-mode
-  :straight t)
+    :straight t)
 
 (use-package ediff
-  :custom
+    :custom
   (ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (use-package exec-path-from-shell
-  :straight t
-  :custom
-  (exec-path-from-shell-variables '("PATH"
-                                    "MANPATH"
-                                    "GOPATH"
-                                    "GOROOT"
-                                    "GO111MODULE"
-                                    "JENKINS_USER"
-                                    "JENKINS_API_TOKEN"))
-  ;; (exec-path-from-shell-shell-name "zsh")
-  (exec-path-from-shell-shell-name shell-file-name)
-  :config
-  (exec-path-from-shell-initialize))
+    :straight t
+    :custom
+    (exec-path-from-shell-variables '("PATH"
+                                      "MANPATH"
+                                      "GOPATH"
+                                      "GOROOT"
+                                      "GO111MODULE"
+                                      "JENKINS_USER"
+                                      "JENKINS_API_TOKEN"))
+    ;; (exec-path-from-shell-shell-name "zsh")
+    (exec-path-from-shell-shell-name shell-file-name)
+    :config
+    (exec-path-from-shell-initialize))
 
 (use-package vterm
-  ;; :ensure-system-package cmake
-  :straight t
-  :bind (:map global-map
-              ("s-v" . vterm))
-  :hook
-  (vterm-mode . goto-address-mode)
-  :custom
-  (vterm-shell "/bin/zsh")
-  (vterm-kill-buffer-on-exit t)
-  :config
-  (with-eval-after-load 'evil
-    (add-to-list 'evil-emacs-state-modes 'vterm-mode)))
+    ;; :ensure-system-package cmake
+    :straight t
+    :bind (:map global-map
+                ("s-v" . vterm))
+    :hook
+    (vterm-mode . goto-address-mode)
+    :custom
+    (vterm-shell "/bin/zsh")
+    (vterm-kill-buffer-on-exit t)
+    :config
+    (with-eval-after-load 'evil
+      (add-to-list 'evil-emacs-state-modes 'vterm-mode)))
 
 (use-package evil
-  :straight t
-  :defines evil-normal-state-map
-  :custom
-  (evil-esc-delay 0)
-  :config
-  (evil-set-leader '(normal motion) (kbd "SPC"))
-  (evil-define-key 'normal 'global (kbd "<leader>s") 'save-buffer)
+    :straight t
+    :defines evil-normal-state-map
+    :custom
+    (evil-esc-delay 0)
+    :config
+    (evil-set-leader '(normal motion) (kbd "SPC"))
+    (evil-define-key 'normal 'global (kbd "<leader>s") 'save-buffer)
 
-  (mapc (lambda (m) (add-to-list 'evil-emacs-state-modes m t))
-    '(eshell-mode
-       calendar-mode
+    (mapc (lambda (m) (add-to-list 'evil-emacs-state-modes m t))
+          '(eshell-mode
+            calendar-mode
 
-       finder-mode
-       info-mode
+            finder-mode
+            info-mode
 
-       eww-mode
-       eww-bookmark-mode
+            eww-mode
+            eww-bookmark-mode
 
-       dired-mode
-       image-mode
-       image-dired-thumbnail-mode
-       image-dired-display-image-mode
+            dired-mode
+            image-mode
+            image-dired-thumbnail-mode
+            image-dired-display-image-mode
 
-       git-rebase-mode
+            git-rebase-mode
 
-       help-mode
+            help-mode
 
-       sql-interactive-mode
-       org-capture-mode))
-  ;; FIXME: what's the diff between set-initial-state and adding to list directly?
-  (evil-set-initial-state 'term-mode 'emacs)
+            sql-interactive-mode
+            org-capture-mode))
+    ;; FIXME: what's the diff between set-initial-state and adding to list directly?
+    (evil-set-initial-state 'term-mode 'emacs)
 
-  (bind-keys :map evil-emacs-state-map
-    ("<escape>" . evil-execute-in-normal-state))
+    (bind-keys :map evil-emacs-state-map
+               ("<escape>" . evil-execute-in-normal-state))
 
-  (evil-mode 1))
+    (evil-mode 1))
 
 (use-package evil-numbers
-  :after evil
-  :straight t
-  :config
-  (bind-keys :map evil-normal-state-map
-             ("C-a"   . evil-numbers/inc-at-pt)
-             ("C-c -" . evil-numbers/dec-at-pt)))
+    :after evil
+    :straight t
+    :config
+    (bind-keys :map evil-normal-state-map
+               ("C-a"   . evil-numbers/inc-at-pt)
+               ("C-c -" . evil-numbers/dec-at-pt)))
 
 (use-package evil-search-highlight-persist
-  :after evil
-  :straight t
-  :config
-  (bind-key "C-l" 'evil-search-highlight-persist-remove-all
-            evil-normal-state-map)
-  (global-evil-search-highlight-persist t)
+    :after evil
+    :straight t
+    :config
+    (bind-key "C-l" 'evil-search-highlight-persist-remove-all
+              evil-normal-state-map)
+    (global-evil-search-highlight-persist t)
 
-  (set-face-attribute
-   'evil-search-highlight-persist-highlight-face
-   nil
-   :background (face-attribute 'match :background)))
+    (set-face-attribute
+     'evil-search-highlight-persist-highlight-face
+     nil
+     :background (face-attribute 'match :background)))
 
 (use-package evil-surround
-  :after evil
-  :straight t
-  :config
-  (global-evil-surround-mode 1))
+    :after evil
+    :straight t
+    :config
+    (global-evil-surround-mode 1))
 
 (use-package evil-nerd-commenter
-  :after evil
-  :straight t
-  :pretty-hydra
-  ((:color teal)
-   ("Commenting"
-     (("i" evilnc-comment-or-uncomment-lines "Comment/Uncomment Lines")
-      ("c" evilnc-copy-and-comment-lines "Copy and comment"))))
-  :bind ("C-c c" . evil-nerd-commenter-hydra/body)
-  :config
-  (evil-define-key '(normal motion) 'global (kbd "<leader>c") 'evil-nerd-commenter-hydra/body))
+    :after evil
+    :straight t
+    :pretty-hydra
+    ((:color teal)
+     ("Commenting"
+      (("i" evilnc-comment-or-uncomment-lines "Comment/Uncomment Lines")
+       ("c" evilnc-copy-and-comment-lines "Copy and comment"))))
+    :bind ("C-c c" . evil-nerd-commenter-hydra/body)
+    :config
+    (evil-define-key '(normal motion) 'global (kbd "<leader>c") 'evil-nerd-commenter-hydra/body))
 
 (use-package flycheck
-  :straight t
-  :defines flycheck-mode-hook
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+    :straight t
+    :defines flycheck-mode-hook
+    :config
+    (add-hook 'after-init-hook #'global-flycheck-mode))
 
 (use-package gif-screencast
-  :straight t
-  :custom
-  (gif-screencast-args '("-x"))
-  ;; I have no idea why this value works but it does so whatever
-  (gif-screencast-scale-factor 2.0)
-  (gif-screencast-cropping-program "mogrify")
-  (gif-screencast-capture-format "ppm"))
+    :straight t
+    :custom
+    (gif-screencast-args '("-x"))
+    ;; I have no idea why this value works but it does so whatever
+    (gif-screencast-scale-factor 2.0)
+    (gif-screencast-cropping-program "mogrify")
+    (gif-screencast-capture-format "ppm"))
 
 (bind-keys :map jjin-vc-map
            ("g" . vc-git-grep))
 
 (setq vc-handled-backends '(git))
 
- (use-package git-commit-mode
-   :commands git-commit-mode)
+(use-package git-commit-mode
+    :commands git-commit-mode)
 
- (use-package gitconfig-mode
-   :disabled t
-   :straight t
-   :mode "gitconfig")
+(use-package gitconfig-mode
+    :disabled t
+    :straight t
+    :mode "gitconfig")
 
- (use-package gitignore-mode
-   :disabled t
-   :straight t
-   :mode "gitignore")
+(use-package gitignore-mode
+    :disabled t
+    :straight t
+    :mode "gitignore")
 
- ;; Merge commits can sometimes be massive -- particularly in monorepo
- ;; environments. Since showing the diff during commit in such scenarios is of
- ;; questionable utility, we suppress its behavior with the following advice.
- (defun jjin/do-if-merge-not-in-progress (oldfun)
-   "Displays the diff during commit only in cases where a merge is
+;; Merge commits can sometimes be massive -- particularly in monorepo
+;; environments. Since showing the diff during commit in such scenarios is of
+;; questionable utility, we suppress its behavior with the following advice.
+(defun jjin/do-if-merge-not-in-progress (oldfun)
+  "Displays the diff during commit only in cases where a merge is
    not in progress."
-   (when (not (magit-merge-in-progress-p)) (funcall oldfun)))
+  (when (not (magit-merge-in-progress-p)) (funcall oldfun)))
 
- (defun jjin/magit-fetch-from-origin-master ()
-   (interactive)
-   (magit-git-fetch "origin" "master"))
+(defun jjin/magit-fetch-from-origin-master ()
+  (interactive)
+  (magit-git-fetch "origin" "master"))
 
- (defun jjin/magit-checkout-previous-branch ()
-   (interactive)
-   (if-let ((p (magit-get-previous-branch)))
-       (magit-checkout p)
-     (error "No previous branch")))
+(defun jjin/magit-checkout-previous-branch ()
+  (interactive)
+  (if-let ((p (magit-get-previous-branch)))
+      (magit-checkout p)
+    (error "No previous branch")))
 
- ;; TODO: Magit has migrated to using transient, so all commented sections will
- ;; eventually need to be updated or removed.
+;; TODO: Magit has migrated to using transient, so all commented sections will
+;; eventually need to be updated or removed.
 
- (use-package transient
-   :straight (:source melpa)
-   :init
-   (setq transient-show-common-commands nil))
+(use-package transient
+    :straight (:source melpa)
+    :init
+    (setq transient-show-common-commands nil))
 
- (use-package git-modes
-   :straight t)
+(use-package git-modes
+    :straight t)
 
- (use-package magit
-   :straight t
-   :custom
-   (magit-log-arguments '("--graph" "--decorate" "--color"))
-   (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
-   (magit-status-initial-section '(((unstaged) (status))
-                                   ((staged) (status))))
-   :hook
-   (magit-revision-mode . goto-address-mode)
-   :init
-   ;; On status buffer init, jump to either unstaged changes or staged changes,
-   ;; if present
+(use-package magit
+    :straight t
+    :custom
+    (magit-log-arguments '("--graph" "--decorate" "--color"))
+    (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1)
+    (magit-status-initial-section '(((unstaged) (status))
+                                    ((staged) (status))))
+    :hook
+    (magit-revision-mode . goto-address-mode)
+    :init
+    ;; On status buffer init, jump to either unstaged changes or staged changes,
+    ;; if present
 
-   (add-to-list
-    'safe-local-variable-values
-    '(magit-status-headers-hook . (list
-                                   magit-insert-error-header
-                                   magit-insert-diff-filter-header
-                                   magit-insert-head-branch-header
-                                   magit-insert-upstream-branch-header
-                                   magit-insert-push-branch-header)))
+    (add-to-list
+     'safe-local-variable-values
+     '(magit-status-headers-hook . (list
+                                    magit-insert-error-header
+                                    magit-insert-diff-filter-header
+                                    magit-insert-head-branch-header
+                                    magit-insert-upstream-branch-header
+                                    magit-insert-push-branch-header)))
 
-   (defun jjin/magit-status-at (dir)
-     "Open Magit status buffer for project at root DIR."
-     (magit-status dir))
-   :bind (:map jjin-vc-map
-               ("!" . magit-git-command-topdir)
-               ("C" . magit-branch-and-checkout)
-               ("F" . magit-pull)
-               ("P" . magit-push)
-               ("b" . magit-blame)
-               ("c" . magit-checkout)
-               ("d" . magit-diff)
-               ("f" . magit-fetch)
-               ("l" . magit-log)
-               ("m" . magit-merge)
-               ("v" . magit-status)
-               ("z" . magit-stash)
-               :map magit-mode-map
-               ("X" . magit-reset-hard))
+    (defun jjin/magit-status-at (dir)
+      "Open Magit status buffer for project at root DIR."
+      (magit-status dir))
+    :bind (:map jjin-vc-map
+                ("!" . magit-git-command-topdir)
+                ("C" . magit-branch-and-checkout)
+                ("F" . magit-pull)
+                ("P" . magit-push)
+                ("b" . magit-blame)
+                ("c" . magit-checkout)
+                ("d" . magit-diff)
+                ("f" . magit-fetch)
+                ("l" . magit-log)
+                ("m" . magit-merge)
+                ("v" . magit-status)
+                ("z" . magit-stash)
+                :map magit-mode-map
+                ("X" . magit-reset-hard))
 
-   :commands (magit-status)
+    :commands (magit-status)
 
-   :config
-   (with-eval-after-load 'git-rebase
-     (bind-keys :map git-rebase-mode-map ("u" . git-rebase-undo)))
+    :config
+    (with-eval-after-load 'git-rebase
+      (bind-keys :map git-rebase-mode-map ("u" . git-rebase-undo)))
 
-   ;; removes 1.4.0 warning in arguably cleaner way
-   (remove-hook 'after-init-hook 'magit-maybe-show-setup-instructions)
+    ;; removes 1.4.0 warning in arguably cleaner way
+    (remove-hook 'after-init-hook 'magit-maybe-show-setup-instructions)
 
-   (defadvice magit-blame-mode (after switch-to-emacs-state activate)
-     (if magit-blame-mode
-         (evil-emacs-state 1)
-       (evil-normal-state 1)))
+    (defadvice magit-blame-mode (after switch-to-emacs-state activate)
+      (if magit-blame-mode
+          (evil-emacs-state 1)
+        (evil-normal-state 1)))
 
-   (with-eval-after-load 'evil
-     (add-to-list 'evil-emacs-state-modes 'magit-popup-mode))
+    (with-eval-after-load 'evil
+      (add-to-list 'evil-emacs-state-modes 'magit-popup-mode))
 
-   (transient-append-suffix 'magit-commit 'magit-commit:--reuse-message
-     '("-m"
-       "Attach message"
-       "--message="
-       :prompt "Message"
-       :reader magit-read-string))
+    (transient-append-suffix 'magit-commit 'magit-commit:--reuse-message
+      '("-m"
+        "Attach message"
+        "--message="
+        :prompt "Message"
+        :reader magit-read-string))
 
-   (defun jjin/magit-diff-upstream (&optional args files)
-     (interactive (magit-diff-arguments))
-     ;; FIXME: Use of HEAD here causes the diff buffer to reload when switching
-     ;; branches. Fetch the explicit branch ref to keep the original diff
-     ;; resilient.
-     (magit-diff-range "@{u}..HEAD" args))
+    (defun jjin/magit-diff-upstream (&optional args files)
+      (interactive (magit-diff-arguments))
+      ;; FIXME: Use of HEAD here causes the diff buffer to reload when switching
+      ;; branches. Fetch the explicit branch ref to keep the original diff
+      ;; resilient.
+      (magit-diff-range "@{u}..HEAD" args))
 
-   (transient-insert-suffix 'magit-diff 'magit-show-commit
-     '("U" "Diff upstream" jjin/magit-diff-upstream))
+    (transient-insert-suffix 'magit-diff 'magit-show-commit
+      '("U" "Diff upstream" jjin/magit-diff-upstream))
 
-   (defun jjin/magit-find-file-from-upstream (file)
-     "Same behavior as `magit-find-file', but specifically for the
+    (defun jjin/magit-find-file-from-upstream (file)
+      "Same behavior as `magit-find-file', but specifically for the
  upstream branch."
-     (interactive
-      (list (magit-read-file-from-rev (magit-get-upstream-branch) "Find file")))
-     (magit-find-file (magit-get-upstream-branch) file))
+      (interactive
+       (list (magit-read-file-from-rev (magit-get-upstream-branch) "Find file")))
+      (magit-find-file (magit-get-upstream-branch) file))
 
-   (transient-append-suffix 'magit-fetch 'magit-fetch-all
-     '("U" "origin/master" jjin/magit-fetch-from-origin-master))
+    (transient-append-suffix 'magit-fetch 'magit-fetch-all
+      '("U" "origin/master" jjin/magit-fetch-from-origin-master))
 
-   ;; Suppress diff display when the commit in question is a merge
-   ;; (advice-add 'magit-commit-diff :before-until 'magit-merge-in-progress-p)
-   )
+    ;; Suppress diff display when the commit in question is a merge
+    ;; (advice-add 'magit-commit-diff :before-until 'magit-merge-in-progress-p)
+    )
 
-   ;; (plist-put magit-merge-popup :actions (cons "Actions" (plist-get magit-merge-popup :actions)))
-   ;; (plist-put magit-merge-popup
-   ;;            :actions
-   ;;            (cons '(?U "Upstream" (lambda (ignored &optional args)
-   ;;                                    (interactive (magit-diff-arguments))
-   ;;                                    (magit-merge "@{u}" args)))
-   ;;                  (plist-get magit-merge-popup :actions)))
+;; (plist-put magit-merge-popup :actions (cons "Actions" (plist-get magit-merge-popup :actions)))
+;; (plist-put magit-merge-popup
+;;            :actions
+;;            (cons '(?U "Upstream" (lambda (ignored &optional args)
+;;                                    (interactive (magit-diff-arguments))
+;;                                    (magit-merge "@{u}" args)))
+;;                  (plist-get magit-merge-popup :actions)))
 
-   ;; (plist-put
-   ;;  magit-merge-popup
-   ;;  :actions
-   ;;  (cons
-   ;;   (lambda ()
-   ;;     (concat (propertize "Merge into " 'face 'magit-popup-heading)
-   ;;             (propertize (or (magit-get-current-branch) "HEAD") 'face 'magit-branch-local)
-   ;;             (propertize " from" 'face 'magit-popup-heading)))
-   ;;   (plist-get magit-merge-popup :actions)))
+;; (plist-put
+;;  magit-merge-popup
+;;  :actions
+;;  (cons
+;;   (lambda ()
+;;     (concat (propertize "Merge into " 'face 'magit-popup-heading)
+;;             (propertize (or (magit-get-current-branch) "HEAD") 'face 'magit-branch-local)
+;;             (propertize " from" 'face 'magit-popup-heading)))
+;;   (plist-get magit-merge-popup :actions)))
 
-   ;; (magit-define-popup-action 'magit-branch-popup
-   ;;   ?P
-   ;;   (lambda ()
-   ;;     (if-let ((p (magit-get-previous-branch)))
-   ;;         "Checkout previous branch"
-   ;;       "No previous branch"))
-   ;;   'jjin/magit-checkout-previous-branch))
+;; (magit-define-popup-action 'magit-branch-popup
+;;   ?P
+;;   (lambda ()
+;;     (if-let ((p (magit-get-previous-branch)))
+;;         "Checkout previous branch"
+;;       "No previous branch"))
+;;   'jjin/magit-checkout-previous-branch))
 
- (use-package forge
-   :straight t
-   :after (magit transient)
-   :config
-   ;; (transient-append-suffix forge-dispatch 'forge-visit-pullreq )
+(use-package forge
+    :straight t
+    :after (magit transient)
+    :config
+    ;; (transient-append-suffix forge-dispatch 'forge-visit-pullreq )
 
-   ;; To add tokens to keychain:
-   ;;
-   ;; security add-internet-password -a "username^forge" -r "htps" -s "api.github.com"
+    ;; To add tokens to keychain:
+    ;;
+    ;; security add-internet-password -a "username^forge" -r "htps" -s "api.github.com"
 
-   (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-pullreqs 'forge-insert-pullreqs nil)
-   (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-requested-reviews 'forge-insert-pullreqs nil)
-   (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-assigned-issues 'forge-insert-issues nil)
-   (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-issues 'forge-insert-issues nil))
+    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-pullreqs 'forge-insert-pullreqs nil)
+    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-requested-reviews 'forge-insert-pullreqs nil)
+    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-assigned-issues 'forge-insert-issues nil)
+    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-issues 'forge-insert-issues nil))
 
 (use-package helpful
-  :straight t
-  :bind (("C-h f" . #'helpful-callable)
-         ("C-h v" . #'helpful-variable)
-         ("C-h k" . #'helpful-key)
-         :map helpful-mode-map
-         ("Q"     . #'helpful-kill-buffers)
-         ("g"     . #'helpful-update))
-  :init
-  (with-eval-after-load 'projectile
-    (add-to-list 'projectile-globally-ignored-modes "helpful-mode"))
-  (with-eval-after-load 'evil
-    (add-to-list 'evil-motion-state-modes 'helpful-mode)))
+    :straight t
+    :bind (("C-h f" . #'helpful-callable)
+           ("C-h v" . #'helpful-variable)
+           ("C-h k" . #'helpful-key)
+           :map helpful-mode-map
+           ("Q"     . #'helpful-kill-buffers)
+           ("g"     . #'helpful-update))
+    :init
+    (with-eval-after-load 'projectile
+      (add-to-list 'projectile-globally-ignored-modes "helpful-mode"))
+    (with-eval-after-load 'evil
+      (add-to-list 'evil-motion-state-modes 'helpful-mode)))
 
 (use-package highlight-indent-guides
-  :straight t
-  :custom
-  (highlight-indent-guides-method 'character))
+    :straight t
+    :custom
+    (highlight-indent-guides-method 'character))
 
 (use-package vertico
-  :straight (:files (:defaults "extensions/*"))
-  :custom
-  (vertico-grid-min-columns 4)
-  (vertico-multiform-commands '((org-roam-node-find grid)))
-  :config
-  (vertico-mode 1)
-  (vertico-multiform-mode 1))
+    :straight (:files (:defaults "extensions/*"))
+    :custom
+    (vertico-grid-min-columns 4)
+    (vertico-multiform-commands '((org-roam-node-find grid)))
+    :config
+    (vertico-mode 1)
+    (vertico-multiform-mode 1))
 
 (use-package vertico-prescient
- :straight t
- :after vertico
- :config
- (prescient-persist-mode 1)
- (vertico-prescient-mode 1))
+    :straight t
+    :after vertico
+    :config
+    (prescient-persist-mode 1)
+    (vertico-prescient-mode 1))
 
 (use-package orderless
-  :straight t
-  :custom (completion-styles '(orderless)))
+    :straight t
+    :custom (completion-styles '(orderless)))
 
 (use-package marginalia
-  :straight t
-  :config
-  (marginalia-mode)
-  (add-to-list 'marginalia-prompt-categories '("\\<[Pp]roject\\>" . jjin/project)))
+    :straight t
+    :config
+    (marginalia-mode)
+    (add-to-list 'marginalia-prompt-categories '("\\<[Pp]roject\\>" . jjin/project)))
 
 (use-package consult
-  :straight t
-  :demand t
-  :after (embark-consult)
-  :bind
-  (([remap isearch-forward] . consult-line)
-   ([remap switch-to-buffer] . consult-buffer))
-  :config
-  (with-eval-after-load 'projectile
-    (bind-key [remap projectile-ripgrep] 'consult-ripgrep)))
+    :straight t
+    :demand t
+    :after (embark-consult)
+    :bind
+    (([remap isearch-forward] . consult-line)
+     ([remap switch-to-buffer] . consult-buffer))
+    :config
+    (with-eval-after-load 'projectile
+      (bind-key [remap projectile-ripgrep] 'consult-ripgrep)))
 
 (use-package embark
-  :straight t
-  :demand t
-  :after (embark-consult)
-  :bind
-  (("C-;" . embark-act))
-  :config
-  (defvar-keymap jjin/project-actions
-    :parent embark-general-map
-    :doc "Keymap for actions on projects."
-    "v" #'jjin/projectile-vterm-at
-    "g" #'jjin/magit-status-at)
+    :straight t
+    :demand t
+    :after (embark-consult)
+    :bind
+    (("C-;" . embark-act))
+    :config
+    (defvar-keymap jjin/project-actions
+      :parent embark-general-map
+      :doc "Keymap for actions on projects."
+      "v" #'jjin/projectile-vterm-at
+      "g" #'jjin/magit-status-at)
 
-  (add-to-list 'embark-keymap-alist '(jjin/project . jjin/project-actions)))
+    (add-to-list 'embark-keymap-alist '(jjin/project . jjin/project-actions)))
 
 (use-package embark-consult
-  :straight t)
+    :straight t)
 
 (use-package consult-projectile
-  :after (consult projectile)
-  :straight (consult-projectile
-             :type git
-             :host gitlab
-             :repo "OlMon/consult-projectile"
-             :branch "master")
-  :bind (:map projectile-command-map
-         ("<SPC>" . consult-projectile))
-  :config
-  (with-eval-after-load 'projectile
-    (setq consult-project-root-function #'projectile-project-root)))
+    :after (consult projectile)
+    :straight (consult-projectile
+               :type git
+               :host gitlab
+               :repo "OlMon/consult-projectile"
+               :branch "master")
+    :bind (:map projectile-command-map
+                ("<SPC>" . consult-projectile))
+    :config
+    (with-eval-after-load 'projectile
+      (setq consult-project-root-function #'projectile-project-root)))
 
 ;; =mu4e= has a notion of "marks" that it uses to represent actions on messages
 ;; -- refiling to specific directories, trashing, etc. These marks can
@@ -1205,203 +1206,203 @@ message is the absolute head of a thread, and nil otherwise. If
 
 ;; FIXME: This mark doesn't co-operate well when trying to apply to subthread.
 (defvar jjin/mu4e-mark-refile-first-delete-rest
-      '(refile-first
-        :char ("R" . " ")
-        :prompt "Refile head, delete rest"
-        :dyn-target
-        (lambda (target msg)
-          (let ((f-folder-get
-                 (if (jjin/mu4e-msg-thread-head-p msg)
-                     'mu4e-get-refile-folder
-                   'mu4e-get-trash-folder)))
-            (funcall f-folder-get msg)))
-        :action
-        (lambda (docid msg target)
-          (let* ((key-mark
-                  (if (jjin/mu4e-msg-thread-head-p msg)
-                      'refile
-                    'trash))
-                 (mark (alist-get key-mark mu4e-marks))
-                 (f-action (plist-get mark :action)))
-            (funcall f-action docid msg target))))
-      "An mu4e mark action that, when applied to messages in a
+  '(refile-first
+    :char ("R" . " ")
+    :prompt "Refile head, delete rest"
+    :dyn-target
+    (lambda (target msg)
+      (let ((f-folder-get
+             (if (jjin/mu4e-msg-thread-head-p msg)
+                 'mu4e-get-refile-folder
+               'mu4e-get-trash-folder)))
+        (funcall f-folder-get msg)))
+    :action
+    (lambda (docid msg target)
+      (let* ((key-mark
+              (if (jjin/mu4e-msg-thread-head-p msg)
+                  'refile
+                'trash))
+             (mark (alist-get key-mark mu4e-marks))
+             (f-action (plist-get mark :action)))
+        (funcall f-action docid msg target))))
+  "An mu4e mark action that, when applied to messages in a
 thread, will archive the head of the thread and trash the rest.")
 
 (use-package mu4e
-  :ensure-system-package mu
-  :custom
-  (mail-user-agent 'mu4e-user-agent)
-  (mu4e-view-show-addresses t)
-  (mu4e-compose-context-policy 'ask)
-  (mu4e-update-interval nil)
-  (mu4e-headers-skip-duplicates t)
-  (mu4e-view-show-images t)
-  (mu4e-compose-signature-auto-include nil)
-  (mu4e-html2text-command 'mu4e-shr2text)
-  ;; don't keep message buffers around
-  (message-kill-buffer-on-exit t)
-  (mu4e-context-policy 'pick-first)
-  (mu4e-headers-include-related nil)
-  (mu4e-view-use-gnus nil)
-  (mu4e-change-filenames-when-moving t)
-  (mu4e-split-view 'single-window)
-  (mu4e-compose-format-flowed t)
-  (message-send-mail-function 'smtpmail-send-it)
-  (mu4e-bookmarks '((:query "(maildir:\"/personal/INBOX\" OR maildir:\"/work/INBOX\") flag:unread"
-                     :name "Unread INBOXes"
-                     :key ?U)))
-  :commands (mu4e mu4e-update-mail-and-index)
-  :init
-  (defhydra jjin-hydra-mu4e (:exit t)
-    "Auxiliary commands for mu4e"
-    ("m" mu4e-update-mail-and-index "update"))
+    :ensure-system-package mu
+    :custom
+    (mail-user-agent 'mu4e-user-agent)
+    (mu4e-view-show-addresses t)
+    (mu4e-compose-context-policy 'ask)
+    (mu4e-update-interval nil)
+    (mu4e-headers-skip-duplicates t)
+    (mu4e-view-show-images t)
+    (mu4e-compose-signature-auto-include nil)
+    (mu4e-html2text-command 'mu4e-shr2text)
+    ;; don't keep message buffers around
+    (message-kill-buffer-on-exit t)
+    (mu4e-context-policy 'pick-first)
+    (mu4e-headers-include-related nil)
+    (mu4e-view-use-gnus nil)
+    (mu4e-change-filenames-when-moving t)
+    (mu4e-split-view 'single-window)
+    (mu4e-compose-format-flowed t)
+    (message-send-mail-function 'smtpmail-send-it)
+    (mu4e-bookmarks '((:query "(maildir:\"/personal/INBOX\" OR maildir:\"/work/INBOX\") flag:unread"
+                       :name "Unread INBOXes"
+                       :key ?U)))
+    :commands (mu4e mu4e-update-mail-and-index)
+    :init
+    (defhydra jjin-hydra-mu4e (:exit t)
+      "Auxiliary commands for mu4e"
+      ("m" mu4e-update-mail-and-index "update"))
 
-  (setq mu4e-completing-read-function 'completing-read)
+    (setq mu4e-completing-read-function 'completing-read)
 
-  (major-mode-hydra-define mu4e-headers-mode
-    (:title "Mail")
-    ("Indexing"
-     (("U" mu4e-update-mail-and-index "Update mail and index")
-      ("u" mu4e-update-index "Update index"))))
+    (major-mode-hydra-define mu4e-headers-mode
+        (:title "Mail")
+      ("Indexing"
+       (("U" mu4e-update-mail-and-index "Update mail and index")
+        ("u" mu4e-update-index "Update index"))))
 
-  (pretty-hydra-define+ jjin-hydra-exec nil
-    ("General" (("m" mu4e "mu4e" :exit t))))
+    (pretty-hydra-define+ jjin-hydra-exec nil
+      ("General" (("m" mu4e "mu4e" :exit t))))
 
-  :config
-  (with-eval-after-load 'ivy
-    (setq mu4e-completing-read-function 'ivy-completing-read))
-
-  ;; don't save message to Sent Messages for GMail accounts; Gmail/IMAP takes
-  ;; care of this
-  (setq mu4e-sent-messages-behavior
-        (lambda ()
-          (if (string= (message-sendmail-envelope-from) "jonathan.jin@hinge.co")
-              'delete
-            'sent)))
-
-  (setq mu4e-maildir-shortcuts
-        '(("/personal/INBOX"   . ?i)
-          ("/personal/Sent"    . ?s)
-          ("/personal/Drafts"  . ?d)
-          ("/personal/Archive" . ?a)
-          ("/work/INBOX" . ?I)
-          ("/work/sent" . ?S)
-          ("/work/drafts" . ?D)
-          ("/work/archive" . ?A)))
-
-  (setq mu4e-get-mail-command (if (not (executable-find "mbsync")) "true" "mbsync -Va"))
-
-  (setq shr-use-colors nil)
-  (setq shr-use-fonts nil)
-
-  (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
-
-  (use-package gnus-dired
     :config
-    ;; make the `gnus-dired-mail-buffers' function also work on message-mode derived
-    ;; modes, such as mu4e-compose-mode
-    (defun gnus-dired-mail-buffers ()
-      (let (buffers)
-        (save-current-buffer
-          (dolist (buffer (buffer-list t))
-            (set-buffer buffer)
-            (when (and (derived-mode-p 'message-mode)
-                       (null message-sent-message-via))
-              (push (buffer-name buffer) buffers))))
-        (nreverse buffers)))
+    (with-eval-after-load 'ivy
+      (setq mu4e-completing-read-function 'ivy-completing-read))
 
-    (setq gnus-dired-mail-mode 'mu4e-user-agent)
-    (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
+    ;; don't save message to Sent Messages for GMail accounts; Gmail/IMAP takes
+    ;; care of this
+    (setq mu4e-sent-messages-behavior
+          (lambda ()
+            (if (string= (message-sendmail-envelope-from) "jonathan.jin@hinge.co")
+                'delete
+              'sent)))
 
-  (set-face-attribute 'mu4e-header-highlight-face nil :underline nil)
+    (setq mu4e-maildir-shortcuts
+          '(("/personal/INBOX"   . ?i)
+            ("/personal/Sent"    . ?s)
+            ("/personal/Drafts"  . ?d)
+            ("/personal/Archive" . ?a)
+            ("/work/INBOX" . ?I)
+            ("/work/sent" . ?S)
+            ("/work/drafts" . ?D)
+            ("/work/archive" . ?A)))
 
-  (add-to-list 'mu4e-view-actions
-               '("View in browser" . mu4e-action-view-in-browser)
-               t)
-  (add-to-list 'mu4e-view-actions
-               '("Capture message" . mu4e-action-capture-message)
-               t)
+    (setq mu4e-get-mail-command (if (not (executable-find "mbsync")) "true" "mbsync -Va"))
 
-  (defun mu4e-message-maildir-matches (msg rx)
-    (when rx
-      (if (listp rx)
-          ;; if rx is a list, try each one for a match
-          (or (mu4e-message-maildir-matches msg (car rx))
-              (mu4e-message-maildir-matches msg (cdr rx)))
-        ;; not a list, check rx
-        (string-match rx (mu4e-message-field msg :maildir)))))
+    (setq shr-use-colors nil)
+    (setq shr-use-fonts nil)
 
-  (setq mu4e-contexts
-        `(,(make-mu4e-context
-            :name "personal"
-            :match-func
-            (lambda (msg)
-              (when msg
-                (or
-                 (mu4e-message-maildir-matches msg "^/personal")
-                 (mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com")
-                 (mu4e-message-contact-field-matches msg :to "me@jonathanj.in"))))
-            :vars `((user-mail-address . "me@jonathanj.in")
-                    (mu4e-compose-signature . ,(concat "Jonathan Jin"))
+    (add-hook 'mu4e-view-mode-hook 'visual-line-mode)
 
-                    (smtpmail-smtp-user . "me@jonathanj.in")
-                    (smtpmail-smtp-server . "smtp.fastmail.com")
-                    (smtpmail-smtp-service . 465)
-                    (smtpmail-stream-type . ssl)
+    (use-package gnus-dired
+        :config
+      ;; make the `gnus-dired-mail-buffers' function also work on message-mode derived
+      ;; modes, such as mu4e-compose-mode
+      (defun gnus-dired-mail-buffers ()
+        (let (buffers)
+          (save-current-buffer
+            (dolist (buffer (buffer-list t))
+              (set-buffer buffer)
+              (when (and (derived-mode-p 'message-mode)
+                         (null message-sent-message-via))
+                (push (buffer-name buffer) buffers))))
+          (nreverse buffers)))
 
-                    (user-full-name . "Jonathan Jin")
-                    (mu4e-sent-folder . "/personal/Sent")
-                    (mu4e-trash-folder . "/personal/Trash")
-                    (mu4e-drafts-folder . "/personal/Drafts")
-                    (mu4e-refile-folder . "/personal/Archive")))
+      (setq gnus-dired-mail-mode 'mu4e-user-agent)
+      (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
 
-          ,(make-mu4e-context
-            :name "work"
-            :match-func
-            (lambda (msg)
-              (when msg
-                (or
-                 (mu4e-message-maildir-matches msg "^/work")
-                 (mu4e-message-contact-field-matches msg :to "jonathan.jin@hinge.co"))))
-            :vars `((user-mail-address . "jonathan.jin@hinge.co")
-                    (mu4e-compose-signature . ,(concat "Jonathan Jin"))
+    (set-face-attribute 'mu4e-header-highlight-face nil :underline nil)
 
-                    (smtpmail-smtp-user . "jonathan.jin@hinge.co")
-                    (smtpmail-smtp-server . "smtp.gmail.com")
-                    (smtpmail-smtp-service . 587)
-                    (smtpmail-stream-type . nil)
+    (add-to-list 'mu4e-view-actions
+                 '("View in browser" . mu4e-action-view-in-browser)
+                 t)
+    (add-to-list 'mu4e-view-actions
+                 '("Capture message" . mu4e-action-capture-message)
+                 t)
 
-                    (user-full-name . "Jonathan Jin")
-                    (mu4e-sent-folder . "/work/sent")
-                    (mu4e-trash-folder . "/work/trash")
-                    (mu4e-drafts-folder . "/work/drafts")
-                    (mu4e-refile-folder . "/work/Archive")))))
+    (defun mu4e-message-maildir-matches (msg rx)
+      (when rx
+        (if (listp rx)
+            ;; if rx is a list, try each one for a match
+            (or (mu4e-message-maildir-matches msg (car rx))
+                (mu4e-message-maildir-matches msg (cdr rx)))
+          ;; not a list, check rx
+          (string-match rx (mu4e-message-field msg :maildir)))))
 
-  ;; Sets `mu4e-user-mail-address-list' to the concatenation of all
-  ;; `user-mail-address' values for all contexts. If you have other mail
-  ;; addresses as well, you'll need to add those manually.
-  (setq mu4e-user-mail-address-list
-        (delq nil
-              (mapcar (lambda (context)
-                        (when (mu4e-context-vars context)
-                          (cdr (assq 'user-mail-address (mu4e-context-vars context)))))
-                      mu4e-contexts)))
+    (setq mu4e-contexts
+          `(,(make-mu4e-context
+              :name "personal"
+              :match-func
+              (lambda (msg)
+                (when msg
+                  (or
+                   (mu4e-message-maildir-matches msg "^/personal")
+                   (mu4e-message-contact-field-matches msg :to "jjin082693@gmail.com")
+                   (mu4e-message-contact-field-matches msg :to "me@jonathanj.in"))))
+              :vars `((user-mail-address . "me@jonathanj.in")
+                      (mu4e-compose-signature . ,(concat "Jonathan Jin"))
 
-  (add-to-list 'mu4e-marks jjin/mu4e-mark-refile-first-delete-rest)
+                      (smtpmail-smtp-user . "me@jonathanj.in")
+                      (smtpmail-smtp-server . "smtp.fastmail.com")
+                      (smtpmail-smtp-service . 465)
+                      (smtpmail-stream-type . ssl)
 
-  ;; (setq projectile-globally-ignored-modes (remove-if 'symbolp projectile-globally-ignored-modes ))
-  (with-eval-after-load 'projectile
-    (mapc
-     (lambda (mode)
-       (add-to-list 'projectile-globally-ignored-modes (symbol-name mode)))
-     '(mu4e-headers-mode
-       mu4e~update-mail-mode
-       mu4e~main-toggle-mail-sending-mode
-       mu4e-main-mode
-       mu4e-view-mode
-       mu4e~view-define-mode
-       mu4e-compose-mode
-       mu4e-org-mode))))
+                      (user-full-name . "Jonathan Jin")
+                      (mu4e-sent-folder . "/personal/Sent")
+                      (mu4e-trash-folder . "/personal/Trash")
+                      (mu4e-drafts-folder . "/personal/Drafts")
+                      (mu4e-refile-folder . "/personal/Archive")))
+
+             ,(make-mu4e-context
+               :name "work"
+               :match-func
+               (lambda (msg)
+                 (when msg
+                   (or
+                    (mu4e-message-maildir-matches msg "^/work")
+                    (mu4e-message-contact-field-matches msg :to "jonathan.jin@hinge.co"))))
+               :vars `((user-mail-address . "jonathan.jin@hinge.co")
+                       (mu4e-compose-signature . ,(concat "Jonathan Jin"))
+
+                       (smtpmail-smtp-user . "jonathan.jin@hinge.co")
+                       (smtpmail-smtp-server . "smtp.gmail.com")
+                       (smtpmail-smtp-service . 587)
+                       (smtpmail-stream-type . nil)
+
+                       (user-full-name . "Jonathan Jin")
+                       (mu4e-sent-folder . "/work/sent")
+                       (mu4e-trash-folder . "/work/trash")
+                       (mu4e-drafts-folder . "/work/drafts")
+                       (mu4e-refile-folder . "/work/Archive")))))
+
+    ;; Sets `mu4e-user-mail-address-list' to the concatenation of all
+    ;; `user-mail-address' values for all contexts. If you have other mail
+    ;; addresses as well, you'll need to add those manually.
+    (setq mu4e-user-mail-address-list
+          (delq nil
+                (mapcar (lambda (context)
+                          (when (mu4e-context-vars context)
+                            (cdr (assq 'user-mail-address (mu4e-context-vars context)))))
+                        mu4e-contexts)))
+
+    (add-to-list 'mu4e-marks jjin/mu4e-mark-refile-first-delete-rest)
+
+    ;; (setq projectile-globally-ignored-modes (remove-if 'symbolp projectile-globally-ignored-modes ))
+    (with-eval-after-load 'projectile
+      (mapc
+       (lambda (mode)
+         (add-to-list 'projectile-globally-ignored-modes (symbol-name mode)))
+       '(mu4e-headers-mode
+         mu4e~update-mail-mode
+         mu4e~main-toggle-mail-sending-mode
+         mu4e-main-mode
+         mu4e-view-mode
+         mu4e~view-define-mode
+         mu4e-compose-mode
+         mu4e-org-mode))))
 
 ;; NB(@jinnovation): Copied wholesale from org-compat.el. This *should* be
 ;; accessible, but for some reason is not, resulting in (void-function
@@ -1431,67 +1432,67 @@ inserted before contatenating."
 
 
 (use-package org
-  :bind (:map org-mode-map
-         ("RET" . org-return-indent)
-         ("M-p" . outline-previous-visible-heading)
-         ("M-n" . outline-next-visible-heading)
-         ("s-t" . org-todo)
-         ("M-[" . org-metaleft)
-         ("M-]" . org-metaright)
-         :map org-src-mode-map
-         ([remap evil-write] . org-edit-src-save))
-  :straight t
-  :mode ("\\.org$" . org-mode)
+    :bind (:map org-mode-map
+                ("RET" . org-return-indent)
+                ("M-p" . outline-previous-visible-heading)
+                ("M-n" . outline-next-visible-heading)
+                ("s-t" . org-todo)
+                ("M-[" . org-metaleft)
+                ("M-]" . org-metaright)
+                :map org-src-mode-map
+                ([remap evil-write] . org-edit-src-save))
+    :straight t
+    :mode ("\\.org$" . org-mode)
 
-  :custom
-  (org-adapt-indentation t)
-  (org-catch-invisible-edits 'show-and-error)
-  (org-return-follows-link t)
-  (org-export-dispatch-use-expert-ui t)
-  (org-clock-out-remove-zero-time-clocks t)
-  (org-latex-create-formula-image-program 'imagemagick)
-  (org-latex-listings nil)
-  ;; (org-latex-listings 'minted)
-  (org-tags-column -80)
-  (org-enforce-todo-dependencies t)
-  (org-enforce-todo-checkbox-dependencies  t)
-  (org-pretty-entities t)
-  (org-src-fontify-natively t)
-  (org-list-allow-alphabetical t)
-  (org-special-ctrl-a/e t)
-  (org-deadline-warning-days 7)
-  (org-confirm-babel-evaluate nil)
-  (org-export-use-babel t)
-  (org-src-window-setup 'current-window)
-  (org-agenda-window-setup 'current-window)
-  :init
+    :custom
+    (org-adapt-indentation t)
+    (org-catch-invisible-edits 'show-and-error)
+    (org-return-follows-link t)
+    (org-export-dispatch-use-expert-ui t)
+    (org-clock-out-remove-zero-time-clocks t)
+    (org-latex-create-formula-image-program 'imagemagick)
+    (org-latex-listings nil)
+    ;; (org-latex-listings 'minted)
+    (org-tags-column -80)
+    (org-enforce-todo-dependencies t)
+    (org-enforce-todo-checkbox-dependencies  t)
+    (org-pretty-entities t)
+    (org-src-fontify-natively t)
+    (org-list-allow-alphabetical t)
+    (org-special-ctrl-a/e t)
+    (org-deadline-warning-days 7)
+    (org-confirm-babel-evaluate nil)
+    (org-export-use-babel t)
+    (org-src-window-setup 'current-window)
+    (org-agenda-window-setup 'current-window)
+    :init
     (setq
-    ;;  org-latex-pdf-process (list "latexmk -shell-escape -pdf %f")
+     ;;  org-latex-pdf-process (list "latexmk -shell-escape -pdf %f")
 
-    org-entities-user
-    '(("supsetneqq" "\\supsetneqq" t "" "[superset of above not equal to]"
-       "[superset of above not equal to]" "⫌")
-      ("subseteq" "\\subseteq" t "" "[subset of above equal to]" "subset of above equal to" "⊆")
+     org-entities-user
+     '(("supsetneqq" "\\supsetneqq" t "" "[superset of above not equal to]"
+        "[superset of above not equal to]" "⫌")
+       ("subseteq" "\\subseteq" t "" "[subset of above equal to]" "subset of above equal to" "⊆")
        ("subsetneqq" "\\subsetneqq" t "" "[suberset of above not equal to]"
-         "[suberset of above not equal to]" "⫋")))
+        "[suberset of above not equal to]" "⫋")))
 
-  :config
-  ;; (plist-put org-format-latex-options :scale 1.5)
+    :config
+    ;; (plist-put org-format-latex-options :scale 1.5)
 
-  ;; NB(jjin): Uncomment if you want syntax highlighting for code snippets
-  ;; (setq org-latex-packages-alist
-  ;;   '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
+    ;; NB(jjin): Uncomment if you want syntax highlighting for code snippets
+    ;; (setq org-latex-packages-alist
+    ;;   '(("" "minted") ("usenames,dvipsnames,svgnames" "xcolor")))
 
-  (defun jjin/org-autodone (n-done n-not-done)
-    "Switch entry to DONE when all subentries are done, to TODO otherwise."
-    (let (org-log-done org-log-states)   ; turn off logging
-      (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+    (defun jjin/org-autodone (n-done n-not-done)
+      "Switch entry to DONE when all subentries are done, to TODO otherwise."
+      (let (org-log-done org-log-states)   ; turn off logging
+        (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-  (add-hook 'org-after-todo-statistics-hook 'jjin/org-autodone)
+    (add-hook 'org-after-todo-statistics-hook 'jjin/org-autodone)
 
-  (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((emacs-lisp . t)
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)
        (latex     . t)
        (python    . t)
        ;; FIXME: Make this contingent on ob-ipython
@@ -1501,323 +1502,323 @@ inserted before contatenating."
        (matlab    . t)
        (shell     . t)))
 
-  (setq org-latex-minted-options
-    '(("linenos" "true")
-       ("fontsize" "\\scriptsize")
-       ("frame" "lines")))
+    (setq org-latex-minted-options
+          '(("linenos" "true")
+            ("fontsize" "\\scriptsize")
+            ("frame" "lines")))
 
-  (setq org-export-latex-hyperref-format "\\ref{%s}")
+    (setq org-export-latex-hyperref-format "\\ref{%s}")
 
-  (setq org-blank-before-new-entry
-    '((heading . true)
-       (plain-list-item . auto)))
+    (setq org-blank-before-new-entry
+          '((heading . true)
+            (plain-list-item . auto)))
 
-  (setq org-capture-templates
-        `(("r" "Reading" entry (file "~/proj/lists/read.org")
-           "* TODO %?\n  Entered on %U\n  %i")
-          ("t" "Task" entry (file "")
-           "* TODO %?\n %i")))
+    (setq org-capture-templates
+          `(("r" "Reading" entry (file "~/proj/lists/read.org")
+                 "* TODO %?\n  Entered on %U\n  %i")
+            ("t" "Task" entry (file "")
+                 "* TODO %?\n %i")))
 
-  (setq org-refile-targets '((nil . (:maxlevel . 10))))
+    (setq org-refile-targets '((nil . (:maxlevel . 10))))
 
-  (setq org-export-with-smart-quotes t)
-  (with-eval-after-load 'ace-link
-    ;; (bind-keys :map org-agenda-mode-map
-    ;;            ("M-o" . ace-link-org))
-    (bind-keys :map org-mode-map
-               ("M-o" . ace-link-org))))
+    (setq org-export-with-smart-quotes t)
+    (with-eval-after-load 'ace-link
+      ;; (bind-keys :map org-agenda-mode-map
+      ;;            ("M-o" . ace-link-org))
+      (bind-keys :map org-mode-map
+                 ("M-o" . ace-link-org))))
 
 (use-package ox-latex
-  :disabled t
-  :after org)
+    :disabled t
+    :after org)
 
 (use-package ox-bibtex
-  :disabled t
-  :after org)
+    :disabled t
+    :after org)
 
 (use-package ox-md
-  :after org)
+    :after org)
 
 (use-package ob-python
-  :after org
-  :init
-  (setq org-babel-python-command "python3"))
+    :after org
+    :init
+    (setq org-babel-python-command "python3"))
 
 (use-package evil-org
-  :straight t
-  :after (evil org)
-  :diminish evil-org-mode
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (evil-org-set-key-theme)
-  (setq evil-org-special-o/O '(table-row)))
+    :straight t
+    :after (evil org)
+    :diminish evil-org-mode
+    :config
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    (evil-org-set-key-theme)
+    (setq evil-org-special-o/O '(table-row)))
 
 (use-package org-contrib
-  :straight t
-  :after org)
+    :straight t
+    :after org)
 
 (use-package ox-extra
-  :after (org-contrib org)
-  :config
-  (ox-extras-activate '(latex-header-blocks ignore-headlines)))
+    :after (org-contrib org)
+    :config
+    (ox-extras-activate '(latex-header-blocks ignore-headlines)))
 
 (use-package org-msg
-  :disabled t
-  :straight t
-  ;; load after mu4e to pick up mail-user-agent setting
-  :after (mu4e org)
-  :custom
-  (org-msg-default-alternatives '(text html))
-  (org-msg-options "html-postamble:nil num:nil toc:nil author:nil email:nil")
-  (org-msg-signature "
+    :disabled t
+    :straight t
+    ;; load after mu4e to pick up mail-user-agent setting
+    :after (mu4e org)
+    :custom
+    (org-msg-default-alternatives '(text html))
+    (org-msg-options "html-postamble:nil num:nil toc:nil author:nil email:nil")
+    (org-msg-signature "
 
 #+begin_signature
 -- \\\\
 Jonathan Jin
 #+end_signature")
-  :config
-  (org-msg-mode))
+    :config
+    (org-msg-mode))
 
 (use-package all-the-icons
-  :straight t
+    :straight t
 
-  :config
-  (defun with-faicon (icon str &optional height v-adjust)
-    (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+    :config
+    (defun with-faicon (icon str &optional height v-adjust)
+      (s-concat (all-the-icons-faicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
 
-  (defun with-fileicon (icon str &optional height v-adjust)
-    (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+    (defun with-fileicon (icon str &optional height v-adjust)
+      (s-concat (all-the-icons-fileicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
 
-  (defun with-octicon (icon str &optional height v-adjust)
-    (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
+    (defun with-octicon (icon str &optional height v-adjust)
+      (s-concat (all-the-icons-octicon icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str))
 
-  (defun with-material (icon str &optional height v-adjust)
-    (s-concat (all-the-icons-material icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)))
+    (defun with-material (icon str &optional height v-adjust)
+      (s-concat (all-the-icons-material icon :v-adjust (or v-adjust 0) :height (or height 1)) " " str)))
 
 (use-package nerd-icons
-  :straight t)
+    :straight t)
 ;; (nerd-icons-install-fonts)
 
 (use-package doom-modeline
-  :straight t
-  :custom
-  (doom-modeline-icon t)
-  (doom-modeline-vcs-max-length 24)
-  (doom-modeline-buffer-file-name-style 'truncate-except-project)
-  (doom-modeline-buffer-encoding nil)
-  :config
-  (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
+    :straight t
+    :custom
+    (doom-modeline-icon t)
+    (doom-modeline-vcs-max-length 24)
+    (doom-modeline-buffer-file-name-style 'truncate-except-project)
+    (doom-modeline-buffer-encoding nil)
+    :config
+    (setq doom-modeline-height (min doom-modeline-height (default-font-height)))
 
-  (doom-modeline-def-modeline 'jjin
-    '(bar workspace-name window-number modals matches buffer-info remote-host selection-info )
-    '(misc-info k8s mu4e debug lsp minor-modes input-method indent-info process vcs check))
+    (doom-modeline-def-modeline 'jjin
+        '(bar workspace-name window-number modals matches buffer-info remote-host selection-info )
+      '(misc-info k8s mu4e debug lsp minor-modes input-method indent-info process vcs check))
 
-  (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t)))
+    (add-hook 'doom-modeline-mode-hook (lambda () (doom-modeline-set-modeline 'jjin t)))
 
-  (doom-modeline-mode 1))
+    (doom-modeline-mode 1))
 
 (use-package pdf-tools
-  :straight t
-  :mode ("\\.pdf$" . pdf-view-mode)
-  :config
-  (pdf-tools-install)
+    :straight t
+    :mode ("\\.pdf$" . pdf-view-mode)
+    :config
+    (pdf-tools-install)
 
-  (let ((foreground-orig (car pdf-view-midnight-colors)))
-    (setq pdf-view-midnight-colors
-          (cons "white" "black")))
+    (let ((foreground-orig (car pdf-view-midnight-colors)))
+      (setq pdf-view-midnight-colors
+            (cons "white" "black")))
 
-  (with-eval-after-load 'evil
+    (with-eval-after-load 'evil
       (progn
         (add-to-list 'evil-emacs-state-modes 'pdf-outline-buffer-mode)
         (add-to-list 'evil-emacs-state-modes 'pdf-view-mode))))
 
 
 (use-package projectile
-  :straight t
-  :diminish projectile-mode
-  :ensure-system-package (rg . ripgrep)
-  :custom
-  (projectile-ignored-projects '("/Users/jjin/"))
-  (projectile-enable-caching t)
-  (projectile-sort-order 'recently-active)
-  (projectile-globally-ignored-directory-names '("~"))
-  (projectile-globally-ignored-files
-        '("TAGS" "GPATH" "GRTAGS" "GSYMS" "GTAGS"))
+    :straight t
+    :diminish projectile-mode
+    :ensure-system-package (rg . ripgrep)
+    :custom
+    (projectile-ignored-projects '("/Users/jjin/"))
+    (projectile-enable-caching t)
+    (projectile-sort-order 'recently-active)
+    (projectile-globally-ignored-directory-names '("~"))
+    (projectile-globally-ignored-files
+     '("TAGS" "GPATH" "GRTAGS" "GSYMS" "GTAGS"))
 
-  (projectile-project-root-functions '(projectile-root-local
-                                       projectile-root-bottom-up
-                                       projectile-root-top-down
-                                       projectile-root-top-down-recurring))
-  :config
+    (projectile-project-root-functions '(projectile-root-local
+                                         projectile-root-bottom-up
+                                         projectile-root-top-down
+                                         projectile-root-top-down-recurring))
+    :config
 
-  ;; People at this company really like to use nested Makefiles
-  (delete "Makefile" projectile-project-root-files)
+    ;; People at this company really like to use nested Makefiles
+    (delete "Makefile" projectile-project-root-files)
 
-  (defun jjin/projectile-absolute-compilation-dir-maybe ()
-    "Return the default compilation dir of the current Projectile project type.
+    (defun jjin/projectile-absolute-compilation-dir-maybe ()
+      "Return the default compilation dir of the current Projectile project type.
 
 Only returns non-nil if it is an absolute path; otherwise, return
 nil."
-    (let* ((type (projectile-project-type))
-           (comp-dir (projectile-default-compilation-dir type)))
-      (if (and comp-dir (file-name-absolute-p comp-dir)) comp-dir nil)))
-  (with-eval-after-load 'ivy
-    (setq projectile-completion-system 'ivy))
+      (let* ((type (projectile-project-type))
+             (comp-dir (projectile-default-compilation-dir type)))
+        (if (and comp-dir (file-name-absolute-p comp-dir)) comp-dir nil)))
+    (with-eval-after-load 'ivy
+      (setq projectile-completion-system 'ivy))
 
-  (defun jjin/projectile-vterm-at (dir)
-    "Invoke `vterm' in the given project dir.
+    (defun jjin/projectile-vterm-at (dir)
+      "Invoke `vterm' in the given project dir.
 
 Switch to the project specific term buffer if it already exists.
 
 This is a 'fork' of `projectile-run-vterm' to enable directory injection, for
 use as an Embark action."
 
-    (let* ((project (projectile-acquire-root dir))
-           (buffer (projectile-generate-process-name "vterm" nil project)))
-      (unless (buffer-live-p (get-buffer buffer))
-        (unless (require 'vterm nil 'noerror)
-          (error "package 'vterm' is not available"))
-        (projectile-with-default-dir project
-          (vterm buffer)))
-      (switch-to-buffer buffer)))
+      (let* ((project (projectile-acquire-root dir))
+             (buffer (projectile-generate-process-name "vterm" nil project)))
+        (unless (buffer-live-p (get-buffer buffer))
+          (unless (require 'vterm nil 'noerror)
+            (error "package 'vterm' is not available"))
+          (projectile-with-default-dir project
+            (vterm buffer)))
+        (switch-to-buffer buffer)))
 
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (with-eval-after-load 'evil
-    (evil-define-key 'normal 'global (kbd "<leader>p") 'projectile-command-map))
+    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+    (with-eval-after-load 'evil
+      (evil-define-key 'normal 'global (kbd "<leader>p") 'projectile-command-map))
 
-  (advice-add 'projectile-compilation-dir
-              :before-until
-              'jjin/projectile-absolute-compilation-dir-maybe)
+    (advice-add 'projectile-compilation-dir
+                :before-until
+                'jjin/projectile-absolute-compilation-dir-maybe)
 
-  ;; MacOS file system is case insensitive. This means that, when combined with
-  ;; top-down root discovery, .git directory's `description' file conflicts with
-  ;; the `DESCRIPTION' element -- intended for R projects -- in the default
-  ;; value of `projectile-project-root-file'.
-  ;;
-  ;; Since I really don't use R and don't plan to anytime soon, removing it from
-  ;; here. Can revisit if/when ever necessary.
-  (setq projectile-project-root-files
-        (remove "DESCRIPTION" projectile-project-root-files))
-  (bind-key "<f12>"
-            (lambda ()
-              "Save all project buffers and compile"
-              (interactive)
-              (projectile-save-project-buffers)
-              (let (compilation-read-command)
-                (projectile-compile-project nil)))
-            projectile-mode-map)
+    ;; MacOS file system is case insensitive. This means that, when combined with
+    ;; top-down root discovery, .git directory's `description' file conflicts with
+    ;; the `DESCRIPTION' element -- intended for R projects -- in the default
+    ;; value of `projectile-project-root-file'.
+    ;;
+    ;; Since I really don't use R and don't plan to anytime soon, removing it from
+    ;; here. Can revisit if/when ever necessary.
+    (setq projectile-project-root-files
+          (remove "DESCRIPTION" projectile-project-root-files))
+    (bind-key "<f12>"
+              (lambda ()
+                "Save all project buffers and compile"
+                (interactive)
+                (projectile-save-project-buffers)
+                (let (compilation-read-command)
+                  (projectile-compile-project nil)))
+              projectile-mode-map)
 
-  (projectile-global-mode)
+    (projectile-global-mode)
 
-  (add-to-list 'projectile-globally-ignored-modes "term-mode"))
+    (add-to-list 'projectile-globally-ignored-modes "term-mode"))
 
 (use-package rich-minority
-  :straight t
-  :config
-  (defconst my-rm-excluded-modes
-    '(
-       " pair"
-       " Fill"
-       " end"
-       " Ace - Window"))
-  (dolist (mode my-rm-excluded-modes)
-    (add-to-list 'rm-excluded-modes mode)))
+    :straight t
+    :config
+    (defconst my-rm-excluded-modes
+      '(
+        " pair"
+        " Fill"
+        " end"
+        " Ace - Window"))
+    (dolist (mode my-rm-excluded-modes)
+      (add-to-list 'rm-excluded-modes mode)))
 
 (use-package smart-mode-line
-  :disabled t
-  :straight t
-  :custom
-  (sml/theme 'respectful)
-  :config
-  (sml/setup)
-  (smart-mode-line-enable))
+    :disabled t
+    :straight t
+    :custom
+    (sml/theme 'respectful)
+    :config
+    (sml/setup)
+    (smart-mode-line-enable))
 
 (use-package tramp
-  :custom
+    :custom
   (tramp-default-method "ssh")
   (password-cache-expiry nil)
   :config
   (add-to-list 'tramp-remote-path "~/bin"))
 
 (use-package undo-tree
-  :straight t
-  :diminish undo-tree-mode
-  :bind ("C-<backspace>" . undo-tree-undo)
-  :config
-  (global-undo-tree-mode)
-  (with-eval-after-load 'evil
-    (evil-set-undo-system 'undo-tree)))
+    :straight t
+    :diminish undo-tree-mode
+    :bind ("C-<backspace>" . undo-tree-undo)
+    :config
+    (global-undo-tree-mode)
+    (with-eval-after-load 'evil
+      (evil-set-undo-system 'undo-tree)))
 
 (use-package w3m
-  :straight t
-  :bind (:map w3m-mode-map
-         ("P" . w3m-view-previous-page)
-         ("n" . w3m-tab-next-buffer)
-         ("p" . w3m-tab-previous-buffer)
-         ("w" . w3m-delete-buffer))
-  :commands w3m
-  :init
-  (setq w3m-fill-column 80)
+    :straight t
+    :bind (:map w3m-mode-map
+                ("P" . w3m-view-previous-page)
+                ("n" . w3m-tab-next-buffer)
+                ("p" . w3m-tab-previous-buffer)
+                ("w" . w3m-delete-buffer))
+    :commands w3m
+    :init
+    (setq w3m-fill-column 80)
 
-  :config
-  (with-eval-after-load 'evil
-    (add-to-list 'evil-emacs-state-modes 'w3m-session-select-mode))
-  (with-eval-after-load 'ace-link
-    (bind-keys :map w3m-mode-map
-               ("o" . ace-link-w3m)))
+    :config
+    (with-eval-after-load 'evil
+      (add-to-list 'evil-emacs-state-modes 'w3m-session-select-mode))
+    (with-eval-after-load 'ace-link
+      (bind-keys :map w3m-mode-map
+                 ("o" . ace-link-w3m)))
 
-  (unbind-key "B" w3m-mode-map))
+    (unbind-key "B" w3m-mode-map))
 
 (use-package w3m-session
-  :after w3m)
+    :after w3m)
 
 (use-package ripgrep
-  :straight t)
+    :straight t)
 
 (use-package shackle
-  :straight t
-  :custom
-  (shackle-rules '(
-                   (git-commit-mode :align bottom :size 0.3 :select t)
-                   ('(help-mode helpful-mode) :select t :other t :inhibit-window-quit t :size 0.4)
-                   (vterm-mode :align right :size 0.4 :select t)
-                   (magit-log-mode :other t :size 0.4 :select t)
-                   (kubernetes-overview-mode :same t :inhibit-window-quit t)
+    :straight t
+    :custom
+    (shackle-rules '(
+                     (git-commit-mode :align bottom :size 0.3 :select t)
+                     ('(help-mode helpful-mode) :select t :other t :inhibit-window-quit t :size 0.4)
+                     (vterm-mode :align right :size 0.4 :select t)
+                     (magit-log-mode :other t :size 0.4 :select t)
+                     (kubernetes-overview-mode :same t :inhibit-window-quit t)
 
-                   ;; TODO: Find a way to have this open in the current window
-                   ;; iff there is no other window in the frame
-                   (magit-status-mode :select t :other t :size 0.4)
-                   (compilation-mode :align right :size 0.3 :other t :inhibit-window-quit t)))
-  :config
-  (shackle-mode t))
+                     ;; TODO: Find a way to have this open in the current window
+                     ;; iff there is no other window in the frame
+                     (magit-status-mode :select t :other t :size 0.4)
+                     (compilation-mode :align right :size 0.3 :other t :inhibit-window-quit t)))
+    :config
+    (shackle-mode t))
 
 (use-package popper
-  :disabled t
-  :straight t
-  :custom
-  (popper-group-function #'popper-group-by-projectile)
-  :bind (("C-`"   . popper-toggle-latest)
-         ("M-`"   . popper-cycle)
-         ("C-M-`" . popper-toggle-type))
-  :init
-  (setq popper-reference-buffers
-        '("\\*Messages\\*"
-          "Output\\*$"
-          "vterm .+\\*$"
-          help-mode
-          helpful-mode
-          compilation-mode))
-  (popper-mode +1))
+    :disabled t
+    :straight t
+    :custom
+    (popper-group-function #'popper-group-by-projectile)
+    :bind (("C-`"   . popper-toggle-latest)
+           ("M-`"   . popper-cycle)
+           ("C-M-`" . popper-toggle-type))
+    :init
+    (setq popper-reference-buffers
+          '("\\*Messages\\*"
+            "Output\\*$"
+            "vterm .+\\*$"
+            help-mode
+            helpful-mode
+            compilation-mode))
+    (popper-mode +1))
 
 (use-package which-key :straight t)
 
 (use-package terraform-mode
-  :straight t)
-  ;; :hook (terraform-mode . terraform-format-on-save-mode))
+    :straight t)
+;; :hook (terraform-mode . terraform-format-on-save-mode))
 
 (use-package company-terraform
-  :after terraform-mode
-  :straight t)
+    :after terraform-mode
+    :straight t)
 
 (defun jjin-hinge-auth-kubectl (context-name)
   "Authenticate kubectl for the given CONTEXT-NAME."
@@ -1829,48 +1830,48 @@ use as an Embark action."
            (compile "aws-profile -o hinge-prod")))))
 
 (use-package kele
-  :straight (:local-repo "~/dev/jinnovation/kele.el" :type git :host github :repo "jinnovation/kele.el")
-  :config
-  (kele-mode 1)
-  (add-hook #'kele-context-after-switch-functions #'jjin-hinge-auth-kubectl)
-  (bind-key (kbd "s-k") kele-command-map kele-mode-map))
+    :straight (:local-repo "~/dev/jinnovation/kele.el" :type git :host github :repo "jinnovation/kele.el")
+    :config
+    (kele-mode 1)
+    (add-hook #'kele-context-after-switch-functions #'jjin-hinge-auth-kubectl)
+    (bind-key (kbd "s-k") kele-command-map kele-mode-map))
 
 (use-package kubernetes
-  :disabled t
-  :straight (:local-repo "~/dev/kubernetes-el" :type git :host github :repo "kubernetes-el/kubernetes-el")
-  :custom
-  (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover.")
-  (kubernetes-overview-custom-views-alist '((jjin-overview . (context deployments pods))))
-  :config
-  (fset 'k8s 'kubernetes-overview)
-  (with-eval-after-load 'evil
-    (evil-set-initial-state 'kubernetes-mode 'emacs)
-    (evil-set-initial-state 'kubernetes-display-thing-mode 'visual)
-    (evil-set-initial-state 'kubernetes-log-line-mode 'emacs)
-    (evil-set-initial-state 'kubernetes-logs-mode 'emacs)
-    (evil-set-initial-state 'kubernetes-overview-mode 'emacs))
+    :disabled t
+    :straight (:local-repo "~/dev/kubernetes-el" :type git :host github :repo "kubernetes-el/kubernetes-el")
+    :custom
+    (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover.")
+    (kubernetes-overview-custom-views-alist '((jjin-overview . (context deployments pods))))
+    :config
+    (fset 'k8s 'kubernetes-overview)
+    (with-eval-after-load 'evil
+      (evil-set-initial-state 'kubernetes-mode 'emacs)
+      (evil-set-initial-state 'kubernetes-display-thing-mode 'visual)
+      (evil-set-initial-state 'kubernetes-log-line-mode 'emacs)
+      (evil-set-initial-state 'kubernetes-logs-mode 'emacs)
+      (evil-set-initial-state 'kubernetes-overview-mode 'emacs))
 
-  ;; (kubernetes-state--define-accessors profiles (profiles)
-  ;;   (cl-assert (listp profiles)))
+    ;; (kubernetes-state--define-accessors profiles (profiles)
+    ;;   (cl-assert (listp profiles)))
 
-  ;; (setq kubernetes-overview-custom-views-alist '((profiles profiles)))
+    ;; (setq kubernetes-overview-custom-views-alist '((profiles profiles)))
 
-  ;; ;; TODO: Define kubernetes-state-update-profile
-  ;; (defun kubernetes-kubectl-get-profile (props state cb &optional cleanup-db)
-  ;;   (kubernetes-kubectl props state '("get" "profiles" "-o" "json")
-  ;;                       (lambda (buf)
-  ;;                         (let ((json (with-current-buffer buf
-  ;;                                       (json-read-from-string (buffer-string)))))
-  ;;                           (funcall cb json)))
-  ;;                       nil
-  ;;                       cleanup-cb))
-  )
+    ;; ;; TODO: Define kubernetes-state-update-profile
+    ;; (defun kubernetes-kubectl-get-profile (props state cb &optional cleanup-db)
+    ;;   (kubernetes-kubectl props state '("get" "profiles" "-o" "json")
+    ;;                       (lambda (buf)
+    ;;                         (let ((json (with-current-buffer buf
+    ;;                                       (json-read-from-string (buffer-string)))))
+    ;;                           (funcall cb json)))
+    ;;                       nil
+    ;;                       cleanup-cb))
+    )
 
 (use-package aggressive-indent
-  :straight t
-  :config
-  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
+    :straight t
+    :config
+    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
 
 (use-package aidermacs
-  :straight t
-  :bind (("s-a" . aidermacs-transient-menu)))
+    :straight t
+    :bind (("s-a" . aidermacs-transient-menu)))
