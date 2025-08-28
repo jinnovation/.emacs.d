@@ -674,10 +674,13 @@ ACT is a buffer action that enables use in
      (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0" "src")
      (gomod "https://github.com/camdencheek/tree-sitter-go-mod" "v1.0.2" "src")
      (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6" "src")
+     (rust "https://github.com/tree-sitter/tree-sitter-rust" "v0.23.3" "src")
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")
      (typst "https://github.com/uben0/tree-sitter-typst" "v0.10-2" "src")))
   :config
   (mapc #'jjin/treesit-install-grammar-maybe (mapcar #'car treesit-language-source-alist)))
+
+(use-package rust-ts-mode)
 
 (use-package typescript-ts-mode)
 
