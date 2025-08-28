@@ -794,7 +794,8 @@ ACT is a buffer action that enables use in
 
 ;; TODO: Set up native dockerfile-ts-mode
 (use-package dockerfile-mode
-    :straight t)
+    :straight t
+    :mode (("Dockerfile.*$" . dockerfile-mode)))
 
 (use-package ediff
     :custom
