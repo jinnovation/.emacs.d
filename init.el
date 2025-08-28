@@ -513,10 +513,8 @@ ACT is a buffer action that enables use in
     (add-hook 'eglot-managed-mode-hook #'jjin/setup-eglot-hooks))
 
 (use-package lsp-mode
+    :disabled t
     :straight t
-    :hook ((python-mode . lsp-deferred)
-           (go-mod-ts-mode . lsp-deferred)
-           (go-ts-mode . lsp-deferred))
     ;; (terraform-mode . lsp-deferred)
     ;; (yaml-mode . lsp-deferred))
     ;; TODO:
@@ -583,10 +581,12 @@ ACT is a buffer action that enables use in
 (require 'go-ts-mode)
 
 (use-package lsp-ivy
+    :disabled t
     :straight t
     :after (ivy lsp-mode))
 
 (use-package lsp-ui
+    :disabled t
     :straight t
     :after lsp-mode
     :custom
@@ -1875,4 +1875,5 @@ use as an Embark action."
 
 (use-package aidermacs
     :straight t
+    :ensure-system-package (aider)
     :bind (("s-a" . aidermacs-transient-menu)))
