@@ -1093,10 +1093,11 @@ ACT is a buffer action that enables use in
     ;;
     ;; security add-internet-password -a "username^forge" -r "htps" -s "api.github.com"
 
-    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-pullreqs 'forge-insert-pullreqs nil)
-    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-requested-reviews 'forge-insert-pullreqs nil)
-    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-assigned-issues 'forge-insert-issues nil)
-    (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-issues 'forge-insert-issues nil))
+    ;; (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-pullreqs 'forge-insert-pullreqs nil)
+    ;; (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-requested-reviews 'forge-insert-pullreqs nil)
+    ;; (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-assigned-issues 'forge-insert-issues nil)
+    ;; (magit-add-section-hook 'magit-status-sections-hook 'forge-insert-authored-issues 'forge-insert-issues nil))
+    )
 
 (use-package helpful
     :straight t
