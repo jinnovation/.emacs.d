@@ -506,9 +506,18 @@ ACT is a buffer action that enables use in
     (defun jjin/eglot-organize-buffer-imports ()
       (apply #'eglot-code-action-organize-imports (eglot--region-bounds)))
 
+    (defcustom jjin/eglot-format-ignore-files (list)
+      "Files to suppress LSP-based auto-format for.")
+
+    (defun jjin/eglot-format-buffer-with-ignore ()
+      "Only apply `eglot-format-buffer' if current file name is not in `jjin/eglot-format-ignore-files'."
+      (if (not (member buffer-file-name jjin/eglot-format-ignore-files))
+          (eglot-format-buffer)
+        (message "Skipping buffer!")))
+
     (defun jjin/setup-eglot-hooks ()
       (add-hook 'before-save-hook #'jjin/eglot-organize-buffer-imports nil t)
-      (add-hook 'before-save-hook #'eglot-format-buffer nil t))
+      (add-hook 'before-save-hook #'jjin/eglot-format-buffer-with-ignore nil t))
 
     (add-hook 'eglot-managed-mode-hook #'jjin/setup-eglot-hooks))
 
