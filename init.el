@@ -1870,3 +1870,7 @@ use as an Embark action."
   :straight t
   :config
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
+
+(use-package aidermacs
+  :straight t
+  :bind (("s-a" . aidermacs-transient-menu)))
