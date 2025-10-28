@@ -1898,25 +1898,36 @@ use as an Embark action."
 
 (use-package agent-shell
     :straight (:repo "https://github.com/xenodium/agent-shell")
-    :disabled t
     :after (shell-maker acp)
     :custom
-    (agent-shell-header-style 'text)
+    (agent-shell-header-style nil)
     :config
+    (setq jjin/agent-shell-claude-code-config
+          (agent-shell-make-agent-config
+           :new-session t
+           :mode-line-name "Claude Code"
+           :buffer-name "Claude Code"
+           :shell-prompt "Claude Code > "
+           :shell-prompt-regexp "Claude Code > "
+           :icon-name "anthropic.png"
+           :welcome-function (lambda (config) "" "")
+           :client-maker (lambda (buffer)
+                           (agent-shell-anthropic-make-claude-client :buffer
+                                                                     buffer))
+           :install-instructions "See https://github.com/zed-industries/claude-code-acp for installation."))
+    (add-to-list 'evil-emacs-state-modes #'agent-shell-mode)
     (setq agent-shell-anthropic-authentication
           (agent-shell-anthropic-make-authentication :login t)))
 
 (use-package agent-shell-sidebar
-    :disabled t
     :after agent-shell
     :bind (("s-a" . #'agent-shell-sidebar-toggle))
     :straight (:repo "https://github.com/cmacrae/agent-shell-sidebar")
     :custom
-    (agent-shell-sidebar-default-config (agent-shell-anthropic-make-claude-code-config))
-    :config
-    (add-to-list 'evil-emacs-state-modes #'agent-shell-mode))
+    (agent-shell-sidebar-default-config jjin/agent-shell-claude-code-config))
 
 (use-package claude-code-ide
+    :disabled t
     :straight (:type git :host github :repo "manzaltu/claude-code-ide.el")
     :bind ("s-a" . claude-code-ide-menu)
     :config
