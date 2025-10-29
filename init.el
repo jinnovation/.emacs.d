@@ -1904,7 +1904,6 @@ use as an Embark action."
     :config
     (setq jjin/agent-shell-claude-code-config
           (agent-shell-make-agent-config
-           :new-session t
            :mode-line-name "Claude Code"
            :buffer-name "Claude Code"
            :shell-prompt "Claude Code > "
