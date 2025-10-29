@@ -851,6 +851,7 @@ ACT is a buffer action that enables use in
     (mapc (lambda (m) (add-to-list 'evil-emacs-state-modes m t))
           '(eshell-mode
             calendar-mode
+            diff-mode
 
             finder-mode
             info-mode
