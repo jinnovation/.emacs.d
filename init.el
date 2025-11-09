@@ -1890,7 +1890,6 @@ use as an Embark action."
     :ensure-system-package (aider)
     :bind (("s-a" . aidermacs-transient-menu)))
 
-
 (use-package shell-maker
     :straight t)
 
@@ -1901,8 +1900,12 @@ use as an Embark action."
     :straight (:repo "https://github.com/xenodium/agent-shell")
     :after (shell-maker acp)
     :custom
-    (agent-shell-header-style nil)
+    (agent-shell-header-style 'graphical)
+    (agent-shell-file-completion-enabled t)
+    (agent-shell-show-welcome-message nil)
     :config
+    (setq agent-shell-anthropic-claude-environment
+          (agent-shell-make-environment-variables :inherit-env t))
     (setq jjin/agent-shell-claude-code-config
           (agent-shell-make-agent-config
            :mode-line-name "Claude Code"
@@ -1920,11 +1923,18 @@ use as an Embark action."
           (agent-shell-anthropic-make-authentication :login t)))
 
 (use-package agent-shell-sidebar
-    :after agent-shell
+    :after (agent-shell embark)
     :bind (("s-a" . #'agent-shell-sidebar-toggle))
     :straight (:repo "https://github.com/cmacrae/agent-shell-sidebar")
     :custom
-    (agent-shell-sidebar-default-config jjin/agent-shell-claude-code-config))
+    (agent-shell-sidebar-default-config jjin/agent-shell-claude-code-config)
+    :config
+    (defun jjin/agent-shell-at (dir)
+      "Start agent-shell in the given project DIR."
+      (let ((default-directory dir))
+        (agent-shell-start :config jjin/agent-shell-claude-code-config)))
+
+    (define-key jjin/project-actions "a" #'jjin/agent-shell-at))
 
 (use-package claude-code-ide
     :disabled t
