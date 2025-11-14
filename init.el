@@ -239,7 +239,7 @@ i.e. change right window to bottom, or change bottom window to right."
     :init
   (setq clean-buffer-list-delay-general 0.006)) ; 10 minutes
 
-(setq-default fill-column 80)
+(setq-default fill-column 100)
 
 ;; This sets indentation such that plists aren't indented oddly.
 ;;
