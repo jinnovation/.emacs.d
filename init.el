@@ -1932,7 +1932,7 @@ use as an Embark action."
     (defun jjin/agent-shell-at (dir)
       "Start agent-shell in the given project DIR."
       (let ((default-directory dir))
-        (agent-shell-start :config jjin/agent-shell-claude-code-config)))
+        (agent-shell-sidebar-toggle)))
 
     (define-key jjin/project-actions "a" #'jjin/agent-shell-at))
 
