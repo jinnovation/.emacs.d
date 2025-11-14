@@ -371,6 +371,8 @@ ACT is a buffer action that enables use in
 `display-buffer-alist'."
   (member (with-current-buffer buf major-mode) jjin/help-modes))
 
+(setq switch-to-buffer-obey-display-actions t)
+
 (add-to-list 'display-buffer-alist
              `(jjin/help-buffer-p
                (display-buffer--maybe-same-window
