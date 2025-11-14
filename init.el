@@ -364,7 +364,9 @@ ACT is a buffer action that enables use in
 `display-buffer-alist'."
   (member (with-current-buffer buf major-mode) jjin/help-modes))
 
+(setq switch-to-buffer-in-dedicated-window 'pop)
 (setq switch-to-buffer-obey-display-actions t)
+(setq window-sides-slots '(1 1 1 1))
 
 (add-to-list 'display-buffer-alist
              `(jjin/help-buffer-p
@@ -440,6 +442,7 @@ ACT is a buffer action that enables use in
         ("Q" kill-buffer-and-window "kill buffer, delete window")
         ("b" balance-windows "balance")
         ("S" ace-swap-window "swap places with...")
+        ("`" window-toggle-side-windows "toggle sidebar")
         (";" ace-window "select window" :exit t))))
 
     (pretty-hydra-define jjin-buffer-hydra
@@ -807,6 +810,14 @@ ACT is a buffer action that enables use in
     :custom
     (vterm-shell "/bin/zsh")
     (vterm-kill-buffer-on-exit t)
+
+    :init
+    (add-to-list 'display-buffer-alist
+                 '("\\*vterm" (display-buffer-reuse-mode-window display-buffer-in-direction)
+                   (direction . bottom)
+                   (window . root)
+                   (window-height . 0.3)))
+
     :config
     (with-eval-after-load 'evil
       (add-to-list 'evil-emacs-state-modes 'vterm-mode)))
@@ -978,6 +989,18 @@ ACT is a buffer action that enables use in
     (defun jjin/magit-status-at (dir)
       "Open Magit status buffer for project at root DIR."
       (magit-status dir))
+
+    (defun jjin/magit-buffer-p (buf &optional act)
+      (with-current-buffer buf
+        (derived-mode-p 'magit-mode)))
+
+    (add-to-list 'display-buffer-alist
+                 '(jjin/magit-buffer-p
+                   (display-buffer-reuse-window display-buffer-in-side-window)
+                   (side . right)
+                   (window-parameters . ((no-delete-other-windows . t)))
+                   (window-width . 100)))
+
     :bind (:map jjin-vc-map
                 ("!" . magit-git-command-topdir)
                 ("C" . magit-branch-and-checkout)
@@ -995,7 +1018,6 @@ ACT is a buffer action that enables use in
                 ("X" . magit-reset-hard))
 
     :commands (magit-status)
-
     :config
     (with-eval-after-load 'git-rebase
       (bind-keys :map git-rebase-mode-map ("u" . git-rebase-undo)))
@@ -1828,4 +1850,3 @@ use as an Embark action."
         (agent-shell-sidebar-toggle)))
 
     (define-key jjin/project-actions "a" #'jjin/agent-shell-at))
-
