@@ -349,13 +349,6 @@ i.e. change right window to bottom, or change bottom window to right."
 (use-package nested-dir-local
     :disabled t
     :straight (:repo "git@github.com:jinnovation/nested-dir-locals.el.git"))
-(use-package eyebrowse
-    :straight t
-    :custom
-    (eyebrowse-new-workspace t)
-    :config
-    (eyebrowse-mode 1))
-;; FIXME: Add eyebrowse switch window config bindings to the window hydra
 
 (defvar jjin/help-modes '(helpful-mode
                           help-mode
@@ -724,10 +717,6 @@ ACT is a buffer action that enables use in
     ;; the mu4e update index function uses the hardcoded string w/ space padding.
     (add-to-list 'aw-ignored-buffers " *mu4e-update*"))
 
-(use-package code-review
-    :straight t
-    :disabled t)
-
 (use-package conf-mode
     :mode
   (;; systemd
@@ -962,6 +951,8 @@ ACT is a buffer action that enables use in
 (use-package git-modes
     :straight t)
 
+;; TODO: magit "sidebar" functionality
+;; - dedicated-window: https://www.masteringemacs.org/article/demystifying-emacs-window-manager
 (use-package magit
     :straight t
     :custom
@@ -1719,15 +1710,6 @@ use as an Embark action."
     (dolist (mode my-rm-excluded-modes)
       (add-to-list 'rm-excluded-modes mode)))
 
-(use-package smart-mode-line
-    :disabled t
-    :straight t
-    :custom
-    (sml/theme 'respectful)
-    :config
-    (sml/setup)
-    (smart-mode-line-enable))
-
 (use-package tramp
     :custom
   (tramp-default-method "ssh")
@@ -1796,47 +1778,10 @@ use as an Embark action."
     (add-hook #'kele-context-after-switch-functions #'jjin-hinge-auth-kubectl)
     (bind-key (kbd "s-k") kele-command-map kele-mode-map))
 
-(use-package kubernetes
-    :disabled t
-    :straight (:local-repo "~/dev/kubernetes-el" :type git :host github :repo "kubernetes-el/kubernetes-el")
-    :custom
-    (kubernetes-commands-display-buffer-function 'display-buffer "Display like a regular buffer instead of obnoxious full-frame takeover.")
-    (kubernetes-overview-custom-views-alist '((jjin-overview . (context deployments pods))))
-    :config
-    (fset 'k8s 'kubernetes-overview)
-    (with-eval-after-load 'evil
-      (evil-set-initial-state 'kubernetes-mode 'emacs)
-      (evil-set-initial-state 'kubernetes-display-thing-mode 'visual)
-      (evil-set-initial-state 'kubernetes-log-line-mode 'emacs)
-      (evil-set-initial-state 'kubernetes-logs-mode 'emacs)
-      (evil-set-initial-state 'kubernetes-overview-mode 'emacs))
-
-    ;; (kubernetes-state--define-accessors profiles (profiles)
-    ;;   (cl-assert (listp profiles)))
-
-    ;; (setq kubernetes-overview-custom-views-alist '((profiles profiles)))
-
-    ;; ;; TODO: Define kubernetes-state-update-profile
-    ;; (defun kubernetes-kubectl-get-profile (props state cb &optional cleanup-db)
-    ;;   (kubernetes-kubectl props state '("get" "profiles" "-o" "json")
-    ;;                       (lambda (buf)
-    ;;                         (let ((json (with-current-buffer buf
-    ;;                                       (json-read-from-string (buffer-string)))))
-    ;;                           (funcall cb json)))
-    ;;                       nil
-    ;;                       cleanup-cb))
-    )
-
 (use-package aggressive-indent
     :straight t
     :config
     (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
-
-(use-package aidermacs
-    :straight t
-    :disabled t
-    :ensure-system-package (aider)
-    :bind (("s-a" . aidermacs-transient-menu)))
 
 (use-package shell-maker
     :straight t)
@@ -1883,11 +1828,4 @@ use as an Embark action."
         (agent-shell-sidebar-toggle)))
 
     (define-key jjin/project-actions "a" #'jjin/agent-shell-at))
-
-(use-package claude-code-ide
-    :disabled t
-    :straight (:type git :host github :repo "manzaltu/claude-code-ide.el")
-    :bind ("s-a" . claude-code-ide-menu)
-    :config
-    (claude-code-ide-emacs-tools-setup))
 
