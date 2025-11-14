@@ -367,6 +367,7 @@ ACT is a buffer action that enables use in
 (setq switch-to-buffer-in-dedicated-window 'pop)
 (setq switch-to-buffer-obey-display-actions t)
 (setq window-sides-slots '(1 1 1 1))
+(setq window-sides-vertical t)
 
 (add-to-list 'display-buffer-alist
              `(jjin/help-buffer-p
@@ -813,8 +814,9 @@ ACT is a buffer action that enables use in
 
     :init
     (add-to-list 'display-buffer-alist
-                 '("\\*vterm" (display-buffer-reuse-mode-window display-buffer-in-direction)
-                   (direction . bottom)
+                 '("\\*vterm" (display-buffer-reuse-mode-window display-buffer-in-side-window)
+                   (side . bottom)
+                   (window-parameters . ((no-delete-other-windows . t)))
                    (window . root)
                    (window-height . 0.3)))
 
