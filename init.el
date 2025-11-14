@@ -379,16 +379,6 @@ ACT is a buffer action that enables use in
                (mode . ,jjin/help-modes)
                (inhibit-same-window . nil)))
 
-;; FIXME: This doesn't play nicely w/ M-x mu4e
-(add-to-list 'display-buffer-alist
-             '((lambda (buf act) (equal (with-current-buffer buf major-mode) 'mu4e-headers-mode))
-               (display-buffer--maybe-same-window
-                display-buffer-reuse-window
-                display-buffer-reuse-mode-window)
-
-               (mode . mu4e-headers-mode)
-               (inhibit-same-window . nil)))
-
 (add-to-list 'tab-bar-format 'tab-bar-format-align-right t)
 (add-to-list 'tab-bar-format 'tab-bar-format-global t)
 
@@ -491,15 +481,6 @@ ACT is a buffer action that enables use in
     :ensure-system-package (typescript-language-server gopls)
     :after (pet)
     :config
-    ;; NB(@jinnovation): Using `pet-executable-find' here ensures that we use
-    ;; the version of ruff that is installed specifically in the venv for the
-    ;; given project
-    (add-to-list 'eglot-server-programs
-                 '((python-mode python-ts-mode)
-                   . (lambda (_)
-                       (list
-                        (pet-executable-find "ruff")
-                        "server"))))
 
     ;; TODO: Add `eglot-rename' to embark for 'identifier
 
@@ -1787,41 +1768,6 @@ use as an Embark action."
 (use-package ripgrep
     :straight t)
 
-(use-package shackle
-    :straight t
-    :custom
-    (shackle-rules '(
-                     (git-commit-mode :align bottom :size 0.3 :select t)
-                     ('(help-mode helpful-mode) :select t :other t :inhibit-window-quit t :size 0.4)
-                     (vterm-mode :align right :size 0.4 :select t)
-                     (magit-log-mode :other t :size 0.4 :select t)
-                     (kubernetes-overview-mode :same t :inhibit-window-quit t)
-
-                     ;; TODO: Find a way to have this open in the current window
-                     ;; iff there is no other window in the frame
-                     (magit-status-mode :select t :other t :size 0.4)
-                     (compilation-mode :align right :size 0.3 :other t :inhibit-window-quit t)))
-    :config
-    (shackle-mode t))
-
-(use-package popper
-    :disabled t
-    :straight t
-    :custom
-    (popper-group-function #'popper-group-by-projectile)
-    :bind (("C-`"   . popper-toggle-latest)
-           ("M-`"   . popper-cycle)
-           ("C-M-`" . popper-toggle-type))
-    :init
-    (setq popper-reference-buffers
-          '("\\*Messages\\*"
-            "Output\\*$"
-            "vterm .+\\*$"
-            help-mode
-            helpful-mode
-            compilation-mode))
-    (popper-mode +1))
-
 (use-package which-key :straight t)
 
 (use-package terraform-mode
@@ -1942,3 +1888,4 @@ use as an Embark action."
     :bind ("s-a" . claude-code-ide-menu)
     :config
     (claude-code-ide-emacs-tools-setup))
+
