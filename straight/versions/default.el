@@ -2,7 +2,6 @@
  ("ace-window" . "c7cb315c14e36fded5ac4096e158497ae974bec9")
  ("acp" . "f9dd828c7bfb209523e907cc947668924ff9f1bf")
  ("agent-shell" . "787ade65e1176af7d03ae1fdc3103330edeb8f86")
- ("agent-shell-sidebar" . "10fee0b1463cdf210b0908c23e940a44c8d4a8e2")
  ("aggressive-indent-mode" . "a437a45868f94b77362c6b913c5ee8e67b273c42")
  ("all-the-icons.el" . "51bf77da1ebc3c199dfc11f54c0dce67559f5f40")
  ("autothemer" . "cb4d4b69f8bb1f8158d2311692b7607794b75829")
@@ -104,6 +103,7 @@
  ("use-package" . "c80c883deac67a3ff3dda2d2af6d947a15062aff")
  ("vertico" . "7f36ecf5a550b7605da3433448970448deac4bb3")
  ("with-editor" . "87a384a0e59260cca41ca8831d98e195b1ec8ada")
+ ("xref" . "26b277b67df478ad6daf2e2e7a4de79a5fe251e7")
  ("yaml.el" . "f99ef76c80e6fc3fcf650c4fe34e10726594a4c4")
  ("~/dev/jinnovation/kele.el" . "047ae15e8c9e50d70dd009e1354beb9363c58243"))
 :epsilon

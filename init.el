@@ -1826,11 +1826,24 @@ use as an Embark action."
 (use-package agent-shell
     :straight (:repo "https://github.com/xenodium/agent-shell")
     :after (shell-maker acp)
+    :bind (("s-a" . #'agent-shell))
     :custom
     (agent-shell-header-style 'graphical)
     (agent-shell-file-completion-enabled t)
     (agent-shell-show-welcome-message nil)
     :config
+    (defun jjin/agent-shell-mode-p (buf &optional act)
+      "Check if BUF is an agent-shell buffer.
+
+ACT is buffer action that enables use in `display-buffer-alist.'"
+      (with-current-buffer buf (derived-mode-p 'agent-shell-mode)))
+
+    (add-to-list 'display-buffer-alist
+                 '(jjin/agent-shell-mode-p
+                   (display-buffer-reuse-window display-buffer-in-side-window)
+                   (side . right)
+                   (window-parameters . ((no-delete-other-windows . t)))
+                   (window-width . 100)))
     (setq agent-shell-anthropic-claude-environment
           (agent-shell-make-environment-variables :inherit-env t))
     (setq jjin/agent-shell-claude-code-config
@@ -1848,17 +1861,3 @@ use as an Embark action."
     (add-to-list 'evil-emacs-state-modes #'agent-shell-mode)
     (setq agent-shell-anthropic-authentication
           (agent-shell-anthropic-make-authentication :login t)))
-
-(use-package agent-shell-sidebar
-    :after (agent-shell embark)
-    :bind (("s-a" . #'agent-shell-sidebar-toggle))
-    :straight (:repo "https://github.com/cmacrae/agent-shell-sidebar")
-    :custom
-    (agent-shell-sidebar-default-config jjin/agent-shell-claude-code-config)
-    :config
-    (defun jjin/agent-shell-at (dir)
-      "Start agent-shell in the given project DIR."
-      (let ((default-directory dir))
-        (agent-shell-sidebar-toggle)))
-
-    (define-key jjin/project-actions "a" #'jjin/agent-shell-at))
