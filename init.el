@@ -1252,6 +1252,7 @@ message is the absolute head of a thread, and nil otherwise. If
 thread, will archive the head of the thread and trash the rest.")
 
 (use-package mu4e
+    :disabled t
     :ensure-system-package mu
     :custom
     (mail-user-agent 'mu4e-user-agent)
