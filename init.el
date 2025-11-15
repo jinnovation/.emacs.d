@@ -1182,7 +1182,12 @@ ACT is a buffer action that enables use in
 (use-package embark-consult
     :straight t)
 
+(use-package consult-project-extra
+    :straight t
+    :bind (:map projectile-command-map ("<SPC>" . consult-project-extra-find)))
+
 (use-package consult-projectile
+    :disabled t
     :after (consult projectile)
     :straight (consult-projectile
                :type git
