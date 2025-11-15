@@ -1876,20 +1876,11 @@ ACT is buffer action that enables use in `display-buffer-alist.'"
                    (side . right)
                    (window-parameters . ((no-delete-other-windows . t)))
                    (window-width . 100)))
+
     (setq agent-shell-anthropic-claude-environment
           (agent-shell-make-environment-variables :inherit-env t))
-    (setq jjin/agent-shell-claude-code-config
-          (agent-shell-make-agent-config
-           :mode-line-name "Claude Code"
-           :buffer-name "Claude Code"
-           :shell-prompt "Claude Code > "
-           :shell-prompt-regexp "Claude Code > "
-           :icon-name "anthropic.png"
-           :welcome-function (lambda (config) "" "")
-           :client-maker (lambda (buffer)
-                           (agent-shell-anthropic-make-claude-client :buffer
-                                                                     buffer))
-           :install-instructions "See https://github.com/zed-industries/claude-code-acp for installation."))
+
     (add-to-list 'evil-emacs-state-modes #'agent-shell-mode)
+
     (setq agent-shell-anthropic-authentication
           (agent-shell-anthropic-make-authentication :login t)))
