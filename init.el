@@ -453,7 +453,7 @@ ACT is a buffer action that enables use in
 
     (bind-key "C-c b" 'jjin-buffer-hydra/body)
 
-    (bind-key "C-c w" 'jjin-hydra-window/body)
+    (bind-key "s-w" 'jjin-hydra-window/body)
     (bind-key "s-<escape>" 'jjin-hydra-exec/body))
 
 (use-package major-mode-hydra
