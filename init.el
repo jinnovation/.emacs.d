@@ -1859,10 +1859,12 @@ use as an Embark action."
     :straight (:repo "https://github.com/xenodium/agent-shell")
     :after (shell-maker acp)
     :bind (("s-a" . #'agent-shell))
+    :hook (agent-shell-mode . bug-reference-mode)
     :custom
     (agent-shell-header-style 'graphical)
     (agent-shell-file-completion-enabled t)
     (agent-shell-show-welcome-message nil)
+
     :config
     (defun jjin/agent-shell-mode-p (buf &optional act)
       "Check if BUF is an agent-shell buffer.
