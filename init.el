@@ -1001,6 +1001,9 @@ ACT is a buffer action that enables use in
       (with-current-buffer buf
         (derived-mode-p 'magit-mode)))
 
+    ;; FIXME: for modes that are not status buffer:
+    ;; - if something magit-mode-y already in the side indow, open it as a "regular" window
+    ;; - otherwise, open it in side window
     (add-to-list 'display-buffer-alist
                  '(jjin/magit-buffer-p
                    (display-buffer-reuse-window display-buffer-in-side-window)
