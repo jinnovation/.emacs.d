@@ -8,6 +8,7 @@
  ("autothemer" . "cb4d4b69f8bb1f8158d2311692b7607794b75829")
  ("avy" . "e92cb37457b43336b765630dbfbea8ba4be601fa")
  ("bind-key" . "ec9d0505febe2556b47457355763f5f1408a35ac")
+ ("breadcrumb" . "e06a07d5399dbe313aae7b806bd8c12634b27272")
  ("closql" . "f5dd024c47b792dac499dac94c906af60044d2ad")
  ("company-mode" . "88001d794d963049339883216b6606de0a1209ea")
  ("compat" . "97f24af413a38a7f1aaedb29f5aaaa333796a5b4")

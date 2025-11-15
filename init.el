@@ -473,6 +473,11 @@ ACT is a buffer action that enables use in
                                        (pet-eglot-setup))))
 ;; (add-hook 'python-base-mode-hook 'pet-mode -10))
 
+(use-package breadcrumb
+    :straight t
+    :config
+    (breadcrumb-mode))
+
 (use-package eglot
     :hook ((tsx-ts-mode . eglot-ensure)
            (python-ts-mode . eglot-ensure)
