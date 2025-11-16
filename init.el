@@ -405,8 +405,8 @@ ACT is a buffer action that enables use in
 (defvar jjin/side-window-ratios
   '((bottom . (0.3 0.5 0.8))
     (top . (0.3 0.5 0.8))
-    (left . (0.3 0.5 0.8))
-    (right . (0.3 0.5 0.8)))
+    (left . (0.3 0.5))
+    (right . (0.3 0.5)))
   "Alist of side window size ratios for each side.
 
 Each entry maps a side symbol (bottom, top, left, right) to a list of
@@ -422,23 +422,56 @@ list is treated as the default value.")
     (right . 0))
   "Alist tracking current ratio index for each side window.")
 
-(defun jjin/cycle-bottom-side-window-size ()
-  "Cycle bottom side window through sizes defined in `jjin/side-window-ratios'."
+(defun jjin/cycle-side-window-size (&optional side)
+  "Cycle side window through sizes defined in `jjin/side-window-ratios'.
+
+SIDE specifies which side window to cycle (bottom, top, left, or right).
+Defaults to 'bottom if not provided."
   (interactive)
-  (if-let ((bottom-window (get-window-with-predicate
+  (let ((side (or side 'bottom)))
+    (if-let ((side-window (get-window-with-predicate
                            (lambda (win)
-                             (eq (window-parameter win 'window-side) 'bottom)))))
-      (let* ((side 'bottom)
-             (ratios (alist-get side jjin/side-window-ratios))
-             (current-index (alist-get side jjin/side-window-current-ratio-indices))
-             (new-index (mod (1+ current-index) (length ratios)))
-             (target-ratio (nth new-index ratios))
-             (target-lines (floor (* (frame-height) target-ratio)))
-             (delta (- target-lines (window-height bottom-window))))
-        (setf (alist-get side jjin/side-window-current-ratio-indices) new-index)
-        (window-resize bottom-window delta)
-        (message "Bottom window height: %.0f%%" (* target-ratio 100)))
-    (message "No bottom side window found")))
+                             (eq (window-parameter win 'window-side) side)))))
+        (let* ((ratios (alist-get side jjin/side-window-ratios))
+               (current-index (alist-get side jjin/side-window-current-ratio-indices))
+               (new-index (mod (1+ current-index) (length ratios)))
+               (target-ratio (nth new-index ratios))
+               (is-horizontal (memq side '(top bottom)))
+               (target-size (floor (* target-ratio
+                                      (if is-horizontal
+                                          (frame-height)
+                                        (frame-width)))))
+               (current-size (if is-horizontal
+                                 (window-height side-window)
+                               (window-width side-window)))
+               (delta (- target-size current-size)))
+          (setf (alist-get side jjin/side-window-current-ratio-indices) new-index)
+          (window-resize side-window delta (not is-horizontal))
+          (message "%s window %s: %.0f%%"
+                   (capitalize (symbol-name side))
+                   (if is-horizontal "height" "width")
+                   (* target-ratio 100)))
+      (message "No %s side window found" side))))
+
+(defun jjin/cycle-bottom-window-size ()
+  "Cycle bottom side window size."
+  (interactive)
+  (jjin/cycle-side-window-size 'bottom))
+
+(defun jjin/cycle-top-window-size ()
+  "Cycle top side window size."
+  (interactive)
+  (jjin/cycle-side-window-size 'top))
+
+(defun jjin/cycle-left-window-size ()
+  "Cycle left side window size."
+  (interactive)
+  (jjin/cycle-side-window-size 'left))
+
+(defun jjin/cycle-right-window-size ()
+  "Cycle right side window size."
+  (interactive)
+  (jjin/cycle-side-window-size 'right))
 
 (use-package hydra
     :commands defhydra
@@ -471,7 +504,10 @@ list is treated as the default value.")
 
        "Side Windows"
        (("`" window-toggle-side-windows "toggle")
-        ("e" jjin/cycle-bottom-side-window-size "cycle bottom size"))
+        ("e" jjin/cycle-bottom-window-size "cycle bottom size")
+        ("E" jjin/cycle-top-window-size "cycle top size")
+        ("r" jjin/cycle-right-window-size "cycle right size")
+        ("R" jjin/cycle-left-window-size "cycle left size"))
 
        "Other"
        (("q" delete-window "delete window")
