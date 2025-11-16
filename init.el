@@ -410,6 +410,30 @@ ACT is a buffer action that enables use in
            ("s-b" . switch-to-buffer)
            ("s-`" . recompile))
 
+(defvar jjin/bottom-window-default-height 0.3
+  "Default height ratio for bottom side window.")
+
+(defvar jjin/bottom-window-enlarged-height 0.8
+  "Enlarged height ratio for bottom side window.")
+
+(defvar jjin/bottom-window-enlarged-p nil
+  "Track whether bottom window is currently enlarged.")
+
+(defun jjin/toggle-bottom-window-enlarge ()
+  "Toggle bottom side window between default and enlarged sizes."
+  (interactive)
+  (if-let ((bottom-window (get-window-with-predicate
+                           (lambda (win)
+                             (eq (window-parameter win 'window-side) 'bottom)))))
+      (let* ((target-height (if jjin/bottom-window-enlarged-p
+                                jjin/bottom-window-default-height
+                              jjin/bottom-window-enlarged-height))
+             (target-lines (floor (* (frame-height) target-height)))
+             (delta (- target-lines (window-height bottom-window))))
+        (window-resize bottom-window delta)
+        (setq jjin/bottom-window-enlarged-p (not jjin/bottom-window-enlarged-p)))
+    (message "No bottom side window found")))
+
 (use-package hydra
     :commands defhydra
     :straight t)
@@ -421,30 +445,6 @@ ACT is a buffer action that enables use in
     (pretty-hydra-define jjin-hydra-exec
         (:title (with-material "apps" "Apps" 1 -0.05))
       ("General" ()))
-
-    (defvar jjin/bottom-window-default-height 0.3
-      "Default height ratio for bottom side window.")
-
-    (defvar jjin/bottom-window-enlarged-height 0.8
-      "Enlarged height ratio for bottom side window.")
-
-    (defvar jjin/bottom-window-enlarged-p nil
-      "Track whether bottom window is currently enlarged.")
-
-    (defun jjin/toggle-bottom-window-enlarge ()
-      "Toggle bottom side window between default and enlarged sizes."
-      (interactive)
-      (if-let ((bottom-window (get-window-with-predicate
-                               (lambda (win)
-                                 (eq (window-parameter win 'window-side) 'bottom)))))
-          (let* ((target-height (if jjin/bottom-window-enlarged-p
-                                    jjin/bottom-window-default-height
-                                  jjin/bottom-window-enlarged-height))
-                 (target-lines (floor (* (frame-height) target-height)))
-                 (delta (- target-lines (window-height bottom-window))))
-            (window-resize bottom-window delta)
-            (setq jjin/bottom-window-enlarged-p (not jjin/bottom-window-enlarged-p)))
-        (message "No bottom side window found")))
 
     (pretty-hydra-define jjin-hydra-window
         (:title (with-octicon "browser" "Windows" 1 -0.05))
