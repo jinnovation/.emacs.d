@@ -1844,7 +1844,7 @@ use as an Embark action."
     :straight t)
 
 (use-package agent-shell
-    :straight (:repo "https://github.com/xenodium/agent-shell")
+    :straight t
     :after (shell-maker acp)
     :bind (("s-a" . #'agent-shell))
     :hook (agent-shell-mode . bug-reference-mode)
