@@ -777,7 +777,9 @@ ACT is a buffer action that enables use in
     (corfu-auto-prefix 2)
     (corfu-cycle t)
     :config
-    (global-corfu-mode))
+    (global-corfu-mode)
+    (corfu-echo-mode)
+    (corfu-history-mode))
 
 (setq dired-listing-switches "-alh")
 
