@@ -969,14 +969,6 @@ ACT is a buffer action that enables use in
     :straight t
     :mode "gitignore")
 
-;; Merge commits can sometimes be massive -- particularly in monorepo
-;; environments. Since showing the diff during commit in such scenarios is of
-;; questionable utility, we suppress its behavior with the following advice.
-(defun jjin/do-if-merge-not-in-progress (oldfun)
-  "Displays the diff during commit only in cases where a merge is
-   not in progress."
-  (when (not (magit-merge-in-progress-p)) (funcall oldfun)))
-
 (defun jjin/magit-fetch-from-origin-master ()
   (interactive)
   (magit-git-fetch "origin" "master"))
