@@ -1849,7 +1849,7 @@ use as an Embark action."
     :straight t)
 
 (use-package acp
-    :straight (:repo "https://github.com/xenodium/acp.el"))
+    :straight t)
 
 (use-package agent-shell
     :straight (:repo "https://github.com/xenodium/agent-shell")
