@@ -1165,14 +1165,26 @@ ACT is a buffer action that enables use in
     (vertico-mode 1)
     (vertico-multiform-mode 1))
 
+(use-package prescient
+    :straight t
+    :custom
+    (completion-preview-sort-function #'prescient-completion-sort))
+
 (use-package vertico-prescient
     :straight t
-    :after vertico
+    :after (vertico prescient)
     :config
     (prescient-persist-mode 1)
     (vertico-prescient-mode 1))
 
+(use-package corfu-prescient
+    :straight t
+    :after (corfu prescient)
+    :config
+    (corfu-prescient-mode))
+
 (use-package orderless
+    :disabled t
     :straight t
     :custom (completion-styles '(orderless)))
 
