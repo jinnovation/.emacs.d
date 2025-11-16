@@ -770,15 +770,14 @@ ACT is a buffer action that enables use in
    ("conf\\(ig\\)?$"   . conf-mode)
    ("rc\\(_local\\)?$" . conf-mode)))
 
-(use-package company
-    :defines company-backends
-    :diminish company-mode
+(use-package corfu
     :straight t
     :custom
-    (company-dabbrev-downcase nil)
+    (corfu-auto t)
+    (corfu-auto-prefix 2)
+    (corfu-cycle t)
     :config
-    (add-hook 'after-init-hook 'global-company-mode)
-    (setq company-idle-delay 0.1))
+    (global-corfu-mode))
 
 (setq dired-listing-switches "-alh")
 
@@ -1821,11 +1820,6 @@ use as an Embark action."
 (use-package which-key :straight t)
 
 (use-package terraform-mode
-    :straight t)
-;; :hook (terraform-mode . terraform-format-on-save-mode))
-
-(use-package company-terraform
-    :after terraform-mode
     :straight t)
 
 (defun jjin-hinge-auth-kubectl (context-name)
