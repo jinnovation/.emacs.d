@@ -1920,6 +1920,15 @@ use as an Embark action."
     (agent-shell-show-welcome-message nil)
 
     :config
+    (add-hook 'agent-shell-mode-hook
+              (lambda ()
+                (setq-local
+                 corfu-auto-prefix 1
+                 completion-preview-minimum-symbol-length 1)
+
+                (add-to-list 'completion-at-point-functions
+                             #'forge-topic-completion-at-point nil)))
+
     (defun jjin/agent-shell-mode-p (buf &optional act)
       "Check if BUF is an agent-shell buffer.
 
