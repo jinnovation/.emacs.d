@@ -776,10 +776,21 @@ ACT is a buffer action that enables use in
     (corfu-auto t)
     (corfu-auto-prefix 2)
     (corfu-cycle t)
-    :config
+    (corfu-popupinfo-delay '(0.1 . 0.5))
+    :init
     (global-corfu-mode)
+    :config
     (corfu-echo-mode)
-    (corfu-history-mode))
+    (corfu-history-mode)
+    (corfu-popupinfo-mode))
+
+(use-package completion-preview
+    :bind
+  (:map completion-preview-active-mode-map
+        ("M-n" . completion-preview-next-candidate)
+        ("M-p" . completion-preview-prev-candidate))
+  :custom
+  (completion-preview-minimum-symbol-length 2))
 
 (setq dired-listing-switches "-alh")
 
