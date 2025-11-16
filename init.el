@@ -141,14 +141,6 @@ i.e. change right window to bottom, or change bottom window to right."
       (shrink-window arg)
     (enlarge-window arg)))
 
-(defun jjin-get-current-displays ()
-  "Get alist of attributes of displays w/ Emacs buffers."
-  (interactive)
-  (remove-if
-   (lambda (disp)
-     (eq nil (cdr (assoc 'frames disp))))
-   (display-monitor-attributes-list)))
-
 (defun jjin-fontify-frame (&optional _)
   "Set font and font size dynamically for the given frame."
   (let* ((attrs (frame-monitor-attributes))
