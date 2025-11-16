@@ -402,28 +402,42 @@ ACT is a buffer action that enables use in
            ("s-b" . switch-to-buffer)
            ("s-`" . recompile))
 
-(defvar jjin/bottom-window-default-height 0.3
-  "Default height ratio for bottom side window.")
+(defvar jjin/side-window-ratios
+  '((bottom . (0.3 0.5 0.8))
+    (top . (0.3 0.5 0.8))
+    (left . (0.3 0.5 0.8))
+    (right . (0.3 0.5 0.8)))
+  "Alist of side window size ratios for each side.
 
-(defvar jjin/bottom-window-enlarged-height 0.8
-  "Enlarged height ratio for bottom side window.")
+Each entry maps a side symbol (bottom, top, left, right) to a list of
+ratios.  For horizontal sides (top/bottom), ratios represent height as
+fraction of frame height.  For vertical sides (left/right), ratios
+represent width as fraction of frame width.  The first element in each
+list is treated as the default value.")
 
-(defvar jjin/bottom-window-enlarged-p nil
-  "Track whether bottom window is currently enlarged.")
+(defvar jjin/side-window-current-ratio-indices
+  '((bottom . 0)
+    (top . 0)
+    (left . 0)
+    (right . 0))
+  "Alist tracking current ratio index for each side window.")
 
-(defun jjin/toggle-bottom-window-enlarge ()
-  "Toggle bottom side window between default and enlarged sizes."
+(defun jjin/cycle-bottom-side-window-size ()
+  "Cycle bottom side window through sizes defined in `jjin/side-window-ratios'."
   (interactive)
   (if-let ((bottom-window (get-window-with-predicate
                            (lambda (win)
                              (eq (window-parameter win 'window-side) 'bottom)))))
-      (let* ((target-height (if jjin/bottom-window-enlarged-p
-                                jjin/bottom-window-default-height
-                              jjin/bottom-window-enlarged-height))
-             (target-lines (floor (* (frame-height) target-height)))
+      (let* ((side 'bottom)
+             (ratios (alist-get side jjin/side-window-ratios))
+             (current-index (alist-get side jjin/side-window-current-ratio-indices))
+             (new-index (mod (1+ current-index) (length ratios)))
+             (target-ratio (nth new-index ratios))
+             (target-lines (floor (* (frame-height) target-ratio)))
              (delta (- target-lines (window-height bottom-window))))
+        (setf (alist-get side jjin/side-window-current-ratio-indices) new-index)
         (window-resize bottom-window delta)
-        (setq jjin/bottom-window-enlarged-p (not jjin/bottom-window-enlarged-p)))
+        (message "Bottom window height: %.0f%%" (* target-ratio 100)))
     (message "No bottom side window found")))
 
 (use-package hydra
@@ -457,7 +471,7 @@ ACT is a buffer action that enables use in
 
        "Side Windows"
        (("`" window-toggle-side-windows "toggle")
-        ("e" jjin/toggle-bottom-window-enlarge "enlarge bottom" :toggle jjin/bottom-window-enlarged-p))
+        ("e" jjin/cycle-bottom-side-window-size "cycle bottom size"))
 
        "Other"
        (("q" delete-window "delete window")
@@ -855,7 +869,7 @@ ACT is a buffer action that enables use in
                               (side . bottom)
                               (window-parameters . ((no-delete-other-windows . t)))
                               (window . root)
-                              (window-height . ,jjin/bottom-window-default-height)))
+                              (window-height . ,(car (alist-get 'bottom jjin/side-window-ratios)))))
 
     :config
     (with-eval-after-load 'evil
