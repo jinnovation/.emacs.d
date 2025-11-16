@@ -1213,6 +1213,7 @@ ACT is a buffer action that enables use in
 
 (use-package consult-project-extra
     :straight t
+    :after projectile
     :bind (:map projectile-command-map ("<SPC>" . consult-project-extra-find)))
 
 (use-package consult-projectile
