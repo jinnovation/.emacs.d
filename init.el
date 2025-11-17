@@ -1910,25 +1910,25 @@ use as an Embark action."
     :straight t)
 
 (use-package agent-shell
-    :straight t
+    :straight (:repo "xenodium/agent-shell")
     :after (shell-maker acp)
     :bind (("s-a" . #'agent-shell))
-    :hook (agent-shell-mode . bug-reference-mode)
+    :hook
+    (agent-shell-mode . bug-reference-mode)
+    (agent-shell-mode . (lambda ()
+                          (setq-local
+                           corfu-auto-prefix 1
+                           completion-preview-minimum-symbol-length 1)
+                          (add-to-list 'completion-at-point-functions
+                                       #'forge-topic-completion-at-point nil)))
     :custom
     (agent-shell-header-style 'graphical)
     (agent-shell-file-completion-enabled t)
     (agent-shell-show-welcome-message nil)
-
+    (agent-shell-preferred-agent-config
+     (append '((:shell-prompt . "> ") (:shell-prompt-regexp . "> "))
+             (agent-shell-anthropic-make-claude-code-config)))
     :config
-    (add-hook 'agent-shell-mode-hook
-              (lambda ()
-                (setq-local
-                 corfu-auto-prefix 1
-                 completion-preview-minimum-symbol-length 1)
-
-                (add-to-list 'completion-at-point-functions
-                             #'forge-topic-completion-at-point nil)))
-
     (defun jjin/agent-shell-mode-p (buf &optional act)
       "Check if BUF is an agent-shell buffer.
 
