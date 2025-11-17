@@ -1949,3 +1949,11 @@ ACT is buffer action that enables use in `display-buffer-alist.'"
 
     (setq agent-shell-anthropic-authentication
           (agent-shell-anthropic-make-authentication :login t)))
+
+(use-package ultra-scroll
+    :straight t
+    :custom
+    (scroll-conservatively 3)
+    (scroll-margin 0)
+    :config
+    (ultra-scroll-mode 1))
