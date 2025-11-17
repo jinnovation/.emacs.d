@@ -1904,7 +1904,9 @@ use as an Embark action."
     (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
 
 (use-package shell-maker
-    :straight t)
+    :straight t
+    :custom
+    (shell-maker-prompt-before-killing-buffer nil))
 
 (use-package acp
     :straight t)
