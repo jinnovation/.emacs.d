@@ -403,7 +403,7 @@ ACT is a buffer action that enables use in
            ("s-`" . recompile))
 
 (defvar jjin/side-window-ratios
-  '((bottom . (0.3 0.5 0.8))
+  '((bottom . (0.3 0.5 0.8 0.1))
     (top . (0.3 0.5 0.8))
     (left . (0.3 0.5))
     (right . (0.3 0.5)))
@@ -504,10 +504,10 @@ Defaults to 'bottom if not provided."
 
        "Side Windows"
        (("`" window-toggle-side-windows "toggle")
-        ("e" jjin/cycle-bottom-window-size "cycle bottom size")
-        ("E" jjin/cycle-top-window-size "cycle top size")
-        ("r" jjin/cycle-right-window-size "cycle right size")
-        ("R" jjin/cycle-left-window-size "cycle left size"))
+        ("n" jjin/cycle-bottom-window-size "cycle bottom size")
+        ("y" jjin/cycle-top-window-size "cycle top size")
+        ("e" jjin/cycle-right-window-size "cycle right size")
+        ("u" jjin/cycle-left-window-size "cycle left size"))
 
        "Other"
        (("q" delete-window "delete window")
