@@ -1931,10 +1931,21 @@ use as an Embark action."
      (append '((:shell-prompt . "> ") (:shell-prompt-regexp . "> "))
              (agent-shell-anthropic-make-claude-code-config)))
     (agent-shell-mcp-servers
-     '(((name . "notion")
+     `(((name . "notion")
         (type . "http")
         (headers . [])
-        (url . "https://mcp.notion.com/mcp"))))
+        (url . "https://mcp.notion.com/mcp"))
+       ;; TODO: When password not storied in Keychain:
+       ;;   - Exclude this entry
+       ;;   - Log a warning
+       ((name . "shortcut")
+        (command . "npx")
+        (args . ["-y" "@shortcut/mcp@latest"])
+        (env . [
+                ((name . "SHORTCUT_API_TOKEN")
+                 (value . ,(let ((auth-sources '(macos-keychain-generic)))
+                             (auth-source-pick-first-password :label "Shortcut" :user "jonathan.jin@hinge.co" :max 1))))
+                ]))))
     :config
     (defun jjin/agent-shell-mode-p (buf &optional act)
       "Check if BUF is an agent-shell buffer.
