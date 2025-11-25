@@ -1959,3 +1959,14 @@ ACT is buffer action that enables use in `display-buffer-alist.'"
     (scroll-margin 0)
     :config
     (ultra-scroll-mode 1))
+
+(use-package shortcut
+    :straight (:local-repo "~/dev/jinnovation/shortcut.el" :type git :host github :repo
+                           "jinnovation/shortcut.el")
+    :bind
+    ("s-S" . shortcut-dispatch)
+    :hook
+    (shortcut-story-mode . visual-line-mode)
+    :config
+    (add-to-list 'evil-emacs-state-modes #'shortcut-epic-mode)
+    (add-to-list 'evil-emacs-state-modes #'shortcut-story-mode))
