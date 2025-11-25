@@ -1930,6 +1930,11 @@ use as an Embark action."
     (agent-shell-preferred-agent-config
      (append '((:shell-prompt . "> ") (:shell-prompt-regexp . "> "))
              (agent-shell-anthropic-make-claude-code-config)))
+    (agent-shell-mcp-servers
+     '(((name . "notion")
+        (type . "http")
+        (headers . [])
+        (url . "https://mcp.notion.com/mcp"))))
     :config
     (defun jjin/agent-shell-mode-p (buf &optional act)
       "Check if BUF is an agent-shell buffer.
