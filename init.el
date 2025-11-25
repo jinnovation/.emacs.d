@@ -1914,7 +1914,9 @@ use as an Embark action."
 (use-package agent-shell
     :straight (:repo "xenodium/agent-shell")
     :after (shell-maker acp)
-    :bind (("s-a" . #'agent-shell))
+    :bind (("s-a" . #'agent-shell)
+           :map agent-shell-mode-map
+           ("C-c m" . #'agent-shell-set-session-mode))
     :hook
     (agent-shell-mode . bug-reference-mode)
     (agent-shell-mode . (lambda ()
