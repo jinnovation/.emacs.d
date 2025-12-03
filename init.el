@@ -1178,6 +1178,7 @@ Defaults to 'bottom if not provided."
     :straight t
     :after (magit transient)
     :config
+    (add-to-list 'evil-emacs-state-modes #'forge-issue-mode)
     ;; (transient-append-suffix forge-dispatch 'forge-visit-pullreq )
 
     ;; To add tokens to keychain:
