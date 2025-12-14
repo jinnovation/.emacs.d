@@ -551,8 +551,9 @@ Defaults to 'bottom if not provided."
 (use-package eglot
     :hook ((tsx-ts-mode . eglot-ensure)
            (python-ts-mode . eglot-ensure)
+           (rust-ts-mode . eglot-ensure)
            (typescript-ts-mode . eglot-ensure))
-    :ensure-system-package (typescript-language-server gopls)
+    :ensure-system-package (typescript-language-server gopls rust-analyzer)
     :after (pet)
     :config
 
