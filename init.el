@@ -263,8 +263,16 @@ i.e. change right window to bottom, or change bottom window to right."
 (use-package kaolin-themes
     :if window-system
     :straight t
+    :disabled t
     :config
     (load-theme 'kaolin-ocean t))
+
+(use-package nerv-theme
+    :if window-system
+    :straight (:local-repo "~/dev/nerv-theme" :type git :host github :repo "wongmjane/nerv-theme"
+                           :files ("emacs-extension/nerv-theme.el"))
+    :config
+    (load-theme 'nerv t))
 
 (setq-default x-stretch-cursor t)
 
