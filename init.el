@@ -556,7 +556,6 @@ Defaults to 'bottom if not provided."
     :ensure-system-package (typescript-language-server gopls rust-analyzer)
     :after (pet)
     :config
-
     ;; TODO: Add `eglot-rename' to embark for 'identifier
 
     (defun jjin/eglot-organize-buffer-imports ()
@@ -739,7 +738,7 @@ Defaults to 'bottom if not provided."
      (yaml "https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0" "src")
      (gomod "https://github.com/camdencheek/tree-sitter-go-mod" "v1.0.2" "src")
      (python "https://github.com/tree-sitter/tree-sitter-python" "v0.23.6" "src")
-     (rust "https://github.com/tree-sitter/tree-sitter-rust" "v0.23.3" "src")
+     (rust "https://github.com/tree-sitter/tree-sitter-rust" "v0.24.0" "src")
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")
      (typst "https://github.com/uben0/tree-sitter-typst" "v0.10-2" "src")))
   :config
