@@ -1997,3 +1997,8 @@ ACT is buffer action that enables use in `display-buffer-alist.'"
     :config
     (add-to-list 'evil-emacs-state-modes #'shortcut-epic-mode)
     (add-to-list 'evil-emacs-state-modes #'shortcut-story-mode))
+
+(use-package direnv
+    :straight t
+    :config
+    (direnv-mode 1))
