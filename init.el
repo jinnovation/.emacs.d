@@ -1922,6 +1922,7 @@ use as an Embark action."
 
 (use-package agent-shell
     :straight (:repo "xenodium/agent-shell")
+    :ensure-system-package (claude-code opencode)
     :after (shell-maker acp)
     :bind (("s-a" . #'agent-shell)
            :map agent-shell-mode-map
