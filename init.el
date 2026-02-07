@@ -1924,7 +1924,7 @@ use as an Embark action."
     :straight (:repo "xenodium/agent-shell")
     :ensure-system-package (claude-code opencode)
     :after (shell-maker acp)
-    :bind (("s-a" . #'agent-shell)
+    :bind (("s-a" . jjin/agent-shell-direnv)
            :map agent-shell-mode-map
            ("C-c m" . #'agent-shell-set-session-mode))
     :hook
@@ -1936,6 +1936,7 @@ use as an Embark action."
                           (add-to-list 'completion-at-point-functions
                                        #'forge-topic-completion-at-point nil)))
     :custom
+    (agent-shell-context-sources '(files))
     (agent-shell-header-style 'graphical)
     (agent-shell-file-completion-enabled t)
     (agent-shell-show-welcome-message nil)
@@ -1958,7 +1959,18 @@ use as an Embark action."
                  (value . ,(let ((auth-sources '(macos-keychain-generic)))
                              (auth-source-pick-first-password :label "Shortcut" :user "jonathan.jin@hinge.co" :max 1))))
                 ]))))
+
     :config
+    (defun jjin/agent-shell-direnv ()
+      "Start an agent shell with reloaded environment variables.
+
+This can be useful for when your environment variables change
+frequently, e.g. when using direnv, and need to be reloaded relative to
+the project directory that you're starting the agent-shell from."
+      (interactive)
+      (let ((agent-shell-anthropic-claude-environment (agent-shell-make-environment-variables
+                                                       :inherit-env t)))
+        (agent-shell)))
     (defun jjin/agent-shell-mode-p (buf &optional act)
       "Check if BUF is an agent-shell buffer.
 
@@ -1979,6 +1991,7 @@ ACT is buffer action that enables use in `display-buffer-alist.'"
 
     (setq agent-shell-anthropic-authentication
           (agent-shell-anthropic-make-authentication :login t)))
+
 
 (use-package ultra-scroll
     :straight t
