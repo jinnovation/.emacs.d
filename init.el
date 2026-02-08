@@ -1924,7 +1924,7 @@ use as an Embark action."
     :straight (:repo "xenodium/agent-shell")
     :ensure-system-package (claude-code opencode)
     :after (shell-maker acp)
-    :bind (("s-a" . jjin/agent-shell-direnv)
+    :bind (("s-a" . agent-shell)
            :map agent-shell-mode-map
            ("C-c m" . #'agent-shell-set-session-mode))
     :hook
@@ -1961,16 +1961,6 @@ use as an Embark action."
                 ]))))
 
     :config
-    (defun jjin/agent-shell-direnv ()
-      "Start an agent shell with reloaded environment variables.
-
-This can be useful for when your environment variables change
-frequently, e.g. when using direnv, and need to be reloaded relative to
-the project directory that you're starting the agent-shell from."
-      (interactive)
-      (let ((agent-shell-anthropic-claude-environment (agent-shell-make-environment-variables
-                                                       :inherit-env t)))
-        (agent-shell)))
     (defun jjin/agent-shell-mode-p (buf &optional act)
       "Check if BUF is an agent-shell buffer.
 
@@ -2012,7 +2002,6 @@ ACT is buffer action that enables use in `display-buffer-alist.'"
     (add-to-list 'evil-emacs-state-modes #'shortcut-epic-mode)
     (add-to-list 'evil-emacs-state-modes #'shortcut-story-mode))
 
-(use-package direnv
+(use-package envrc
     :straight t
-    :config
-    (direnv-mode 1))
+    :hook (after-init . envrc-global-mode))
