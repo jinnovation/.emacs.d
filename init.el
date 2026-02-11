@@ -2005,3 +2005,8 @@ ACT is buffer action that enables use in `display-buffer-alist.'"
 (use-package envrc
     :straight t
     :hook (after-init . envrc-global-mode))
+
+(use-package winpulse
+    :straight (:repo "https://github.com/xenodium/winpulse")
+    :config
+    (winpulse-mode +1))
