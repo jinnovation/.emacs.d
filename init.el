@@ -1936,6 +1936,7 @@ use as an Embark action."
                           (add-to-list 'completion-at-point-functions
                                        #'forge-topic-completion-at-point nil)))
     :custom
+    (agent-shell-session-strategy 'new)
     (agent-shell-context-sources '(files))
     (agent-shell-header-style 'graphical)
     (agent-shell-file-completion-enabled t)
