@@ -1923,6 +1923,7 @@ use as an Embark action."
 (use-package agent-shell
     :straight (:repo "xenodium/agent-shell")
     :ensure-system-package (claude-code opencode)
+    :demand t
     :after (shell-maker acp)
     :bind (("s-a" . agent-shell)
            :map agent-shell-mode-map
@@ -1936,6 +1937,7 @@ use as an Embark action."
                           (add-to-list 'completion-at-point-functions
                                        #'forge-topic-completion-at-point nil)))
     :custom
+    (agent-shell-show-context-usage-indicator 'detailed)
     (agent-shell-session-strategy 'new)
     (agent-shell-context-sources '(files))
     (agent-shell-header-style 'graphical)
