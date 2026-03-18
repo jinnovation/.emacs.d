@@ -1951,6 +1951,12 @@ use as an Embark action."
         (type . "http")
         (headers . [])
         (url . "https://mcp.notion.com/mcp"))
+       ((name . "grafana-mcp-dev")
+        (type . "sse")
+        (url . "https://dev-ue1-grafana-mcp.hingedev.net/sse"))
+       ((name . "grafana-mcp-prod")
+        (type . "sse")
+        (url . "https://prod-ue1-grafana-mcp.hingeprod.net/sse"))
        ;; TODO: When password not storied in Keychain:
        ;;   - Exclude this entry
        ;;   - Log a warning
