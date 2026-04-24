@@ -1943,27 +1943,28 @@ use as an Embark action."
     (agent-shell-header-style 'graphical)
     (agent-shell-file-completion-enabled t)
     (agent-shell-show-welcome-message nil)
-    (agent-shell-preferred-agent-config
-     (append '((:shell-prompt . "> ") (:shell-prompt-regexp . "> "))
-             (agent-shell-anthropic-make-claude-code-config)))
-    (agent-shell-mcp-servers
-     `(((name . "notion")
-        (type . "http")
-        (headers . [])
-        (url . "https://mcp.notion.com/mcp"))
-       ;; TODO: When password not storied in Keychain:
-       ;;   - Exclude this entry
-       ;;   - Log a warning
-       ((name . "shortcut")
-        (command . "npx")
-        (args . ["-y" "@shortcut/mcp@latest"])
-        (env . [
-                ((name . "SHORTCUT_API_TOKEN")
-                 (value . ,(let ((auth-sources '(macos-keychain-generic)))
-                             (auth-source-pick-first-password :label "Shortcut" :user "jonathan.jin@hinge.co" :max 1))))
-                ]))))
-
+    (agent-shell-preferred-agent-config nil)
     :config
+    (let ((computer-name (if (eq system-type 'darwin) (system-name) "")))
+      (unless (string= computer-name "jinternet-device.local")
+        (setq agent-shell-mcp-servers
+              `(((name . "notion")
+                 (type . "http")
+                 (headers . [])
+                 (url . "https://mcp.notion.com/mcp"))
+                ((name . "filesystem")
+                 (command . "uvx")
+                 (args . ["-y" "mcp-server-filesystem" "--mount" "/Users/jjin"])
+                 (env . []))
+                ((name . "github")
+                 (command . "uvx")
+                 (args . ["-y" "mcp-server-github"])
+                 (env . [
+                         ((name . "GITHUB_TOKEN")
+                          (value . ,(let ((auth-sources '(macos-keychain-generic)))
+                                      (auth-source-pick-first-password :label "GitHub" :user "jonathan.jin@hinge.co" :max 1))))
+                         ]))))))
+
     (defun jjin/agent-shell-mode-p (buf &optional act)
       "Check if BUF is an agent-shell buffer.
 
