@@ -1902,6 +1902,7 @@ use as an Embark action."
 
 (use-package kele
     :straight (:local-repo "~/dev/jinnovation/kele.el" :type git :host github :repo "jinnovation/kele.el")
+    :disabled t
     :config
     (kele-mode 1)
     (add-hook #'kele-context-after-switch-functions #'jjin-hinge-auth-kubectl)
@@ -1922,12 +1923,12 @@ use as an Embark action."
 
 (use-package agent-shell
     :straight (:repo "xenodium/agent-shell")
-    :ensure-system-package (claude-code opencode)
     :demand t
     :after (shell-maker acp)
-    :bind (("s-a" . agent-shell)
-           :map agent-shell-mode-map
-           ("C-c m" . #'agent-shell-set-session-mode))
+    :bind (:map global-map
+                ("s-a" . agent-shell)
+                :map agent-shell-mode-map
+                ("C-c m" . #'agent-shell-set-session-mode))
     :hook
     (agent-shell-mode . bug-reference-mode)
     (agent-shell-mode . (lambda ()
@@ -1951,11 +1952,18 @@ use as an Embark action."
         (type . "http")
         (headers . [])
         (url . "https://mcp.notion.com/mcp"))
+       ;; ((name . "datafold")
+       ;;  (type . "http")
+       ;;  ;; TODO: Put this in Keychain
+       ;;  (headers . ["Authorization: Key hBOXYw3Ve5wBPEY5BaQPO5kS6TavkrgQpJ9w9s7l"])
+       ;;  (url . "https://app.datafold.com/mcp"))
        ((name . "grafana-mcp-dev")
         (type . "sse")
+        (headers . [])
         (url . "https://dev-ue1-grafana-mcp.hingedev.net/sse"))
        ((name . "grafana-mcp-prod")
         (type . "sse")
+        (headers . [])
         (url . "https://prod-ue1-grafana-mcp.hingeprod.net/sse"))
        ;; TODO: When password not storied in Keychain:
        ;;   - Exclude this entry
