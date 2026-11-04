@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (require 'cl)
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa"))
 
@@ -1938,6 +1939,7 @@ use as an Embark action."
                           (add-to-list 'completion-at-point-functions
                                        #'forge-topic-completion-at-point nil)))
     :custom
+    (agent-shell-preferred-agent-config 'claude-code)
     (agent-shell-show-context-usage-indicator 'detailed)
     (agent-shell-session-strategy 'new)
     (agent-shell-context-sources '(files))
