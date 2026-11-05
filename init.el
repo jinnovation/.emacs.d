@@ -438,9 +438,9 @@ SIDE specifies which side window to cycle (bottom, top, left, or right).
 Defaults to 'bottom if not provided."
   (interactive)
   (let ((side (or side 'bottom)))
-    (if-let ((side-window (get-window-with-predicate
-                           (lambda (win)
-                             (eq (window-parameter win 'window-side) side)))))
+    (if-let* ((side-window (get-window-with-predicate
+                            (lambda (win)
+                              (eq (window-parameter win 'window-side) side)))))
         (let* ((ratios (alist-get side jjin/side-window-ratios))
                (current-index (alist-get side jjin/side-window-current-ratio-indices))
                (new-index (mod (1+ current-index) (length ratios)))
@@ -1037,7 +1037,7 @@ Defaults to 'bottom if not provided."
 
 (defun jjin/magit-checkout-previous-branch ()
   (interactive)
-  (if-let ((p (magit-get-previous-branch)))
+  (if-let* ((p (magit-get-previous-branch)))
       (magit-checkout p)
     (error "No previous branch")))
 
