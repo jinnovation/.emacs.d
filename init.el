@@ -561,6 +561,7 @@ Defaults to 'bottom if not provided."
     :hook ((tsx-ts-mode . eglot-ensure)
            (python-ts-mode . eglot-ensure)
            (rust-ts-mode . eglot-ensure)
+           (go-ts-mode . eglot-ensure)
            (typescript-ts-mode . eglot-ensure))
     :ensure-system-package (typescript-language-server gopls rust-analyzer)
     :after (pet)
@@ -753,6 +754,7 @@ Defaults to 'bottom if not provided."
   :config
   (mapc #'jjin/treesit-install-grammar-maybe (mapcar #'car treesit-language-source-alist)))
 
+(use-package go-ts-mode)
 (use-package rust-ts-mode)
 
 (use-package typescript-ts-mode)
